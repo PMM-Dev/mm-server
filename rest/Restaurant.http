@@ -1,0 +1,40 @@
+POST http://localhost:8080/api/v1/restaurant/save
+Content-Type: application/json
+
+{
+  "name" : "K",
+  "type": "KOREAN",
+  "price" : "CHEAP",
+  "location" : "SIDEGATE",
+  "deliveryable" : "true"
+}
+
+###
+
+POST http://localhost:8080/api/v1/restaurant/save
+Content-Type: application/json
+
+{
+  "name" : "K",
+  "type": "FASTFOOD",
+  "price" : "CHEAP",
+  "location" : "SIDEGATE",
+  "deliveryable" : "true"
+}
+
+###
+
+POST http://localhost:8080/api/v1/restaurant/save
+Content-Type: application/json
+
+{
+  "name" : "F",
+  "type": "FLOUR",
+  "price" : "CHEAP",
+  "location" : "SIDEGATE",
+  "deliveryable" : "false"
+}
+
+###
+
+GET http://localhost:8080/api/v1/restaurant/info/?price=CHEAP&deliveryable=true
