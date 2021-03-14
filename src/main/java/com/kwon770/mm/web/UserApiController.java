@@ -26,6 +26,11 @@ public class UserApiController {
         return userService.save(userRequestDto).getId();
     }
 
+    @GetMapping("/api/v1/user/list")
+    public List<User> readList() {
+        return userService.readList();
+    }
+
     @GetMapping("/api/v1/user/read/{identifier}")
     public void read(@PathVariable String identifier) {
         if (isDigit(identifier)) {
@@ -33,11 +38,6 @@ public class UserApiController {
         } else {
             userService.findByEmail(identifier);
         }
-    }
-
-    @GetMapping("/api/v1/user/list")
-    public List<User> readList() {
-        return userService.findAll();
     }
 
     @DeleteMapping("/api/v1/user/delete/{identifier}")

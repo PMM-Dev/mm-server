@@ -37,4 +37,19 @@ Content-Type: application/json
 
 ###
 
-GET http://localhost:8080/api/v1/restaurant/info/?price=CHEAP&deliveryable=true
+GET http://localhost:8080/api/v1/restaurant/list
+
+###
+
+GET http://localhost:8080/api/v1/restaurant/read/2
+###
+
+GET http://localhost:8080/api/v1/restaurant/read/F
+
+###
+
+DELETE  http://localhost:8080/api/v1/restaurant/delete/1
+
+###
+
+GET http://localhost:8080/api/v1/restaurant/list

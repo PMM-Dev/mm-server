@@ -20,15 +20,27 @@ public class RestaurantService {
         return restaurantRepository.save(restaurantSaveDto.toEntity()).getId();
     }
 
+    public List<Restaurant> readList() {
+        return restaurantRepository.findAll();
+    }
+
     public Restaurant findOneById(Long id) {
         return restaurantRepository.findOneById(id);
+    }
+
+    public Restaurant findByName(String name) {
+        return restaurantRepository.findByName(name);
     }
 
     public List<Restaurant> findAllByConditions(String type, String price, String location, String deliveryable) {
         return restaurantQueryRepository.findAllByConditions(type, price, location, deliveryable);
     }
 
-    public void delete(Long id) {
+    public void deleteById(Long id) {
         restaurantRepository.delete(findOneById(id));
+    }
+
+    public void deleteByName(String name) {
+        restaurantRepository.delete(findByName(name));
     }
 }
