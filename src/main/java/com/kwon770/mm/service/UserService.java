@@ -25,4 +25,24 @@ public class UserService {
             return save(userRequestDto);
         }
     }
+
+    public List<User> findAll() {
+        return userRepository.findAll();
+    }
+
+    public User findOneById(Long id) {
+        return userRepository.findOneById(id);
+    }
+
+    public User findByEmail(String email) {
+        return userRepository.findByEmail(email);
+    }
+
+    public void deleteById(Long id) {
+        userRepository.delete(findOneById(id));
+    }
+
+    public void deleteByEmail(String email) {
+        userRepository.delete(findByEmail(email));
+    }
 }
