@@ -1,8 +1,7 @@
 HELP.md
 .gradle
-build/
-!**/src/main/**/build/
-!**/src/test/**/build/
+build
+out
 
 generated
 
