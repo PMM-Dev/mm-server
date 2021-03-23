@@ -1,13 +1,13 @@
 package com.kwon770.mm;
 
-import org.junit.jupiter.api.Test;
+import org.junit.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class MmApplicationTests {
+public class MmApplicationTests {
 
     @Test
-    void contextLoads() {
+    public void test() {
     }
 
 }
