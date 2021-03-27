@@ -18,15 +18,21 @@ public class RestaurantSaveDto {
     private RestaurantPrice price;
     private RestaurantLocation location;
     private Boolean deliveryable;
+    private Float latitude;
+    private Float longitude;
 
     @Builder
-    public RestaurantSaveDto(String name, String description, RestaurantType type, RestaurantPrice price, RestaurantLocation location, Boolean deliveryable) {
+    public RestaurantSaveDto(String name, String description, RestaurantType type,
+                             RestaurantPrice price, RestaurantLocation location, Boolean deliveryable,
+                             Float latitude, Float longitude) {
         this.name = name;
         this.description = description;
         this.type = type;
         this.price = price;
         this.location = location;
         this.deliveryable = deliveryable;
+        this.latitude = latitude;
+        this.longitude = longitude;
     }
 
     public Restaurant toEntity() {
@@ -37,6 +43,8 @@ public class RestaurantSaveDto {
                 .price(price)
                 .location(location)
                 .deliveryable(deliveryable)
+                .latitude(latitude)
+                .longitude(longitude)
                 .build();
     }
 }
