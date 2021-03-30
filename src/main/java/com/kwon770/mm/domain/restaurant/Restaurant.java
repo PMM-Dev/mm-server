@@ -14,7 +14,7 @@ import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 
-@NoArgsConstructor(access = AccessLevel.PROTECTED)
+@NoArgsConstructor
 @Getter
 @Entity
 public class Restaurant {
@@ -49,7 +49,8 @@ public class Restaurant {
     @Column(nullable = false)
     private Float averageGrade = 0.0F;
 
-    @OneToMany(mappedBy = "restaurant")
+    @OneToMany(cascade = CascadeType.ALL)
+    @JoinColumn(name = "restaurant_id")
     private List<Review> reviews = new ArrayList<>();
 
     @Builder

@@ -8,7 +8,7 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 
-@NoArgsConstructor(access = AccessLevel.PROTECTED)
+@NoArgsConstructor
 @Getter
 @Entity
 public class Review {
@@ -20,7 +20,8 @@ public class Review {
     @OneToOne
     private User author;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "restaurant_id", foreignKey = @ForeignKey(name = "FK_SUBJECT_RESTAURANT"))
     private Restaurant restaurant;
 
     private String description;
