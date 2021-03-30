@@ -4,12 +4,15 @@ package com.kwon770.mm.domain.restaurant;
 import com.kwon770.mm.RestaurantLocation;
 import com.kwon770.mm.RestaurantPrice;
 import com.kwon770.mm.RestaurantType;
+import com.kwon770.mm.domain.review.Review;
 import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Getter
@@ -37,15 +40,29 @@ public class Restaurant {
     @Column(nullable = false)
     private Boolean deliveryable;
 
+    @Column(nullable = false)
+    private Float latitude;
+
+    @Column(nullable = false)
+    private Float longitude;
+
+    @Column(nullable = false)
+    private Float averageGrade = 0.0F;
+
+    @OneToMany(mappedBy = "restaurant")
+    private List<Review> reviews = new ArrayList<>();
+
     @Builder
     public Restaurant(String name, String description,
                       RestaurantType type, RestaurantPrice price, RestaurantLocation location,
-                      Boolean deliveryable) {
+                      Boolean deliveryable, Float latitude, Float longitude) {
         this.name = name;
         this.description = description;
         this.type = type;
         this.price = price;
         this.location = location;
         this.deliveryable = deliveryable;
+        this.latitude = latitude;
+        this.longitude = longitude;
     }
 }
