@@ -1,8 +1,11 @@
 package com.kwon770.mm.web;
 
 import com.kwon770.mm.domain.restaurant.Restaurant;
+import com.kwon770.mm.domain.review.Review;
 import com.kwon770.mm.service.RestaurantService;
+import com.kwon770.mm.service.UserService;
 import com.kwon770.mm.web.dto.RestaurantSaveDto;
+import com.kwon770.mm.web.dto.ReviewSaveDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
@@ -15,6 +18,7 @@ import static com.kwon770.mm.Utility.isDigit;
 public class RestauarntApiController {
 
     private final RestaurantService restaurantService;
+    private final UserService userService;
 
     @PostMapping("/api/v1/restaurant/save")
     public Long save(@RequestBody RestaurantSaveDto restaurantSaveDto) {
@@ -26,7 +30,7 @@ public class RestauarntApiController {
         return restaurantService.readList();
     }
 
-    @GetMapping("/api/v1/restaurant/info")
+    @GetMapping("/api/v1/restaurant/read/condition")
     public List<Restaurant> readByConditions (
             @RequestParam(value="type", defaultValue = "") String type,
             @RequestParam(value="price", defaultValue = "") String price,
@@ -54,4 +58,16 @@ public class RestauarntApiController {
         }
     }
 
+    @PostMapping("/api/v1/restaurant/{restaurantId}/review/save")
+    public Long saveReview(@PathVariable Long restaurantId, @RequestBody ReviewSaveDto reviewSaveDto) {
+        return restaurantService.saveReview(userService.findByEmail(reviewSaveDto.getAuthorEmail()), restaurantId, reviewSaveDto);
+    }
+
+    @GetMapping("/api/v1/restaurant/{restaurantId}/review/list")
+    public List<Review> readReviewList(@PathVariable Long restaurantId) { return restaurantService.readReviewList(restaurantId); }
+
+    @DeleteMapping("/api/v1/restaurant/review/delete/{reviewId}")
+    public void deleteReviewById(@PathVariable Long reviewId) {
+        restaurantService.deleteReviewById(reviewId);
+    }
 }

@@ -1,6 +1,7 @@
 package com.kwon770.mm.domain.restaurant;
 
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.kwon770.mm.RestaurantLocation;
 import com.kwon770.mm.RestaurantPrice;
 import com.kwon770.mm.RestaurantType;
@@ -49,8 +50,8 @@ public class Restaurant {
     @Column(nullable = false)
     private Float averageGrade = 0.0F;
 
-    @OneToMany(cascade = CascadeType.ALL)
-    @JoinColumn(name = "restaurant_id")
+    @OneToMany(mappedBy = "restaurant")
+    @JsonManagedReference
     private List<Review> reviews = new ArrayList<>();
 
     @Builder
