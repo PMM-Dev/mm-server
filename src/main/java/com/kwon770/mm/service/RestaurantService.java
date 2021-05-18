@@ -45,15 +45,17 @@ public class RestaurantService {
         restaurantRepository.delete(findOneById(id));
     }
 
-    public void deleteByName(String name) { restaurantRepository.delete(findByName(name)); }
+    public void deleteByName(String name) {
+        restaurantRepository.delete(findByName(name));
+    }
 
     public Long saveReview(User author, Long restaurantId, ReviewSaveDto reviewSaveDto) {
         Review reviewEntity = Review.builder()
-                                .author(author)
-                                .restaurant(findOneById(restaurantId))
-                                .description(reviewSaveDto.getDescription())
-                                .grade(reviewSaveDto.getGrade())
-                                .build();
+                .author(author)
+                .restaurant(findOneById(restaurantId))
+                .description(reviewSaveDto.getDescription())
+                .grade(reviewSaveDto.getGrade())
+                .build();
         return reviewRepository.save(reviewEntity).getId();
     }
 

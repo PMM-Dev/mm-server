@@ -39,13 +39,15 @@ dependencies {
     // QueryDSL
     implementation("com.querydsl:querydsl-core") // querydsl
     implementation("com.querydsl:querydsl-jpa") // querydsl
-    annotationProcessor "com.querydsl:querydsl-apt:${dependencyManagement.importedProperties['querydsl.version']}:jpa" // querydsl JPAAnnotationProcessor 사용 지정
+    annotationProcessor "com.querydsl:querydsl-apt:${dependencyManagement.importedProperties['querydsl.version']}:jpa"
+    // querydsl JPAAnnotationProcessor 사용 지정
     annotationProcessor group: 'jakarta.persistence', name: 'jakarta.persistence-api', version: '2.2.3'
     annotationProcessor group: 'jakarta.annotation', name: 'jakarta.annotation-api', version: '1.3.5'
 
     testImplementation("com.querydsl:querydsl-core") // querydsl
     testImplementation("com.querydsl:querydsl-jpa") // querydsl
-    testAnnotationProcessor "com.querydsl:querydsl-apt:${dependencyManagement.importedProperties['querydsl.version']}:jpa" // querydsl JPAAnnotationProcessor 사용 지정
+    testAnnotationProcessor "com.querydsl:querydsl-apt:${dependencyManagement.importedProperties['querydsl.version']}:jpa"
+    // querydsl JPAAnnotationProcessor 사용 지정
     testAnnotationProcessor group: 'jakarta.persistence', name: 'jakarta.persistence-api', version: '2.2.3'
     testAnnotationProcessor group: 'jakarta.annotation', name: 'jakarta.annotation-api', version: '1.3.5'
 
@@ -63,9 +65,9 @@ dependencies {
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
 }
 
-def generated='src/main/generated'
+def generated = 'src/main/generated'
 sourceSets {
-    main.java.srcDirs += [ generated ]
+    main.java.srcDirs += [generated]
 }
 
 tasks.withType(JavaCompile) {

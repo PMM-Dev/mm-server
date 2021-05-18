@@ -26,7 +26,7 @@ public class User {
     private String picture;
 
     @Builder
-    public User (String name, String email, String picture) {
+    public User(String name, String email, String picture) {
         this.name = name;
         this.email = email;
         this.picture = picture;

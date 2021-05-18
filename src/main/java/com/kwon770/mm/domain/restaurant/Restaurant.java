@@ -2,11 +2,7 @@ package com.kwon770.mm.domain.restaurant;
 
 
 import com.fasterxml.jackson.annotation.JsonManagedReference;
-import com.kwon770.mm.RestaurantLocation;
-import com.kwon770.mm.RestaurantPrice;
-import com.kwon770.mm.RestaurantType;
 import com.kwon770.mm.domain.review.Review;
-import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -30,13 +26,13 @@ public class Restaurant {
     private String description;
 
     @Column(nullable = false)
-    private RestaurantType type;
+    private Type type;
 
     @Column(nullable = false)
-    private RestaurantPrice price;
+    private Price price;
 
     @Column(nullable = false)
-    private RestaurantLocation location;
+    private Location location;
 
     @Column(nullable = false)
     private Boolean deliveryable;
@@ -50,13 +46,17 @@ public class Restaurant {
     @Column(nullable = false)
     private Float averageGrade = 0.0F;
 
+    private List<Theme> themes = new ArrayList<>();
+
+    private List<Special> specials;
+
     @OneToMany(mappedBy = "restaurant")
     @JsonManagedReference
     private List<Review> reviews = new ArrayList<>();
 
     @Builder
     public Restaurant(String name, String description,
-                      RestaurantType type, RestaurantPrice price, RestaurantLocation location,
+                      Type type, Price price, Location location,
                       Boolean deliveryable, Float latitude, Float longitude) {
         this.name = name;
         this.description = description;

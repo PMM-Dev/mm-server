@@ -1,8 +1,8 @@
 package com.kwon770.mm.web.dto;
 
-import com.kwon770.mm.RestaurantLocation;
-import com.kwon770.mm.RestaurantPrice;
-import com.kwon770.mm.RestaurantType;
+import com.kwon770.mm.domain.restaurant.Location;
+import com.kwon770.mm.domain.restaurant.Price;
+import com.kwon770.mm.domain.restaurant.Type;
 import com.kwon770.mm.domain.restaurant.Restaurant;
 import lombok.Builder;
 import lombok.Getter;
@@ -14,16 +14,16 @@ public class RestaurantSaveDto {
 
     private String name;
     private String description;
-    private RestaurantType type;
-    private RestaurantPrice price;
-    private RestaurantLocation location;
+    private Type type;
+    private Price price;
+    private Location location;
     private Boolean deliveryable;
     private Float latitude;
     private Float longitude;
 
     @Builder
-    public RestaurantSaveDto(String name, String description, RestaurantType type,
-                             RestaurantPrice price, RestaurantLocation location, Boolean deliveryable,
+    public RestaurantSaveDto(String name, String description, Type type,
+                             Price price, Location location, Boolean deliveryable,
                              Float latitude, Float longitude) {
         this.name = name;
         this.description = description;

@@ -22,7 +22,7 @@ public class Review {
     @OneToOne
     private User author;
 
-//    @JoinColumn(name = "restaurant_id")
+    //    @JoinColumn(name = "restaurant_id")
     @ManyToOne(fetch = FetchType.LAZY)
     @JsonBackReference
     private Restaurant restaurant;
@@ -36,7 +36,7 @@ public class Review {
     private Integer likeCount = 0;
 
     @Builder
-    public Review (User author, Restaurant restaurant, String description, Integer grade) {
+    public Review(User author, Restaurant restaurant, String description, Integer grade) {
         this.author = author;
         this.restaurant = restaurant;
         this.description = description;
