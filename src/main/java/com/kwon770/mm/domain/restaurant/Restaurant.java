@@ -46,6 +46,10 @@ public class Restaurant {
     @Column(nullable = false)
     private Float averageGrade = 0.0F;
 
+    private String openTime;
+
+    private String closeTime;
+
     @ManyToMany
     @JoinTable(
             name = "restaurant_theme_relation",
@@ -69,7 +73,8 @@ public class Restaurant {
     @Builder
     public Restaurant(String name, String description,
                       Type type, Price price, Location location,
-                      Boolean deliveryable, Float latitude, Float longitude) {
+                      Boolean deliveryable, Float latitude, Float longitude,
+                      String openTime, String closeTime) {
         this.name = name;
         this.description = description;
         this.type = type;
@@ -78,6 +83,8 @@ public class Restaurant {
         this.deliveryable = deliveryable;
         this.latitude = latitude;
         this.longitude = longitude;
+        this.openTime = openTime;
+        this.closeTime = closeTime;
     }
 
     public void appendTheme(RestaurantTheme restaurantTheme) {

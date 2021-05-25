@@ -20,20 +20,8 @@ public class RestaurantSaveDto {
     private Boolean deliveryable;
     private Float latitude;
     private Float longitude;
-
-    @Builder
-    public RestaurantSaveDto(String name, String description, Type type,
-                             Price price, Location location, Boolean deliveryable,
-                             Float latitude, Float longitude) {
-        this.name = name;
-        this.description = description;
-        this.type = type;
-        this.price = price;
-        this.location = location;
-        this.deliveryable = deliveryable;
-        this.latitude = latitude;
-        this.longitude = longitude;
-    }
+    private String openTime;
+    private String closeTime;
 
     public Restaurant toEntity() {
         return Restaurant.builder()
@@ -45,6 +33,8 @@ public class RestaurantSaveDto {
                 .deliveryable(deliveryable)
                 .latitude(latitude)
                 .longitude(longitude)
+                .openTime(openTime)
+                .closeTime(closeTime)
                 .build();
     }
 }
