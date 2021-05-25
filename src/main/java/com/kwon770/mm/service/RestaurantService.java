@@ -66,4 +66,9 @@ public class RestaurantService {
     public void deleteReviewById(Long reviewId) {
         reviewRepository.deleteById(reviewId);
     }
+
+    public void updateRestaurant(Long id, RestaurantSaveDto restaurantSaveDto) {
+        Restaurant restaurant = getRestaurantById(id);
+        restaurant.update(restaurantSaveDto);
+    }
 }

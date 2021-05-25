@@ -1,7 +1,7 @@
-#GET http://localhost:8080/api/v1/restaurant/list
+#GET http://localhost:8080/api/restaurant/list
 
-#POST http://ec2-13-209-37-35.ap-northeast-2.compute.amazonaws.com:8080/api/v1/restaurant/save
-POST http://localhost:8080/api/v1/restaurant/save
+#POST http://ec2-13-209-37-35.ap-northeast-2.compute.amazonaws.com:8080/api/restaurant/save
+POST http://localhost:8080/api/restaurant/save
 Content-Type: application/json
 
 {
@@ -16,11 +16,11 @@ Content-Type: application/json
 
 ###
 
-GET http://localhost:8080/api/v1/restaurant/read/1
+GET http://localhost:8080/api/restaurant/read/1
 
 ###
 
-POST http://localhost:8080/api/v1/restaurant/theme
+POST http://localhost:8080/api/restaurant/theme
 Content-Type: application/json
 
 {
@@ -29,7 +29,7 @@ Content-Type: application/json
 
 ###
 
-POST http://localhost:8080/api/v1/restaurant/special
+POST http://localhost:8080/api/restaurant/special
 Content-Type: application/json
 
 {
@@ -38,12 +38,12 @@ Content-Type: application/json
 
 ###
 
-PUT http://localhost:8080/api/v1/restaurant/1/theme/DATINGCOURSE
+PUT http://localhost:8080/api/restaurant/1/theme/DATINGCOURSE
 
 ###
 
-PUT http://localhost:8080/api/v1/restaurant/1/special/ALLDAY
+PUT http://localhost:8080/api/restaurant/1/special/ALLDAY
 
 ###
 
-GET http://localhost:8080/api/v1/restaurant/read/1
+GET http://localhost:8080/api/restaurant/read/1

@@ -1,8 +1,9 @@
 package com.kwon770.mm.service;
 
+import com.kwon770.mm.domain.restaurant.Restaurant;
 import com.kwon770.mm.domain.user.User;
 import com.kwon770.mm.domain.user.UserRepository;
-import com.kwon770.mm.web.dto.UserRequestDto;
+import com.kwon770.mm.web.dto.UserSaveDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -14,16 +15,16 @@ public class UserService {
 
     private final UserRepository userRepository;
 
-    public User login(UserRequestDto userRequestDto) {
-        if (userRepository.existsByEmail(userRequestDto.getEmail())) {
-            return userRepository.findByEmail(userRequestDto.getEmail());
+    public User login(UserSaveDto userSaveDto) {
+        if (userRepository.existsByEmail(userSaveDto.getEmail())) {
+            return userRepository.findByEmail(userSaveDto.getEmail());
         } else {
-            return register(userRequestDto);
+            return register(userSaveDto);
         }
     }
 
-    public User register(UserRequestDto userRequestDto) {
-        return userRepository.save(userRequestDto.toEntity());
+    public User register(UserSaveDto userSaveDto) {
+        return userRepository.save(userSaveDto.toEntity());
     }
 
     public List<User> getUserList() {
@@ -36,6 +37,11 @@ public class UserService {
 
     public User getUserByEmail(String email) {
         return userRepository.findByEmail(email);
+    }
+
+    public void updateUserByEmail(String email, UserSaveDto userSaveDto) {
+        User user = getUserByEmail(email);
+        user.update(userSaveDto);
     }
 
     public void deleteUserById(Long id) {

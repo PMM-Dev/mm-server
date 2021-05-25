@@ -12,42 +12,42 @@ public class RestaurantPropertyApiController {
 
     private final RestaurantPropertyService restaurantPropertyService;
 
-    @PostMapping("/api/v1/restaurant/theme")
+    @PostMapping("/api/restaurant/theme")
     public Long saveTheme(@RequestBody RestaurantThemeSaveDto restaurantThemeSaveDto) {
         return restaurantPropertyService.saveTheme(restaurantThemeSaveDto);
     }
 
-    @DeleteMapping("/api/v1/restaurant/theme/{theme}")
+    @DeleteMapping("/api/restaurant/theme/{theme}")
     public void deleteTheme(@PathVariable String theme) {
         restaurantPropertyService.deleteTheme(theme);
     }
 
-    @PutMapping("/api/v1/restaurant/{id}/theme/{theme}")
+    @PutMapping("/api/restaurant/{id}/theme/{theme}")
     public void appendTheme(@PathVariable Long id, @PathVariable String theme) {
         restaurantPropertyService.appendTheme(id, theme);
     }
 
-    @DeleteMapping("/api/v1/restaurant/{id}/theme/{theme}")
+    @DeleteMapping("/api/restaurant/{id}/theme/{theme}")
     public void subtractTheme(@PathVariable Long id, @PathVariable String theme) {
         restaurantPropertyService.subtractTheme(id, theme);
     }
 
-    @PostMapping("/api/v1/restaurant/special")
+    @PostMapping("/api/restaurant/special")
     public Long saveSpecial(@RequestBody RestaurantSpecialSaveDto restaurantSpecialSaveDto) {
         return restaurantPropertyService.saveSpecial(restaurantSpecialSaveDto);
     }
 
-    @DeleteMapping("/api/v1/restaurant/special/{special}")
+    @DeleteMapping("/api/restaurant/special/{special}")
     public void deleteSpecial(@PathVariable String special) {
         restaurantPropertyService.deleteSpeical(special);
     }
 
-    @PutMapping("/api/v1/restaurant/{id}/special/{special}")
+    @PutMapping("/api/restaurant/{id}/special/{special}")
     public void appendSpecial(@PathVariable Long id, @PathVariable String special) {
         restaurantPropertyService.appendSpecial(id, special);
     }
 
-    @DeleteMapping("/api/v1/restaurant/{id}/special/{special}")
+    @DeleteMapping("/api/restaurant/{id}/special/{special}")
     public void subtractSpecial(@PathVariable Long id, @PathVariable String special) {
         restaurantPropertyService.subtractSpecial(id, special);
     }

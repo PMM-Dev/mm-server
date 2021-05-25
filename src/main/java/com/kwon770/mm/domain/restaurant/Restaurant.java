@@ -3,6 +3,7 @@ package com.kwon770.mm.domain.restaurant;
 
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.kwon770.mm.domain.review.Review;
+import com.kwon770.mm.web.dto.RestaurantSaveDto;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -85,6 +86,19 @@ public class Restaurant {
         this.longitude = longitude;
         this.openTime = openTime;
         this.closeTime = closeTime;
+    }
+
+    public void update(RestaurantSaveDto restaurantSaveDto) {
+        this.name = restaurantSaveDto.getName();
+        this.description = restaurantSaveDto.getDescription();
+        this.type = restaurantSaveDto.getType();
+        this.price = restaurantSaveDto.getPrice();
+        this.location = restaurantSaveDto.getLocation();
+        this.deliveryable = restaurantSaveDto.getDeliveryable();
+        this.latitude = restaurantSaveDto.getLatitude();
+        this.longitude = restaurantSaveDto.getLongitude();
+        this.openTime = restaurantSaveDto.getOpenTime();
+        this.closeTime = restaurantSaveDto.getCloseTime();
     }
 
     public void appendTheme(RestaurantTheme restaurantTheme) {

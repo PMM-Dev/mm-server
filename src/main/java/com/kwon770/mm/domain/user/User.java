@@ -1,5 +1,6 @@
 package com.kwon770.mm.domain.user;
 
+import com.kwon770.mm.web.dto.UserSaveDto;
 import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
@@ -30,5 +31,11 @@ public class User {
         this.name = name;
         this.email = email;
         this.picture = picture;
+    }
+
+    public void update(UserSaveDto userSaveDto) {
+        this.name = userSaveDto.getName();
+        this.email = userSaveDto.getEmail();
+        this.picture = userSaveDto.getPicture();
     }
 }
