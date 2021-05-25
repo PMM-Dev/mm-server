@@ -25,42 +25,42 @@ public class RestaurantService {
         return restaurantRepository.save(restaurantSaveDto.toEntity()).getId();
     }
 
-    public List<Restaurant> readList() {
+    public List<Restaurant> getRestaurantList() {
         return restaurantRepository.findAll();
     }
 
-    public Restaurant findOneById(Long id) {
+    public Restaurant getRestaurantById(Long id) {
         return restaurantRepository.findOneById(id);
     }
 
-    public Restaurant findByName(String name) {
+    public Restaurant getRestaurantByName(String name) {
         return restaurantRepository.findByName(name);
     }
 
-    public List<Restaurant> findAllByConditions(String type, String price, String location, String deliveryable) {
-        return restaurantQueryRepository.findAllByConditions(type, price, location, deliveryable);
+    public List<Restaurant> getRestaurantsByMultipleCondition(String type, String price, String location, String deliveryable) {
+        return restaurantQueryRepository.findAllByMultipleConditions(type, price, location, deliveryable);
     }
 
-    public void deleteById(Long id) {
-        restaurantRepository.delete(findOneById(id));
+    public void deleteRestaurantById(Long id) {
+        restaurantRepository.delete(getRestaurantById(id));
     }
 
-    public void deleteByName(String name) {
-        restaurantRepository.delete(findByName(name));
+    public void deleteRestaurantByName(String name) {
+        restaurantRepository.delete(getRestaurantByName(name));
     }
 
-    public Long saveReview(User author, Long restaurantId, ReviewSaveDto reviewSaveDto) {
+    public Long uploadReview(User author, Long restaurantId, ReviewSaveDto reviewSaveDto) {
         Review reviewEntity = Review.builder()
                 .author(author)
-                .restaurant(findOneById(restaurantId))
+                .restaurant(getRestaurantById(restaurantId))
                 .description(reviewSaveDto.getDescription())
                 .grade(reviewSaveDto.getGrade())
                 .build();
         return reviewRepository.save(reviewEntity).getId();
     }
 
-    public List<Review> readReviewList(Long restaurantId) {
-        return findOneById(restaurantId).getReviews();
+    public List<Review> getReviewList(Long restaurantId) {
+        return getRestaurantById(restaurantId).getReviews();
     }
 
     public void deleteReviewById(Long reviewId) {

@@ -25,7 +25,7 @@ public class RestaurantPropertyService {
 
     @Transactional
     public void appendTheme(Long id, String theme) {
-        Restaurant restaurant = restaurantService.findOneById(id);
+        Restaurant restaurant = restaurantService.getRestaurantById(id);
         RestaurantTheme restaurantTheme = restaurantThemeRepository.findByTheme(Theme.valueOf(theme));
 
         restaurant.appendTheme(restaurantTheme);
@@ -33,7 +33,7 @@ public class RestaurantPropertyService {
 
     @Transactional
     public void subtractTheme(Long id, String theme) {
-        Restaurant restaurant = restaurantService.findOneById(id);
+        Restaurant restaurant = restaurantService.getRestaurantById(id);
         RestaurantTheme restaurantTheme = restaurantThemeRepository.findByTheme(Theme.valueOf(theme));
 
         restaurant.subtractTheme(restaurantTheme);
@@ -49,7 +49,7 @@ public class RestaurantPropertyService {
 
     @Transactional
     public void appendSpecial(Long id, String special) {
-        Restaurant restaurant = restaurantService.findOneById(id);
+        Restaurant restaurant = restaurantService.getRestaurantById(id);
         RestaurantSpecial restaurantSpecial = restaurantSpecialRepository.findBySpecial(Special.valueOf(special));
 
         restaurant.appendSpecial(restaurantSpecial);
@@ -57,7 +57,7 @@ public class RestaurantPropertyService {
 
     @Transactional
     public void subtractSpecial(Long id, String special) {
-        Restaurant restaurant = restaurantService.findOneById(id);
+        Restaurant restaurant = restaurantService.getRestaurantById(id);
         RestaurantSpecial restaurantSpecial = restaurantSpecialRepository.findBySpecial(Special.valueOf(special));
 
         restaurant.subtractSpecial(restaurantSpecial);

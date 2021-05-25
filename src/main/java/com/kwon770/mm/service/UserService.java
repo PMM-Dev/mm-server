@@ -14,35 +14,35 @@ public class UserService {
 
     private final UserRepository userRepository;
 
-    public User save(UserRequestDto userRequestDto) {
-        return userRepository.save(userRequestDto.toEntity());
-    }
-
     public User login(UserRequestDto userRequestDto) {
         if (userRepository.existsByEmail(userRequestDto.getEmail())) {
             return userRepository.findByEmail(userRequestDto.getEmail());
         } else {
-            return save(userRequestDto);
+            return register(userRequestDto);
         }
     }
 
-    public List<User> readList() {
+    public User register(UserRequestDto userRequestDto) {
+        return userRepository.save(userRequestDto.toEntity());
+    }
+
+    public List<User> getUserList() {
         return userRepository.findAll();
     }
 
-    public User findOneById(Long id) {
+    public User getUserById(Long id) {
         return userRepository.findOneById(id);
     }
 
-    public User findByEmail(String email) {
+    public User getUserByEmail(String email) {
         return userRepository.findByEmail(email);
     }
 
-    public void deleteById(Long id) {
-        userRepository.delete(findOneById(id));
+    public void deleteUserById(Long id) {
+        userRepository.delete(getUserById(id));
     }
 
-    public void deleteByEmail(String email) {
-        userRepository.delete(findByEmail(email));
+    public void deleteUserByEmail(String email) {
+        userRepository.delete(getUserByEmail(email));
     }
 }

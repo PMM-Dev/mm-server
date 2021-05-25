@@ -3,6 +3,7 @@ package com.kwon770.mm.web;
 import com.kwon770.mm.domain.user.User;
 import com.kwon770.mm.service.UserService;
 import com.kwon770.mm.web.dto.UserRequestDto;
+import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
@@ -16,36 +17,36 @@ public class UserApiController {
 
     private final UserService userService;
 
-    @PostMapping("/api/v1/user/login")
+    @GetMapping("/api/v1/user")
     public User login(@RequestBody UserRequestDto userRequestDto) {
         return userService.login(userRequestDto);
     }
 
-    @PatchMapping("/api/v1/user/save")
-    public Long save(@RequestBody UserRequestDto userRequestDto) {
-        return userService.save(userRequestDto).getId();
+    @PostMapping("/api/v1/user")
+    public Long register(@RequestBody UserRequestDto userRequestDto) {
+        return userService.register(userRequestDto).getId();
     }
 
     @GetMapping("/api/v1/user/list")
-    public List<User> readList() {
-        return userService.readList();
+    public List<User> getUserList() {
+        return userService.getUserList();
     }
 
-    @GetMapping("/api/v1/user/read/{identifier}")
-    public void read(@PathVariable String identifier) {
+    @GetMapping("/api/v1/user/{identifier}")
+    public void getUserByIdentifer(@PathVariable String identifier) {
         if (isDigit(identifier)) {
-            userService.findOneById(Long.parseLong(identifier));
+            userService.getUserById(Long.parseLong(identifier));
         } else {
-            userService.findByEmail(identifier);
+            userService.getUserByEmail(identifier);
         }
     }
 
     @DeleteMapping("/api/v1/user/delete/{identifier}")
-    public void delete(@PathVariable String identifier) {
+    public void deleteUserByIdentifier(@PathVariable String identifier) {
         if (isDigit(identifier)) {
-            userService.deleteById(Long.parseLong(identifier));
+            userService.deleteUserById(Long.parseLong(identifier));
         } else {
-            userService.deleteByEmail(identifier);
+            userService.deleteUserByEmail(identifier);
         }
     }
 }

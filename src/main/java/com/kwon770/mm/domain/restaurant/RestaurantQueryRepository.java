@@ -22,7 +22,7 @@ public class RestaurantQueryRepository extends QuerydslRepositorySupport {
     }
 
     @Transactional
-    public List<Restaurant> findAllByConditions(String type, String price, String location, String deliveryable) {
+    public List<Restaurant> findAllByMultipleConditions(String type, String price, String location, String deliveryable) {
         return queryFactory
                 .selectFrom(restaurant)
                 .where(
