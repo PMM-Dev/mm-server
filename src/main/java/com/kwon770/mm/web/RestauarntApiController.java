@@ -72,4 +72,5 @@ public class RestauarntApiController {
     public void deleteReviewById(@PathVariable Long reviewId) {
         restaurantService.deleteReviewById(reviewId);
     }
+
 }

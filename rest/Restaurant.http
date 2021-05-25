@@ -7,10 +7,43 @@ Content-Type: application/json
 {
   "name" : "창창",
   "type": "KOREAN",
-  "description" : ,
   "price" : "CHEAP",
   "location" : "ARTGATE",
   "deliveryable" : false,
   "latitude": 12,
   "longitude" : 24
 }
+
+###
+
+GET http://localhost:8080/api/v1/restaurant/read/1
+
+###
+
+POST http://localhost:8080/api/v1/restaurant/theme
+Content-Type: application/json
+
+{
+  "theme" : "DATINGCOURSE"
+}
+
+###
+
+POST http://localhost:8080/api/v1/restaurant/special
+Content-Type: application/json
+
+{
+  "special" : "ALLDAY"
+}
+
+###
+
+PUT http://localhost:8080/api/v1/restaurant/1/theme/DATINGCOURSE
+
+###
+
+PUT http://localhost:8080/api/v1/restaurant/1/special/ALLDAY
+
+###
+
+GET http://localhost:8080/api/v1/restaurant/read/1

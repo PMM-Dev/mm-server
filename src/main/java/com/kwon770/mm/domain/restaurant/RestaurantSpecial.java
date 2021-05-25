@@ -12,21 +12,18 @@ import java.util.List;
 @NoArgsConstructor
 @Getter
 @Entity
-public class RestaurantTheme {
+public class RestaurantSpecial {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private Theme theme;
+    private Special special;
 
-    @ManyToMany(mappedBy = "themes")
+    @ManyToMany(mappedBy = "specials")
     @JsonBackReference
     private List<Restaurant> restaurant = new ArrayList<>();
 
     @Builder
-    public RestaurantTheme(Theme theme) {
-        this.theme  = theme;
-    }
-
+    public RestaurantSpecial(Special special) { this.special = special; }
 }

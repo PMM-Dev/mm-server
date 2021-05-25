@@ -32,6 +32,8 @@ repositories {
 dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
     implementation 'org.springframework.boot:spring-boot-starter-web'
+    implementation 'org.springframework.boot:spring-boot-starter-jdbc'
+    implementation group: 'org.apache.tomcat', name: 'tomcat-jdbc'
     implementation 'junit:junit:4.12'
 
     implementation('org.mariadb.jdbc:mariadb-java-client')
@@ -60,7 +62,7 @@ dependencies {
     compile group: 'io.springfox', name: 'springfox-swagger2', version: '2.5.0'
     compile group: 'io.springfox', name: 'springfox-swagger-ui', version: '2.5.0'
 
-    runtimeOnly 'com.h2database:h2'
+    compile group: 'com.h2database', name: 'h2', version: "1.4.197"
 
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
 }

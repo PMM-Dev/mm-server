@@ -46,9 +46,21 @@ public class Restaurant {
     @Column(nullable = false)
     private Float averageGrade = 0.0F;
 
-    private List<Theme> themes = new ArrayList<>();
+    @ManyToMany
+    @JoinTable(
+            name = "restaurant_theme_relation",
+            joinColumns = @JoinColumn(name = "restaurant_id"),
+            inverseJoinColumns = @JoinColumn(name = "restaurant_theme_id")
+    )
+    private List<RestaurantTheme> themes = new ArrayList<>();
 
-    private List<Special> specials;
+    @ManyToMany
+    @JoinTable(
+            name = "restaurant_special_relation",
+            joinColumns = @JoinColumn(name = "restaurant_id"),
+            inverseJoinColumns = @JoinColumn(name = "restaurant_special_id")
+    )
+    private List<RestaurantSpecial> specials = new ArrayList<>();
 
     @OneToMany(mappedBy = "restaurant")
     @JsonManagedReference
@@ -66,5 +78,21 @@ public class Restaurant {
         this.deliveryable = deliveryable;
         this.latitude = latitude;
         this.longitude = longitude;
+    }
+
+    public void appendTheme(RestaurantTheme restaurantTheme) {
+        this.themes.add(restaurantTheme);
+    }
+
+    public void subtractTheme(RestaurantTheme restaurantTheme) {
+        this.themes.remove(restaurantTheme);
+    }
+
+    public void appendSpecial(RestaurantSpecial restaurantSpecial) {
+        this.specials.add(restaurantSpecial);
+    }
+
+    public void subtractSpecial(RestaurantSpecial restaurantSpecial) {
+        this.specials.remove(restaurantSpecial);
     }
 }
