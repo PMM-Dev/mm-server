@@ -63,12 +63,12 @@ public class RestauarntApiController {
         }
     }
 
-    @PostMapping("/api/restaurant/{id}/review")
+    @PostMapping("/api/restaurant/{restaurantId}/review")
     public Long uploadReview(@PathVariable Long restaurantId, @RequestBody ReviewSaveDto reviewSaveDto) {
         return restaurantService.uploadReview(userService.getUserByEmail(reviewSaveDto.getAuthorEmail()), restaurantId, reviewSaveDto);
     }
 
-    @GetMapping("/api/restaurant/{id}/review/list")
+    @GetMapping("/api/restaurant/{restaurantId}/review/list")
     public List<Review> getReviewList(@PathVariable Long restaurantId) {
         return restaurantService.getReviewList(restaurantId);
     }
