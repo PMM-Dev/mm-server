@@ -1,32 +1,46 @@
-#POST http://localhost:8080/api/restaurant
-#Content-Type: application/json
-#
-#{
-#  "name": "창창",
-#  "type": "KOREAN",
-#  "price": "CHEAP",
-#  "location": "ARTGATE",
-#  "deliveryable": false,
-#  "latitude": 12,
-#  "longitude": 24
-#}
+POST http://localhost:8080/api/restaurant
+Content-Type: application/json
+
+{
+  "name": "창창",
+  "type": "KOREAN",
+  "price": "CHEAP",
+  "location": "ARTGATE",
+  "deliveryable": false,
+  "latitude": 12,
+  "longitude": 24
+}
 
 ###
 
 #POST http://ec2-13-209-37-35.ap-northeast-2.compute.amazonaws.com:8080/api/restaurant/save
-#POST http://localhost:8080/api/restaurant/1/review
-#Content-Type: application/json
-#
-#{
-#  "author" : "sk@gmail.com",
-#  "description" : "good",
-#  "grade" : 3
-#}
+POST http://localhost:8080/api/restaurant/1/review
+Content-Type: application/json
 
-###
-
-#GET http://localhost:8080/api/restaurant/1/review/list
+{
+  "author" : "sk@gmail.com",
+  "description" : "good",
+  "grade" : 3
+}
 
 ###
 
 GET http://localhost:8080/api/restaurant/1
+
+###
+
+#POST http://ec2-13-209-37-35.ap-northeast-2.compute.amazonaws.com:8080/api/restaurant/save
+POST http://localhost:8080/api/restaurant/1/review
+Content-Type: application/json
+
+{
+  "author" : "sk@gmail.com",
+  "description" : "good",
+  "grade" : 5
+}
+
+###
+
+GET http://localhost:8080/api/restaurant/1
+
+#GET http://localhost:8080/api/restaurant/1/review/list

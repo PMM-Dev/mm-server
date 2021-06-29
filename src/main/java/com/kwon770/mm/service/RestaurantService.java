@@ -50,12 +50,16 @@ public class RestaurantService {
     }
 
     public Long uploadReview(User author, Long restaurantId, ReviewSaveDto reviewSaveDto) {
+        Restaurant restaurant = getRestaurantById(restaurantId);
         Review reviewEntity = Review.builder()
                 .author(author)
-                .restaurant(getRestaurantById(restaurantId))
+                .restaurant(restaurant)
                 .description(reviewSaveDto.getDescription())
                 .grade(reviewSaveDto.getGrade())
                 .build();
+
+        setAddedGrade(restaurant, reviewSaveDto.getGrade());
+
         return reviewRepository.save(reviewEntity).getId();
     }
 
@@ -64,11 +68,25 @@ public class RestaurantService {
     }
 
     public void deleteReviewById(Long reviewId) {
+
+        Review review = reviewRepository.getOne(reviewId);
+        setSubstractedGrade(review.getRestaurant(), review.getGrade());
+
         reviewRepository.deleteById(reviewId);
     }
 
     public void updateRestaurant(Long id, RestaurantSaveDto restaurantSaveDto) {
         Restaurant restaurant = getRestaurantById(id);
         restaurant.update(restaurantSaveDto);
+    }
+
+    private void setAddedGrade(Restaurant restaurant, Integer grade) {
+        restaurant.addReviewCount();
+        restaurant.calculateAverageGrade(grade);
+    }
+
+    private void setSubstractedGrade(Restaurant restaurant, Integer grade) {
+        restaurant.substractReviewCount();
+        restaurant.calculateAverageGrade(grade);
     }
 }

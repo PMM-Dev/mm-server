@@ -71,6 +71,9 @@ public class Restaurant {
     @JsonManagedReference
     private List<Review> reviews = new ArrayList<>();
 
+    @Column(nullable = false)
+    private Integer reviewCount = 0;
+
     @Builder
     public Restaurant(String name, String description,
                       Type type, Price price, Location location,
@@ -115,5 +118,18 @@ public class Restaurant {
 
     public void subtractSpecial(RestaurantSpecial restaurantSpecial) {
         this.specials.remove(restaurantSpecial);
+    }
+
+    public void addReviewCount() {
+        reviewCount++;
+    }
+
+    public void substractReviewCount() {
+        reviewCount--;
+    }
+
+    public void calculateAverageGrade(Integer newGrade) {
+        Float sum = (averageGrade * (reviewCount - 1)) + newGrade;
+        averageGrade = sum / reviewCount;
     }
 }
