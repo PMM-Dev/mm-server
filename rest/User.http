@@ -1,4 +1,4 @@
-POST http://localhost:8080/api/user/login
+POST http://localhost:8080/api/user
 Content-Type: application/json
 
 {
@@ -9,7 +9,7 @@ Content-Type: application/json
 
 ###
 
-#POST http://localhost:8080/api/user/login
+#POST http://localhost:8080/api/user
 #Content-Type: application/json
 #
 #{
@@ -18,11 +18,33 @@ Content-Type: application/json
 #  "picture" : "ks"
 #}
 #
-####
-#
-#GET localhost:8080/api/user/list
-#
-####
+
+###
+
+POST http://localhost:8080/api/user/title
+Content-Type: application/json
+
+{
+  "title" : "DEVELOPER"
+}
+
+###
+
+PUT http://localhost:8080/api/user/sk@gmail.com/title/DEVELOPER
+
+###
+
+GET localhost:8080/api/user/list
+
+###
+
+DELETE http://localhost:8080/api/user/sk@gmail.com/title/DEVELOPER
+
+###
+
+GET localhost:8080/api/user/list
+
+###
 #
 #DELETE  http://localhost:8080/api/user/delete/2
 #

@@ -7,6 +7,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @NoArgsConstructor
 @Getter
@@ -26,6 +28,14 @@ public class User {
     @Column(nullable = false)
     private String picture;
 
+    @ManyToMany
+    @JoinTable(
+            name = "user_title_relation",
+            joinColumns = @JoinColumn(name = "user_id"),
+            inverseJoinColumns = @JoinColumn(name = "user_title_id")
+    )
+    private List<UserTitle> titles = new ArrayList<>();
+
     @Builder
     public User(String name, String email, String picture) {
         this.name = name;
@@ -38,4 +48,8 @@ public class User {
         this.email = userSaveDto.getEmail();
         this.picture = userSaveDto.getPicture();
     }
+
+    public void appendTitle(UserTitle userTitle) { this.titles.add(userTitle); }
+
+    public void subtractTitle(UserTitle userTitle) { this.titles.remove(userTitle); }
 }

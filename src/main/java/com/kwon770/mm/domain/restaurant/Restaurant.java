@@ -124,7 +124,7 @@ public class Restaurant {
         reviewCount++;
     }
 
-    public void substractReviewCount() {
+    public void subtractReviewCount() {
         reviewCount--;
     }
 

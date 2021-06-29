@@ -70,7 +70,7 @@ public class RestaurantService {
     public void deleteReviewById(Long reviewId) {
 
         Review review = reviewRepository.getOne(reviewId);
-        setSubstractedGrade(review.getRestaurant(), review.getGrade());
+        setSubtractedGrade(review.getRestaurant(), review.getGrade());
 
         reviewRepository.deleteById(reviewId);
     }
@@ -85,8 +85,8 @@ public class RestaurantService {
         restaurant.calculateAverageGrade(grade);
     }
 
-    private void setSubstractedGrade(Restaurant restaurant, Integer grade) {
-        restaurant.substractReviewCount();
+    private void setSubtractedGrade(Restaurant restaurant, Integer grade) {
+        restaurant.subtractReviewCount();
         restaurant.calculateAverageGrade(grade);
     }
 }
