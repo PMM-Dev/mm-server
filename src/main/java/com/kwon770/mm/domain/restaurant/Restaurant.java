@@ -1,8 +1,10 @@
 package com.kwon770.mm.domain.restaurant;
 
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.kwon770.mm.domain.review.Review;
+import com.kwon770.mm.domain.user.User;
 import com.kwon770.mm.web.dto.RestaurantSaveDto;
 import lombok.Builder;
 import lombok.Getter;
@@ -73,6 +75,10 @@ public class Restaurant {
 
     @Column(nullable = false)
     private Integer reviewCount = 0;
+
+    @ManyToMany(mappedBy = "likedRestaurants")
+    @JsonBackReference
+    private List<User> likingUsers = new ArrayList<>();
 
     @Builder
     public Restaurant(String name, String description,

@@ -1,5 +1,6 @@
 package com.kwon770.mm.domain.user;
 
+import com.kwon770.mm.domain.restaurant.Restaurant;
 import com.kwon770.mm.web.dto.UserSaveDto;
 import lombok.AccessLevel;
 import lombok.Builder;
@@ -36,6 +37,14 @@ public class User {
     )
     private List<UserTitle> titles = new ArrayList<>();
 
+    @ManyToMany
+    @JoinTable(
+            name = "user_restaurant_like_relation",
+            joinColumns = @JoinColumn(name = "user_id"),
+            inverseJoinColumns = @JoinColumn(name = "restaurant_id")
+    )
+    private List<Restaurant> likedRestaurants = new ArrayList<>();
+
     @Builder
     public User(String name, String email, String picture) {
         this.name = name;
@@ -52,4 +61,8 @@ public class User {
     public void appendTitle(UserTitle userTitle) { this.titles.add(userTitle); }
 
     public void subtractTitle(UserTitle userTitle) { this.titles.remove(userTitle); }
+
+    public void appendLikedRestaurant(Restaurant restaurant) { this.likedRestaurants.add(restaurant); }
+
+    public void subtractedLikedRestaurant(Restaurant restaurant) { this.likedRestaurants.remove(restaurant); }
 }

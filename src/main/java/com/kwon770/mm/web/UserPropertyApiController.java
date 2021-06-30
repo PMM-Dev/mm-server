@@ -1,10 +1,12 @@
 package com.kwon770.mm.web;
 
-import com.kwon770.mm.service.RestaurantPropertyService;
 import com.kwon770.mm.service.UserPropertyService;
+import com.kwon770.mm.web.dto.LikedRestaurantDto;
 import com.kwon770.mm.web.dto.UserTitleSaveDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RequiredArgsConstructor
 @RestController
@@ -28,5 +30,20 @@ public class UserPropertyApiController {
     @DeleteMapping("/api/user/{email}/title/{title}")
     public void subtractTitle(@PathVariable String email, @PathVariable String title) {
         userPropertyService.subtractTitle(email, title);
+    }
+
+    @GetMapping("/api/user/{email}/like")
+    public List<LikedRestaurantDto> getLikedRestaurantList(@PathVariable String email) {
+        return userPropertyService.getLikedRestaurantList(email);
+    }
+
+    @PutMapping("/api/user/{email}/like/{restaurantId}")
+    public void appendLikedRestaurant(@PathVariable String email, @PathVariable Long restaurantId) {
+        userPropertyService.appendLikedRestaurant(email, restaurantId);
+    }
+
+    @DeleteMapping("/api/user/{email}/like/{restaurantId}")
+    public void subtractTitle(@PathVariable String email, @PathVariable Long restaurantId) {
+        userPropertyService.subtractedLikedRestaurant(email, restaurantId);
     }
 }
