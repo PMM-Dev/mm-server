@@ -9,5 +9,5 @@ public enum Type {
     FASTFOOD,
     WESTERN,
     ASIAN,
-    NIGHTFOOD;
+    NIGHTFOOD
 }
