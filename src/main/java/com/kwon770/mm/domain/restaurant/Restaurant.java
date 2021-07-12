@@ -1,8 +1,10 @@
 package com.kwon770.mm.domain.restaurant;
 
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.kwon770.mm.domain.review.Review;
+import com.kwon770.mm.domain.user.User;
 import com.kwon770.mm.web.dto.RestaurantSaveDto;
 import lombok.Builder;
 import lombok.Getter;
@@ -71,6 +73,13 @@ public class Restaurant {
     @JsonManagedReference
     private List<Review> reviews = new ArrayList<>();
 
+    @Column(nullable = false)
+    private Integer reviewCount = 0;
+
+    @ManyToMany(mappedBy = "likedRestaurants")
+    @JsonBackReference
+    private List<User> likingUsers = new ArrayList<>();
+
     @Builder
     public Restaurant(String name, String description,
                       Type type, Price price, Location location,
@@ -115,5 +124,18 @@ public class Restaurant {
 
     public void subtractSpecial(RestaurantSpecial restaurantSpecial) {
         this.specials.remove(restaurantSpecial);
+    }
+
+    public void addReviewCount() {
+        reviewCount++;
+    }
+
+    public void subtractReviewCount() {
+        reviewCount--;
+    }
+
+    public void calculateAverageGrade(Integer newGrade) {
+        Float sum = (averageGrade * (reviewCount - 1)) + newGrade;
+        averageGrade = sum / reviewCount;
     }
 }

@@ -1,0 +1,54 @@
+POST http://localhost:8080/api/restaurant
+Content-Type: application/json
+
+{
+  "name" : "창창",
+  "type": "KOREAN",
+  "price" : "CHEAP",
+  "location" : "ARTGATE",
+  "deliveryable" : false,
+  "latitude": 12,
+  "longitude" : 24
+}
+
+###
+
+POST http://localhost:8080/api/restaurant
+Content-Type: application/json
+
+{
+  "name" : "창창22",
+  "type": "KOREAN",
+  "price" : "CHEAP",
+  "location" : "ARTGATE",
+  "deliveryable" : false,
+  "latitude": 12,
+  "longitude" : 24
+}
+
+###
+
+POST http://localhost:8080/api/user
+Content-Type: application/json
+
+{
+  "name" : "sk",
+  "email" : "sk@gmail.com",
+  "picture" : "as"
+}
+
+###
+
+PUT http://localhost:8080/api/user/sk@gmail.com/like/1
+
+###
+
+PUT http://localhost:8080/api/user/sk@gmail.com/like/2
+
+###
+
+#GET http://localhost:8080/api/user/sk@gmail.com
+
+###
+
+GET http://localhost:8080/api/user/sk@gmail.com/like

@@ -32,11 +32,11 @@ public class UserApiController {
     }
 
     @GetMapping("/api/user/{identifier}")
-    public void getUserByIdentifer(@PathVariable String identifier) {
+    public User getUserByIdentifer(@PathVariable String identifier) {
         if (isDigit(identifier)) {
-            userService.getUserById(Long.parseLong(identifier));
+            return userService.getUserById(Long.parseLong(identifier));
         } else {
-            userService.getUserByEmail(identifier);
+            return userService.getUserByEmail(identifier);
         }
     }
 
@@ -53,4 +53,6 @@ public class UserApiController {
             userService.deleteUserByEmail(identifier);
         }
     }
+
+
 }
