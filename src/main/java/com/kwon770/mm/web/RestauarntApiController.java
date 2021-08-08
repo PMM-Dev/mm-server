@@ -4,6 +4,7 @@ import com.kwon770.mm.domain.restaurant.Restaurant;
 import com.kwon770.mm.domain.review.Review;
 import com.kwon770.mm.service.RestaurantService;
 import com.kwon770.mm.service.UserService;
+import com.kwon770.mm.web.dto.RestaurantInfoDto;
 import com.kwon770.mm.web.dto.RestaurantSaveDto;
 import com.kwon770.mm.web.dto.ReviewInfoDto;
 import com.kwon770.mm.web.dto.ReviewSaveDto;
@@ -32,7 +33,7 @@ public class RestauarntApiController {
     }
 
     @GetMapping("/api/restaurant/condition")
-    public List<Restaurant> getRestaurantsByMultipleConditionsWithParameter(
+    public List<RestaurantInfoDto> getRestaurantsByMultipleConditionsWithParameter(
             @RequestParam(value = "type", defaultValue = "") String type,
             @RequestParam(value = "price", defaultValue = "") String price,
             @RequestParam(value = "location", defaultValue = "") String location,
@@ -42,11 +43,11 @@ public class RestauarntApiController {
     }
 
     @GetMapping("/api/restaurant/{identifier}")
-    public Restaurant getRestaurantByIdentifier(@PathVariable String identifier) {
+    public RestaurantInfoDto getRestaurantByIdentifier(@PathVariable String identifier) {
         if (isDigit(identifier)) {
-            return restaurantService.getRestaurantById(Long.parseLong(identifier));
+            return restaurantService.getRestaurantInfoDtoById(Long.parseLong(identifier));
         } else {
-            return restaurantService.getRestaurantByName(identifier);
+            return restaurantService.getRestaurantInfoDtoByName(identifier);
         }
     }
 
@@ -70,7 +71,7 @@ public class RestauarntApiController {
     }
 
     @GetMapping("/api/restaurant/{restaurantId}/review/list")
-    public List<ReviewInfoDto> getReviewList(@PathVariable Long restaurantId) {
+    public List<ReviewInfoDto> getReviewListByRestaurantId(@PathVariable Long restaurantId) {
         return restaurantService.getReviewList(restaurantId);
     }
 

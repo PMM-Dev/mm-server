@@ -6,6 +6,7 @@ import com.kwon770.mm.domain.restaurant.RestaurantRepository;
 import com.kwon770.mm.domain.review.Review;
 import com.kwon770.mm.domain.review.ReviewRepository;
 import com.kwon770.mm.domain.user.User;
+import com.kwon770.mm.web.dto.RestaurantInfoDto;
 import com.kwon770.mm.web.dto.RestaurantSaveDto;
 import com.kwon770.mm.web.dto.ReviewInfoDto;
 import com.kwon770.mm.web.dto.ReviewSaveDto;
@@ -33,15 +34,32 @@ public class RestaurantService {
     }
 
     public Restaurant getRestaurantById(Long id) {
-        return restaurantRepository.findOneById(id);
+        return restaurantRepository.findOneById(id)
+                .orElseThrow(() -> new IllegalArgumentException("id가 일치하는 식당이 없습니다. id=" + id));
+    }
+
+    public RestaurantInfoDto getRestaurantInfoDtoById(Long id) {
+        Restaurant restaurant = restaurantRepository.findOneById(id)
+                .orElseThrow(() -> new IllegalArgumentException("id가 일치하는 식당이 없습니다. id=" + id));
+
+        return new RestaurantInfoDto(restaurant);
     }
 
     public Restaurant getRestaurantByName(String name) {
-        return restaurantRepository.findByName(name);
+        return restaurantRepository.findByName(name)
+                .orElseThrow(() -> new IllegalArgumentException("name이 일치하는 식당이 없습니다. name=" + name));
     }
 
-    public List<Restaurant> getRestaurantsByMultipleCondition(String type, String price, String location, String deliveryable) {
-        return restaurantQueryRepository.findAllByMultipleConditions(type, price, location, deliveryable);
+    public RestaurantInfoDto getRestaurantInfoDtoByName(String name) {
+        Restaurant restaurant = restaurantRepository.findByName(name)
+                .orElseThrow(() -> new IllegalArgumentException("name이 일치하는 식당이 없습니다. name=" + name));
+
+        return new RestaurantInfoDto(restaurant);
+    }
+
+    public List<RestaurantInfoDto> getRestaurantsByMultipleCondition(String type, String price, String location, String deliveryable) {
+        return restaurantQueryRepository.findAllByMultipleConditions(type, price, location, deliveryable)
+                .stream().map(RestaurantInfoDto::new).collect(Collectors.toList());
     }
 
     public void deleteRestaurantById(Long id) {

@@ -1,7 +1,7 @@
 ##GET http://localhost:8080/api/restaurant/list
 #
-#POST http://localhost:8080/api/restaurant/save
-POST http://ec2-13-209-37-35.ap-northeast-2.compute.amazonaws.com:8080/api/restaurant
+#POST http://ec2-13-209-37-35.ap-northeast-2.compute.amazonaws.com:8080/api/restaurant
+POST http://localhost:8080/api/restaurant
 Content-Type: application/json
 
 {
@@ -16,11 +16,13 @@ Content-Type: application/json
 
 ###
 
-GET http://ec2-13-209-37-35.ap-northeast-2.compute.amazonaws.com:8080/api/restaurant/2
-#GET http://localhost:8080/api/restaurant/1
+#GET http://ec2-13-209-37-35.ap-northeast-2.compute.amazonaws.com:8080/api/restaurant/list
+GET http://localhost:8080/api/restaurant/1
 
 ###
-POST http://ec2-13-209-37-35.ap-northeast-2.compute.amazonaws.com:8080/api/restaurant/special;
+#POST http://ec2-13-209-37-35.ap-northeast-2.compute.amazonaws.com:8080/api/restaurant/special;
+GET http://localhost:8080/api/restaurant/special;
+
 Content-Type: application/json
 
 {
@@ -29,21 +31,9 @@ Content-Type: application/json
 
 ###
 
-DELETE http://ec2-13-209-37-35.ap-northeast-2.compute.amazonaws.com:8080/api/restaurant/special/
-
-###
-#POST http://localhost:8080/api/restaurant/special
-#Content-Type: application/json
-#
-#{
-#  "special" : "ALLDAY"
-#}
+PUT http://localhost:8080/api/restaurant/1/special/ALLDAY
+#PUT http://ec2-13-209-37-35.ap-northeast-2.compute.amazonaws.com:8080/api/restaurant/2/special/ALLDAY
 
 ###
 
-#PUT http://localhost:8080/api/restaurant/1/special/ALLDAY
-PUT http://ec2-13-209-37-35.ap-northeast-2.compute.amazonaws.com:8080/api/restaurant/2/special/ALLDAY
-
-###
-
-GET http://localhost:8080/api/restaurant/read/1
+GET http://localhost:8080/api/restaurant/1
