@@ -99,8 +99,8 @@ public class RestaurantService {
         reviewRepository.deleteById(reviewId);
     }
 
-    public void updateRestaurant(Long id, RestaurantSaveDto restaurantSaveDto) {
-        Restaurant restaurant = getRestaurantById(id);
+    public void updateRestaurant(Long restaurantId, RestaurantSaveDto restaurantSaveDto) {
+        Restaurant restaurant = getRestaurantById(restaurantId);
         restaurant.update(restaurantSaveDto);
     }
 

@@ -12,12 +12,12 @@ public class RestaurantPropertyApiController {
 
     private final RestaurantPropertyService restaurantPropertyService;
 
-    @PostMapping("/api/restaurant/theme")
+    @PostMapping("/api/theme")
     public Long saveTheme(@RequestBody RestaurantThemeSaveDto restaurantThemeSaveDto) {
         return restaurantPropertyService.saveTheme(restaurantThemeSaveDto);
     }
 
-    @DeleteMapping("/api/restaurant/theme/{theme}")
+    @DeleteMapping("/api/theme/{theme}")
     public void deleteTheme(@PathVariable String theme) {
         restaurantPropertyService.deleteTheme(theme);
     }
@@ -32,12 +32,12 @@ public class RestaurantPropertyApiController {
         restaurantPropertyService.subtractTheme(id, theme);
     }
 
-    @PostMapping("/api/restaurant/special")
+    @PostMapping("/api/special")
     public Long saveSpecial(@RequestBody RestaurantSpecialSaveDto restaurantSpecialSaveDto) {
         return restaurantPropertyService.saveSpecial(restaurantSpecialSaveDto);
     }
 
-    @DeleteMapping("/api/restaurant/special/{special}")
+    @DeleteMapping("/api/special/{special}")
     public void deleteSpecial(@PathVariable String special) {
         restaurantPropertyService.deleteSpeical(special);
     }

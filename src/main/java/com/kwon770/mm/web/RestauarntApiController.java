@@ -27,7 +27,7 @@ public class RestauarntApiController {
         return restaurantService.save(restaurantSaveDto);
     }
 
-    @GetMapping("/api/restaurant/list")
+    @GetMapping("/api/restaurant")
     public List<Restaurant> getRestaurantList() {
         return restaurantService.getRestaurantList();
     }
@@ -51,9 +51,9 @@ public class RestauarntApiController {
         }
     }
 
-    @PutMapping("/api/restaurant/{id}")
-    public void updateRestaurantById(@PathVariable Long id, @RequestBody RestaurantSaveDto restaurantSaveDto) {
-        restaurantService.updateRestaurant(id, restaurantSaveDto);
+    @PutMapping("/api/restaurant/{restaurantId}")
+    public void updateRestaurantById(@PathVariable Long restaurantId, @RequestBody RestaurantSaveDto restaurantSaveDto) {
+        restaurantService.updateRestaurant(restaurantId, restaurantSaveDto);
     }
 
     @DeleteMapping("/api/restaurant/{identifier}")
@@ -70,12 +70,12 @@ public class RestauarntApiController {
         return restaurantService.uploadReview(userService.getUserByEmail(reviewSaveDto.getAuthorEmail()), restaurantId, reviewSaveDto);
     }
 
-    @GetMapping("/api/restaurant/{restaurantId}/review/list")
+    @GetMapping("/api/restaurant/{restaurantId}/review")
     public List<ReviewInfoDto> getReviewListByRestaurantId(@PathVariable Long restaurantId) {
         return restaurantService.getReviewList(restaurantId);
     }
 
-    @DeleteMapping("/api/restaurant/review/delete/{reviewId}")
+    @DeleteMapping("/api/review/{reviewId}")
     public void deleteReviewById(@PathVariable Long reviewId) {
         restaurantService.deleteReviewById(reviewId);
     }

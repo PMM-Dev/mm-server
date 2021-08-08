@@ -16,17 +16,17 @@ public class UserApiController {
 
     private final UserService userService;
 
-    @GetMapping("/api/user")
+    @GetMapping("/api/login")
     public User login(@RequestBody UserSaveDto userSaveDto) {
         return userService.login(userSaveDto);
     }
 
     @PostMapping("/api/user")
-    public Long register(@RequestBody UserSaveDto userSaveDto) {
-        return userService.register(userSaveDto).getId();
+    public Long registerUser(@RequestBody UserSaveDto userSaveDto) {
+        return userService.registerUser(userSaveDto).getId();
     }
 
-    @GetMapping("/api/user/list")
+    @GetMapping("/api/user")
     public List<User> getUserList() {
         return userService.getUserList();
     }
@@ -45,7 +45,7 @@ public class UserApiController {
         userService.updateUserByEmail(email, userSaveDto);
     }
 
-    @DeleteMapping("/api/user/delete/{identifier}")
+    @DeleteMapping("/api/user/{identifier}")
     public void deleteUserByIdentifier(@PathVariable String identifier) {
         if (isDigit(identifier)) {
             userService.deleteUserById(Long.parseLong(identifier));

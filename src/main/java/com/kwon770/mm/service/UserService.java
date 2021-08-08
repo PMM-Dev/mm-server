@@ -19,11 +19,11 @@ public class UserService {
         if (userRepository.existsByEmail(userSaveDto.getEmail())) {
             return userRepository.findByEmail(userSaveDto.getEmail());
         } else {
-            return register(userSaveDto);
+            return registerUser(userSaveDto);
         }
     }
 
-    public User register(UserSaveDto userSaveDto) {
+    public User registerUser(UserSaveDto userSaveDto) {
         return userRepository.save(userSaveDto.toEntity());
     }
 

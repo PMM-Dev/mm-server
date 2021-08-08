@@ -14,12 +14,12 @@ public class UserPropertyApiController {
 
     private final UserPropertyService userPropertyService;
 
-    @PostMapping("/api/user/title")
+    @PostMapping("/api/title")
     public Long saveTitle(@RequestBody UserTitleSaveDto userTitleSaveDto) {
         return userPropertyService.saveTitle(userTitleSaveDto);
     }
 
-    @DeleteMapping("/api/user/title/{title}")
+    @DeleteMapping("/api/title/{title}")
     public void deleteTitle(@PathVariable String title) { userPropertyService.deleteTitle(title); }
 
     @PutMapping("/api/user/{email}/title/{title}")
