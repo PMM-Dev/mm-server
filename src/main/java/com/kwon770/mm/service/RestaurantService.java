@@ -7,11 +7,14 @@ import com.kwon770.mm.domain.review.Review;
 import com.kwon770.mm.domain.review.ReviewRepository;
 import com.kwon770.mm.domain.user.User;
 import com.kwon770.mm.web.dto.RestaurantSaveDto;
+import com.kwon770.mm.web.dto.ReviewInfoDto;
 import com.kwon770.mm.web.dto.ReviewSaveDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @RequiredArgsConstructor
 @Service
@@ -63,8 +66,8 @@ public class RestaurantService {
         return reviewRepository.save(reviewEntity).getId();
     }
 
-    public List<Review> getReviewList(Long restaurantId) {
-        return getRestaurantById(restaurantId).getReviews();
+    public List<ReviewInfoDto> getReviewList(Long restaurantId) {
+        return getRestaurantById(restaurantId).getReviews().stream().map((ReviewInfoDto::new)).collect(Collectors.toList());
     }
 
     public void deleteReviewById(Long reviewId) {

@@ -13,12 +13,23 @@ Content-Type: application/json
 
 ###
 
+POST http://localhost:8080/api/user
+Content-Type: application/json
+
+{
+  "name" : "sk",
+  "email" : "sk@gmail.com",
+  "picture" : "as"
+}
+
+###
+
 #POST http://ec2-13-209-37-35.ap-northeast-2.compute.amazonaws.com:8080/api/restaurant/save
 POST http://localhost:8080/api/restaurant/1/review
 Content-Type: application/json
 
 {
-  "author" : "sk@gmail.com",
+  "authorEmail" : "sk@gmail.com",
   "description" : "good",
   "grade" : 3
 }
@@ -34,13 +45,11 @@ POST http://localhost:8080/api/restaurant/1/review
 Content-Type: application/json
 
 {
-  "author" : "sk@gmail.com",
+  "authorEmail" : "sk@gmail.com",
   "description" : "good",
   "grade" : 5
 }
 
 ###
-
-GET http://localhost:8080/api/restaurant/1
-
-#GET http://localhost:8080/api/restaurant/1/review/list
+#GET http://localhost:8080/api/restaurant/1
+GET http://localhost:8080/api/restaurant/1/review/list

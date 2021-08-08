@@ -5,6 +5,7 @@ import com.kwon770.mm.domain.review.Review;
 import com.kwon770.mm.service.RestaurantService;
 import com.kwon770.mm.service.UserService;
 import com.kwon770.mm.web.dto.RestaurantSaveDto;
+import com.kwon770.mm.web.dto.ReviewInfoDto;
 import com.kwon770.mm.web.dto.ReviewSaveDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
@@ -69,7 +70,7 @@ public class RestauarntApiController {
     }
 
     @GetMapping("/api/restaurant/{restaurantId}/review/list")
-    public List<Review> getReviewList(@PathVariable Long restaurantId) {
+    public List<ReviewInfoDto> getReviewList(@PathVariable Long restaurantId) {
         return restaurantService.getReviewList(restaurantId);
     }
 
