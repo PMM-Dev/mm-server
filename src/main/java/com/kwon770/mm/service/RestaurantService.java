@@ -79,7 +79,8 @@ public class RestaurantService {
                 .grade(reviewSaveDto.getGrade())
                 .build();
 
-        setAddedGrade(restaurant, reviewSaveDto.getGrade());
+        restaurant.calculateAddedAverageGrade(reviewEntity.getGrade());
+        restaurant.addReviewCount();
 
         return reviewRepository.save(reviewEntity).getId();
     }
@@ -89,9 +90,11 @@ public class RestaurantService {
     }
 
     public void deleteReviewById(Long reviewId) {
-
         Review review = reviewRepository.getOne(reviewId);
-        setSubtractedGrade(review.getRestaurant(), review.getGrade());
+        Restaurant restaurant = review.getRestaurant();
+
+        restaurant.calculateSubtractedAverageGrade(review.getGrade());
+        restaurant.subtractReviewCount();
 
         reviewRepository.deleteById(reviewId);
     }
@@ -101,13 +104,4 @@ public class RestaurantService {
         restaurant.update(restaurantSaveDto);
     }
 
-    private void setAddedGrade(Restaurant restaurant, Integer grade) {
-        restaurant.addReviewCount();
-        restaurant.calculateAverageGrade(grade);
-    }
-
-    private void setSubtractedGrade(Restaurant restaurant, Integer grade) {
-        restaurant.subtractReviewCount();
-        restaurant.calculateAverageGrade(grade);
-    }
 }

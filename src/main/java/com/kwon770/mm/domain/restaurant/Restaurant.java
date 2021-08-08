@@ -137,9 +137,14 @@ public class Restaurant {
         reviewCount--;
     }
 
-    public void calculateAverageGrade(Integer newGrade) {
-        Float sum = (averageGrade * (reviewCount - 1)) + newGrade;
-        averageGrade = sum / reviewCount;
+    public void calculateAddedAverageGrade(Integer newGrade) {
+        Float sum = (averageGrade * reviewCount) + newGrade;
+        averageGrade = sum / (reviewCount + 1);
+    }
+
+    public void calculateSubtractedAverageGrade(Integer newGrade) {
+        Float sum = (averageGrade * reviewCount) - newGrade;
+        averageGrade = sum / (reviewCount - 1);
     }
 
     public void addLikeCount() { likeCount++;}
