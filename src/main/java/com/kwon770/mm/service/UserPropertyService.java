@@ -61,6 +61,7 @@ public class UserPropertyService{
         User user = userService.getUserByEmail(email);
         Restaurant restaurant = restaurantService.getRestaurantById(restaurantId);
 
+        restaurant.addLikeCount();
         user.appendLikedRestaurant(restaurant);
     }
 
@@ -69,6 +70,7 @@ public class UserPropertyService{
         User user = userService.getUserByEmail(email);
         Restaurant restaurant = restaurantService.getRestaurantById(restaurantId);
 
+        restaurant.subtractLikeCount();
         user.subtractedLikedRestaurant(restaurant);
     }
 }

@@ -28,6 +28,7 @@ public class RestaurantInfoDto {
     private List<RestaurantSpecial> specials;
     private List<ReviewInfoDto> reviews;
     private Integer reviewCount;
+    private Integer likeCount;
 
     public RestaurantInfoDto(Restaurant restaurant) {
         this.id = restaurant.getId();
@@ -46,6 +47,7 @@ public class RestaurantInfoDto {
         this.specials = restaurant.getSpecials();
         this.reviews = convertReviewsToDtos(restaurant.getReviews());
         this.reviewCount = restaurant.getReviewCount();
+        this.likeCount = restaurant.getLikeCount();
     }
 
     private List<ReviewInfoDto> convertReviewsToDtos(List<Review> reviews) {

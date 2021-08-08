@@ -80,6 +80,9 @@ public class Restaurant {
     @JsonBackReference
     private List<User> likingUsers = new ArrayList<>();
 
+    @Column(nullable = false)
+    private Integer likeCount = 0;
+
     @Builder
     public Restaurant(String name, String description,
                       Type type, Price price, Location location,
@@ -138,4 +141,8 @@ public class Restaurant {
         Float sum = (averageGrade * (reviewCount - 1)) + newGrade;
         averageGrade = sum / reviewCount;
     }
+
+    public void addLikeCount() { likeCount++;}
+
+    public void subtractLikeCount() { likeCount--; }
 }
