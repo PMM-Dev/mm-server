@@ -4,7 +4,6 @@ import com.kwon770.mm.domain.restaurant.Location;
 import com.kwon770.mm.domain.restaurant.Price;
 import com.kwon770.mm.domain.restaurant.Type;
 import com.kwon770.mm.domain.restaurant.Restaurant;
-import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -18,8 +17,8 @@ public class RestaurantSaveDto {
     private Price price;
     private Location location;
     private Boolean deliveryable;
-    private Float latitude;
-    private Float longitude;
+    private Double latitude;
+    private Double longitude;
     private String openTime;
     private String closeTime;
 

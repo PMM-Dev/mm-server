@@ -19,8 +19,8 @@ public class RestaurantInfoDto {
     private Price price;
     private Location location;
     private boolean deliveryable;
-    private Float latitude;
-    private Float longitude;
+    private Double latitude;
+    private Double longitude;
     private Float averageGrade;
     private String openTime;
     private String closeTime;

@@ -41,10 +41,10 @@ public class Restaurant {
     private Boolean deliveryable;
 
     @Column(nullable = false)
-    private Float latitude;
+    private Double latitude;
 
     @Column(nullable = false)
-    private Float longitude;
+    private Double longitude;
 
     @Column(nullable = false)
     private Float averageGrade = 0.0F;
@@ -86,7 +86,7 @@ public class Restaurant {
     @Builder
     public Restaurant(String name, String description,
                       Type type, Price price, Location location,
-                      Boolean deliveryable, Float latitude, Float longitude,
+                      Boolean deliveryable, Double latitude, Double longitude,
                       String openTime, String closeTime) {
         this.name = name;
         this.description = description;
