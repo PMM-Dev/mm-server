@@ -36,4 +36,4 @@ PUT http://localhost:8080/api/restaurant/1/special/ALLDAY
 
 ###
 
-GET http://localhost:8080/api/restaurant/1
+GET http://localhost:8080/api/restaurant/condition?type=KOREAN

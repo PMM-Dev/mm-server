@@ -14,7 +14,7 @@ public interface RestaurantMapper {
     List<LikedRestaurantDto> map(List<Restaurant> restaurants);
 
     default LikedRestaurantDto map(Restaurant restaurant) {
-        LikedRestaurantDto likedRestaurantDto = LikedRestaurantDto.builder()
+        return LikedRestaurantDto.builder()
                 .id(restaurant.getId())
                 .name(restaurant.getName())
                 .type(restaurant.getType())
@@ -22,6 +22,5 @@ public interface RestaurantMapper {
                 .location(restaurant.getLocation())
                 .build();
 
-        return likedRestaurantDto;
     }
 }

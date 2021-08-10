@@ -17,7 +17,7 @@ public class UserService {
 
     public User login(UserSaveDto userSaveDto) {
         if (userRepository.existsByEmail(userSaveDto.getEmail())) {
-            return userRepository.findByEmail(userSaveDto.getEmail());
+            return getUserByEmail(userSaveDto.getEmail());
         } else {
             return registerUser(userSaveDto);
         }
@@ -32,11 +32,11 @@ public class UserService {
     }
 
     public User getUserById(Long id) {
-        return userRepository.findOneById(id);
+        return userRepository.findOneById(id).orElseThrow(() -> new IllegalArgumentException("id가 일치하는 유저가 없습니다. id=" + id));
     }
 
     public User getUserByEmail(String email) {
-        return userRepository.findByEmail(email);
+        return userRepository.findByEmail(email).orElseThrow(() -> new IllegalArgumentException("email이 일치하는 유저가 없습니다. email=" + email));
     }
 
     public void updateUserByEmail(String email, UserSaveDto userSaveDto) {

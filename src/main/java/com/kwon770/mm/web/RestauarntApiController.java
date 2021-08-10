@@ -2,6 +2,7 @@ package com.kwon770.mm.web;
 
 import com.kwon770.mm.domain.restaurant.Restaurant;
 import com.kwon770.mm.domain.review.Review;
+import com.kwon770.mm.domain.user.User;
 import com.kwon770.mm.service.RestaurantService;
 import com.kwon770.mm.service.UserService;
 import com.kwon770.mm.web.dto.RestaurantInfoDto;
@@ -67,7 +68,9 @@ public class RestauarntApiController {
 
     @PostMapping("/api/restaurant/{restaurantId}/review")
     public Long uploadReview(@PathVariable Long restaurantId, @RequestBody ReviewSaveDto reviewSaveDto) {
-        return restaurantService.uploadReview(userService.getUserByEmail(reviewSaveDto.getAuthorEmail()), restaurantId, reviewSaveDto);
+        User author = userService.getUserByEmail(reviewSaveDto.getAuthorEmail());
+
+        return restaurantService.uploadReview(author, restaurantId, reviewSaveDto);
     }
 
     @GetMapping("/api/restaurant/{restaurantId}/review")

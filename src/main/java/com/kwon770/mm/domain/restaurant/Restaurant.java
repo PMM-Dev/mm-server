@@ -5,6 +5,7 @@ import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.kwon770.mm.domain.review.Review;
 import com.kwon770.mm.domain.user.User;
+import com.kwon770.mm.web.dto.RestaurantInfoDto;
 import com.kwon770.mm.web.dto.RestaurantSaveDto;
 import lombok.Builder;
 import lombok.Getter;
@@ -111,6 +112,10 @@ public class Restaurant {
         this.longitude = restaurantSaveDto.getLongitude();
         this.openTime = restaurantSaveDto.getOpenTime();
         this.closeTime = restaurantSaveDto.getCloseTime();
+    }
+
+    public RestaurantInfoDto toDto() {
+        return new RestaurantInfoDto(this);
     }
 
     public void appendTheme(RestaurantTheme restaurantTheme) {

@@ -39,10 +39,9 @@ public class RestaurantService {
     }
 
     public RestaurantInfoDto getRestaurantInfoDtoById(Long id) {
-        Restaurant restaurant = restaurantRepository.findOneById(id)
-                .orElseThrow(() -> new IllegalArgumentException("id가 일치하는 식당이 없습니다. id=" + id));
+        Restaurant targetRestaurant = getRestaurantById(id);
 
-        return new RestaurantInfoDto(restaurant);
+        return targetRestaurant.toDto();
     }
 
     public Restaurant getRestaurantByName(String name) {
@@ -51,42 +50,51 @@ public class RestaurantService {
     }
 
     public RestaurantInfoDto getRestaurantInfoDtoByName(String name) {
-        Restaurant restaurant = restaurantRepository.findByName(name)
-                .orElseThrow(() -> new IllegalArgumentException("name이 일치하는 식당이 없습니다. name=" + name));
+        Restaurant targetRestaurant = getRestaurantByName(name);
 
-        return new RestaurantInfoDto(restaurant);
+        return targetRestaurant.toDto();
     }
 
     public List<RestaurantInfoDto> getRestaurantsByMultipleCondition(String type, String price, String location, String deliveryable) {
-        return restaurantQueryRepository.findAllByMultipleConditions(type, price, location, deliveryable)
-                .stream().map(RestaurantInfoDto::new).collect(Collectors.toList());
+        return mapRestaurantsToDtos(restaurantQueryRepository.findAllByMultipleConditions(type, price, location, deliveryable));
+
     }
 
     public void deleteRestaurantById(Long id) {
-        restaurantRepository.delete(getRestaurantById(id));
+        Restaurant targetRestaurant = getRestaurantById(id);
+
+        restaurantRepository.delete(targetRestaurant);
     }
 
     public void deleteRestaurantByName(String name) {
-        restaurantRepository.delete(getRestaurantByName(name));
+        Restaurant targetRestaurant = getRestaurantByName(name);
+
+        restaurantRepository.delete(targetRestaurant);
+    }
+
+    private List<RestaurantInfoDto> mapRestaurantsToDtos(List<Restaurant> restaurants) {
+        return restaurants.stream().map(RestaurantInfoDto::new).collect(Collectors.toList());
     }
 
     public Long uploadReview(User author, Long restaurantId, ReviewSaveDto reviewSaveDto) {
-        Restaurant restaurant = getRestaurantById(restaurantId);
+        Restaurant targetRestaurant = getRestaurantById(restaurantId);
         Review reviewEntity = Review.builder()
                 .author(author)
-                .restaurant(restaurant)
+                .restaurant(targetRestaurant)
                 .description(reviewSaveDto.getDescription())
                 .grade(reviewSaveDto.getGrade())
                 .build();
 
-        restaurant.calculateAddedAverageGrade(reviewEntity.getGrade());
-        restaurant.addReviewCount();
+        targetRestaurant.calculateAddedAverageGrade(reviewEntity.getGrade());
+        targetRestaurant.addReviewCount();
 
         return reviewRepository.save(reviewEntity).getId();
     }
 
     public List<ReviewInfoDto> getReviewList(Long restaurantId) {
-        return getRestaurantById(restaurantId).getReviews().stream().map((ReviewInfoDto::new)).collect(Collectors.toList());
+        Restaurant targetRestaurant = getRestaurantById(restaurantId);
+
+        return mapReviewsToDtos(targetRestaurant.getReviews());
     }
 
     public void deleteReviewById(Long reviewId) {
@@ -97,6 +105,10 @@ public class RestaurantService {
         restaurant.subtractReviewCount();
 
         reviewRepository.deleteById(reviewId);
+    }
+
+    private List<ReviewInfoDto> mapReviewsToDtos(List<Review> reviews) {
+        return reviews.stream().map((ReviewInfoDto::new)).collect(Collectors.toList());
     }
 
     public void updateRestaurant(Long restaurantId, RestaurantSaveDto restaurantSaveDto) {
