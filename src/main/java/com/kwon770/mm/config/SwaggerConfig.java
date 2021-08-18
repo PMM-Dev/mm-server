@@ -1,4 +1,4 @@
-package com.kwon770.mm;
+package com.kwon770.mm.config;
 
 import org.springframework.context.annotation.Configuration;
 import springfox.documentation.builders.PathSelectors;

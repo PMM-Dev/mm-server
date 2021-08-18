@@ -21,7 +21,7 @@ public class UserApiController {
         return userService.login(userSaveDto);
     }
 
-    @PostMapping("/api/user")
+    @PostMapping("/api/register")
     public Long registerUser(@RequestBody UserSaveDto userSaveDto) {
         return userService.registerUser(userSaveDto).getId();
     }

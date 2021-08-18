@@ -26,3 +26,9 @@ spring:
 
   session:
     store-type: jdbc
+
+logging:
+  file:
+    name: ${user.dir}/log/test/log
+    max-history: 7
+    max-size: 10MB
