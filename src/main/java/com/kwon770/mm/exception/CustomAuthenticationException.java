@@ -6,7 +6,7 @@ public class CustomAuthenticationException extends RuntimeException {
         super(ErrorCode.INVALID_JWT_TOKEN.getMessage());
     }
 
-    public CustomAuthenticationException(Exception e) {
-        super(e);
+    public CustomAuthenticationException(String message) {
+        super(ErrorCode.INVALID_JWT_TOKEN.getMessage() + " : " + message);
     }
 }

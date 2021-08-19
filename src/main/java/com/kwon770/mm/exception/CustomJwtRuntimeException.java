@@ -6,7 +6,7 @@ public class CustomJwtRuntimeException extends RuntimeException{
         super(ErrorCode.AUTHENTICATION_FAILED.getMessage());
     }
 
-    public CustomJwtRuntimeException(Exception e) {
-        super(e.getMessage());
+    public CustomJwtRuntimeException(String message) {
+        super(ErrorCode.AUTHENTICATION_FAILED.getMessage() + " : " + message);
     }
 }

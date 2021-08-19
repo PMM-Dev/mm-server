@@ -3,28 +3,39 @@ package com.kwon770.mm.service;
 import com.kwon770.mm.domain.restaurant.Restaurant;
 import com.kwon770.mm.domain.user.User;
 import com.kwon770.mm.domain.user.UserRepository;
+import com.kwon770.mm.provider.security.AuthToken;
+import com.kwon770.mm.provider.security.JwtAuthTokenProvider;
+import com.kwon770.mm.web.dto.UserInfoDto;
 import com.kwon770.mm.web.dto.UserSaveDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @RequiredArgsConstructor
 @Service
 public class UserService {
 
+    private final JwtAuthTokenProvider jwtAuthTokenProvider;
     private final UserRepository userRepository;
 
-    public User login(UserSaveDto userSaveDto) {
-        if (userRepository.existsByEmail(userSaveDto.getEmail())) {
-            return getUserByEmail(userSaveDto.getEmail());
-        } else {
-            return registerUser(userSaveDto);
+    public Optional<UserInfoDto> login(UserSaveDto userSaveDto) {
+        try {
+            User user = getUserByEmail(userSaveDto.getEmail());
+            return Optional.of(new UserInfoDto(user));
+        } catch (IllegalArgumentException e) {
+            return Optional.empty();
         }
     }
 
-    public User registerUser(UserSaveDto userSaveDto) {
-        return userRepository.save(userSaveDto.toEntity());
+    public UserInfoDto registerUser(UserSaveDto userSaveDto) {
+        User user = userRepository.save(userSaveDto.toEntity());
+        return new UserInfoDto(user);
+    }
+
+    public AuthToken createAuthToken(UserInfoDto userInfoDto) {
+        return jwtAuthTokenProvider.createAuthToken(userInfoDto.getEmail(), userInfoDto.getRole().getCode());
     }
 
     public List<User> getUserList() {

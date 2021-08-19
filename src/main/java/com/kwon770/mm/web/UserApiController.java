@@ -1,12 +1,15 @@
 package com.kwon770.mm.web;
 
 import com.kwon770.mm.domain.user.User;
+import com.kwon770.mm.provider.security.JwtAuthToken;
 import com.kwon770.mm.service.UserService;
+import com.kwon770.mm.web.dto.UserInfoDto;
 import com.kwon770.mm.web.dto.UserSaveDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 import static com.kwon770.mm.Utility.isDigit;
 
@@ -17,13 +20,23 @@ public class UserApiController {
     private final UserService userService;
 
     @GetMapping("/api/login")
-    public User login(@RequestBody UserSaveDto userSaveDto) {
-        return userService.login(userSaveDto);
+    public UserInfoDto login(@RequestBody UserSaveDto userSaveDto) {
+        UserInfoDto userinfoDto;
+        Optional<UserInfoDto> presentUserInfoDto = userService.login(userSaveDto);
+        if (presentUserInfoDto.isPresent()) {
+            userinfoDto = presentUserInfoDto.get();
+        } else {
+            userinfoDto = userService.registerUser(userSaveDto);
+        }
+
+        JwtAuthToken jwtAuthToken = (JwtAuthToken) userService.createAuthToken(userinfoDto);
+        userinfoDto.setJwt(jwtAuthToken.getToken());
+        return userinfoDto;
     }
 
     @PostMapping("/api/register")
-    public Long registerUser(@RequestBody UserSaveDto userSaveDto) {
-        return userService.registerUser(userSaveDto).getId();
+    public UserInfoDto registerUser(@RequestBody UserSaveDto userSaveDto) {
+        return userService.registerUser(userSaveDto);
     }
 
     @GetMapping("/api/user")
