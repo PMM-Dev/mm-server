@@ -23,9 +23,9 @@ public class JwtAuthToken implements AuthToken<Claims> {
         this.token = token;
     }
 
-    JwtAuthToken(String id, String role, Key key) {
+    JwtAuthToken(String email, String role, Key key) {
         this.key = key;
-        this.token = createJwtAuthToken(id, role).get();
+        this.token = createJwtAuthToken(email, role).get();
     }
 
     @Override
@@ -55,9 +55,13 @@ public class JwtAuthToken implements AuthToken<Claims> {
         }
     }
 
-    private Optional<String> createJwtAuthToken(String id, String role) {
+    public String getUserEmail() {
+        return getData().getSubject();
+    }
+
+    private Optional<String> createJwtAuthToken(String email, String role) {
         var token = Jwts.builder()
-                .setSubject(id)
+                .setSubject(email)
                 .claim(AUTHORITIES_KEY, role)
                 .signWith(key, SignatureAlgorithm.HS256)
                 .compact();

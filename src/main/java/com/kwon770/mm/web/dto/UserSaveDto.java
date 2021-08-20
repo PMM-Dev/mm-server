@@ -14,13 +14,15 @@ public class UserSaveDto {
     private String email;
     private String picture;
     private Role role;
+    private String socialToken;
 
     @Builder
-    public UserSaveDto(String name, String email, String picture, Role role) {
+    public UserSaveDto(String name, String email, String picture, Role role, String socialToken) {
         this.name = name;
         this.email = email;
         this.picture = picture;
         this.role = role;
+        this.socialToken = socialToken;
     }
 
     public User toEntity() {
@@ -29,6 +31,7 @@ public class UserSaveDto {
                 .email(email)
                 .picture(picture)
                 .role(role)
+                .socialToken(socialToken)
                 .build();
     }
 }

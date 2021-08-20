@@ -4,7 +4,6 @@ import com.kwon770.mm.domain.user.User;
 import com.kwon770.mm.provider.security.Role;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
 
 @Getter
 @NoArgsConstructor
@@ -14,8 +13,6 @@ public class UserInfoDto {
     private String email;
     private String picture;
     private Role role;
-    @Setter
-    private String jwt;
 
     public UserInfoDto(User user) {
         this.name = user.getName();
