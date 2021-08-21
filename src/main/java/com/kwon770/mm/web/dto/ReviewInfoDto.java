@@ -1,10 +1,10 @@
 package com.kwon770.mm.web.dto;
 
 import com.kwon770.mm.domain.review.Review;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
+@AllArgsConstructor
+@Builder
 @Getter
 @NoArgsConstructor
 public class ReviewInfoDto {

@@ -10,6 +10,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @RequiredArgsConstructor
 @Service
@@ -35,9 +36,10 @@ public class UserService {
         return jwtAuthTokenProvider.createAuthToken(userInfoDto.getEmail(), userInfoDto.getRole().getCode());
     }
 
-    // Refactoring with map functions
-    public List<User> getUserList() {
-        return userRepository.findAll();
+    public List<UserInfoDto> getUserInfoDtoList() {
+        List<User> users = userRepository.findAll();
+
+        return UserMapper.INSTANCE.usersToUserInfoDtos(users);
     }
 
     public User getUserById(Long id) {
@@ -45,7 +47,7 @@ public class UserService {
     }
 
     public UserInfoDto getUserInfoDtoById(Long id) {
-        return new UserInfoDto(getUserById(id));
+        return UserMapper.INSTANCE.userToUserInfoDto(getUserById(id));
     }
 
     public User getUserByEmail(String email) {
@@ -54,6 +56,7 @@ public class UserService {
 
     public UserInfoDto getUserInfoDtoByEmail(String email) {
         return new UserInfoDto(getUserByEmail(email));
+//        return UserMapper.INSTANCE.userToUserInfoDto(getUserByEmail(email));
     }
 
     public void updateUserByEmail(String email, UserSaveDto userSaveDto) {

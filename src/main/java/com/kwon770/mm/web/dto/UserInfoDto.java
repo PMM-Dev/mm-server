@@ -2,9 +2,10 @@ package com.kwon770.mm.web.dto;
 
 import com.kwon770.mm.domain.user.User;
 import com.kwon770.mm.provider.security.Role;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
+@AllArgsConstructor
+@Builder
 @Getter
 @NoArgsConstructor
 public class UserInfoDto {

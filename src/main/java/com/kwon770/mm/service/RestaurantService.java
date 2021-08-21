@@ -39,9 +39,9 @@ public class RestaurantService {
     }
 
     public RestaurantInfoDto getRestaurantInfoDtoById(Long id) {
-        Restaurant targetRestaurant = getRestaurantById(id);
+        Restaurant restaurant = getRestaurantById(id);
 
-        return targetRestaurant.toDto();
+        return RestaurantMapper.INSTANCE.restaurantToRestaurantInfoDto(restaurant);
     }
 
     public Restaurant getRestaurantByName(String name) {
@@ -50,14 +50,15 @@ public class RestaurantService {
     }
 
     public RestaurantInfoDto getRestaurantInfoDtoByName(String name) {
-        Restaurant targetRestaurant = getRestaurantByName(name);
+        Restaurant restaurant = getRestaurantByName(name);
 
-        return targetRestaurant.toDto();
+        return RestaurantMapper.INSTANCE.restaurantToRestaurantInfoDto(restaurant);
     }
 
     public List<RestaurantInfoDto> getRestaurantsByMultipleCondition(String type, String price, String location, String deliveryable) {
-        return mapRestaurantsToDtos(restaurantQueryRepository.findAllByMultipleConditions(type, price, location, deliveryable));
+        List<Restaurant> restaurants = restaurantQueryRepository.findAllByMultipleConditions(type, price, location, deliveryable);
 
+        return RestaurantMapper.INSTANCE.restaurantsToRestaurantInfoDtos(restaurants);
     }
 
     public void deleteRestaurantById(Long id) {
@@ -70,10 +71,6 @@ public class RestaurantService {
         Restaurant targetRestaurant = getRestaurantByName(name);
 
         restaurantRepository.delete(targetRestaurant);
-    }
-
-    private List<RestaurantInfoDto> mapRestaurantsToDtos(List<Restaurant> restaurants) {
-        return restaurants.stream().map(RestaurantInfoDto::new).collect(Collectors.toList());
     }
 
     public Long uploadReview(User author, Long restaurantId, ReviewSaveDto reviewSaveDto) {
@@ -92,9 +89,9 @@ public class RestaurantService {
     }
 
     public List<ReviewInfoDto> getReviewList(Long restaurantId) {
-        Restaurant targetRestaurant = getRestaurantById(restaurantId);
+        Restaurant restaurant = getRestaurantById(restaurantId);
 
-        return mapReviewsToDtos(targetRestaurant.getReviews());
+        return RestaurantMapper.INSTANCE.reviewsToReviewInfoDtos(restaurant.getReviews());
     }
 
     public void deleteReviewById(Long reviewId) {
@@ -105,10 +102,6 @@ public class RestaurantService {
         restaurant.subtractReviewCount();
 
         reviewRepository.deleteById(reviewId);
-    }
-
-    private List<ReviewInfoDto> mapReviewsToDtos(List<Review> reviews) {
-        return reviews.stream().map((ReviewInfoDto::new)).collect(Collectors.toList());
     }
 
     public void updateRestaurant(Long restaurantId, RestaurantSaveDto restaurantSaveDto) {

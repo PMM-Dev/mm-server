@@ -1,6 +1,5 @@
 package com.kwon770.mm.web;
 
-import com.kwon770.mm.domain.user.User;
 import com.kwon770.mm.service.UserService;
 import com.kwon770.mm.web.dto.UserInfoDto;
 import com.kwon770.mm.web.dto.UserSaveDto;
@@ -18,8 +17,8 @@ public class UserApiController {
     private final UserService userService;
 
     @GetMapping("/api/user")
-    public List<User> getUserList() {
-        return userService.getUserList();
+    public List<UserInfoDto> getUserInfoDtoList() {
+        return userService.getUserInfoDtoList();
     }
 
     @GetMapping("/api/user/{identifier}")

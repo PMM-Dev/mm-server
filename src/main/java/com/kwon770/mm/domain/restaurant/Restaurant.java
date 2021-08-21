@@ -114,10 +114,6 @@ public class Restaurant {
         this.closeTime = restaurantSaveDto.getCloseTime();
     }
 
-    public RestaurantInfoDto toDto() {
-        return new RestaurantInfoDto(this);
-    }
-
     public void appendTheme(RestaurantTheme restaurantTheme) {
         this.themes.add(restaurantTheme);
     }

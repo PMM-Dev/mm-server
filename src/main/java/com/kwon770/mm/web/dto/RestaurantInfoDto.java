@@ -2,12 +2,13 @@ package com.kwon770.mm.web.dto;
 
 import com.kwon770.mm.domain.restaurant.*;
 import com.kwon770.mm.domain.review.Review;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import java.util.List;
 import java.util.stream.Collectors;
 
+@AllArgsConstructor
+@Builder
 @Getter
 @NoArgsConstructor
 public class RestaurantInfoDto {

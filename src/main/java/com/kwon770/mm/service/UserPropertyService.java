@@ -6,15 +6,12 @@ import com.kwon770.mm.domain.user.User;
 import com.kwon770.mm.domain.user.UserTitle;
 import com.kwon770.mm.domain.user.UserTitleRepository;
 import com.kwon770.mm.web.dto.LikedRestaurantDto;
-import com.kwon770.mm.web.dto.RestaurantMapper;
 import com.kwon770.mm.web.dto.UserTitleSaveDto;
 import lombok.RequiredArgsConstructor;
-import org.mapstruct.factory.Mappers;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
 import java.util.List;
-import java.util.stream.Collectors;
 
 @RequiredArgsConstructor
 @Service
@@ -53,7 +50,7 @@ public class UserPropertyService{
         User user = userService.getUserByEmail(email);
         List<Restaurant> likedRestaurantEntities = user.getLikedRestaurants();
 
-        return RestaurantMapper.INSTANCE.map(likedRestaurantEntities);
+        return RestaurantMapper.INSTANCE.restaurantsToLikedRestaurantDtos(likedRestaurantEntities);
     }
 
     @Transactional
