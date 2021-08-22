@@ -9,7 +9,7 @@ import org.springframework.stereotype.Component;
 import java.security.Key;
 
 @Component
-@PropertySource("classpath:secret.properties")
+//@PropertySource("classpath:application-secret.properties")
 public class JwtAuthTokenProvider implements AuthTokenProvider<JwtAuthToken> {
 
     @Value("${jwt-secret}")
