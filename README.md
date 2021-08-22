@@ -5,4 +5,5 @@
 ## Api Design
 
 ### User Authentication Flow
-![](document/MM server Auth flow.png)
+
+![](document/mm_server_auth_flow.png)
