@@ -34,11 +34,7 @@ public class RestaurantService {
 
     public Restaurant getRestaurantById(Long id) {
         return restaurantRepository.findOneById(id)
-                .orElseThrow(() -> {
-                    IllegalArgumentException e = new IllegalArgumentException("id가 일치하는 식당이 없습니다. id=" + id);
-                    LogView.logInfoExceptionTitle(e);
-                    return e;
-                });
+                .orElseThrow(() -> new IllegalArgumentException("id가 일치하는 식당이 없습니다. id=" + id));
     }
 
     public RestaurantInfoDto getRestaurantInfoDtoById(Long id) {
@@ -49,11 +45,7 @@ public class RestaurantService {
 
     public Restaurant getRestaurantByName(String name) {
         return restaurantRepository.findByName(name)
-                .orElseThrow(() -> {
-                    IllegalArgumentException e = new IllegalArgumentException("name 이 일치하는 식당이 없습니다. name=" + name);
-                    LogView.logInfoExceptionTitle(e);
-                    return e;
-                });
+                .orElseThrow(() -> new IllegalArgumentException("name 이 일치하는 식당이 없습니다. name=" + name));
     }
 
     public RestaurantInfoDto getRestaurantInfoDtoByName(String name) {
