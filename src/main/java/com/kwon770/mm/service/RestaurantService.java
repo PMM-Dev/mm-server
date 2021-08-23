@@ -6,6 +6,7 @@ import com.kwon770.mm.domain.restaurant.RestaurantRepository;
 import com.kwon770.mm.domain.review.Review;
 import com.kwon770.mm.domain.review.ReviewRepository;
 import com.kwon770.mm.domain.user.User;
+import com.kwon770.mm.view.LogView;
 import com.kwon770.mm.web.dto.RestaurantInfoDto;
 import com.kwon770.mm.web.dto.RestaurantSaveDto;
 import com.kwon770.mm.web.dto.ReviewInfoDto;
@@ -13,9 +14,7 @@ import com.kwon770.mm.web.dto.ReviewSaveDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
 @RequiredArgsConstructor
 @Service
@@ -35,7 +34,11 @@ public class RestaurantService {
 
     public Restaurant getRestaurantById(Long id) {
         return restaurantRepository.findOneById(id)
-                .orElseThrow(() -> new IllegalArgumentException("id가 일치하는 식당이 없습니다. id=" + id));
+                .orElseThrow(() -> {
+                    IllegalArgumentException e = new IllegalArgumentException("id가 일치하는 식당이 없습니다. id=" + id);
+                    LogView.logInfoExceptionTitle(e);
+                    return e;
+                });
     }
 
     public RestaurantInfoDto getRestaurantInfoDtoById(Long id) {
@@ -46,7 +49,11 @@ public class RestaurantService {
 
     public Restaurant getRestaurantByName(String name) {
         return restaurantRepository.findByName(name)
-                .orElseThrow(() -> new IllegalArgumentException("name이 일치하는 식당이 없습니다. name=" + name));
+                .orElseThrow(() -> {
+                    IllegalArgumentException e = new IllegalArgumentException("name 이 일치하는 식당이 없습니다. name=" + name);
+                    LogView.logInfoExceptionTitle(e);
+                    return e;
+                });
     }
 
     public RestaurantInfoDto getRestaurantInfoDtoByName(String name) {

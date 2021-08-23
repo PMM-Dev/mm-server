@@ -4,6 +4,7 @@ import com.kwon770.mm.domain.user.User;
 import com.kwon770.mm.domain.user.UserRepository;
 import com.kwon770.mm.provider.security.JwtAuthToken;
 import com.kwon770.mm.provider.security.JwtAuthTokenProvider;
+import com.kwon770.mm.view.LogView;
 import com.kwon770.mm.web.dto.UserInfoDto;
 import com.kwon770.mm.web.dto.UserSaveDto;
 import lombok.RequiredArgsConstructor;
@@ -55,10 +56,10 @@ public class UserService {
             String responseBody = response.toString();
             return responseBody.split(",")[1].split("\"")[3];
         } catch (IOException e) {
-            System.out.println(e.getMessage() + " : 올바르지 않은 socialToken 입니다. socialToken=" + socialToken);
+            LogView.logInfoExceptionString(e.getMessage() + " : 올바르지 않은 socialToken 입니다. socialToken=" + socialToken);
             return "";
         } catch (Exception e) {
-            e.printStackTrace();
+            LogView.logErrorStacktraceWithMessage(e, "알 수 없는 이유로 Google-OAuth로부터 이메일을 요청받지 못했습니다.");
             return "";
         }
     }
@@ -78,7 +79,11 @@ public class UserService {
     }
 
     public User getUserById(Long id) {
-        return userRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("id가 일치하는 유저가 없습니다. id=" + id));
+        return userRepository.findById(id).orElseThrow(() -> {
+            IllegalArgumentException e = new IllegalArgumentException("id가 일치하는 유저가 없습니다. id=" + id);
+            LogView.logInfoExceptionTitle(e);
+            return e;
+        });
     }
 
     public UserInfoDto getUserInfoDtoById(Long id) {
@@ -86,7 +91,11 @@ public class UserService {
     }
 
     public User getUserByEmail(String email) {
-        return userRepository.findByEmail(email).orElseThrow(() -> new IllegalArgumentException("email이 일치하는 유저가 없습니다. email=" + email));
+        return userRepository.findByEmail(email).orElseThrow(() -> {
+            IllegalArgumentException e = new IllegalArgumentException("email이 일치하는 유저가 없습니다. email=" + email);
+            LogView.logInfoExceptionTitle(e);
+            return e;
+        });
     }
 
     public UserInfoDto getUserInfoDtoByEmail(String email) {
