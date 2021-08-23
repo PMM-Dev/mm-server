@@ -32,9 +32,6 @@ public class User {
     @Column(nullable = false)
     private Role role;
 
-    @Column(nullable = false)
-    private String socialToken;
-
     @ManyToMany
     @JoinTable(
             name = "user_title_relation",
@@ -52,12 +49,11 @@ public class User {
     private List<Restaurant> likedRestaurants = new ArrayList<>();
 
     @Builder
-    public User(String name, String email, String picture, Role role, String socialToken) {
+    public User(String name, String email, String picture, Role role) {
         this.name = name;
         this.email = email;
         this.picture = picture;
         this.role = role;
-        this.socialToken = socialToken;
     }
 
     public void update(UserSaveDto userSaveDto) {
@@ -65,7 +61,6 @@ public class User {
         this.email = userSaveDto.getEmail();
         this.picture = userSaveDto.getPicture();
         this.role = userSaveDto.getRole();
-        this.socialToken = userSaveDto.getSocialToken();
     }
 
     public void appendTitle(UserTitle userTitle) { this.titles.add(userTitle); }
