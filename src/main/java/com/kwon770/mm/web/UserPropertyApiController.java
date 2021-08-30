@@ -43,7 +43,7 @@ public class UserPropertyApiController {
     }
 
     @DeleteMapping("/api/user/{email}/like/{restaurantId}")
-    public void subtractTitle(@PathVariable String email, @PathVariable Long restaurantId) {
+    public void subtractLikedRestaurant(@PathVariable String email, @PathVariable Long restaurantId) {
         userPropertyService.subtractedLikedRestaurant(email, restaurantId);
     }
 }
