@@ -1,4 +1,4 @@
-POST http://localhost:8080/api/restaurant
+POST http://localhost:8080/restaurant
 Content-Type: application/json
 
 {
@@ -13,7 +13,7 @@ Content-Type: application/json
 
 ###
 
-POST http://localhost:8080/api/member
+POST http://localhost:8080/member
 Content-Type: application/json
 
 {
@@ -24,8 +24,8 @@ Content-Type: application/json
 
 ###
 
-#POST http://ec2-13-209-37-35.ap-northeast-2.compute.amazonaws.com:8080/api/restaurant/save
-POST http://localhost:8080/api/restaurant/1/review
+#POST http://ec2-13-209-37-35.ap-northeast-2.compute.amazonaws.com:8080/restaurant/save
+POST http://localhost:8080/restaurant/1/review
 Content-Type: application/json
 
 {
@@ -36,12 +36,12 @@ Content-Type: application/json
 
 ###
 
-GET http://localhost:8080/api/restaurant/1
+GET http://localhost:8080/restaurant/1
 
 ###
 
-#POST http://ec2-13-209-37-35.ap-northeast-2.compute.amazonaws.com:8080/api/restaurant/save
-POST http://localhost:8080/api/restaurant/1/review
+#POST http://ec2-13-209-37-35.ap-northeast-2.compute.amazonaws.com:8080/restaurant/save
+POST http://localhost:8080/restaurant/1/review
 Content-Type: application/json
 
 {
@@ -51,6 +51,6 @@ Content-Type: application/json
 }
 
 ###
-#GET http://localhost:8080/api/restaurant/1
-GET http://localhost:8080/api/restaurant/1/review
-#DELETE http://localhost:8080/api/restaurant/review/delete/3
+#GET http://localhost:8080/restaurant/1
+GET http://localhost:8080/restaurant/1/review
+#DELETE http://localhost:8080/restaurant/review/delete/3

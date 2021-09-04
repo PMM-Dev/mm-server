@@ -12,42 +12,42 @@ public class RestaurantPropertyApiController {
 
     private final RestaurantPropertyService restaurantPropertyService;
 
-    @PostMapping("/api/theme")
+    @PostMapping("/theme")
     public Long saveTheme(@RequestBody RestaurantThemeSaveDto restaurantThemeSaveDto) {
         return restaurantPropertyService.saveTheme(restaurantThemeSaveDto);
     }
 
-    @DeleteMapping("/api/theme/{theme}")
+    @DeleteMapping("/theme/{theme}")
     public void deleteTheme(@PathVariable String theme) {
         restaurantPropertyService.deleteTheme(theme);
     }
 
-    @PutMapping("/api/restaurant/{id}/theme/{theme}")
+    @PutMapping("/restaurant/{id}/theme/{theme}")
     public void appendTheme(@PathVariable Long id, @PathVariable String theme) {
         restaurantPropertyService.appendTheme(id, theme);
     }
 
-    @DeleteMapping("/api/restaurant/{id}/theme/{theme}")
+    @DeleteMapping("/restaurant/{id}/theme/{theme}")
     public void subtractTheme(@PathVariable Long id, @PathVariable String theme) {
         restaurantPropertyService.subtractTheme(id, theme);
     }
 
-    @PostMapping("/api/special")
+    @PostMapping("/special")
     public Long saveSpecial(@RequestBody RestaurantSpecialSaveDto restaurantSpecialSaveDto) {
         return restaurantPropertyService.saveSpecial(restaurantSpecialSaveDto);
     }
 
-    @DeleteMapping("/api/special/{special}")
+    @DeleteMapping("/special/{special}")
     public void deleteSpecial(@PathVariable String special) {
         restaurantPropertyService.deleteSpeical(special);
     }
 
-    @PutMapping("/api/restaurant/{id}/special/{special}")
+    @PutMapping("/restaurant/{id}/special/{special}")
     public void appendSpecial(@PathVariable Long id, @PathVariable String special) {
         restaurantPropertyService.appendSpecial(id, special);
     }
 
-    @DeleteMapping("/api/restaurant/{id}/special/{special}")
+    @DeleteMapping("/restaurant/{id}/special/{special}")
     public void subtractSpecial(@PathVariable Long id, @PathVariable String special) {
         restaurantPropertyService.subtractSpecial(id, special);
     }

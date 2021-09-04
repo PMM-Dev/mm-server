@@ -14,35 +14,35 @@ public class MemberPropertyApiController {
 
     private final MemberPropertyService memberPropertyService;
 
-    @PostMapping("/api/title")
+    @PostMapping("/title")
     public Long saveTitle(@RequestBody MemberTitleSaveDto memberTitleSaveDto) {
         return memberPropertyService.saveTitle(memberTitleSaveDto);
     }
 
-    @DeleteMapping("/api/title/{title}")
+    @DeleteMapping("/title/{title}")
     public void deleteTitle(@PathVariable String title) { memberPropertyService.deleteTitle(title); }
 
-    @PutMapping("/api/member/{email}/title/{title}")
+    @PutMapping("/member/{email}/title/{title}")
     public void appendTitle(@PathVariable String email, @PathVariable String title) {
         memberPropertyService.appendTitle(email, title);
     }
 
-    @DeleteMapping("/api/member/{email}/title/{title}")
+    @DeleteMapping("/member/{email}/title/{title}")
     public void subtractTitle(@PathVariable String email, @PathVariable String title) {
         memberPropertyService.subtractTitle(email, title);
     }
 
-    @GetMapping("/api/member/{email}/like")
+    @GetMapping("/member/{email}/like")
     public List<LikedRestaurantDto> getLikedRestaurantList(@PathVariable String email) {
         return memberPropertyService.getLikedRestaurantList(email);
     }
 
-    @PutMapping("/api/member/{email}/like/{restaurantId}")
+    @PutMapping("/member/{email}/like/{restaurantId}")
     public void appendLikedRestaurant(@PathVariable String email, @PathVariable Long restaurantId) {
         memberPropertyService.appendLikedRestaurant(email, restaurantId);
     }
 
-    @DeleteMapping("/api/member/{email}/like/{restaurantId}")
+    @DeleteMapping("/member/{email}/like/{restaurantId}")
     public void subtractLikedRestaurant(@PathVariable String email, @PathVariable Long restaurantId) {
         memberPropertyService.subtractedLikedRestaurant(email, restaurantId);
     }

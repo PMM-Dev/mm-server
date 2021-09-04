@@ -22,17 +22,17 @@ public class RestauarntApiController {
     private final RestaurantService restaurantService;
     private final MemberService memberService;
 
-    @PostMapping("/api/restaurant")
+    @PostMapping("/restaurant")
     public Long uploadRestaurant(@RequestBody RestaurantSaveDto restaurantSaveDto) {
         return restaurantService.save(restaurantSaveDto);
     }
 
-    @GetMapping("/api/restaurant")
+    @GetMapping("/restaurant/list")
     public List<Restaurant> getRestaurantList() {
         return restaurantService.getRestaurantList();
     }
 
-    @GetMapping("/api/restaurant/condition")
+    @GetMapping("/restaurant/condition")
     public List<RestaurantInfoDto> getRestaurantsByMultipleConditionsWithParameter(
             @RequestParam(value = "type", defaultValue = "") String type,
             @RequestParam(value = "price", defaultValue = "") String price,
@@ -42,7 +42,7 @@ public class RestauarntApiController {
         return restaurantService.getRestaurantsByMultipleCondition(type, price, location, deliveryable);
     }
 
-    @GetMapping("/api/restaurant/{identifier}")
+    @GetMapping("/restaurant/{identifier}")
     public RestaurantInfoDto getRestaurantByIdentifier(@PathVariable String identifier) {
         if (isDigit(identifier)) {
             return restaurantService.getRestaurantInfoDtoById(Long.parseLong(identifier));
@@ -51,12 +51,12 @@ public class RestauarntApiController {
         }
     }
 
-    @PutMapping("/api/restaurant/{restaurantId}")
+    @PutMapping("/restaurant/{restaurantId}")
     public void updateRestaurantById(@PathVariable Long restaurantId, @RequestBody RestaurantSaveDto restaurantSaveDto) {
         restaurantService.updateRestaurant(restaurantId, restaurantSaveDto);
     }
 
-    @DeleteMapping("/api/restaurant/{identifier}")
+    @DeleteMapping("/restaurant/{identifier}")
     public void deleteRestaurant(@PathVariable String identifier) {
         if (isDigit(identifier)) {
             restaurantService.deleteRestaurantById(Long.parseLong(identifier));
@@ -65,19 +65,19 @@ public class RestauarntApiController {
         }
     }
 
-    @PostMapping("/api/restaurant/{restaurantId}/review")
+    @PostMapping("/restaurant/{restaurantId}/review")
     public Long uploadReview(@PathVariable Long restaurantId, @RequestBody ReviewSaveDto reviewSaveDto) {
         Member author = memberService.getMemberByEmail(reviewSaveDto.getAuthorEmail());
 
         return restaurantService.uploadReview(author, restaurantId, reviewSaveDto);
     }
 
-    @GetMapping("/api/restaurant/{restaurantId}/review")
+    @GetMapping("/restaurant/{restaurantId}/review")
     public List<ReviewInfoDto> getReviewListByRestaurantId(@PathVariable Long restaurantId) {
         return restaurantService.getReviewList(restaurantId);
     }
 
-    @DeleteMapping("/api/review/{reviewId}")
+    @DeleteMapping("/review/{reviewId}")
     public void deleteReviewById(@PathVariable Long reviewId) {
         restaurantService.deleteReviewById(reviewId);
     }

@@ -21,12 +21,12 @@ public class MemberApiController {
         return memberService.getMyInfoDto();
     }
 
-    @GetMapping("/api/member")
+    @GetMapping("/member/list")
     public List<MemberInfoDto> getMemberInfoDtoList() {
         return memberService.getMemberInfoDtoList();
     }
 
-    @GetMapping("/api/member/{identifier}")
+    @GetMapping("/member/{identifier}")
     public MemberInfoDto getMemberByIdentifer(@PathVariable String identifier) {
         if (isDigit(identifier)) {
             return memberService.getMemberInfoDtoById(Long.parseLong(identifier));
@@ -35,12 +35,12 @@ public class MemberApiController {
         }
     }
 
-    @PutMapping("/api/member/{email}")
+    @PutMapping("/member/{email}")
     public void updateMemberByEmail(@PathVariable String email, @RequestBody MemberRequestDto memberRequestDto) {
         memberService.updateMemberByEmail(email, memberRequestDto);
     }
 
-    @DeleteMapping("/api/member/{identifier}")
+    @DeleteMapping("/member/{identifier}")
     public void deleteMemberByIdentifier(@PathVariable String identifier) {
         if (isDigit(identifier)) {
             memberService.deleteMemberById(Long.parseLong(identifier));
@@ -48,6 +48,4 @@ public class MemberApiController {
             memberService.deleteMemberByEmail(identifier);
         }
     }
-
-
 }
