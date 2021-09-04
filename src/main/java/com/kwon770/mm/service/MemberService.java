@@ -29,40 +29,6 @@ public class MemberService {
         return getMemberInfoDtoById(SecurityUtil.getCurrentMemberId());
     }
 
-
-    public MemberInfoDto getMemberInfoDtoBySocialToken(String socialToken) {
-        String email = getEmailBySocialTokenFromGoogle(socialToken);
-        return getMemberInfoDtoByEmail(email);
-    }
-
-    private String getEmailBySocialTokenFromGoogle(String socialToken) {
-        try {
-            URL url = new URL("https://www.googleapis.com/userinfo/v2/me");
-            HttpsURLConnection con = (HttpsURLConnection) url.openConnection();
-
-            con.setRequestMethod("GET");
-            con.setRequestProperty("Authorization", "Bearer " + socialToken);
-
-            int responseCode = con.getResponseCode();
-            BufferedReader in = new BufferedReader(new InputStreamReader(con.getInputStream()));
-            String inputLine;
-            StringBuffer response = new StringBuffer();
-
-            while ((inputLine = in.readLine()) != null) {
-                response.append(inputLine);
-            }
-            in.close();
-
-            String responseBody = response.toString();
-            return responseBody.split(",")[1].split("\"")[3];
-        } catch (IOException e) {
-            throw new IllegalArgumentException("올바르지 않은 socialToken 입니다. socialToken=" + socialToken);
-        } catch (Exception e) {
-            LogView.logErrorStacktraceWithMessage(e, "알 수 없는 이유로 Google-OAuth로부터 이메일을 요청받지 못했습니다.");
-            return "";
-        }
-    }
-
     public List<MemberInfoDto> getMemberInfoDtoList() {
         List<Member> members = memberRepository.findAll();
 
