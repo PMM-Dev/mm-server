@@ -1,66 +1,30 @@
-GET http://localhost:8080/api/user/sk@name.com
-
-
-###
-
-POST http://localhost:8080/api/user
+POST http://localhost:8080/auth/register
 Content-Type: application/json
 
 {
-  "name" : "sk",
-  "email" : "sk@gmail.com",
-  "picture" : "as"
+  "name": "test",
+  "email": "test@test.net",
+  "picture": "",
+  "role": "ROLE_USER",
+  "socialTokenType": "GOOGLE",
+  "socialToken": "ya29.a0ARrdaM_HLsGbQ2N1JOi50bDbLzHVLz_FAp_28fGaN--Zfk5tCrPDI2DfFawNJWsCXtYsPphaveqpfNa7F8yJXvSO7wS0dWR7p3YkK7ol7z24wEex2U2l7434YpwT1Env9NgU-Ripj_8Vl9ny4MEEywaBJD4V"
 }
 
 ###
 
-#POST http://localhost:8080/api/user
-#Content-Type: application/json
-#
-#{
-#  "name" : "ks",
-#  "email" : "ks@gmail.com",
-#  "picture" : "ks"
-#}
-#
-
-###
-
-POST http://localhost:8080/api/user/title
+POST http://localhost:8080/auth/login
 Content-Type: application/json
 
 {
-  "title" : "DEVELOPER"
+  "name": "test",
+  "email": "test@test.net",
+  "picture": "",
+  "role": "ROLE_USER",
+  "socialTokenType": "GOOGLE",
+  "socialToken": "ya29.a0ARrdaM_HLsGbQ2N1JOi50bDbLzHVLz_FAp_28fGaN--Zfk5tCrPDI2DfFawNJWsCXtYsPphaveqpfNa7F8yJXvSO7wS0dWR7p3YkK7ol7z24wEex2U2l7434YpwT1Env9NgU-Ripj_8Vl9ny4MEEywaBJD4V"
 }
 
 ###
 
-PUT http://localhost:8080/api/user/sk@gmail.com/title/DEVELOPER
-
-###
-
-GET localhost:8080/api/user/list
-
-###
-
-DELETE http://localhost:8080/api/user/sk@gmail.com/title/DEVELOPER
-
-###
-
-GET localhost:8080/api/user/list
-
-###
-#
-#DELETE  http://localhost:8080/api/user/delete/2
-#
-####
-#
-#GET localhost:8080/api/user/list
-#
-####
-#
-#DELETE  http://localhost:8080/api/user/delete/sk@gmail.com
-#
-###
-
-GET localhost:8080/api/user/list
+#GET http://localhost:8080/member/me
+#Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIyIiwiYXV0aCI6IlJPTEVfVVNFUiIsImV4cCI6MTYxNTExNDI4MH0.43LvabP41Awhicy6YYAYHtDPnxNYpEygtE-DjLaDjNpAxZf01Nx4xE_dGk0V4jBpjwCgKVGKZIMyEeIppwzARQ

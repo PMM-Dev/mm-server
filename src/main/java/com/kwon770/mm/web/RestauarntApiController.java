@@ -1,10 +1,9 @@
 package com.kwon770.mm.web;
 
 import com.kwon770.mm.domain.restaurant.Restaurant;
-import com.kwon770.mm.domain.review.Review;
-import com.kwon770.mm.domain.user.User;
+import com.kwon770.mm.domain.member.Member;
 import com.kwon770.mm.service.RestaurantService;
-import com.kwon770.mm.service.UserService;
+import com.kwon770.mm.service.MemberService;
 import com.kwon770.mm.web.dto.RestaurantInfoDto;
 import com.kwon770.mm.web.dto.RestaurantSaveDto;
 import com.kwon770.mm.web.dto.ReviewInfoDto;
@@ -21,7 +20,7 @@ import static com.kwon770.mm.Utility.isDigit;
 public class RestauarntApiController {
 
     private final RestaurantService restaurantService;
-    private final UserService userService;
+    private final MemberService memberService;
 
     @PostMapping("/api/restaurant")
     public Long uploadRestaurant(@RequestBody RestaurantSaveDto restaurantSaveDto) {
@@ -68,7 +67,7 @@ public class RestauarntApiController {
 
     @PostMapping("/api/restaurant/{restaurantId}/review")
     public Long uploadReview(@PathVariable Long restaurantId, @RequestBody ReviewSaveDto reviewSaveDto) {
-        User author = userService.getUserByEmail(reviewSaveDto.getAuthorEmail());
+        Member author = memberService.getMemberByEmail(reviewSaveDto.getAuthorEmail());
 
         return restaurantService.uploadReview(author, restaurantId, reviewSaveDto);
     }

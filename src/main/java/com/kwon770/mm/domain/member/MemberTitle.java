@@ -1,4 +1,4 @@
-package com.kwon770.mm.domain.user;
+package com.kwon770.mm.domain.member;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import lombok.Builder;
@@ -12,7 +12,7 @@ import java.util.List;
 @NoArgsConstructor
 @Getter
 @Entity
-public class UserTitle {
+public class MemberTitle {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -22,8 +22,8 @@ public class UserTitle {
 
     @ManyToMany(mappedBy = "titles")
     @JsonBackReference
-    private List<User> user = new ArrayList<>();
+    private List<Member> member = new ArrayList<>();
 
     @Builder
-    public UserTitle(Title title) { this.title = title;}
+    public MemberTitle(Title title) { this.title = title;}
 }

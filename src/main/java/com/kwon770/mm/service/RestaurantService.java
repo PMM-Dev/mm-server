@@ -5,8 +5,7 @@ import com.kwon770.mm.domain.restaurant.RestaurantQueryRepository;
 import com.kwon770.mm.domain.restaurant.RestaurantRepository;
 import com.kwon770.mm.domain.review.Review;
 import com.kwon770.mm.domain.review.ReviewRepository;
-import com.kwon770.mm.domain.user.User;
-import com.kwon770.mm.view.LogView;
+import com.kwon770.mm.domain.member.Member;
 import com.kwon770.mm.web.dto.RestaurantInfoDto;
 import com.kwon770.mm.web.dto.RestaurantSaveDto;
 import com.kwon770.mm.web.dto.ReviewInfoDto;
@@ -72,7 +71,7 @@ public class RestaurantService {
         restaurantRepository.delete(targetRestaurant);
     }
 
-    public Long uploadReview(User author, Long restaurantId, ReviewSaveDto reviewSaveDto) {
+    public Long uploadReview(Member author, Long restaurantId, ReviewSaveDto reviewSaveDto) {
         Restaurant targetRestaurant = getRestaurantById(restaurantId);
         Review reviewEntity = Review.builder()
                 .author(author)

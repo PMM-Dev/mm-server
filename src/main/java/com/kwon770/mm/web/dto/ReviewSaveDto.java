@@ -1,7 +1,5 @@
 package com.kwon770.mm.web.dto;
 
-import com.kwon770.mm.domain.review.Review;
-import com.kwon770.mm.domain.user.User;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;

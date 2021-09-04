@@ -1,9 +1,10 @@
 package com.kwon770.mm.web;
 
-import com.kwon770.mm.provider.security.JwtAuthToken;
-import com.kwon770.mm.service.UserService;
-import com.kwon770.mm.web.dto.UserInfoDto;
-import com.kwon770.mm.web.dto.UserSaveDto;
+import com.kwon770.mm.service.AuthService;
+import com.kwon770.mm.service.MemberService;
+import com.kwon770.mm.web.dto.JwtTokenDto;
+import com.kwon770.mm.web.dto.JwtTokenRequestDto;
+import com.kwon770.mm.web.dto.MemberRequestDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
@@ -11,26 +12,20 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 public class AuthApiController {
 
-    private final UserService userService;
+    private final AuthService authService;
 
-    @GetMapping("/api/login/{jwtToken}")
-    public UserInfoDto loginByJwtToken(@PathVariable String jwtToken) {
-        JwtAuthToken authToken = userService.getAuthTokenByJwtToken(jwtToken);
-
-        String userEmail = authToken.getUserEmail();
-        return userService.getUserInfoDtoByEmail(userEmail);
+    @PostMapping("/auth/register")
+    public Long register(@RequestBody MemberRequestDto memberRequestDto) {
+        return authService.register(memberRequestDto);
     }
 
-    @GetMapping("/api/auth/{socialToken}")
-    public String getJwtTokenBySocialToken(@PathVariable String socialToken) {
-        UserInfoDto userinfoDto = userService.getUserInfoDtoBySocialToken(socialToken);
-
-        JwtAuthToken jwtAuthToken = userService.createAuthToken(userinfoDto);
-        return jwtAuthToken.getToken();
+    @PostMapping("/auth/login")
+    public JwtTokenDto login(@RequestBody MemberRequestDto memberRequestDto) {
+        return authService.login(memberRequestDto);
     }
 
-    @PostMapping("/api/register")
-    public Long register(@RequestBody UserSaveDto userSaveDto) {
-        return userService.register(userSaveDto);
+    @PostMapping("/auth/reissue")
+    public JwtTokenDto reissue(@RequestBody JwtTokenRequestDto jwtTokenRequestDto) {
+        return authService.reissue(jwtTokenRequestDto);
     }
 }
