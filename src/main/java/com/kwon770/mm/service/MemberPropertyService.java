@@ -47,8 +47,8 @@ public class MemberPropertyService {
         member.subtractTitle(memberTitle);
     }
 
-    public List<RestaurantElementDto> getLikedRestaurantList(String email) {
-        Member member = memberService.getMemberByEmail(email);
+    public List<RestaurantElementDto> getLikedRestaurantList(Long userId) {
+        Member member = memberService.getMemberById(userId);
         List<Restaurant> likedRestaurantEntities = member.getLikedRestaurants();
 
         return RestaurantMapper.INSTANCE.restaurantsToRestaurantElementDtos(likedRestaurantEntities);

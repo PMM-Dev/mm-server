@@ -39,7 +39,7 @@ public class RestaurantPropertyApiController {
 
     @DeleteMapping("/special/{special}")
     public void deleteSpecial(@PathVariable String special) {
-        restaurantPropertyService.deleteSpeical(special);
+        restaurantPropertyService.deleteSpecial(special);
     }
 
     @PutMapping("/restaurant/{restaurantId}/special/{special}")

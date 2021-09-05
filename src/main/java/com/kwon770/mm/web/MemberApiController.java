@@ -1,6 +1,7 @@
 package com.kwon770.mm.web;
 
 import com.kwon770.mm.service.MemberService;
+import com.kwon770.mm.util.SecurityUtil;
 import com.kwon770.mm.web.dto.MemberInfoDto;
 import com.kwon770.mm.web.dto.MemberRequestDto;
 import lombok.RequiredArgsConstructor;
@@ -35,9 +36,14 @@ public class MemberApiController {
         }
     }
 
-    @PutMapping("/member/{email}")
-    public void updateMemberByEmail(@PathVariable String email, @RequestBody MemberRequestDto memberRequestDto) {
-        memberService.updateMemberByEmail(email, memberRequestDto);
+    @PutMapping("/member/me")
+    public void updateMemberByEmail(@RequestBody MemberRequestDto memberRequestDto) {
+        memberService.updateMemberByEmail(SecurityUtil.getCurrentMemberId(), memberRequestDto);
+    }
+
+    @PutMapping("/member/{userId}")
+    public void updateMemberByEmail(@PathVariable Long userId, @RequestBody MemberRequestDto memberRequestDto) {
+        memberService.updateMemberByEmail(userId, memberRequestDto);
     }
 
     @DeleteMapping("/member/{identifier}")

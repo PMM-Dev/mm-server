@@ -1,6 +1,7 @@
 package com.kwon770.mm.web;
 
 import com.kwon770.mm.service.MemberPropertyService;
+import com.kwon770.mm.util.SecurityUtil;
 import com.kwon770.mm.web.dto.MemberTitleRequestDto;
 import com.kwon770.mm.web.dto.Restaurant.RestaurantElementDto;
 import lombok.RequiredArgsConstructor;
@@ -32,9 +33,14 @@ public class MemberPropertyApiController {
         memberPropertyService.subtractTitle(title);
     }
 
-    @GetMapping("/member/{email}/like")
-    public List<RestaurantElementDto> getLikedRestaurantList(@PathVariable String email) {
-        return memberPropertyService.getLikedRestaurantList(email);
+    @GetMapping("/member/me/like")
+    public List<RestaurantElementDto> getMyLikedRestaurantList() {
+        return memberPropertyService.getLikedRestaurantList(SecurityUtil.getCurrentMemberId());
+    }
+
+    @GetMapping("/member/{userId}/like")
+    public List<RestaurantElementDto> getLikedRestaurantList(@PathVariable Long userId) {
+        return memberPropertyService.getLikedRestaurantList(userId);
     }
 
     @PutMapping("/member/like/{restaurantId}")

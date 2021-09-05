@@ -51,8 +51,8 @@ public class MemberService {
         return MemberMapper.INSTANCE.memberToMemberInfoDto(getMemberByEmail(email));
     }
 
-    public void updateMemberByEmail(String email, MemberRequestDto memberRequestDto) {
-        Member member = getMemberByEmail(email);
+    public void updateMemberByEmail(Long userId, MemberRequestDto memberRequestDto) {
+        Member member = getMemberById(userId);
         member.update(memberRequestDto);
     }
 
