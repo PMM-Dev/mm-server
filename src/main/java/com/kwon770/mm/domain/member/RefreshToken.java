@@ -1,14 +1,10 @@
 package com.kwon770.mm.domain.member;
 
 import lombok.Builder;
-import lombok.Generated;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 @Getter
 @NoArgsConstructor
@@ -17,7 +13,9 @@ public class RefreshToken {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private String key;
+    private String tokenKey;
+
+    @Column(nullable = false)
     private String value;
 
     public RefreshToken updateValue(String token) {
@@ -26,8 +24,8 @@ public class RefreshToken {
     }
 
     @Builder
-    public RefreshToken(String key, String value) {
-        this.key = key;
+    public RefreshToken(String tokenKey, String value) {
+        this.tokenKey = tokenKey;
         this.value = value;
     }
 }
