@@ -8,12 +8,12 @@ import lombok.NoArgsConstructor;
 
 @NoArgsConstructor
 @Getter
-public class MemberTitleSaveDto {
+public class MemberTitleRequestDto {
 
     private Title title;
 
     @Builder
-    public MemberTitleSaveDto(Title title) { this.title = title; }
+    public MemberTitleRequestDto(Title title) { this.title = title; }
 
     public MemberTitle toEntity() {
         return MemberTitle.builder()

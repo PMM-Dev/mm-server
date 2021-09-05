@@ -2,7 +2,7 @@ package com.kwon770.mm.web;
 
 import com.kwon770.mm.service.MemberPropertyService;
 import com.kwon770.mm.web.dto.LikedRestaurantDto;
-import com.kwon770.mm.web.dto.MemberTitleSaveDto;
+import com.kwon770.mm.web.dto.MemberTitleRequestDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
@@ -15,8 +15,8 @@ public class MemberPropertyApiController {
     private final MemberPropertyService memberPropertyService;
 
     @PostMapping("/title")
-    public Long saveTitle(@RequestBody MemberTitleSaveDto memberTitleSaveDto) {
-        return memberPropertyService.saveTitle(memberTitleSaveDto);
+    public Long saveTitle(@RequestBody MemberTitleRequestDto memberTitleRequestDto) {
+        return memberPropertyService.saveTitle(memberTitleRequestDto);
     }
 
     @DeleteMapping("/title/{title}")

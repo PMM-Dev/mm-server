@@ -5,7 +5,7 @@ import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.kwon770.mm.domain.review.Review;
 import com.kwon770.mm.domain.member.Member;
-import com.kwon770.mm.web.dto.RestaurantSaveDto;
+import com.kwon770.mm.web.dto.Restaurant.RestaurantRequestDto;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -100,17 +100,17 @@ public class Restaurant {
         this.closeTime = closeTime;
     }
 
-    public void update(RestaurantSaveDto restaurantSaveDto) {
-        this.name = restaurantSaveDto.getName();
-        this.description = restaurantSaveDto.getDescription();
-        this.type = restaurantSaveDto.getType();
-        this.price = restaurantSaveDto.getPrice();
-        this.location = restaurantSaveDto.getLocation();
-        this.deliveryable = restaurantSaveDto.getDeliveryable();
-        this.latitude = restaurantSaveDto.getLatitude();
-        this.longitude = restaurantSaveDto.getLongitude();
-        this.openTime = restaurantSaveDto.getOpenTime();
-        this.closeTime = restaurantSaveDto.getCloseTime();
+    public void update(RestaurantRequestDto restaurantRequestDto) {
+        this.name = restaurantRequestDto.getName();
+        this.description = restaurantRequestDto.getDescription();
+        this.type = restaurantRequestDto.getType();
+        this.price = restaurantRequestDto.getPrice();
+        this.location = restaurantRequestDto.getLocation();
+        this.deliveryable = restaurantRequestDto.getDeliveryable();
+        this.latitude = restaurantRequestDto.getLatitude();
+        this.longitude = restaurantRequestDto.getLongitude();
+        this.openTime = restaurantRequestDto.getOpenTime();
+        this.closeTime = restaurantRequestDto.getCloseTime();
     }
 
     public void appendTheme(RestaurantTheme restaurantTheme) {

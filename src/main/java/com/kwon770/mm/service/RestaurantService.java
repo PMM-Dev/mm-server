@@ -6,10 +6,7 @@ import com.kwon770.mm.domain.restaurant.RestaurantRepository;
 import com.kwon770.mm.domain.review.Review;
 import com.kwon770.mm.domain.review.ReviewRepository;
 import com.kwon770.mm.domain.member.Member;
-import com.kwon770.mm.web.dto.RestaurantInfoDto;
-import com.kwon770.mm.web.dto.RestaurantSaveDto;
-import com.kwon770.mm.web.dto.ReviewInfoDto;
-import com.kwon770.mm.web.dto.ReviewSaveDto;
+import com.kwon770.mm.web.dto.Restaurant.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -23,8 +20,8 @@ public class RestaurantService {
     private final RestaurantQueryRepository restaurantQueryRepository;
     private final ReviewRepository reviewRepository;
 
-    public Long save(RestaurantSaveDto restaurantSaveDto) {
-        return restaurantRepository.save(restaurantSaveDto.toEntity()).getId();
+    public Long save(RestaurantRequestDto restaurantRequestDto) {
+        return restaurantRepository.save(restaurantRequestDto.toEntity()).getId();
     }
 
     public List<Restaurant> getRestaurantList() {
@@ -53,10 +50,10 @@ public class RestaurantService {
         return RestaurantMapper.INSTANCE.restaurantToRestaurantInfoDto(restaurant);
     }
 
-    public List<RestaurantInfoDto> getRestaurantsByMultipleCondition(String type, String price, String location, String deliveryable) {
+    public List<RestaurantElementDto> getRestaurantsByMultipleCondition(String type, String price, String location, String deliveryable) {
         List<Restaurant> restaurants = restaurantQueryRepository.findAllByMultipleConditions(type, price, location, deliveryable);
 
-        return RestaurantMapper.INSTANCE.restaurantsToRestaurantInfoDtos(restaurants);
+        return RestaurantMapper.INSTANCE.restaurantsToRestaurantElementDtos(restaurants);
     }
 
     public void deleteRestaurantById(Long id) {
@@ -71,13 +68,13 @@ public class RestaurantService {
         restaurantRepository.delete(targetRestaurant);
     }
 
-    public Long uploadReview(Member author, Long restaurantId, ReviewSaveDto reviewSaveDto) {
+    public Long uploadReview(Member author, Long restaurantId, ReviewRequestDto reviewRequestDto) {
         Restaurant targetRestaurant = getRestaurantById(restaurantId);
         Review reviewEntity = Review.builder()
                 .author(author)
                 .restaurant(targetRestaurant)
-                .description(reviewSaveDto.getDescription())
-                .grade(reviewSaveDto.getGrade())
+                .description(reviewRequestDto.getDescription())
+                .grade(reviewRequestDto.getGrade())
                 .build();
 
         targetRestaurant.calculateAddedAverageGrade(reviewEntity.getGrade());
@@ -102,9 +99,9 @@ public class RestaurantService {
         reviewRepository.deleteById(reviewId);
     }
 
-    public void updateRestaurant(Long restaurantId, RestaurantSaveDto restaurantSaveDto) {
+    public void updateRestaurant(Long restaurantId, RestaurantRequestDto restaurantRequestDto) {
         Restaurant restaurant = getRestaurantById(restaurantId);
-        restaurant.update(restaurantSaveDto);
+        restaurant.update(restaurantRequestDto);
     }
 
 }

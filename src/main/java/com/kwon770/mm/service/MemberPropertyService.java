@@ -6,7 +6,7 @@ import com.kwon770.mm.domain.member.Member;
 import com.kwon770.mm.domain.member.MemberTitle;
 import com.kwon770.mm.domain.member.MemberTitleRepository;
 import com.kwon770.mm.web.dto.LikedRestaurantDto;
-import com.kwon770.mm.web.dto.MemberTitleSaveDto;
+import com.kwon770.mm.web.dto.MemberTitleRequestDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -22,8 +22,8 @@ public class MemberPropertyService {
 
     private final RestaurantService restaurantService;
 
-    public Long saveTitle(MemberTitleSaveDto memberTitleSaveDto) {
-        return memberTitleRepository.save(memberTitleSaveDto.toEntity()).getId();
+    public Long saveTitle(MemberTitleRequestDto memberTitleRequestDto) {
+        return memberTitleRepository.save(memberTitleRequestDto.toEntity()).getId();
     }
 
     public void deleteTitle(String title) {

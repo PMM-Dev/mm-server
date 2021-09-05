@@ -1,8 +1,8 @@
 package com.kwon770.mm.service;
 
 import com.kwon770.mm.domain.restaurant.*;
-import com.kwon770.mm.web.dto.RestaurantSpecialSaveDto;
-import com.kwon770.mm.web.dto.RestaurantThemeSaveDto;
+import com.kwon770.mm.web.dto.Restaurant.RestaurantSpecialRequestDto;
+import com.kwon770.mm.web.dto.Restaurant.RestaurantThemeRequestDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -15,8 +15,8 @@ public class RestaurantPropertyService {
     private final RestaurantThemeRepository restaurantThemeRepository;
     private final RestaurantSpecialRepository restaurantSpecialRepository;
 
-    public Long saveTheme(RestaurantThemeSaveDto restaurantThemeSaveDto) {
-        return restaurantThemeRepository.save(restaurantThemeSaveDto.toEntity()).getId();
+    public Long saveTheme(RestaurantThemeRequestDto restaurantThemeRequestDto) {
+        return restaurantThemeRepository.save(restaurantThemeRequestDto.toEntity()).getId();
     }
 
     public void deleteTheme(String theme) {
@@ -39,8 +39,8 @@ public class RestaurantPropertyService {
         restaurant.subtractTheme(restaurantTheme);
     }
 
-    public Long saveSpecial(RestaurantSpecialSaveDto restaurantSpecialSaveDto) {
-        return restaurantSpecialRepository.save(restaurantSpecialSaveDto.toEntity()).getId();
+    public Long saveSpecial(RestaurantSpecialRequestDto restaurantSpecialRequestDto) {
+        return restaurantSpecialRepository.save(restaurantSpecialRequestDto.toEntity()).getId();
     }
 
     public void deleteSpeical(String special) {

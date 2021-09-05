@@ -7,7 +7,7 @@ Content-Type: application/json
   "picture": "",
   "role": "ROLE_ADMIN",
   "socialTokenType": "GOOGLE",
-  "socialToken": "ya29.a0ARrdaM_k8F5RFMeBKJgNhD7eUJ1jClxAN0hu0XLZf4jQy6lXqDzMEYohFq1jHABSZkH1bvPZBnnpdJnLp1WGZ3vTPwZ7dM-zLrMOcmJuZ0_Fw4HyM09VXEfO7iyfrQtwHm--qDIZniBAk6BRmGU6mb3-sYEu"
+  "socialToken": "ya29.a0ARrdaM-WlGeDHmdwnrqUCSAAjEPQT8FY64TdWyQ-YONZw2fj5d_dsOFaquKzhquzECJ_TSbbnmfLIA4j0FpyPMeu79HEFhRL5W5PvHQG6thYIQF-8BoFgN_HgcSeGUwiBUE4DSAWB11MCNjNHHszcYhLYdt-"
 }
 
 ###
@@ -21,18 +21,18 @@ Content-Type: application/json
   "picture": "",
   "role": "ROLE_ADMIN",
   "socialTokenType": "GOOGLE",
-  "socialToken": "ya29.a0ARrdaM_k8F5RFMeBKJgNhD7eUJ1jClxAN0hu0XLZf4jQy6lXqDzMEYohFq1jHABSZkH1bvPZBnnpdJnLp1WGZ3vTPwZ7dM-zLrMOcmJuZ0_Fw4HyM09VXEfO7iyfrQtwHm--qDIZniBAk6BRmGU6mb3-sYEu"
+  "socialToken": "ya29.a0ARrdaM-WlGeDHmdwnrqUCSAAjEPQT8FY64TdWyQ-YONZw2fj5d_dsOFaquKzhquzECJ_TSbbnmfLIA4j0FpyPMeu79HEFhRL5W5PvHQG6thYIQF-8BoFgN_HgcSeGUwiBUE4DSAWB11MCNjNHHszcYhLYdt-"
 }
 
 ###
 
 GET http://localhost:8080/member/me
-Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIxIiwiYXV0aCI6IlJPTEVfVVNFUiIsImV4cCI6MTYzMDc3Mjg5MH0.V9B4x60HYt4iHGNDU5UFqtej5YhrabW5T5Nw7yGnDJUpMkHcU8rkhcevny4Wkfg6k6naTf7W883d3bRQPwWJkw
+Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIxIiwiYXV0aCI6IlJPTEVfQURNSU4iLCJleHAiOjE2MzA4MjE3Mzd9.qbC4omHrN4jx7AsARit8VpaaFtyGlLMshvXim7yM4myyWE_YIMxJSoapherhzwZxES1sMrDCXYMisdZ4vqTSxg
 
 ###
 
-GET http://localhost:8080/member/list
-Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIxIiwiYXV0aCI6IlJPTEVfQURNSU4iLCJleHAiOjE2MzA3NzY4ODN9.x2wIaKO0MDIhUWh1JvTn9E9bNYR2US63mAHVJIy66fdsSN7YYSE09g0ORFTlrx0vdpqJd7IlD09AEM9_tASZHw
+#GET http://localhost:8080/member/list
+#Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIxIiwiYXV0aCI6IlJPTEVfQURNSU4iLCJleHAiOjE2MzA3NzY4ODN9.x2wIaKO0MDIhUWh1JvTn9E9bNYR2US63mAHVJIy66fdsSN7YYSE09g0ORFTlrx0vdpqJd7IlD09AEM9_tASZHw
 
 ###
 

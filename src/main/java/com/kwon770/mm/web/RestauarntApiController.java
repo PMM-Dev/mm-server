@@ -4,10 +4,7 @@ import com.kwon770.mm.domain.restaurant.Restaurant;
 import com.kwon770.mm.domain.member.Member;
 import com.kwon770.mm.service.RestaurantService;
 import com.kwon770.mm.service.MemberService;
-import com.kwon770.mm.web.dto.RestaurantInfoDto;
-import com.kwon770.mm.web.dto.RestaurantSaveDto;
-import com.kwon770.mm.web.dto.ReviewInfoDto;
-import com.kwon770.mm.web.dto.ReviewSaveDto;
+import com.kwon770.mm.web.dto.Restaurant.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
@@ -23,8 +20,8 @@ public class RestauarntApiController {
     private final MemberService memberService;
 
     @PostMapping("/restaurant")
-    public Long uploadRestaurant(@RequestBody RestaurantSaveDto restaurantSaveDto) {
-        return restaurantService.save(restaurantSaveDto);
+    public Long uploadRestaurant(@RequestBody RestaurantRequestDto restaurantRequestDto) {
+        return restaurantService.save(restaurantRequestDto);
     }
 
     @GetMapping("/restaurant/list")
@@ -33,7 +30,7 @@ public class RestauarntApiController {
     }
 
     @GetMapping("/restaurant/condition")
-    public List<RestaurantInfoDto> getRestaurantsByMultipleConditionsWithParameter(
+    public List<RestaurantElementDto> getRestaurantElementDtosByMultipleConditions(
             @RequestParam(value = "type", defaultValue = "") String type,
             @RequestParam(value = "price", defaultValue = "") String price,
             @RequestParam(value = "location", defaultValue = "") String location,
@@ -43,7 +40,7 @@ public class RestauarntApiController {
     }
 
     @GetMapping("/restaurant/{identifier}")
-    public RestaurantInfoDto getRestaurantByIdentifier(@PathVariable String identifier) {
+    public RestaurantInfoDto getRestaurantInfoDtoByIdentifier(@PathVariable String identifier) {
         if (isDigit(identifier)) {
             return restaurantService.getRestaurantInfoDtoById(Long.parseLong(identifier));
         } else {
@@ -52,8 +49,8 @@ public class RestauarntApiController {
     }
 
     @PutMapping("/restaurant/{restaurantId}")
-    public void updateRestaurantById(@PathVariable Long restaurantId, @RequestBody RestaurantSaveDto restaurantSaveDto) {
-        restaurantService.updateRestaurant(restaurantId, restaurantSaveDto);
+    public void updateRestaurantById(@PathVariable Long restaurantId, @RequestBody RestaurantRequestDto restaurantRequestDto) {
+        restaurantService.updateRestaurant(restaurantId, restaurantRequestDto);
     }
 
     @DeleteMapping("/restaurant/{identifier}")
@@ -66,10 +63,10 @@ public class RestauarntApiController {
     }
 
     @PostMapping("/restaurant/{restaurantId}/review")
-    public Long uploadReview(@PathVariable Long restaurantId, @RequestBody ReviewSaveDto reviewSaveDto) {
-        Member author = memberService.getMemberByEmail(reviewSaveDto.getAuthorEmail());
+    public Long uploadReview(@PathVariable Long restaurantId, @RequestBody ReviewRequestDto reviewRequestDto) {
+        Member author = memberService.getMemberByEmail(reviewRequestDto.getAuthorEmail());
 
-        return restaurantService.uploadReview(author, restaurantId, reviewSaveDto);
+        return restaurantService.uploadReview(author, restaurantId, reviewRequestDto);
     }
 
     @GetMapping("/restaurant/{restaurantId}/review")

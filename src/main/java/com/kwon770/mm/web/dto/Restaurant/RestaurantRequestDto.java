@@ -1,4 +1,4 @@
-package com.kwon770.mm.web.dto;
+package com.kwon770.mm.web.dto.Restaurant;
 
 import com.kwon770.mm.domain.restaurant.Location;
 import com.kwon770.mm.domain.restaurant.Price;
@@ -9,7 +9,7 @@ import lombok.NoArgsConstructor;
 
 @Getter
 @NoArgsConstructor
-public class RestaurantSaveDto {
+public class RestaurantRequestDto {
 
     private String name;
     private String description;

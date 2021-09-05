@@ -1,4 +1,4 @@
-package com.kwon770.mm.web.dto;
+package com.kwon770.mm.web.dto.Restaurant;
 
 import com.kwon770.mm.domain.review.Review;
 import lombok.*;

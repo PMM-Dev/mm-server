@@ -1,7 +1,7 @@
 ##GET http://localhost:8080/restaurant/list
 #
-#POST http://ec2-13-209-37-35.ap-northeast-2.compute.amazonaws.com:8080/restaurant
 POST http://localhost:8080/restaurant
+Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIxIiwiYXV0aCI6IlJPTEVfQURNSU4iLCJleHAiOjE2MzA4MjM3NTd9.V_9IJ_a0KN0QtsZZ_nK4T54kxOOpT4qYFXJgcXmVjqphWLGFLMD4w4782tH0pzIZ7gC5sYxO3DdDCcEUV-bwUw
 Content-Type: application/json
 
 {
@@ -16,24 +16,24 @@ Content-Type: application/json
 
 ###
 
-#GET http://ec2-13-209-37-35.ap-northeast-2.compute.amazonaws.com:8080/restaurant/list
 GET http://localhost:8080/restaurant/1
+Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIxIiwiYXV0aCI6IlJPTEVfQURNSU4iLCJleHAiOjE2MzA4MjM3NTd9.V_9IJ_a0KN0QtsZZ_nK4T54kxOOpT4qYFXJgcXmVjqphWLGFLMD4w4782tH0pzIZ7gC5sYxO3DdDCcEUV-bwUw
 
-###
-#POST http://ec2-13-209-37-35.ap-northeast-2.compute.amazonaws.com:8080/restaurant/special;
-GET http://localhost:8080/restaurant/special;
-
-Content-Type: application/json
-
-{
-  "special" : "ALLDAY"
-}
-
-###
-
-PUT http://localhost:8080/restaurant/1/special/ALLDAY
-#PUT http://ec2-13-209-37-35.ap-northeast-2.compute.amazonaws.com:8080/restaurant/2/special/ALLDAY
-
-###
+####
+#GET http://localhost:8080/restaurant/special;
+#
+#Content-Type: application/json
+#
+#{
+#  "special" : "ALLDAY"
+#}
+#
+####
+#
+#PUT http://localhost:8080/restaurant/1/special/ALLDAY
+#
+####
 
 GET http://localhost:8080/restaurant/condition?type=KOREAN
+#PUT http://localhost:8080/member/sketom77@gmail.com/like/1
+Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIxIiwiYXV0aCI6IlJPTEVfQURNSU4iLCJleHAiOjE2MzA4MjM3NTd9.V_9IJ_a0KN0QtsZZ_nK4T54kxOOpT4qYFXJgcXmVjqphWLGFLMD4w4782tH0pzIZ7gC5sYxO3DdDCcEUV-bwUw

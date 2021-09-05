@@ -1,8 +1,8 @@
 package com.kwon770.mm.web;
 
 import com.kwon770.mm.service.RestaurantPropertyService;
-import com.kwon770.mm.web.dto.RestaurantSpecialSaveDto;
-import com.kwon770.mm.web.dto.RestaurantThemeSaveDto;
+import com.kwon770.mm.web.dto.Restaurant.RestaurantSpecialRequestDto;
+import com.kwon770.mm.web.dto.Restaurant.RestaurantThemeRequestDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
@@ -13,8 +13,8 @@ public class RestaurantPropertyApiController {
     private final RestaurantPropertyService restaurantPropertyService;
 
     @PostMapping("/theme")
-    public Long saveTheme(@RequestBody RestaurantThemeSaveDto restaurantThemeSaveDto) {
-        return restaurantPropertyService.saveTheme(restaurantThemeSaveDto);
+    public Long saveTheme(@RequestBody RestaurantThemeRequestDto restaurantThemeRequestDto) {
+        return restaurantPropertyService.saveTheme(restaurantThemeRequestDto);
     }
 
     @DeleteMapping("/theme/{theme}")
@@ -33,8 +33,8 @@ public class RestaurantPropertyApiController {
     }
 
     @PostMapping("/special")
-    public Long saveSpecial(@RequestBody RestaurantSpecialSaveDto restaurantSpecialSaveDto) {
-        return restaurantPropertyService.saveSpecial(restaurantSpecialSaveDto);
+    public Long saveSpecial(@RequestBody RestaurantSpecialRequestDto restaurantSpecialRequestDto) {
+        return restaurantPropertyService.saveSpecial(restaurantSpecialRequestDto);
     }
 
     @DeleteMapping("/special/{special}")

@@ -1,16 +1,14 @@
-package com.kwon770.mm.web.dto;
+package com.kwon770.mm.web.dto.Restaurant;
 
+import com.kwon770.mm.domain.member.Member;
 import com.kwon770.mm.domain.restaurant.*;
-import com.kwon770.mm.domain.review.Review;
+import com.kwon770.mm.util.SecurityUtil;
 import lombok.*;
 
 import java.util.List;
 import java.util.stream.Collectors;
 
-@AllArgsConstructor
-@Builder
 @Getter
-@NoArgsConstructor
 public class RestaurantInfoDto {
 
     private Long id;
@@ -19,17 +17,19 @@ public class RestaurantInfoDto {
     private Type type;
     private Price price;
     private Location location;
-    private boolean deliveryable;
     private Double latitude;
     private Double longitude;
-    private Float averageGrade;
     private String openTime;
     private String closeTime;
+    private boolean deliveryable;
+    private Float averageGrade;
     private List<RestaurantTheme> themes;
     private List<RestaurantSpecial> specials;
     private List<ReviewInfoDto> reviews;
     private Integer reviewCount;
     private Integer likeCount;
+
+    private boolean didLike;
 
     public RestaurantInfoDto(Restaurant restaurant) {
         this.id = restaurant.getId();
@@ -46,12 +46,21 @@ public class RestaurantInfoDto {
         this.closeTime = restaurant.getCloseTime();
         this.themes = restaurant.getThemes();
         this.specials = restaurant.getSpecials();
-        this.reviews = convertReviewsToDtos(restaurant.getReviews());
+        this.reviews = restaurant.getReviews().stream().map(ReviewInfoDto::new).collect(Collectors.toList());
         this.reviewCount = restaurant.getReviewCount();
         this.likeCount = restaurant.getLikeCount();
+
+        calculateDidLike(restaurant.getLikingMembers());
     }
 
-    private List<ReviewInfoDto> convertReviewsToDtos(List<Review> reviews) {
-        return reviews.stream().map(ReviewInfoDto::new).collect(Collectors.toList());
+
+    private void calculateDidLike(List<Member> LikingMembers) {
+        Long userId = SecurityUtil.getCurrentMemberId();
+        for (Member likedMember : LikingMembers) {
+            if (userId.equals(likedMember.getId())) {
+                this.didLike = true;
+                break;
+            }
+        }
     }
 }

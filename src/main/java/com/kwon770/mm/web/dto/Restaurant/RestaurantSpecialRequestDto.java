@@ -1,4 +1,4 @@
-package com.kwon770.mm.web.dto;
+package com.kwon770.mm.web.dto.Restaurant;
 
 import com.kwon770.mm.domain.restaurant.RestaurantSpecial;
 import com.kwon770.mm.domain.restaurant.Special;
@@ -8,12 +8,12 @@ import lombok.NoArgsConstructor;
 
 @NoArgsConstructor
 @Getter
-public class RestaurantSpecialSaveDto {
+public class RestaurantSpecialRequestDto {
 
     private Special special;
 
     @Builder
-    public RestaurantSpecialSaveDto(Special special) { this.special = special; }
+    public RestaurantSpecialRequestDto(Special special) { this.special = special; }
 
     public RestaurantSpecial toEntity() {
         return RestaurantSpecial.builder()
