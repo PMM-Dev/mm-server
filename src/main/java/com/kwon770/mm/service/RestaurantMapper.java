@@ -29,6 +29,6 @@ public interface RestaurantMapper {
 
     List<ReviewInfoDto> reviewsToReviewInfoDtos(List<Review> reviews);
 
-    @Mapping(target = "authorEmail", expression = "java(review.getAuthor().getEmail())")
+    @Mapping(target = "authorName", expression = "java(review.getAuthor().getName())")
     ReviewInfoDto reviewToReviewInfoDto(Review review);
 }
