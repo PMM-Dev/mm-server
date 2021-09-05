@@ -14,8 +14,8 @@ public class GlobalExceptionHandler {
         LogView.logInfoExceptionTitle(e);
 
         CommonResponse response = CommonResponse.builder()
-                .status(ErrorCode.NOT_EXIST_ARGUMENT.getStatus())
-                .code(ErrorCode.NOT_EXIST_ARGUMENT.name())
+                .status(ErrorCode.ILLEGAL_ARGUMENT.getStatus())
+                .code(ErrorCode.ILLEGAL_ARGUMENT.name())
                 .message(e.getMessage())
                 .build();
 

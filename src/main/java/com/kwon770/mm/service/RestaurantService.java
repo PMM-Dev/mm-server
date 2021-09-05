@@ -6,6 +6,7 @@ import com.kwon770.mm.domain.restaurant.RestaurantRepository;
 import com.kwon770.mm.domain.review.Review;
 import com.kwon770.mm.domain.review.ReviewRepository;
 import com.kwon770.mm.domain.member.Member;
+import com.kwon770.mm.util.SecurityUtil;
 import com.kwon770.mm.web.dto.Restaurant.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -83,18 +84,37 @@ public class RestaurantService {
         return reviewRepository.save(reviewEntity).getId();
     }
 
-    public List<ReviewInfoDto> getReviewList(Long restaurantId) {
+    public ReviewInfoDto getMyReviewInfoDtoByRestaurantId(Long restaurantId) {
+        Restaurant restaurant = getRestaurantById(restaurantId);
+        Long myId = SecurityUtil.getCurrentMemberId();
+        for (Review review : restaurant.getReviews()) {
+            if (myId.equals(review.getAuthor().getId())) {
+                return RestaurantMapper.INSTANCE.reviewToReviewInfoDto(review);
+            }
+        }
+
+        return null;
+    }
+
+    public List<ReviewInfoDto> getReviewInfoDtosByRestaurantId(Long restaurantId) {
         Restaurant restaurant = getRestaurantById(restaurantId);
 
         return RestaurantMapper.INSTANCE.reviewsToReviewInfoDtos(restaurant.getReviews());
     }
 
-    public void deleteReviewById(Long reviewId) {
-        Review review = reviewRepository.getOne(reviewId);
-        Restaurant restaurant = review.getRestaurant();
+    public void deleteMyReviewByRestaurantId(Long restaurantId) throws IllegalArgumentException {
+        Long reviewId = -1L;
+        Restaurant restaurant = getRestaurantById(restaurantId);
+        Long myId = SecurityUtil.getCurrentMemberId();
+        for (Review review : restaurant.getReviews()) {
+            if (myId.equals(review.getId())) {
+                reviewId = review.getId();
+            }
+        }
 
-        restaurant.calculateSubtractedAverageGrade(review.getGrade());
-        restaurant.subtractReviewCount();
+        if (reviewId == -1L) {
+            throw new IllegalArgumentException("해당 식당에 작성한 리뷰가 없습니다. Restaurant Id = " + restaurantId);
+        }
 
         reviewRepository.deleteById(reviewId);
     }

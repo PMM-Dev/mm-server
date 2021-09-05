@@ -70,14 +70,19 @@ public class RestauarntApiController {
         return restaurantService.uploadReview(author, restaurantId, reviewRequestDto);
     }
 
-    @GetMapping("/restaurant/{restaurantId}/review")
-    public List<ReviewInfoDto> getReviewListByRestaurantId(@PathVariable Long restaurantId) {
-        return restaurantService.getReviewList(restaurantId);
+    @GetMapping("/restaurant/{restaurantId}/review/me")
+    public ReviewInfoDto getMyReviewInfoDtoByRestaurantId(@PathVariable Long restaurantId) {
+        return restaurantService.getMyReviewInfoDtoByRestaurantId(restaurantId);
     }
 
-    @DeleteMapping("/review/{reviewId}")
-    public void deleteReviewById(@PathVariable Long reviewId) {
-        restaurantService.deleteReviewById(reviewId);
+    @GetMapping("/restaurant/{restaurantId}/review")
+    public List<ReviewInfoDto> getReviewInfoDtosByRestaurantId(@PathVariable Long restaurantId) {
+        return restaurantService.getReviewInfoDtosByRestaurantId(restaurantId);
+    }
+
+    @DeleteMapping("/restaurant/{restaurantId}/review/me")
+    public void deleteMyReviewByRestaurantId(@PathVariable Long restaurantId) {
+        restaurantService.deleteMyReviewByRestaurantId(restaurantId);
     }
 
 }
