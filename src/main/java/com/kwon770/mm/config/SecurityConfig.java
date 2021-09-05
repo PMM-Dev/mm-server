@@ -59,9 +59,12 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .and()
                 .authorizeRequests()
                 .antMatchers("/auth/**").permitAll()
-                .antMatchers("/member/list", "/restaurant/list").hasRole("ADMIN")
+
+                .antMatchers("/member/list", "/member/{\\d+}/like", "/restaurant/list", "/title/**", "/theme/**", "/special/**").hasRole("ADMIN")
+                .antMatchers(HttpMethod.PUT, "/member/{\\d+}", "/restaurant/{\\d+}").hasRole("ADMIN")
                 .antMatchers(HttpMethod.DELETE, "/member/{\\d+}", "/restaurant/{\\d+}").hasRole("ADMIN")
-                .anyRequest().hasAnyRole("USER", "ADMIN")   // 나머지 API 는 전부 인증 필요
+
+                .anyRequest().hasAnyRole("USER", "ADMIN")
 
                 // JwtFilter 를 addFilterBefore 로 등록했던 JwtSecurityConfig 클래스를 적용
                 .and()
