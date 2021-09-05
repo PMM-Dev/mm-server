@@ -1,8 +1,8 @@
 package com.kwon770.mm.web;
 
 import com.kwon770.mm.service.MemberPropertyService;
-import com.kwon770.mm.web.dto.LikedRestaurantDto;
 import com.kwon770.mm.web.dto.MemberTitleRequestDto;
+import com.kwon770.mm.web.dto.Restaurant.RestaurantElementDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
@@ -22,28 +22,28 @@ public class MemberPropertyApiController {
     @DeleteMapping("/title/{title}")
     public void deleteTitle(@PathVariable String title) { memberPropertyService.deleteTitle(title); }
 
-    @PutMapping("/member/{email}/title/{title}")
-    public void appendTitle(@PathVariable String email, @PathVariable String title) {
-        memberPropertyService.appendTitle(email, title);
+    @PutMapping("/member/title/{title}")
+    public void appendTitle(@PathVariable String title) {
+        memberPropertyService.appendTitle(title);
     }
 
-    @DeleteMapping("/member/{email}/title/{title}")
-    public void subtractTitle(@PathVariable String email, @PathVariable String title) {
-        memberPropertyService.subtractTitle(email, title);
+    @DeleteMapping("/member/title/{title}")
+    public void subtractTitle(@PathVariable String title) {
+        memberPropertyService.subtractTitle(title);
     }
 
     @GetMapping("/member/{email}/like")
-    public List<LikedRestaurantDto> getLikedRestaurantList(@PathVariable String email) {
+    public List<RestaurantElementDto> getLikedRestaurantList(@PathVariable String email) {
         return memberPropertyService.getLikedRestaurantList(email);
     }
 
-    @PutMapping("/member/{email}/like/{restaurantId}")
-    public void appendLikedRestaurant(@PathVariable String email, @PathVariable Long restaurantId) {
-        memberPropertyService.appendLikedRestaurant(email, restaurantId);
+    @PutMapping("/member/like/{restaurantId}")
+    public void appendLikedRestaurant(@PathVariable Long restaurantId) {
+        memberPropertyService.appendLikedRestaurant(restaurantId);
     }
 
-    @DeleteMapping("/member/{email}/like/{restaurantId}")
-    public void subtractLikedRestaurant(@PathVariable String email, @PathVariable Long restaurantId) {
-        memberPropertyService.subtractedLikedRestaurant(email, restaurantId);
+    @DeleteMapping("/member/like/{restaurantId}")
+    public void subtractLikedRestaurant(@PathVariable Long restaurantId) {
+        memberPropertyService.subtractedLikedRestaurant(restaurantId);
     }
 }

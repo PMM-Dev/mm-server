@@ -25,7 +25,7 @@ public class RestauarntApiController {
     }
 
     @GetMapping("/restaurant/list")
-    public List<Restaurant> getRestaurantList() {
+    public List<Restaurant> getAllRestaurantList() {
         return restaurantService.getRestaurantList();
     }
 
@@ -54,7 +54,7 @@ public class RestauarntApiController {
     }
 
     @DeleteMapping("/restaurant/{identifier}")
-    public void deleteRestaurant(@PathVariable String identifier) {
+    public void deleteRestaurantByIdentifier(@PathVariable String identifier) {
         if (isDigit(identifier)) {
             restaurantService.deleteRestaurantById(Long.parseLong(identifier));
         } else {

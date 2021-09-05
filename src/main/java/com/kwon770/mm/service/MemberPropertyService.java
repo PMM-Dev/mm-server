@@ -5,8 +5,9 @@ import com.kwon770.mm.domain.member.Title;
 import com.kwon770.mm.domain.member.Member;
 import com.kwon770.mm.domain.member.MemberTitle;
 import com.kwon770.mm.domain.member.MemberTitleRepository;
-import com.kwon770.mm.web.dto.LikedRestaurantDto;
+import com.kwon770.mm.util.SecurityUtil;
 import com.kwon770.mm.web.dto.MemberTitleRequestDto;
+import com.kwon770.mm.web.dto.Restaurant.RestaurantElementDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -31,31 +32,31 @@ public class MemberPropertyService {
     }
 
     @Transactional
-    public void appendTitle(String email, String title) {
-        Member member = memberService.getMemberByEmail(email);
+    public void appendTitle(String title) {
+        Member member = memberService.getMemberById(SecurityUtil.getCurrentMemberId());
         MemberTitle memberTitle = memberTitleRepository.findByTitle(Title.valueOf(title));
 
         member.appendTitle(memberTitle);
     }
 
     @Transactional
-    public void subtractTitle(String email, String title) {
-        Member member = memberService.getMemberByEmail(email);
+    public void subtractTitle(String title) {
+        Member member = memberService.getMemberById(SecurityUtil.getCurrentMemberId());
         MemberTitle memberTitle = memberTitleRepository.findByTitle(Title.valueOf(title));
 
         member.subtractTitle(memberTitle);
     }
 
-    public List<LikedRestaurantDto> getLikedRestaurantList(String email) {
+    public List<RestaurantElementDto> getLikedRestaurantList(String email) {
         Member member = memberService.getMemberByEmail(email);
         List<Restaurant> likedRestaurantEntities = member.getLikedRestaurants();
 
-        return RestaurantMapper.INSTANCE.restaurantsToLikedRestaurantDtos(likedRestaurantEntities);
+        return RestaurantMapper.INSTANCE.restaurantsToRestaurantElementDtos(likedRestaurantEntities);
     }
 
     @Transactional
-    public void appendLikedRestaurant(String email, Long restaurantId) {
-        Member member = memberService.getMemberByEmail(email);
+    public void appendLikedRestaurant(Long restaurantId) {
+        Member member = memberService.getMemberById(SecurityUtil.getCurrentMemberId());
         Restaurant restaurant = restaurantService.getRestaurantById(restaurantId);
 
         restaurant.addLikeCount();
@@ -63,8 +64,8 @@ public class MemberPropertyService {
     }
 
     @Transactional
-    public void subtractedLikedRestaurant(String email, Long restaurantId) {
-        Member member = memberService.getMemberByEmail(email);
+    public void subtractedLikedRestaurant(Long restaurantId) {
+        Member member = memberService.getMemberById(SecurityUtil.getCurrentMemberId());
         Restaurant restaurant = restaurantService.getRestaurantById(restaurantId);
 
         restaurant.subtractLikeCount();

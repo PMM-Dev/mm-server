@@ -22,19 +22,19 @@ public class RestaurantPropertyApiController {
         restaurantPropertyService.deleteTheme(theme);
     }
 
-    @PutMapping("/restaurant/{id}/theme/{theme}")
-    public void appendTheme(@PathVariable Long id, @PathVariable String theme) {
-        restaurantPropertyService.appendTheme(id, theme);
+    @PutMapping("/restaurant/{restaurantId}/theme/{theme}")
+    public void appendTheme(@PathVariable Long restaurantId, @PathVariable String theme) {
+        restaurantPropertyService.appendTheme(restaurantId, theme);
     }
 
-    @DeleteMapping("/restaurant/{id}/theme/{theme}")
-    public void subtractTheme(@PathVariable Long id, @PathVariable String theme) {
-        restaurantPropertyService.subtractTheme(id, theme);
+    @DeleteMapping("/restaurant/{restaurantId}/theme/{theme}")
+    public void subtractTheme(@PathVariable Long restaurantId, @PathVariable String theme) {
+        restaurantPropertyService.subtractTheme(restaurantId, theme);
     }
 
     @PostMapping("/special")
-    public Long saveSpecial(@RequestBody RestaurantSpecialRequestDto restaurantSpecialRequestDto) {
-        return restaurantPropertyService.saveSpecial(restaurantSpecialRequestDto);
+    public Long saveSpecial(@RequestBody RestaurantSpecialRequestDto restaurantSpecialSaveDto) {
+        return restaurantPropertyService.saveSpecial(restaurantSpecialSaveDto);
     }
 
     @DeleteMapping("/special/{special}")
@@ -42,13 +42,13 @@ public class RestaurantPropertyApiController {
         restaurantPropertyService.deleteSpeical(special);
     }
 
-    @PutMapping("/restaurant/{id}/special/{special}")
-    public void appendSpecial(@PathVariable Long id, @PathVariable String special) {
-        restaurantPropertyService.appendSpecial(id, special);
+    @PutMapping("/restaurant/{restaurantId}/special/{special}")
+    public void appendSpecial(@PathVariable Long restaurantId, @PathVariable String special) {
+        restaurantPropertyService.appendSpecial(restaurantId, special);
     }
 
-    @DeleteMapping("/restaurant/{id}/special/{special}")
-    public void subtractSpecial(@PathVariable Long id, @PathVariable String special) {
-        restaurantPropertyService.subtractSpecial(id, special);
+    @DeleteMapping("/restaurant/{restaurantId}/special/{special}")
+    public void subtractSpecial(@PathVariable Long restaurantId, @PathVariable String special) {
+        restaurantPropertyService.subtractSpecial(restaurantId, special);
     }
 }

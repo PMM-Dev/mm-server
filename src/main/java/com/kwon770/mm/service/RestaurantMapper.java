@@ -2,7 +2,6 @@ package com.kwon770.mm.service;
 
 import com.kwon770.mm.domain.restaurant.Restaurant;
 import com.kwon770.mm.domain.review.Review;
-import com.kwon770.mm.web.dto.LikedRestaurantDto;
 import com.kwon770.mm.web.dto.Restaurant.RestaurantElementDto;
 import com.kwon770.mm.web.dto.Restaurant.RestaurantInfoDto;
 import com.kwon770.mm.web.dto.Restaurant.ReviewInfoDto;
@@ -22,15 +21,11 @@ public interface RestaurantMapper {
         return new RestaurantInfoDto(restaurant);
     }
 
-    List<LikedRestaurantDto> restaurantsToLikedRestaurantDtos(List<Restaurant> restaurants);
-
     default RestaurantElementDto restaurantToRestaurantElementDto(Restaurant restaurant) {
         return new RestaurantElementDto(restaurant);
     }
 
     List<RestaurantElementDto> restaurantsToRestaurantElementDtos(List<Restaurant> restaurants);
-
-    LikedRestaurantDto restaurantToLikedRestaurantDto(Restaurant restaurant);
 
     List<ReviewInfoDto> reviewsToReviewInfoDtos(List<Review> reviews);
 

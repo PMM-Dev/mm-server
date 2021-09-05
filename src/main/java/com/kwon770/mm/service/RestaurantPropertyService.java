@@ -24,23 +24,23 @@ public class RestaurantPropertyService {
     }
 
     @Transactional
-    public void appendTheme(Long id, String theme) {
-        Restaurant restaurant = restaurantService.getRestaurantById(id);
+    public void appendTheme(Long restaurantId, String theme) {
+        Restaurant restaurant = restaurantService.getRestaurantById(restaurantId);
         RestaurantTheme restaurantTheme = restaurantThemeRepository.findByTheme(Theme.valueOf(theme));
 
         restaurant.appendTheme(restaurantTheme);
     }
 
     @Transactional
-    public void subtractTheme(Long id, String theme) {
-        Restaurant restaurant = restaurantService.getRestaurantById(id);
+    public void subtractTheme(Long restaurantId, String theme) {
+        Restaurant restaurant = restaurantService.getRestaurantById(restaurantId);
         RestaurantTheme restaurantTheme = restaurantThemeRepository.findByTheme(Theme.valueOf(theme));
 
         restaurant.subtractTheme(restaurantTheme);
     }
 
-    public Long saveSpecial(RestaurantSpecialRequestDto restaurantSpecialRequestDto) {
-        return restaurantSpecialRepository.save(restaurantSpecialRequestDto.toEntity()).getId();
+    public Long saveSpecial(RestaurantSpecialRequestDto restaurantSpecialSaveDto) {
+        return restaurantSpecialRepository.save(restaurantSpecialSaveDto.toEntity()).getId();
     }
 
     public void deleteSpeical(String special) {
@@ -48,16 +48,16 @@ public class RestaurantPropertyService {
     }
 
     @Transactional
-    public void appendSpecial(Long id, String special) {
-        Restaurant restaurant = restaurantService.getRestaurantById(id);
+    public void appendSpecial(Long restaurantId, String special) {
+        Restaurant restaurant = restaurantService.getRestaurantById(restaurantId);
         RestaurantSpecial restaurantSpecial = restaurantSpecialRepository.findBySpecial(Special.valueOf(special));
 
         restaurant.appendSpecial(restaurantSpecial);
     }
 
     @Transactional
-    public void subtractSpecial(Long id, String special) {
-        Restaurant restaurant = restaurantService.getRestaurantById(id);
+    public void subtractSpecial(Long restaurantId, String special) {
+        Restaurant restaurant = restaurantService.getRestaurantById(restaurantId);
         RestaurantSpecial restaurantSpecial = restaurantSpecialRepository.findBySpecial(Special.valueOf(special));
 
         restaurant.subtractSpecial(restaurantSpecial);

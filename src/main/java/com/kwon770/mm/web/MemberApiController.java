@@ -27,7 +27,7 @@ public class MemberApiController {
     }
 
     @GetMapping("/member/{identifier}")
-    public MemberInfoDto getMemberByIdentifer(@PathVariable String identifier) {
+    public MemberInfoDto getMemberByIdentifier(@PathVariable String identifier) {
         if (isDigit(identifier)) {
             return memberService.getMemberInfoDtoById(Long.parseLong(identifier));
         } else {
