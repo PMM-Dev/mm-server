@@ -1,7 +1,6 @@
 package com.kwon770.mm.domain.member;
 
 import lombok.Builder;
-import lombok.Generated;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -17,7 +16,7 @@ public class RefreshToken {
     private Long id;
 
     @Column(nullable = false)
-    private String key;
+    private String tokenKey;
 
     @Column(nullable = false)
     private String value;
@@ -28,8 +27,8 @@ public class RefreshToken {
     }
 
     @Builder
-    public RefreshToken(String key, String value) {
-        this.key = key;
+    public RefreshToken(String tokenKey, String value) {
+        this.tokenKey = tokenKey;
         this.value = value;
     }
 }
