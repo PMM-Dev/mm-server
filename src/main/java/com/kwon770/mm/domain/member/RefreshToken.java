@@ -1,6 +1,7 @@
 package com.kwon770.mm.domain.member;
 
 import lombok.Builder;
+import lombok.Generated;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -13,7 +14,10 @@ public class RefreshToken {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private String tokenKey;
+    private Long id;
+
+    @Column(nullable = false)
+    private String key;
 
     @Column(nullable = false)
     private String value;
@@ -24,8 +28,8 @@ public class RefreshToken {
     }
 
     @Builder
-    public RefreshToken(String tokenKey, String value) {
-        this.tokenKey = tokenKey;
+    public RefreshToken(String key, String value) {
+        this.key = key;
         this.value = value;
     }
 }
