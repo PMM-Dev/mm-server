@@ -43,7 +43,7 @@ public class RestaurantPropertyService {
         return restaurantSpecialRepository.save(restaurantSpecialSaveDto.toEntity()).getId();
     }
 
-    public void deleteSpeical(String special) {
+    public void deleteSpecial(String special) {
         restaurantSpecialRepository.delete(restaurantSpecialRepository.findBySpecial(Special.valueOf(special)));
     }
 

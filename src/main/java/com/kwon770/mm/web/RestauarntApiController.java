@@ -4,6 +4,7 @@ import com.kwon770.mm.domain.restaurant.Restaurant;
 import com.kwon770.mm.domain.member.Member;
 import com.kwon770.mm.service.RestaurantService;
 import com.kwon770.mm.service.MemberService;
+import com.kwon770.mm.util.SecurityUtil;
 import com.kwon770.mm.web.dto.Restaurant.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
@@ -64,7 +65,7 @@ public class RestauarntApiController {
 
     @PostMapping("/restaurant/{restaurantId}/review")
     public Long uploadReview(@PathVariable Long restaurantId, @RequestBody ReviewRequestDto reviewRequestDto) {
-        Member author = memberService.getMemberByEmail(reviewRequestDto.getAuthorEmail());
+        Member author = memberService.getMemberById(SecurityUtil.getCurrentMemberId());
 
         return restaurantService.uploadReview(author, restaurantId, reviewRequestDto);
     }

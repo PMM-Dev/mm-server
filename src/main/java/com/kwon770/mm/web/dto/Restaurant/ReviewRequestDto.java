@@ -8,13 +8,11 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class ReviewRequestDto {
 
-    private String authorEmail;
     private String description;
     private Integer grade;
 
     @Builder
-    public ReviewRequestDto(String authorEmail, String description, Integer grade) {
-        this.authorEmail = authorEmail;
+    public ReviewRequestDto(String description, Integer grade) {
         this.description = description;
         this.grade = grade;
     }
