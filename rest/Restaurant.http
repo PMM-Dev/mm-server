@@ -1,7 +1,7 @@
 ##GET http://localhost:8080/restaurant/list
 #
 POST http://localhost:8080/restaurant
-Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIxIiwiYXV0aCI6IlJPTEVfQURNSU4iLCJleHAiOjE2MzA4MjM3NTd9.V_9IJ_a0KN0QtsZZ_nK4T54kxOOpT4qYFXJgcXmVjqphWLGFLMD4w4782tH0pzIZ7gC5sYxO3DdDCcEUV-bwUw
+Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIxIiwiYXV0aCI6IlJPTEVfQURNSU4iLCJleHAiOjE2MzEwNzAwNzR9.XmulIvEmbuZnKaTDyF6ciXtdX92JtbH8TNiaYgnmSDSpmIDVi7Xl1Q8uqJOX2oA364Y8Tjiwl27WvyqwBLq2ew
 Content-Type: application/json
 
 {
@@ -17,7 +17,7 @@ Content-Type: application/json
 ###
 
 GET http://localhost:8080/restaurant/1
-Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIxIiwiYXV0aCI6IlJPTEVfQURNSU4iLCJleHAiOjE2MzA4MjM3NTd9.V_9IJ_a0KN0QtsZZ_nK4T54kxOOpT4qYFXJgcXmVjqphWLGFLMD4w4782tH0pzIZ7gC5sYxO3DdDCcEUV-bwUw
+Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIxIiwiYXV0aCI6IlJPTEVfQURNSU4iLCJleHAiOjE2MzEwNzAwNzR9.XmulIvEmbuZnKaTDyF6ciXtdX92JtbH8TNiaYgnmSDSpmIDVi7Xl1Q8uqJOX2oA364Y8Tjiwl27WvyqwBLq2ew
 
 ####
 #GET http://localhost:8080/restaurant/special;

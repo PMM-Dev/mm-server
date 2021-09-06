@@ -26,6 +26,9 @@ public class Member {
     private String email;
 
     @Column(nullable = false)
+    private String encodedEmail;
+
+    @Column(nullable = false)
     private String picture;
 
     @Column(nullable = false)
@@ -38,6 +41,9 @@ public class Member {
     @Column(nullable = false)
     @Enumerated(EnumType.STRING)
     private SocialTokenType socialTokenType;
+
+    @Column(nullable = false)
+    private Integer reviewCount = 0;
 
     @ManyToMany
     @JoinTable(
@@ -56,9 +62,10 @@ public class Member {
     private List<Restaurant> likedRestaurants = new ArrayList<>();
 
     @Builder
-    public Member(String name, String email, String picture, Role role, String socialToken, SocialTokenType socialTokenType) {
+    public Member(String name, String email, String encodedEmail, String picture, Role role, String socialToken, SocialTokenType socialTokenType) {
         this.name = name;
         this.email = email;
+        this.encodedEmail = encodedEmail;
         this.picture = picture;
         this.role = role;
         this.socialToken = socialToken;
@@ -72,6 +79,14 @@ public class Member {
         this.role = memberRequestDto.getRole();
         this.socialToken = memberRequestDto.getSocialToken();
         this.socialTokenType = memberRequestDto.getSocialTokenType();
+    }
+
+    public void increaseReviewCount() {
+        reviewCount++;
+    }
+
+    public void decreaseReviewCount() {
+        reviewCount--;
     }
 
     public void appendTitle(MemberTitle memberTitle) { this.titles.add(memberTitle); }

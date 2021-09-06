@@ -59,7 +59,6 @@ public class MemberPropertyService {
         Member member = memberService.getMemberById(SecurityUtil.getCurrentMemberId());
         Restaurant restaurant = restaurantService.getRestaurantById(restaurantId);
 
-        restaurant.addLikeCount();
         member.appendLikedRestaurant(restaurant);
     }
 
@@ -68,7 +67,6 @@ public class MemberPropertyService {
         Member member = memberService.getMemberById(SecurityUtil.getCurrentMemberId());
         Restaurant restaurant = restaurantService.getRestaurantById(restaurantId);
 
-        restaurant.subtractLikeCount();
         member.subtractedLikedRestaurant(restaurant);
     }
 }

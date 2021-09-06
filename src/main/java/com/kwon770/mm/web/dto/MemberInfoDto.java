@@ -16,11 +16,17 @@ public class MemberInfoDto {
     private String picture;
     private Role role;
 
+    private Integer likeCount;
+    private Integer reviewCount;
+
     public MemberInfoDto(Member member) {
         this.id = member.getId();
         this.name = member.getName();
         this.email = member.getEmail();
         this.picture = member.getPicture();
         this.role = member.getRole();
+
+        this.likeCount = member.getLikedRestaurants().size();
+        this.reviewCount = member.getReviewCount();
     }
 }

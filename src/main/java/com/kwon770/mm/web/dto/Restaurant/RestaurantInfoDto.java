@@ -47,8 +47,8 @@ public class RestaurantInfoDto {
         this.themes = restaurant.getThemes();
         this.specials = restaurant.getSpecials();
         this.reviews = restaurant.getReviews().stream().map(ReviewInfoDto::new).collect(Collectors.toList());
-        this.reviewCount = restaurant.getReviewCount();
-        this.likeCount = restaurant.getLikeCount();
+        this.reviewCount = restaurant.getReviews().size();
+        this.likeCount = restaurant.getLikingMembers().size();
 
         calculateDidLike(restaurant.getLikingMembers());
     }

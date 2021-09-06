@@ -35,14 +35,15 @@ public class MemberRequestDto {
         return Member.builder()
                 .name(name)
                 .email(email)
+                .encodedEmail(passwordEncoder.encode(email))
                 .picture(picture)
                 .role(role)
-                .socialToken(passwordEncoder.encode(socialToken))
+                .socialToken(socialToken)
                 .socialTokenType(socialTokenType)
                 .build();
     }
 
     public UsernamePasswordAuthenticationToken toAuthentication() {
-        return new UsernamePasswordAuthenticationToken(email, socialToken);
+        return new UsernamePasswordAuthenticationToken(email, email);
     }
 }

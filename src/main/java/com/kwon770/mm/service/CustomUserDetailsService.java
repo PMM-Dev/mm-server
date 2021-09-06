@@ -33,7 +33,7 @@ public class CustomUserDetailsService implements UserDetailsService {
 
         return new User(
                 String.valueOf(member.getId()),
-                member.getSocialToken(),
+                member.getEncodedEmail(),
                 Collections.singleton(grantedAuthority)
         );
     }

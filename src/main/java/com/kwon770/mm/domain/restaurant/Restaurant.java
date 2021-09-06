@@ -73,15 +73,9 @@ public class Restaurant {
     @JsonManagedReference
     private List<Review> reviews = new ArrayList<>();
 
-    @Column(nullable = false)
-    private Integer reviewCount = 0;
-
     @ManyToMany(mappedBy = "likedRestaurants")
     @JsonBackReference
     private List<Member> likingMembers = new ArrayList<>();
-
-    @Column(nullable = false)
-    private Integer likeCount = 0;
 
     @Builder
     public Restaurant(String name, String description,
@@ -129,25 +123,15 @@ public class Restaurant {
         this.specials.remove(restaurantSpecial);
     }
 
-    public void addReviewCount() {
-        reviewCount++;
-    }
-
-    public void subtractReviewCount() {
-        reviewCount--;
-    }
-
     public void calculateAddedAverageGrade(Integer newGrade) {
+        int reviewCount = reviews.size();
         Float sum = (averageGrade * reviewCount) + newGrade;
         averageGrade = sum / (reviewCount + 1);
     }
 
     public void calculateSubtractedAverageGrade(Integer newGrade) {
+        int reviewCount = reviews.size();
         Float sum = (averageGrade * reviewCount) - newGrade;
         averageGrade = sum / (reviewCount - 1);
     }
-
-    public void addLikeCount() { likeCount++;}
-
-    public void subtractLikeCount() { likeCount--; }
 }

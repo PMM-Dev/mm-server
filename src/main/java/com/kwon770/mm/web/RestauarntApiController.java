@@ -64,10 +64,10 @@ public class RestauarntApiController {
     }
 
     @PostMapping("/restaurant/{restaurantId}/review")
-    public Long uploadReview(@PathVariable Long restaurantId, @RequestBody ReviewRequestDto reviewRequestDto) {
+    public Long uploadMyReviewByRestaurantId(@PathVariable Long restaurantId, @RequestBody ReviewRequestDto reviewRequestDto) {
         Member author = memberService.getMemberById(SecurityUtil.getCurrentMemberId());
 
-        return restaurantService.uploadReview(author, restaurantId, reviewRequestDto);
+        return restaurantService.uploadMyReviewByRestaurantId(author, restaurantId, reviewRequestDto);
     }
 
     @GetMapping("/restaurant/{restaurantId}/review/me")

@@ -13,5 +13,7 @@ public interface MemberMapper {
 
     List<MemberInfoDto> membersToMemberInfoDtos(List<Member> members);
 
-    MemberInfoDto memberToMemberInfoDto(Member member);
+    default MemberInfoDto memberToMemberInfoDto(Member member) {
+        return new MemberInfoDto(member);
+    };
 }

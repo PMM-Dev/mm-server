@@ -11,12 +11,14 @@ import com.kwon770.mm.web.dto.Restaurant.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
 import java.util.List;
 
 @RequiredArgsConstructor
 @Service
 public class RestaurantService {
 
+    private final MemberService memberService;
     private final RestaurantRepository restaurantRepository;
     private final RestaurantQueryRepository restaurantQueryRepository;
     private final ReviewRepository reviewRepository;
@@ -69,7 +71,8 @@ public class RestaurantService {
         restaurantRepository.delete(targetRestaurant);
     }
 
-    public Long uploadReview(Member author, Long restaurantId, ReviewRequestDto reviewRequestDto) {
+    @Transactional
+    public Long uploadMyReviewByRestaurantId(Member author, Long restaurantId, ReviewRequestDto reviewRequestDto) {
         Restaurant targetRestaurant = getRestaurantById(restaurantId);
         Review reviewEntity = Review.builder()
                 .author(author)
@@ -79,7 +82,8 @@ public class RestaurantService {
                 .build();
 
         targetRestaurant.calculateAddedAverageGrade(reviewEntity.getGrade());
-        targetRestaurant.addReviewCount();
+
+        memberService.getMemberById(author.getId()).increaseReviewCount();
 
         return reviewRepository.save(reviewEntity).getId();
     }
@@ -102,6 +106,7 @@ public class RestaurantService {
         return RestaurantMapper.INSTANCE.reviewsToReviewInfoDtos(restaurant.getReviews());
     }
 
+    @Transactional
     public void deleteMyReviewByRestaurantId(Long restaurantId) throws IllegalArgumentException {
         Long reviewId = -1L;
         Restaurant restaurant = getRestaurantById(restaurantId);
@@ -117,6 +122,8 @@ public class RestaurantService {
         }
 
         reviewRepository.deleteById(reviewId);
+
+        memberService.getMemberById(myId).decreaseReviewCount();
     }
 
     public void updateRestaurant(Long restaurantId, RestaurantRequestDto restaurantRequestDto) {
