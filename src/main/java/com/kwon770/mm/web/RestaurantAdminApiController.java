@@ -18,7 +18,7 @@ public class RestaurantAdminApiController {
 
     @GetMapping("/restaurant/list")
     public List<Restaurant> getAllRestaurantList() {
-        return restaurantService.getRestaurantList();
+        return restaurantService.getAllRestaurants();
     }
 
     @PutMapping("/restaurant/{restaurantId}")

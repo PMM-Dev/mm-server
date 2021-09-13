@@ -28,7 +28,7 @@ public class RestaurantService {
         return restaurantRepository.save(restaurantRequestDto.toEntity()).getId();
     }
 
-    public List<Restaurant> getRestaurantList() {
+    public List<Restaurant> getAllRestaurants() {
         return restaurantRepository.findAll();
     }
 

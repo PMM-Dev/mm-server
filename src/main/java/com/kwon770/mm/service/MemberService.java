@@ -29,10 +29,8 @@ public class MemberService {
         return getMemberInfoDtoById(SecurityUtil.getCurrentMemberId());
     }
 
-    public List<MemberInfoDto> getMemberInfoDtoList() {
-        List<Member> members = memberRepository.findAll();
-
-        return MemberMapper.INSTANCE.membersToMemberInfoDtos(members);
+    public List<Member> getAllMembers() {
+        return memberRepository.findAll();
     }
 
     public Member getMemberById(Long id) {

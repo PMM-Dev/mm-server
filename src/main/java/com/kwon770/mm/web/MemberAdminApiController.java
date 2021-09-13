@@ -1,7 +1,7 @@
 package com.kwon770.mm.web;
 
+import com.kwon770.mm.domain.member.Member;
 import com.kwon770.mm.service.MemberService;
-import com.kwon770.mm.web.dto.MemberInfoDto;
 import com.kwon770.mm.web.dto.MemberRequestDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
@@ -17,8 +17,8 @@ public class MemberAdminApiController {
     private final MemberService memberService;
 
     @GetMapping("/member/list")
-    public List<MemberInfoDto> getMemberInfoDtoList() {
-        return memberService.getMemberInfoDtoList();
+    public List<Member> getAllMemberList() {
+        return memberService.getAllMembers();
     }
 
     @PutMapping("/member/{userId}")
