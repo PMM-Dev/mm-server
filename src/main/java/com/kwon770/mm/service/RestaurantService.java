@@ -54,6 +54,12 @@ public class RestaurantService {
         return RestaurantMapper.INSTANCE.restaurantToRestaurantInfoDto(restaurant);
     }
 
+    public List<RestaurantElementDto> getRestaurantElementDtosByType(String type) {
+        List<Restaurant> restaurants = restaurantQueryRepository.findAllByType(type);
+
+        return RestaurantMapper.INSTANCE.restaurantsToRestaurantElementDtos(restaurants);
+    }
+
     public RestaurantGachaDto getRestaurantGachaDtoByMultipleCondition(String type, String price, String location, String deliveryable) throws IllegalArgumentException {
         Optional<Restaurant> restaurant = restaurantQueryRepository.findByMultipleConditions(type, price, location, deliveryable);
         if (!restaurant.isPresent()) {
@@ -116,7 +122,7 @@ public class RestaurantService {
         Restaurant restaurant = getRestaurantById(restaurantId);
         Long myId = SecurityUtil.getCurrentMemberId();
         for (Review review : restaurant.getReviews()) {
-            if (myId.equals(review.getId())) {
+            if (myId.equals(review.getAuthor().getId())) {
                 reviewId = review.getId();
             }
         }

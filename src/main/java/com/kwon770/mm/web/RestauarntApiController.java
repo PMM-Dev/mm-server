@@ -25,9 +25,9 @@ public class RestauarntApiController {
         return restaurantService.save(restaurantRequestDto);
     }
 
-    @GetMapping("/restaurant/list")
-    public List<Restaurant> getAllRestaurantList() {
-        return restaurantService.getRestaurantList();
+    @GetMapping("/restaurant/type/{type}")
+    public List<RestaurantElementDto> getRestaurantElementDtosByType(@PathVariable String type) {
+        return restaurantService.getRestaurantElementDtosByType(type);
     }
 
     @GetMapping("/restaurant/condition")
@@ -49,18 +49,9 @@ public class RestauarntApiController {
         }
     }
 
-    @PutMapping("/restaurant/{restaurantId}")
-    public void updateRestaurantById(@PathVariable Long restaurantId, @RequestBody RestaurantRequestDto restaurantRequestDto) {
-        restaurantService.updateRestaurant(restaurantId, restaurantRequestDto);
-    }
-
-    @DeleteMapping("/restaurant/{identifier}")
-    public void deleteRestaurantByIdentifier(@PathVariable String identifier) {
-        if (isDigit(identifier)) {
-            restaurantService.deleteRestaurantById(Long.parseLong(identifier));
-        } else {
-            restaurantService.deleteRestaurantByName(identifier);
-        }
+    @GetMapping("/restaurant/{restaurantId}/review")
+    public List<ReviewInfoDto> getReviewInfoDtosByRestaurantId(@PathVariable Long restaurantId) {
+        return restaurantService.getReviewInfoDtosByRestaurantId(restaurantId);
     }
 
     @PostMapping("/restaurant/{restaurantId}/review")
@@ -73,11 +64,6 @@ public class RestauarntApiController {
     @GetMapping("/restaurant/{restaurantId}/review/me")
     public ReviewInfoDto getMyReviewInfoDtoByRestaurantId(@PathVariable Long restaurantId) {
         return restaurantService.getMyReviewInfoDtoByRestaurantId(restaurantId);
-    }
-
-    @GetMapping("/restaurant/{restaurantId}/review")
-    public List<ReviewInfoDto> getReviewInfoDtosByRestaurantId(@PathVariable Long restaurantId) {
-        return restaurantService.getReviewInfoDtosByRestaurantId(restaurantId);
     }
 
     @DeleteMapping("/restaurant/{restaurantId}/review/me")
