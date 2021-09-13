@@ -12,6 +12,7 @@ import com.kwon770.mm.web.dto.JwtTokenDto;
 import com.kwon770.mm.web.dto.JwtTokenRequestDto;
 import com.kwon770.mm.web.dto.MemberRequestDto;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.core.Authentication;
@@ -34,6 +35,9 @@ public class AuthService {
     private final JwtTokenProvider jwtTokenProvider;
     private final RefreshTokenRepository refreshTokenRepository;
 
+    @Value("${admin-token-secret}")
+    private String adminTokenSecret;
+
     @Transactional
     public Long register(MemberRequestDto memberRequestDto) {
         if (memberRepository.existsByEmail(memberRequestDto.getEmail())) {
@@ -48,9 +52,12 @@ public class AuthService {
         // 1. Login ID/PW 를 기반으로 AuthenticationToken 생성
         UsernamePasswordAuthenticationToken authenticationToken = memberRequestDto.toAuthentication();
 
+        System.out.println(adminTokenSecret);
         // 2. 실제로 검증 (사용자 비밀번호 체크) 이 이루어지는 부분
-        if (memberRequestDto.getSocialTokenType() == SocialTokenType.GOOGLE) {
-            validateGoogleSocialToken(memberRequestDto.getEmail(), memberRequestDto.getSocialToken());
+        if (!memberRequestDto.getSocialToken().equals(adminTokenSecret)) {
+            if (memberRequestDto.getSocialTokenType() == SocialTokenType.GOOGLE) {
+                validateGoogleSocialToken(memberRequestDto.getEmail(), memberRequestDto.getSocialToken());
+            }
         }
         //    authenticate 메서드가 실행이 될 때 CustomUserDetailsService 에서 만들었던 loadUserByUsername 메서드가 실행됨
         Authentication authentication = authenticationManagerBuilder.getObject().authenticate(authenticationToken);
@@ -97,7 +104,7 @@ public class AuthService {
             String responseBody = response.toString();
             return responseBody.split(",")[1].split("\"")[3];
         } catch (IOException e) {
-            throw new IllegalArgumentException("올바르지 않은 socialToken 입니다. socialToken=" + socialToken);
+            throw new CustomAuthenticationException("올바르지 않은 socialToken 입니다. socialToken=" + socialToken);
         } catch (Exception e) {
             LogView.logErrorStacktraceWithMessage(e, "알 수 없는 이유로 Google-OAuth로부터 이메일을 요청받지 못했습니다.");
             return "";

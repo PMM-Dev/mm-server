@@ -13,6 +13,7 @@ import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
 import java.util.List;
+import java.util.Optional;
 
 @RequiredArgsConstructor
 @Service
@@ -53,10 +54,13 @@ public class RestaurantService {
         return RestaurantMapper.INSTANCE.restaurantToRestaurantInfoDto(restaurant);
     }
 
-    public List<RestaurantElementDto> getRestaurantsByMultipleCondition(String type, String price, String location, String deliveryable) {
-        List<Restaurant> restaurants = restaurantQueryRepository.findAllByMultipleConditions(type, price, location, deliveryable);
+    public RestaurantGachaDto getRestaurantGachaDtoByMultipleCondition(String type, String price, String location, String deliveryable) throws IllegalArgumentException {
+        Optional<Restaurant> restaurant = restaurantQueryRepository.findByMultipleConditions(type, price, location, deliveryable);
+        if (!restaurant.isPresent()) {
+            throw new IllegalArgumentException("해당 조건을 충족하는 식당이 없습니다.");
+        }
 
-        return RestaurantMapper.INSTANCE.restaurantsToRestaurantElementDtos(restaurants);
+        return RestaurantMapper.INSTANCE.restaurantToRestaurantGachaDto(restaurant.get());
     }
 
     public void deleteRestaurantById(Long id) {

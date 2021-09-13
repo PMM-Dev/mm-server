@@ -3,6 +3,7 @@ package com.kwon770.mm.service;
 import com.kwon770.mm.domain.restaurant.Restaurant;
 import com.kwon770.mm.domain.review.Review;
 import com.kwon770.mm.web.dto.Restaurant.RestaurantElementDto;
+import com.kwon770.mm.web.dto.Restaurant.RestaurantGachaDto;
 import com.kwon770.mm.web.dto.Restaurant.RestaurantInfoDto;
 import com.kwon770.mm.web.dto.Restaurant.ReviewInfoDto;
 import org.mapstruct.Mapper;
@@ -26,6 +27,8 @@ public interface RestaurantMapper {
     }
 
     List<RestaurantElementDto> restaurantsToRestaurantElementDtos(List<Restaurant> restaurants);
+
+    RestaurantGachaDto restaurantToRestaurantGachaDto(Restaurant restaurant);
 
     List<ReviewInfoDto> reviewsToReviewInfoDtos(List<Review> reviews);
 

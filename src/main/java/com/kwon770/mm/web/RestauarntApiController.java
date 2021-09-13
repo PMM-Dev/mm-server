@@ -31,13 +31,13 @@ public class RestauarntApiController {
     }
 
     @GetMapping("/restaurant/condition")
-    public List<RestaurantElementDto> getRestaurantElementDtosByMultipleConditions(
+    public RestaurantGachaDto getRestaurantElementDtoByMultipleConditions(
             @RequestParam(value = "type", defaultValue = "") String type,
             @RequestParam(value = "price", defaultValue = "") String price,
             @RequestParam(value = "location", defaultValue = "") String location,
             @RequestParam(value = "deliveryable", defaultValue = "") String deliveryable
     ) {
-        return restaurantService.getRestaurantsByMultipleCondition(type, price, location, deliveryable);
+        return restaurantService.getRestaurantGachaDtoByMultipleCondition(type, price, location, deliveryable);
     }
 
     @GetMapping("/restaurant/{identifier}")

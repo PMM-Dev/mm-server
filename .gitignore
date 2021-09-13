@@ -1,6 +1,7 @@
 HELP.md
 .gradle
 build
+rest
 out
 application.yml
 *.properties

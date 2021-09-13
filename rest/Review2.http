@@ -1,5 +1,0 @@
-DELETE http://localhost:8080/restaurant/1/review/delete
-
-###
-
-GET http://localhost:8080/restaurant/1/review/list

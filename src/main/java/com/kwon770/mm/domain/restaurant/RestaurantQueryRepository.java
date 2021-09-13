@@ -1,6 +1,7 @@
 package com.kwon770.mm.domain.restaurant;
 
 import com.querydsl.core.types.dsl.BooleanExpression;
+import com.querydsl.core.types.dsl.NumberExpression;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import org.springframework.data.jpa.repository.support.QuerydslRepositorySupport;
 import org.springframework.stereotype.Repository;
@@ -8,6 +9,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.StringUtils;
 
 import java.util.List;
+import java.util.Optional;
 
 @Repository
 public class RestaurantQueryRepository extends QuerydslRepositorySupport {
@@ -20,9 +22,17 @@ public class RestaurantQueryRepository extends QuerydslRepositorySupport {
     }
 
     @Transactional
-    public List<Restaurant> findAllByMultipleConditions(String type, String price,
-                                                        String location, String deliveryable) {
+    public List<Restaurant> findAllByType(String type) {
         return queryFactory
+                .selectFrom(QRestaurant.restaurant)
+                .where(eqType(type))
+                .fetch();
+    }
+
+    @Transactional
+    public Optional<Restaurant> findByMultipleConditions(String type, String price,
+                                                         String location, String deliveryable) {
+        List<Restaurant> targetRestaurants = queryFactory
                 .selectFrom(QRestaurant.restaurant)
                 .where(
                         eqType(type),
@@ -30,7 +40,14 @@ public class RestaurantQueryRepository extends QuerydslRepositorySupport {
                         eqLocation(location),
                         eqDevliveryable(deliveryable)
                 )
+                .orderBy(NumberExpression.random().asc())
+                .limit(1)
                 .fetch();
+        if (targetRestaurants.size() == 0) {
+            return Optional.empty();
+        }
+
+        return Optional.of(targetRestaurants.get(0));
     }
 
     private BooleanExpression eqType(String _type) {
