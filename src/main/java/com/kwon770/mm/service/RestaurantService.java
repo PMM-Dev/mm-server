@@ -69,6 +69,12 @@ public class RestaurantService {
         return RestaurantMapper.INSTANCE.restaurantToRestaurantGachaDto(restaurant.get());
     }
 
+    public List<RestaurantLocationDto> getAllRestaurantLocationDtos() {
+        List<Restaurant> restaurants = restaurantRepository.findAll();
+
+        return RestaurantMapper.INSTANCE.restaurantToRestaurantLocationDtos(restaurants);
+    }
+
     public void deleteRestaurantById(Long id) {
         Restaurant targetRestaurant = getRestaurantById(id);
 

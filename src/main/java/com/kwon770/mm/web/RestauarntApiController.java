@@ -31,7 +31,7 @@ public class RestauarntApiController {
     }
 
     @GetMapping("/restaurant/condition")
-    public RestaurantGachaDto getRestaurantElementDtoByMultipleConditions(
+    public RestaurantGachaDto getRestaurantGachaDtoByMultipleConditions(
             @RequestParam(value = "type", defaultValue = "") String type,
             @RequestParam(value = "price", defaultValue = "") String price,
             @RequestParam(value = "location", defaultValue = "") String location,
@@ -47,6 +47,11 @@ public class RestauarntApiController {
         } else {
             return restaurantService.getRestaurantInfoDtoByName(identifier);
         }
+    }
+
+    @GetMapping("/restaurant/location/list")
+    public List<RestaurantLocationDto> getAllRestaurantLocationDtoList() {
+        return restaurantService.getAllRestaurantLocationDtos();
     }
 
     @GetMapping("/restaurant/{restaurantId}/review")

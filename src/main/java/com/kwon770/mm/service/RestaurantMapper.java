@@ -2,10 +2,7 @@ package com.kwon770.mm.service;
 
 import com.kwon770.mm.domain.restaurant.Restaurant;
 import com.kwon770.mm.domain.review.Review;
-import com.kwon770.mm.web.dto.Restaurant.RestaurantElementDto;
-import com.kwon770.mm.web.dto.Restaurant.RestaurantGachaDto;
-import com.kwon770.mm.web.dto.Restaurant.RestaurantInfoDto;
-import com.kwon770.mm.web.dto.Restaurant.ReviewInfoDto;
+import com.kwon770.mm.web.dto.Restaurant.*;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.factory.Mappers;
@@ -29,6 +26,10 @@ public interface RestaurantMapper {
     List<RestaurantElementDto> restaurantsToRestaurantElementDtos(List<Restaurant> restaurants);
 
     RestaurantGachaDto restaurantToRestaurantGachaDto(Restaurant restaurant);
+
+    RestaurantLocationDto restaurantToRestaurantLocationDto(Restaurant restaurant);
+
+    List<RestaurantLocationDto> restaurantToRestaurantLocationDtos(List<Restaurant> restaurants);
 
     List<ReviewInfoDto> reviewsToReviewInfoDtos(List<Review> reviews);
 
