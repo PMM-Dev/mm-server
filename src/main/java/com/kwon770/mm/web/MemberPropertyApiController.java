@@ -33,23 +33,8 @@ public class MemberPropertyApiController {
         memberPropertyService.subtractTitle(title);
     }
 
-    @GetMapping("/member/me/like")
-    public List<RestaurantElementDto> getMyLikedRestaurantList() {
-        return memberPropertyService.getLikedRestaurantList(SecurityUtil.getCurrentMemberId());
-    }
-
     @GetMapping("/member/{userId}/like")
     public List<RestaurantElementDto> getLikedRestaurantList(@PathVariable Long userId) {
         return memberPropertyService.getLikedRestaurantList(userId);
-    }
-
-    @PutMapping("/member/like/{restaurantId}")
-    public void appendLikedRestaurant(@PathVariable Long restaurantId) {
-        memberPropertyService.appendLikedRestaurant(restaurantId);
-    }
-
-    @DeleteMapping("/member/like/{restaurantId}")
-    public void subtractLikedRestaurant(@PathVariable Long restaurantId) {
-        memberPropertyService.subtractedLikedRestaurant(restaurantId);
     }
 }

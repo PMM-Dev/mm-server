@@ -1,9 +1,11 @@
 package com.kwon770.mm.web;
 
+import com.kwon770.mm.service.MemberPropertyService;
 import com.kwon770.mm.service.MemberService;
 import com.kwon770.mm.util.SecurityUtil;
 import com.kwon770.mm.web.dto.MemberInfoDto;
 import com.kwon770.mm.web.dto.MemberRequestDto;
+import com.kwon770.mm.web.dto.Restaurant.RestaurantElementDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
@@ -16,15 +18,11 @@ import static com.kwon770.mm.Utility.isDigit;
 public class MemberApiController {
 
     private final MemberService memberService;
+    private final MemberPropertyService memberPropertyService;
 
     @GetMapping("/member/me")
     public MemberInfoDto getMyMemberInfo() {
         return memberService.getMyInfoDto();
-    }
-
-    @GetMapping("/member/list")
-    public List<MemberInfoDto> getMemberInfoDtoList() {
-        return memberService.getMemberInfoDtoList();
     }
 
     @GetMapping("/member/{identifier}")
@@ -41,17 +39,18 @@ public class MemberApiController {
         memberService.updateMemberByEmail(SecurityUtil.getCurrentMemberId(), memberRequestDto);
     }
 
-    @PutMapping("/member/{userId}")
-    public void updateMemberByEmail(@PathVariable Long userId, @RequestBody MemberRequestDto memberRequestDto) {
-        memberService.updateMemberByEmail(userId, memberRequestDto);
+    @GetMapping("/member/me/like")
+    public List<RestaurantElementDto> getMyLikedRestaurantList() {
+        return memberPropertyService.getLikedRestaurantList(SecurityUtil.getCurrentMemberId());
     }
 
-    @DeleteMapping("/member/{identifier}")
-    public void deleteMemberByIdentifier(@PathVariable String identifier) {
-        if (isDigit(identifier)) {
-            memberService.deleteMemberById(Long.parseLong(identifier));
-        } else {
-            memberService.deleteMemberByEmail(identifier);
-        }
+    @PutMapping("/member/like/{restaurantId}")
+    public void appendLikedRestaurant(@PathVariable Long restaurantId) {
+        memberPropertyService.appendLikedRestaurant(restaurantId);
+    }
+
+    @DeleteMapping("/member/like/{restaurantId}")
+    public void subtractLikedRestaurant(@PathVariable Long restaurantId) {
+        memberPropertyService.subtractedLikedRestaurant(restaurantId);
     }
 }
