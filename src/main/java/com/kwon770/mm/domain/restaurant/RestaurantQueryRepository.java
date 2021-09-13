@@ -1,6 +1,7 @@
 package com.kwon770.mm.domain.restaurant;
 
 import com.querydsl.core.types.dsl.BooleanExpression;
+import com.querydsl.core.types.dsl.Expressions;
 import com.querydsl.core.types.dsl.NumberExpression;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import org.springframework.data.jpa.repository.support.QuerydslRepositorySupport;
@@ -40,7 +41,7 @@ public class RestaurantQueryRepository extends QuerydslRepositorySupport {
                         eqLocation(location),
                         eqDevliveryable(deliveryable)
                 )
-                .orderBy(NumberExpression.random().asc())
+                .orderBy(Expressions.numberTemplate(Double.class, "function('rand')").asc())
                 .limit(1)
                 .fetch();
         if (targetRestaurants.size() == 0) {
