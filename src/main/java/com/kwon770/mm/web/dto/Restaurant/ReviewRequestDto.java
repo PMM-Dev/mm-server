@@ -9,10 +9,10 @@ import lombok.NoArgsConstructor;
 public class ReviewRequestDto {
 
     private String description;
-    private Integer grade;
+    private Float grade;
 
     @Builder
-    public ReviewRequestDto(String description, Integer grade) {
+    public ReviewRequestDto(String description, Float grade) {
         this.description = description;
         this.grade = grade;
     }

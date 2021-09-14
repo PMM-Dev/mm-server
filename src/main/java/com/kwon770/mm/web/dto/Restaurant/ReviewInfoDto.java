@@ -12,7 +12,7 @@ public class ReviewInfoDto {
     private Long id;
     private String authorName;
     private String description;
-    private Integer grade;
+    private Float grade;
 
     public ReviewInfoDto(Review review) {
         this.id = review.getId();

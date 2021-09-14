@@ -29,13 +29,13 @@ public class Review {
     private String description;
 
     @Column(nullable = false)
-    private Integer grade;
+    private Float grade;
 
     @Column(nullable = false)
     private Integer likeCount = 0;
 
     @Builder
-    public Review(Member author, Restaurant restaurant, String description, Integer grade) {
+    public Review(Member author, Restaurant restaurant, String description, Float grade) {
         this.author = author;
         this.restaurant = restaurant;
         this.description = description;

@@ -89,19 +89,19 @@ public class RestaurantService {
 
     @Transactional
     public Long uploadMyReviewByRestaurantId(Member author, Long restaurantId, ReviewRequestDto reviewRequestDto) {
-        Restaurant targetRestaurant = getRestaurantById(restaurantId);
-        Review reviewEntity = Review.builder()
+        Restaurant restaurant = getRestaurantById(restaurantId);
+        Review review = Review.builder()
                 .author(author)
-                .restaurant(targetRestaurant)
+                .restaurant(restaurant)
                 .description(reviewRequestDto.getDescription())
                 .grade(reviewRequestDto.getGrade())
                 .build();
 
-        targetRestaurant.calculateAddedAverageGrade(reviewEntity.getGrade());
+        restaurant.calculateAddedAverageGrade(review.getGrade());
 
         memberService.getMemberById(author.getId()).increaseReviewCount();
 
-        return reviewRepository.save(reviewEntity).getId();
+        return reviewRepository.save(review).getId();
     }
 
     public ReviewInfoDto getMyReviewInfoDtoByRestaurantId(Long restaurantId) {
@@ -136,6 +136,9 @@ public class RestaurantService {
         if (reviewId == -1L) {
             throw new IllegalArgumentException("해당 식당에 작성한 리뷰가 없습니다. Restaurant Id = " + restaurantId);
         }
+
+        ReviewInfoDto reviewInfoDto = getMyReviewInfoDtoByRestaurantId(restaurantId);
+        restaurant.calculateSubtractedAverageGrade(reviewInfoDto.getGrade());
 
         reviewRepository.deleteById(reviewId);
 

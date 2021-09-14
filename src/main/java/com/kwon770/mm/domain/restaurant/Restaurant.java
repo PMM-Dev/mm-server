@@ -94,6 +94,11 @@ public class Restaurant {
         this.closeTime = closeTime;
     }
 
+    public Float getAverageGrade() {
+        Double result = Math.ceil(averageGrade * 2) / 2;
+        return result.floatValue();
+    }
+
     public void update(RestaurantRequestDto restaurantRequestDto) {
         this.name = restaurantRequestDto.getName();
         this.description = restaurantRequestDto.getDescription();
@@ -123,7 +128,7 @@ public class Restaurant {
         this.specials.remove(restaurantSpecial);
     }
 
-    public void calculateAddedAverageGrade(Integer newGrade) {
+    public void calculateAddedAverageGrade(Float newGrade) {
         int reviewCount = reviews.size();
         Float sum = (averageGrade * reviewCount) + newGrade;
         averageGrade = sum / (reviewCount + 1);
