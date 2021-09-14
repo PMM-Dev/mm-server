@@ -134,7 +134,7 @@ public class Restaurant {
         averageGrade = sum / (reviewCount + 1);
     }
 
-    public void calculateSubtractedAverageGrade(Integer newGrade) {
+    public void calculateSubtractedAverageGrade(Float newGrade) {
         int reviewCount = reviews.size();
         Float sum = (averageGrade * reviewCount) - newGrade;
         averageGrade = sum / (reviewCount - 1);
