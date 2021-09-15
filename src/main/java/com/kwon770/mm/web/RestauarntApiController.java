@@ -36,9 +36,9 @@ public class RestauarntApiController {
             @RequestParam(value = "type", required = false) List<String> type,
             @RequestParam(value = "price", required = false) List<String> price,
             @RequestParam(value = "location", required = false) List<String> location,
-            @RequestParam(value = "deliveryable", required = false) Boolean deliveryable
+            @RequestParam(value = "deliverable", required = false) Boolean deliverable
     ) {
-        return restaurantService.getRestaurantGachaDtoByMultipleCondition(type, price, location, deliveryable);
+        return restaurantService.getRestaurantGachaDtoByMultipleCondition(type, price, location, deliverable);
     }
 
     @GetMapping("/restaurant/{identifier}")

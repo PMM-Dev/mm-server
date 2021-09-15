@@ -16,7 +16,7 @@ public class RestaurantRequestDto {
     private Type type;
     private Price price;
     private Location location;
-    private Boolean deliveryable;
+    private Boolean deliverable;
     private Double latitude;
     private Double longitude;
     private String openTime;
@@ -29,7 +29,7 @@ public class RestaurantRequestDto {
                 .type(type)
                 .price(price)
                 .location(location)
-                .deliveryable(deliveryable)
+                .deliverable(deliverable)
                 .latitude(latitude)
                 .longitude(longitude)
                 .openTime(openTime)

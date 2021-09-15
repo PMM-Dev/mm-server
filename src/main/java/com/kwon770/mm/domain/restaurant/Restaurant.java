@@ -38,7 +38,7 @@ public class Restaurant {
     private Location location;
 
     @Column(nullable = false)
-    private Boolean deliveryable;
+    private Boolean deliverable;
 
     @Column(nullable = false)
     private Double latitude;
@@ -80,14 +80,14 @@ public class Restaurant {
     @Builder
     public Restaurant(String name, String description,
                       Type type, Price price, Location location,
-                      Boolean deliveryable, Double latitude, Double longitude,
+                      Boolean deliverable, Double latitude, Double longitude,
                       String openTime, String closeTime) {
         this.name = name;
         this.description = description;
         this.type = type;
         this.price = price;
         this.location = location;
-        this.deliveryable = deliveryable;
+        this.deliverable = deliverable;
         this.latitude = latitude;
         this.longitude = longitude;
         this.openTime = openTime;
@@ -105,7 +105,7 @@ public class Restaurant {
         this.type = restaurantRequestDto.getType();
         this.price = restaurantRequestDto.getPrice();
         this.location = restaurantRequestDto.getLocation();
-        this.deliveryable = restaurantRequestDto.getDeliveryable();
+        this.deliverable = restaurantRequestDto.getDeliverable();
         this.latitude = restaurantRequestDto.getLatitude();
         this.longitude = restaurantRequestDto.getLongitude();
         this.openTime = restaurantRequestDto.getOpenTime();

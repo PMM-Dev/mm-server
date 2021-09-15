@@ -32,14 +32,14 @@ public class RestaurantQueryRepository extends QuerydslRepositorySupport {
 
     @Transactional
     public Optional<Restaurant> findByMultipleConditions(List<String> type, List<String> price,
-                                                         List<String> location, Boolean deliveryable) {
+                                                         List<String> location, Boolean deliverable) {
         List<Restaurant> targetRestaurants = queryFactory
                 .selectFrom(QRestaurant.restaurant)
                 .where(
                         eqTypes(type),
                         eqPrices(price),
                         eqLocations(location),
-                        eqDeliverable(deliveryable)
+                        eqDeliverable(deliverable)
                 )
                 .orderBy(Expressions.numberTemplate(Double.class, "function('rand')").asc())
                 .limit(1)
@@ -94,10 +94,10 @@ public class RestaurantQueryRepository extends QuerydslRepositorySupport {
         return locationsBuilder;
     }
 
-    private BooleanExpression eqDeliverable(Boolean deliveryable) {
-        if (deliveryable == null) {
+    private BooleanExpression eqDeliverable(Boolean deliverable) {
+        if (deliverable == null) {
             return null;
         }
-        return QRestaurant.restaurant.deliveryable.eq(deliveryable);
+        return QRestaurant.restaurant.deliverable.eq(deliverable);
     }
 }

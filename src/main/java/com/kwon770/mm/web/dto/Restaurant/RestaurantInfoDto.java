@@ -21,7 +21,7 @@ public class RestaurantInfoDto {
     private Double longitude;
     private String openTime;
     private String closeTime;
-    private boolean deliveryable;
+    private boolean deliverable;
     private Float averageGrade;
     private List<RestaurantTheme> themes;
     private List<RestaurantSpecial> specials;
@@ -38,7 +38,7 @@ public class RestaurantInfoDto {
         this.type = restaurant.getType();
         this.price = restaurant.getPrice();
         this.location = restaurant.getLocation();
-        this.deliveryable = restaurant.getDeliveryable();
+        this.deliverable = restaurant.getDeliverable();
         this.latitude = restaurant.getLatitude();
         this.longitude = restaurant.getLongitude();
         this.averageGrade = restaurant.getAverageGrade();
