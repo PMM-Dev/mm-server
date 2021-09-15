@@ -10,6 +10,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 import static com.kwon770.mm.Utility.isDigit;
 
@@ -32,10 +33,10 @@ public class RestauarntApiController {
 
     @GetMapping("/restaurant/condition")
     public RestaurantGachaDto getRestaurantGachaDtoByMultipleConditions(
-            @RequestParam(value = "type", defaultValue = "") String type,
-            @RequestParam(value = "price", defaultValue = "") String price,
-            @RequestParam(value = "location", defaultValue = "") String location,
-            @RequestParam(value = "deliveryable", defaultValue = "") String deliveryable
+            @RequestParam(value = "type", required = false) List<String> type,
+            @RequestParam(value = "price", required = false) List<String> price,
+            @RequestParam(value = "location", required = false) List<String> location,
+            @RequestParam(value = "deliveryable", required = false) Boolean deliveryable
     ) {
         return restaurantService.getRestaurantGachaDtoByMultipleCondition(type, price, location, deliveryable);
     }

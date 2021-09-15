@@ -60,7 +60,7 @@ public class RestaurantService {
         return RestaurantMapper.INSTANCE.restaurantsToRestaurantElementDtos(restaurants);
     }
 
-    public RestaurantGachaDto getRestaurantGachaDtoByMultipleCondition(String type, String price, String location, String deliveryable) throws IllegalArgumentException {
+    public RestaurantGachaDto getRestaurantGachaDtoByMultipleCondition(List<String> type, List<String> price, List<String> location, Boolean deliveryable) throws IllegalArgumentException {
         Optional<Restaurant> restaurant = restaurantQueryRepository.findByMultipleConditions(type, price, location, deliveryable);
         if (!restaurant.isPresent()) {
             throw new IllegalArgumentException("해당 조건을 충족하는 식당이 없습니다.");
