@@ -5,7 +5,9 @@ import com.kwon770.mm.service.MemberService;
 import com.kwon770.mm.util.SecurityUtil;
 import com.kwon770.mm.web.dto.MemberInfoDto;
 import com.kwon770.mm.web.dto.MemberRequestDto;
+import com.kwon770.mm.web.dto.Restaurant.MyReviewDto;
 import com.kwon770.mm.web.dto.Restaurant.RestaurantElementDto;
+import com.kwon770.mm.web.dto.Restaurant.ReviewInfoDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
@@ -52,5 +54,10 @@ public class MemberApiController {
     @DeleteMapping("/member/like/{restaurantId}")
     public void subtractLikedRestaurant(@PathVariable Long restaurantId) {
         memberPropertyService.subtractedLikedRestaurant(restaurantId);
+    }
+
+    @GetMapping("/member/me/review")
+    public List<MyReviewDto> getMyReviewList() {
+        return memberPropertyService.getMyReviewList(SecurityUtil.getCurrentMemberId());
     }
 }

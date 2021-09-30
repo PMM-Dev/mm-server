@@ -5,14 +5,19 @@ import com.kwon770.mm.domain.member.Title;
 import com.kwon770.mm.domain.member.Member;
 import com.kwon770.mm.domain.member.MemberTitle;
 import com.kwon770.mm.domain.member.MemberTitleRepository;
+import com.kwon770.mm.domain.review.Review;
+import com.kwon770.mm.domain.review.ReviewRepository;
 import com.kwon770.mm.util.SecurityUtil;
 import com.kwon770.mm.web.dto.MemberTitleRequestDto;
+import com.kwon770.mm.web.dto.Restaurant.MyReviewDto;
 import com.kwon770.mm.web.dto.Restaurant.RestaurantElementDto;
+import com.kwon770.mm.web.dto.Restaurant.ReviewInfoDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @RequiredArgsConstructor
 @Service
@@ -22,6 +27,7 @@ public class MemberPropertyService {
     private final MemberTitleRepository memberTitleRepository;
 
     private final RestaurantService restaurantService;
+    private final ReviewRepository reviewRepository;
 
     public Long saveTitle(MemberTitleRequestDto memberTitleRequestDto) {
         return memberTitleRepository.save(memberTitleRequestDto.toEntity()).getId();
@@ -68,5 +74,11 @@ public class MemberPropertyService {
         Restaurant restaurant = restaurantService.getRestaurantById(restaurantId);
 
         member.subtractedLikedRestaurant(restaurant);
+    }
+
+    public List<MyReviewDto> getMyReviewList(Long userId) {
+        List<Review> reviews = reviewRepository.findAllByAuthor_Id(userId);
+
+        return reviews.stream().map(review -> new MyReviewDto(review)).collect(Collectors.toList());
     }
 }
