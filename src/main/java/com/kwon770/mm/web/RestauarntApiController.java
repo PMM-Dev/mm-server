@@ -31,6 +31,17 @@ public class RestauarntApiController {
         return restaurantService.getRestaurantElementDtosByType(type);
     }
 
+    @GetMapping("/restaurant/deliverable")
+    public List<RestaurantElementDto> getRestaurantElementDtosByDeliverable() {
+        return restaurantService.getRestaurantElementDtosByDeliverable();
+    }
+
+    @GetMapping("/restaurant/rank")
+    public List<RestaurantElementDto> getRestaurantElementDtosByRank() {
+        // TOP 20 YET
+        return restaurantService.getRestaurantElementDtosByRank();
+    }
+
     @GetMapping("/restaurant/condition")
     public RestaurantGachaDto getRestaurantGachaDtoByMultipleConditions(
             @RequestParam(value = "type", required = false) List<String> type,

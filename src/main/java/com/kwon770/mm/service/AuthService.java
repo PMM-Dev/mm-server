@@ -52,7 +52,6 @@ public class AuthService {
         // 1. Login ID/PW 를 기반으로 AuthenticationToken 생성
         UsernamePasswordAuthenticationToken authenticationToken = memberRequestDto.toAuthentication();
 
-        System.out.println(adminTokenSecret);
         // 2. 실제로 검증 (사용자 비밀번호 체크) 이 이루어지는 부분
         if (!memberRequestDto.getSocialToken().equals(adminTokenSecret)) {
             if (memberRequestDto.getSocialTokenType() == SocialTokenType.GOOGLE) {

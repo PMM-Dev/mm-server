@@ -60,6 +60,18 @@ public class RestaurantService {
         return RestaurantMapper.INSTANCE.restaurantsToRestaurantElementDtos(restaurants);
     }
 
+    public List<RestaurantElementDto> getRestaurantElementDtosByDeliverable() {
+        List<Restaurant> restaurants = restaurantRepository.findAllByDeliverableTrue();
+
+        return RestaurantMapper.INSTANCE.restaurantsToRestaurantElementDtos(restaurants);
+    }
+
+    public List<RestaurantElementDto> getRestaurantElementDtosByRank() {
+        List<Restaurant> restaurants = restaurantRepository.findLimit20ByOrderByAverageGradeDesc();
+
+        return RestaurantMapper.INSTANCE.restaurantsToRestaurantElementDtos(restaurants);
+    }
+
     public RestaurantGachaDto getRestaurantGachaDtoByMultipleCondition(List<String> type, List<String> price, List<String> location, Boolean deliverable) throws IllegalArgumentException {
         Optional<Restaurant> restaurant = restaurantQueryRepository.findByMultipleConditions(type, price, location, deliverable);
         if (!restaurant.isPresent()) {
