@@ -14,4 +14,10 @@ public interface RestaurantRepository extends JpaRepository<Restaurant, Long> {
     List<Restaurant> findAllByDeliverableTrue();
 
     List<Restaurant> findLimit20ByOrderByAverageGradeDesc();
+
+    List<Restaurant> findAllByType(Type type);
+
+    List<Restaurant> findAllByTypeOrderByPriceDesc(Type type);
+
+    List<Restaurant> findAllByTypeOrderByPriceAsc(Type type);
 }

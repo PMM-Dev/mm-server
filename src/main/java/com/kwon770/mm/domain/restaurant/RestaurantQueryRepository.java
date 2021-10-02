@@ -51,6 +51,24 @@ public class RestaurantQueryRepository extends QuerydslRepositorySupport {
         return Optional.of(targetRestaurants.get(0));
     }
 
+    @Transactional
+    public List<Restaurant> findAllByTypeOrderByReviewCountDesc(String type) {
+        return queryFactory
+                .selectFrom(QRestaurant.restaurant)
+                .where(eqType(type))
+                .orderBy(QRestaurant.restaurant.reviews.size().desc())
+                .fetch();
+    }
+
+    @Transactional
+    public List<Restaurant> findAllByTypeOrderByLikeCountDesc(String type) {
+        return queryFactory
+                .selectFrom(QRestaurant.restaurant)
+                .where(eqType(type))
+                .orderBy(QRestaurant.restaurant.likingMembers.size().desc())
+                .fetch();
+    }
+
     private BooleanExpression eqType(String type) {
         if (StringUtils.isEmpty(type)) {
             return null;

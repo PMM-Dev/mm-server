@@ -3,6 +3,7 @@ package com.kwon770.mm.service;
 import com.kwon770.mm.domain.restaurant.Restaurant;
 import com.kwon770.mm.domain.restaurant.RestaurantQueryRepository;
 import com.kwon770.mm.domain.restaurant.RestaurantRepository;
+import com.kwon770.mm.domain.restaurant.Type;
 import com.kwon770.mm.domain.review.Review;
 import com.kwon770.mm.domain.review.ReviewRepository;
 import com.kwon770.mm.domain.member.Member;
@@ -10,6 +11,7 @@ import com.kwon770.mm.util.SecurityUtil;
 import com.kwon770.mm.web.dto.Restaurant.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.GetMapping;
 
 import javax.transaction.Transactional;
 import java.util.List;
@@ -55,7 +57,31 @@ public class RestaurantService {
     }
 
     public List<RestaurantElementDto> getRestaurantElementDtosByType(String type) {
-        List<Restaurant> restaurants = restaurantQueryRepository.findAllByType(type);
+        List<Restaurant> restaurants = restaurantRepository.findAllByType(Type.valueOf(type));
+
+        return RestaurantMapper.INSTANCE.restaurantsToRestaurantElementDtos(restaurants);
+    }
+
+    public List<RestaurantElementDto> getRestaurantElementDtosByTypeOrderByPriceDesc(String type) {
+        List<Restaurant> restaurants = restaurantRepository.findAllByTypeOrderByPriceDesc(Type.valueOf(type));
+
+        return RestaurantMapper.INSTANCE.restaurantsToRestaurantElementDtos(restaurants);
+    }
+
+    public List<RestaurantElementDto> getRestaurantElementDtosByTypeOrderByPriceAsc(String type) {
+        List<Restaurant> restaurants = restaurantRepository.findAllByTypeOrderByPriceAsc(Type.valueOf(type));
+
+        return RestaurantMapper.INSTANCE.restaurantsToRestaurantElementDtos(restaurants);
+    }
+
+    public List<RestaurantElementDto> getRestaurantElementDtosByTypeOrderByReviewCountDesc(String type) {
+        List<Restaurant> restaurants = restaurantQueryRepository.findAllByTypeOrderByReviewCountDesc(type);
+
+        return RestaurantMapper.INSTANCE.restaurantsToRestaurantElementDtos(restaurants);
+    }
+
+    public List<RestaurantElementDto> getRestaurantElementDtosByTypeOrderByLikeCountDesc(String type) {
+        List<Restaurant> restaurants = restaurantQueryRepository.findAllByTypeOrderByLikeCountDesc(type);
 
         return RestaurantMapper.INSTANCE.restaurantsToRestaurantElementDtos(restaurants);
     }

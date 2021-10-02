@@ -31,6 +31,26 @@ public class RestauarntApiController {
         return restaurantService.getRestaurantElementDtosByType(type);
     }
 
+    @GetMapping("/restaurant/type/{type}/orderBy/priceDesc")
+    public List<RestaurantElementDto> getRestaurantElementDtosByTypeOrderByPriceDesc(@PathVariable String type) {
+        return restaurantService.getRestaurantElementDtosByTypeOrderByPriceDesc(type);
+    }
+
+    @GetMapping("/restaurant/type/{type}/orderBy/priceAsc")
+    public List<RestaurantElementDto> getRestaurantElementDtosByTypeOrderByPriceAsc(@PathVariable String type) {
+        return restaurantService.getRestaurantElementDtosByTypeOrderByPriceAsc(type);
+    }
+
+    @GetMapping("/restaurant/type/{type}/orderBy/reviewCountDesc")
+    public List<RestaurantElementDto> getRestaurantElementDtosByTypeOrderByReviewCountDesc(@PathVariable String type) {
+        return restaurantService.getRestaurantElementDtosByTypeOrderByReviewCountDesc(type);
+    }
+
+    @GetMapping("/restaurant/type/{type}/orderBy/likeCountDesc")
+    public List<RestaurantElementDto> getRestaurantElementDtosByTypeOrderByLikeCountDesc(@PathVariable String type) {
+        return restaurantService.getRestaurantElementDtosByTypeOrderByLikeCountDesc(type);
+    }
+
     @GetMapping("/restaurant/deliverable")
     public List<RestaurantElementDto> getRestaurantElementDtosByDeliverable() {
         return restaurantService.getRestaurantElementDtosByDeliverable();
