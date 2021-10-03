@@ -41,6 +41,11 @@ public class RestauarntApiController {
         return restaurantService.getRestaurantElementDtosByTypeOrderByPriceAsc(type);
     }
 
+    @GetMapping("/restaurant/type/{type}/orderBy/averageGradeDesc")
+    public List<RestaurantElementDto> getRestaurantElementDtosByTypeOrderByAverageGradeDesc(@PathVariable String type) {
+        return restaurantService.getRestaurantElementDtosByTypeOrderByAverageGradeDesc(type);
+    }
+
     @GetMapping("/restaurant/type/{type}/orderBy/reviewCountDesc")
     public List<RestaurantElementDto> getRestaurantElementDtosByTypeOrderByReviewCountDesc(@PathVariable String type) {
         return restaurantService.getRestaurantElementDtosByTypeOrderByReviewCountDesc(type);
