@@ -1,8 +1,6 @@
 package com.kwon770.mm.web.dto.Restaurant;
 
-import com.kwon770.mm.domain.member.Member;
 import com.kwon770.mm.domain.restaurant.*;;
-import com.kwon770.mm.util.SecurityUtil;
 import lombok.Getter;
 
 import java.util.List;
@@ -16,10 +14,9 @@ public class RestaurantElementDto {
     private Price price;
     private Location location;
     private Float averageGrade;
+    private Integer likeCount;
     private List<RestaurantTheme> themes;
     private List<RestaurantSpecial> specials;
-
-    private boolean didLike;
 
 
     public RestaurantElementDto(Restaurant restaurant) {
@@ -29,19 +26,8 @@ public class RestaurantElementDto {
         this.price = restaurant.getPrice();
         this.location = restaurant.getLocation();
         this.averageGrade = restaurant.getAverageGrade();
+        this.likeCount = restaurant.getLikingMembers().size();
         this.themes = restaurant.getThemes();
         this.specials = restaurant.getSpecials();
-
-        calculateDidLike(restaurant.getLikingMembers());
-    }
-
-    private void calculateDidLike(List<Member> LikingMembers) {
-        Long userId = SecurityUtil.getCurrentMemberId();
-        for (Member likedMember : LikingMembers) {
-            if (userId.equals(likedMember.getId())) {
-                this.didLike = true;
-                break;
-            }
-        }
     }
 }
