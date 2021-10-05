@@ -96,6 +96,21 @@ public class RestauarntApiController {
         return restaurantService.getReviewInfoDtosByRestaurantId(restaurantId);
     }
 
+    @GetMapping("/restaurant/{restaurantId}/review/orderBy/dateDesc")
+    public List<ReviewInfoDto> getReviewInfoDtosByRestaurantIdOrderByCreatedDateDesc(@PathVariable Long restaurantId) {
+        return restaurantService.getReviewInfoDtosByRestaurantIdOrderByCreatedDateDesc(restaurantId);
+    }
+
+    @GetMapping("/restaurant/{restaurantId}/review/orderBy/gradeDesc")
+    public List<ReviewInfoDto> getReviewInfoDtosByRestaurantIdOrderByGradeDesc(@PathVariable Long restaurantId) {
+        return restaurantService.getReviewInfoDtosByRestaurantIdOrderByGradeDesc(restaurantId);
+    }
+
+    @GetMapping("/restaurant/{restaurantId}/review/orderBy/gradeAsc")
+    public List<ReviewInfoDto> getReviewInfoDtosByRestaurantIdOrderByGradeAsc(@PathVariable Long restaurantId) {
+        return restaurantService.getReviewInfoDtosByRestaurantIdOrderByGradeAsc(restaurantId);
+    }
+
     @PostMapping("/restaurant/{restaurantId}/review")
     public Long uploadMyReviewByRestaurantId(@PathVariable Long restaurantId, @RequestBody ReviewRequestDto reviewRequestDto) {
         Member author = memberService.getMemberById(SecurityUtil.getCurrentMemberId());

@@ -161,9 +161,27 @@ public class RestaurantService {
     }
 
     public List<ReviewInfoDto> getReviewInfoDtosByRestaurantId(Long restaurantId) {
-        Restaurant restaurant = getRestaurantById(restaurantId);
+        List<Review> reviews = reviewRepository.findAllByRestaurant_Id(restaurantId);
 
-        return RestaurantMapper.INSTANCE.reviewsToReviewInfoDtos(restaurant.getReviews());
+        return RestaurantMapper.INSTANCE.reviewsToReviewInfoDtos(reviews);
+    }
+
+    public List<ReviewInfoDto> getReviewInfoDtosByRestaurantIdOrderByCreatedDateDesc(Long restaurantId) {
+        List<Review> reviews = reviewRepository.findAllByRestaurant_IdOrderByCreatedDateDesc(restaurantId);
+
+        return RestaurantMapper.INSTANCE.reviewsToReviewInfoDtos(reviews);
+    }
+
+    public List<ReviewInfoDto> getReviewInfoDtosByRestaurantIdOrderByGradeDesc(Long restaurantId) {
+        List<Review> reviews = reviewRepository.findAllByRestaurant_IdOrderByGradeDesc(restaurantId);
+
+        return RestaurantMapper.INSTANCE.reviewsToReviewInfoDtos(reviews);
+    }
+
+    public List<ReviewInfoDto> getReviewInfoDtosByRestaurantIdOrderByGradeAsc(Long restaurantId) {
+        List<Review> reviews = reviewRepository.findAllByRestaurant_IdOrderByGradeAsc(restaurantId);
+
+        return RestaurantMapper.INSTANCE.reviewsToReviewInfoDtos(reviews);
     }
 
     @Transactional

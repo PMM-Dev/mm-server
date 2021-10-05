@@ -8,6 +8,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.util.Date;
 
 @NoArgsConstructor
 @Getter
@@ -17,6 +18,9 @@ public class Review {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
+    @Column(nullable = false)
+    private Date createdDate;
 
     @OneToOne
     private Member author;
@@ -40,5 +44,7 @@ public class Review {
         this.restaurant = restaurant;
         this.description = description;
         this.grade = grade;
+
+        createdDate = new Date(System.currentTimeMillis());
     }
 }
