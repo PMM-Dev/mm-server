@@ -120,9 +120,7 @@ public class RestaurantService {
     }
 
     public void deleteRestaurantById(Long id) {
-        Restaurant targetRestaurant = getRestaurantById(id);
-
-        restaurantRepository.delete(targetRestaurant);
+        restaurantRepository.deleteById(id);
     }
 
     public void deleteRestaurantByName(String name) {

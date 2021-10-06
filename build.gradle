@@ -39,7 +39,7 @@ dependencies {
     implementation group: 'org.apache.tomcat', name: 'tomcat-jdbc'
     implementation 'junit:junit:4.12'
 
-    compile group: 'com.h2database', name: 'h2', version: "1.4.197"
+    compile('com.h2database:h2')
     implementation('org.mariadb.jdbc:mariadb-java-client')
 
     // QueryDSL

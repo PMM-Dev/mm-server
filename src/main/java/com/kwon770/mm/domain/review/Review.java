@@ -1,6 +1,7 @@
 package com.kwon770.mm.domain.review;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.kwon770.mm.domain.BaseTimeEntity;
 import com.kwon770.mm.domain.restaurant.Restaurant;
 import com.kwon770.mm.domain.member.Member;
 import lombok.Builder;
@@ -13,14 +14,11 @@ import java.util.Date;
 @NoArgsConstructor
 @Getter
 @Entity
-public class Review {
+public class Review extends BaseTimeEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
-    @Column(nullable = false)
-    private Date createdDate;
 
     @OneToOne
     private Member author;
@@ -44,7 +42,5 @@ public class Review {
         this.restaurant = restaurant;
         this.description = description;
         this.grade = grade;
-
-        createdDate = new Date(System.currentTimeMillis());
     }
 }
