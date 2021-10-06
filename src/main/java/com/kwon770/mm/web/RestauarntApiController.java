@@ -2,6 +2,7 @@ package com.kwon770.mm.web;
 
 import com.kwon770.mm.domain.restaurant.Restaurant;
 import com.kwon770.mm.domain.member.Member;
+import com.kwon770.mm.domain.review.Review;
 import com.kwon770.mm.service.RestaurantService;
 import com.kwon770.mm.service.MemberService;
 import com.kwon770.mm.util.SecurityUtil;
@@ -126,6 +127,11 @@ public class RestauarntApiController {
     @DeleteMapping("/restaurant/{restaurantId}/review/me")
     public void deleteMyReviewByRestaurantId(@PathVariable Long restaurantId) {
         restaurantService.deleteMyReviewByRestaurantId(restaurantId);
+    }
+
+    @GetMapping("/ab")
+    public Review ab() {
+        return restaurantService.ab(1L);
     }
 
 }

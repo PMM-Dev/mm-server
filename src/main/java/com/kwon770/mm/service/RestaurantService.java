@@ -183,6 +183,20 @@ public class RestaurantService {
     }
 
     @Transactional
+    public Review ab(Long restaurantId) throws IllegalArgumentException {
+        Review myReview = null;
+        Restaurant restaurant = getRestaurantById(restaurantId);
+        Long myId = SecurityUtil.getCurrentMemberId();
+        for (Review review : restaurant.getReviews()) {
+            System.out.println(review.getAuthor().getId());
+            if (myId.equals(review.getAuthor().getId())) {
+                myReview = review;
+            }
+        }
+        return myReview;
+    }
+
+    @Transactional
     public void deleteMyReviewByRestaurantId(Long restaurantId) throws IllegalArgumentException {
         Review myReview = null;
         Restaurant restaurant = getRestaurantById(restaurantId);
