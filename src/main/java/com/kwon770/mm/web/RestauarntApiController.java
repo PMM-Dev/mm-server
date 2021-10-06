@@ -131,7 +131,7 @@ public class RestauarntApiController {
 
     @GetMapping("/ab")
     public Review ab() {
-        return restaurantService.ab(1L);
+        return restaurantService.ab(2L);
     }
 
 }
