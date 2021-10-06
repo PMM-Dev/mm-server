@@ -21,7 +21,10 @@ public class MemberPropertyApiController {
     }
 
     @DeleteMapping("/title/{title}")
-    public void deleteTitle(@PathVariable String title) { memberPropertyService.deleteTitle(title); }
+    public boolean deleteTitle(@PathVariable String title) {
+        memberPropertyService.deleteTitle(title);
+        return true;
+    }
 
     @PutMapping("/member/title/{title}")
     public void appendTitle(@PathVariable String title) {
@@ -29,8 +32,9 @@ public class MemberPropertyApiController {
     }
 
     @DeleteMapping("/member/title/{title}")
-    public void subtractTitle(@PathVariable String title) {
+    public boolean subtractTitle(@PathVariable String title) {
         memberPropertyService.subtractTitle(title);
+        return true;
     }
 
     @GetMapping("/member/{userId}/like")

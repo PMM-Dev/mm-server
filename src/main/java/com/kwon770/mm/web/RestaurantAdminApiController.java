@@ -27,11 +27,12 @@ public class RestaurantAdminApiController {
     }
 
     @DeleteMapping("/restaurant/{identifier}")
-    public void deleteRestaurantByIdentifier(@PathVariable String identifier) {
+    public boolean deleteRestaurantByIdentifier(@PathVariable String identifier) {
         if (isDigit(identifier)) {
             restaurantService.deleteRestaurantById(Long.parseLong(identifier));
         } else {
             restaurantService.deleteRestaurantByName(identifier);
         }
+        return true;
     }
 }

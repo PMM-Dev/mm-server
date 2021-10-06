@@ -27,11 +27,12 @@ public class MemberAdminApiController {
     }
 
     @DeleteMapping("/member/{identifier}")
-    public void deleteMemberByIdentifier(@PathVariable String identifier) {
+    public boolean deleteMemberByIdentifier(@PathVariable String identifier) {
         if (isDigit(identifier)) {
             memberService.deleteMemberById(Long.parseLong(identifier));
         } else {
             memberService.deleteMemberByEmail(identifier);
         }
+        return true;
     }
 }

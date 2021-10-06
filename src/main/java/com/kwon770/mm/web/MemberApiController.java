@@ -52,8 +52,9 @@ public class MemberApiController {
     }
 
     @DeleteMapping("/member/like/{restaurantId}")
-    public void subtractLikedRestaurant(@PathVariable Long restaurantId) {
+    public boolean subtractLikedRestaurant(@PathVariable Long restaurantId) {
         memberPropertyService.subtractedLikedRestaurant(restaurantId);
+        return true;
     }
 
     @GetMapping("/member/me/review")

@@ -18,8 +18,10 @@ public class RestaurantPropertyApiController {
     }
 
     @DeleteMapping("/theme/{theme}")
-    public void deleteTheme(@PathVariable String theme) {
+    public boolean deleteTheme(@PathVariable String theme) {
         restaurantPropertyService.deleteTheme(theme);
+
+        return true;
     }
 
     @PutMapping("/restaurant/{restaurantId}/theme/{theme}")
@@ -28,8 +30,9 @@ public class RestaurantPropertyApiController {
     }
 
     @DeleteMapping("/restaurant/{restaurantId}/theme/{theme}")
-    public void subtractTheme(@PathVariable Long restaurantId, @PathVariable String theme) {
+    public boolean subtractTheme(@PathVariable Long restaurantId, @PathVariable String theme) {
         restaurantPropertyService.subtractTheme(restaurantId, theme);
+        return true;
     }
 
     @PostMapping("/special")
@@ -38,8 +41,9 @@ public class RestaurantPropertyApiController {
     }
 
     @DeleteMapping("/special/{special}")
-    public void deleteSpecial(@PathVariable String special) {
+    public boolean deleteSpecial(@PathVariable String special) {
         restaurantPropertyService.deleteSpecial(special);
+        return true;
     }
 
     @PutMapping("/restaurant/{restaurantId}/special/{special}")
@@ -48,7 +52,8 @@ public class RestaurantPropertyApiController {
     }
 
     @DeleteMapping("/restaurant/{restaurantId}/special/{special}")
-    public void subtractSpecial(@PathVariable Long restaurantId, @PathVariable String special) {
+    public boolean subtractSpecial(@PathVariable Long restaurantId, @PathVariable String special) {
         restaurantPropertyService.subtractSpecial(restaurantId, special);
+        return true;
     }
 }

@@ -125,8 +125,9 @@ public class RestauarntApiController {
     }
 
     @DeleteMapping("/restaurant/{restaurantId}/review/me")
-    public void deleteMyReviewByRestaurantId(@PathVariable Long restaurantId) {
+    public boolean deleteMyReviewByRestaurantId(@PathVariable Long restaurantId) {
         restaurantService.deleteMyReviewByRestaurantId(restaurantId);
+        return true;
     }
 
     @GetMapping("/ab")

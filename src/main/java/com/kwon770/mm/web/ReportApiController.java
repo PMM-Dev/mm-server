@@ -30,7 +30,8 @@ public class ReportApiController {
     }
 
     @DeleteMapping("/report/{reportId}")
-    public void deleteMyReportByReportId(@PathVariable Long reportId) {
+    public boolean deleteMyReportByReportId(@PathVariable Long reportId) {
         reportService.deleteMyReportByReportId(reportId);
+        return true;
     }
 }
