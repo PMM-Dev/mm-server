@@ -18,8 +18,7 @@ public class Report extends BaseTimeEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JsonBackReference
+    @OneToOne
     private Member author;
 
     @Column(nullable = false)

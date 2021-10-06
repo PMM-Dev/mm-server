@@ -63,10 +63,6 @@ public class Member {
     )
     private List<Restaurant> likedRestaurants = new ArrayList<>();
 
-    @OneToMany(mappedBy = "author")
-    @JsonManagedReference
-    private List<Report> reports = new ArrayList<>();
-
     @Builder
     public Member(String name, String email, String encodedEmail, String picture, Role role, String socialToken, SocialTokenType socialTokenType) {
         this.name = name;
