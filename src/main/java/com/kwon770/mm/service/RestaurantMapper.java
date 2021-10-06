@@ -31,8 +31,9 @@ public interface RestaurantMapper {
 
     List<RestaurantLocationDto> restaurantToRestaurantLocationDtos(List<Restaurant> restaurants);
 
-    List<ReviewInfoDto> reviewsToReviewInfoDtos(List<Review> reviews);
+    default ReviewInfoDto reviewToReviewInfoDto(Review review) {
+        return new ReviewInfoDto(review);
+    }
 
-    @Mapping(target = "authorName", expression = "java(review.getAuthor().getName())")
-    ReviewInfoDto reviewToReviewInfoDto(Review review);
+    List<ReviewInfoDto> reviewsToReviewInfoDtos(List<Review> reviews);
 }
