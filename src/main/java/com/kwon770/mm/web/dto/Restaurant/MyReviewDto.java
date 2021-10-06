@@ -1,6 +1,7 @@
 package com.kwon770.mm.web.dto.Restaurant;
 
 import com.kwon770.mm.domain.review.Review;
+import com.kwon770.mm.util.CommonUtil;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -24,13 +25,11 @@ public class MyReviewDto {
 
     public MyReviewDto(Review review) {
         this.id = review.getId();
+        this.createdDate = CommonUtil.convertLocalDateTimeToFormatString(review.getCreatedDate());
         this.authorName = review.getAuthor().getName();
         this.description = review.getDescription();
         this.grade = review.getGrade();
         this.restaurantId = review.getRestaurant().getId();
         this.restaurantName = review.getRestaurant().getName();
-
-        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd-HH-mm");
-        createdDate = format.format(review.getCreatedDate());
     }
 }
