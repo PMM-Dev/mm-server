@@ -1,5 +1,7 @@
 package com.kwon770.mm.domain.member;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.kwon770.mm.domain.report.Report;
 import com.kwon770.mm.domain.restaurant.Restaurant;
 import com.kwon770.mm.web.dto.MemberRequestDto;
 import lombok.Builder;
@@ -60,6 +62,10 @@ public class Member {
             inverseJoinColumns = @JoinColumn(name = "restaurant_id")
     )
     private List<Restaurant> likedRestaurants = new ArrayList<>();
+
+    @OneToMany(mappedBy = "author")
+    @JsonManagedReference
+    private List<Report> reports = new ArrayList<>();
 
     @Builder
     public Member(String name, String email, String encodedEmail, String picture, Role role, String socialToken, SocialTokenType socialTokenType) {

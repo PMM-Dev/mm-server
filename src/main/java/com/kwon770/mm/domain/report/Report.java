@@ -1,5 +1,6 @@
 package com.kwon770.mm.domain.report;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.kwon770.mm.domain.BaseTimeEntity;
 import com.kwon770.mm.domain.member.Member;
 import lombok.Builder;
@@ -17,7 +18,8 @@ public class Report extends BaseTimeEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @OneToOne
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JsonBackReference
     private Member author;
 
     @Column(nullable = false)
