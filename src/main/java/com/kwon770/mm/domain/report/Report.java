@@ -19,6 +19,7 @@ public class Report extends BaseTimeEntity {
     private Long id;
 
     @OneToOne
+    @Column(name = "member")
     private Member author;
 
     @Column(nullable = false)
