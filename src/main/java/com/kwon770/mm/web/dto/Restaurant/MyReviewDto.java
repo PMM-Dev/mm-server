@@ -7,8 +7,6 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
-import java.text.SimpleDateFormat;
-
 @AllArgsConstructor
 @Builder
 @Getter
