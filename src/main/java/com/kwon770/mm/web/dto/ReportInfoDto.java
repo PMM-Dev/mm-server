@@ -1,10 +1,14 @@
 package com.kwon770.mm.web.dto;
 
+import com.kwon770.mm.domain.member.Member;
 import com.kwon770.mm.domain.report.Report;
+import com.kwon770.mm.util.SecurityUtil;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+
+import java.util.List;
 
 @AllArgsConstructor
 @Builder
@@ -18,11 +22,25 @@ public class ReportInfoDto {
     private String content;
     private Integer likeCount;
 
+    private boolean didLike;
+
     public ReportInfoDto(Report report) {
         this.id = report.getId();
         this.authorName = report.getAuthor().getName();
         this.authorPicture = report.getAuthor().getPicture();
         this.content = report.getContent();
-        this.likeCount = report.getLikeCount();
+        this.likeCount = report.getLikingMembers().size();
+
+        calculateDidLike(report.getLikingMembers());
+    }
+
+    private void calculateDidLike(List<Member> LikingMembers) {
+        Long userId = SecurityUtil.getCurrentMemberId();
+        for (Member likedMember : LikingMembers) {
+            if (userId.equals(likedMember.getId())) {
+                this.didLike = true;
+                break;
+            }
+        }
     }
 }

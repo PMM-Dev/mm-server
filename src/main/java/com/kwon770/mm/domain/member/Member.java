@@ -63,6 +63,14 @@ public class Member {
     )
     private List<Restaurant> likedRestaurants = new ArrayList<>();
 
+    @ManyToMany
+    @JoinTable(
+            name = "member_report_like_relation",
+            joinColumns = @JoinColumn(name = "member_id"),
+            inverseJoinColumns = @JoinColumn(name = "report_id")
+    )
+    private List<Report> likedReports = new ArrayList<>();
+
     @Builder
     public Member(String name, String email, String encodedEmail, String picture, Role role, String socialToken, SocialTokenType socialTokenType) {
         this.name = name;
@@ -98,4 +106,8 @@ public class Member {
     public void appendLikedRestaurant(Restaurant restaurant) { this.likedRestaurants.add(restaurant); }
 
     public void subtractedLikedRestaurant(Restaurant restaurant) { this.likedRestaurants.remove(restaurant); }
+
+    public void appendLikedReport(Report report) { this.likedReports.add(report); }
+
+    public void subtractedLikedReport(Report report) { this.likedReports.remove(report); }
 }

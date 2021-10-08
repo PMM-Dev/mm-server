@@ -53,7 +53,6 @@ public class RestaurantInfoDto {
         calculateDidLike(restaurant.getLikingMembers());
     }
 
-
     private void calculateDidLike(List<Member> LikingMembers) {
         Long userId = SecurityUtil.getCurrentMemberId();
         for (Member likedMember : LikingMembers) {

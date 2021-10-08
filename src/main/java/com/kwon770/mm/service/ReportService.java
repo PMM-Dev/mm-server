@@ -27,6 +27,15 @@ public class ReportService {
         return reportRepository.save(reportRequestDto.toEntity(me)).getId();
     }
 
+    public Report getReportById(Long reportId) {
+        Optional<Report> report = reportRepository.findById(reportId);
+        if (report.isEmpty()) {
+            throw new IllegalArgumentException("해당 id와 일치하는 Report가 없습니다 reportId="+reportId);
+        }
+
+        return report.get();
+    }
+
     public List<ReportInfoDto> getReportsOrderByCreatedDateDesc() {
         List<Report> reports = reportRepository.findAllByOrderByCreatedDateDesc();
 

@@ -48,14 +48,27 @@ public class MemberApiController {
         return memberPropertyService.getLikedRestaurantList(SecurityUtil.getCurrentMemberId());
     }
 
-    @PutMapping("/member/like/{restaurantId}")
-    public void appendLikedRestaurant(@PathVariable Long restaurantId) {
+    @PutMapping("/member/like/restaurant/{restaurantId}")
+    public Long appendLikedRestaurant(@PathVariable Long restaurantId) {
         memberPropertyService.appendLikedRestaurant(restaurantId);
+        return restaurantId;
     }
 
-    @DeleteMapping("/member/like/{restaurantId}")
+    @DeleteMapping("/member/like/restaurant/{restaurantId}")
     public boolean subtractLikedRestaurant(@PathVariable Long restaurantId) {
         memberPropertyService.subtractedLikedRestaurant(restaurantId);
+        return true;
+    }
+
+    @PutMapping("/member/like/report/{reportId}")
+    public Long appendLikedReport(@PathVariable Long reportId) {
+        memberPropertyService.appendLikedReport(reportId);
+        return reportId;
+    }
+
+    @DeleteMapping("/member/like/report/{reportId}")
+    public boolean subtractLikedReport(@PathVariable Long reportId) {
+        memberPropertyService.subtractedLikedReport(reportId);
         return true;
     }
 

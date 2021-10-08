@@ -1,5 +1,6 @@
 package com.kwon770.mm.service;
 
+import com.kwon770.mm.domain.report.Report;
 import com.kwon770.mm.domain.restaurant.Restaurant;
 import com.kwon770.mm.domain.member.Title;
 import com.kwon770.mm.domain.member.Member;
@@ -26,7 +27,7 @@ public class MemberPropertyService {
     private final MemberTitleRepository memberTitleRepository;
 
     private final RestaurantService restaurantService;
-    private final ReviewRepository reviewRepository;
+    private final ReportService reportService;
 
     public Long saveTitle(MemberTitleRequestDto memberTitleRequestDto) {
         return memberTitleRepository.save(memberTitleRequestDto.toEntity()).getId();
@@ -73,5 +74,21 @@ public class MemberPropertyService {
         Restaurant restaurant = restaurantService.getRestaurantById(restaurantId);
 
         member.subtractedLikedRestaurant(restaurant);
+    }
+
+    @Transactional
+    public void appendLikedReport(Long reportId) {
+        Member member = memberService.getMemberById(SecurityUtil.getCurrentMemberId());
+        Report report = reportService.getReportById(reportId);
+
+        member.appendLikedReport(report);
+    }
+
+    @Transactional
+    public void subtractedLikedReport(Long reportId) {
+        Member member = memberService.getMemberById(SecurityUtil.getCurrentMemberId());
+        Report report = reportService.getReportById(reportId);
+
+        member.subtractedLikedReport(report);
     }
 }

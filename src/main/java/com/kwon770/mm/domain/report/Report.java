@@ -8,6 +8,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @NoArgsConstructor
 @Getter
@@ -25,8 +27,9 @@ public class Report extends BaseTimeEntity {
     @Column(nullable = false)
     private String content;
 
-    @Column(nullable = false)
-    private Integer likeCount = 0;
+    @ManyToMany(mappedBy = "likedReports")
+    @JsonBackReference
+    private List<Member> likingMembers = new ArrayList<>();
 
     @Builder
     public Report(Member author, String content) {
