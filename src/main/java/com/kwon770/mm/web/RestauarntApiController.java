@@ -121,14 +121,14 @@ public class RestauarntApiController {
         return restaurantService.getMyReviewInfoDtoByRestaurantId(restaurantId);
     }
 
-    @PutMapping("/restaurant/{restaurantId}/review/{reviewId}")
-    public Long updateMyReviewByReviewId(@PathVariable Long restaurantId, @PathVariable Long reviewId, @RequestBody ReviewRequestDto reviewRequestDto) {
-        return restaurantService.updateMyReviewByRestaurantId(restaurantId, reviewId, reviewRequestDto);
+    @PutMapping("/restaurant/{restaurantId}/review")
+    public Long updateMyReviewByReviewId(@PathVariable Long restaurantId, @RequestBody ReviewRequestDto reviewRequestDto) {
+        return restaurantService.updateMyReviewByRestaurantId(restaurantId, reviewRequestDto);
     }
 
-    @DeleteMapping("/restaurant/{restaurantId}/review/{reviewId}")
-    public boolean deleteMyReviewByReviewId(@PathVariable Long restaurantId, @PathVariable Long reviewId) {
-        restaurantService.deleteMyReviewByRestaurantId(restaurantId, reviewId);
+    @DeleteMapping("/restaurant/{restaurantId}/review")
+    public boolean deleteMyReviewByReviewId(@PathVariable Long restaurantId) {
+        restaurantService.deleteMyReviewByRestaurantId(restaurantId);
 
         return true;
     }

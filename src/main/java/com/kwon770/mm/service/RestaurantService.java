@@ -191,16 +191,22 @@ public class RestaurantService {
         return null;
     }
 
-    public Long updateMyReviewByRestaurantId(Long restaurantId, Long reviewId, ReviewRequestDto reviewRequestDto) {
+    public Long updateMyReviewByRestaurantId(Long restaurantId, ReviewRequestDto reviewRequestDto) {
         Restaurant restaurant = getRestaurantById(restaurantId);
-        Optional<Review> review = reviewRepository.findById(reviewId);
-        if (!review.isPresent()) {
-            throw new IllegalArgumentException("일치하는 리뷰가 없습니다. Review Id = " + reviewId);
+        Review myReview = null;
+        Long myId = SecurityUtil.getCurrentMemberId();
+        for (Review review : restaurant.getReviews()) {
+            if (myId.equals(review.getAuthor().getId())) {
+                myReview = review;
+            }
         }
-        if (!review.get().getAuthor().getId().equals(SecurityUtil.getCurrentMemberId())) {
+
+        if (myReview == null) {
+            throw new IllegalArgumentException("작성된 리뷰가 없습니다. Restaurant Id = " + restaurantId);
+        }
+        if (!myReview.getAuthor().getId().equals(SecurityUtil.getCurrentMemberId())) {
             throw new IllegalArgumentException("해당 리뷰의 소유주가 아닙니다");
         }
-        Review myReview = review.get();
 
         restaurant.calculateSubtractedAverageGrade(myReview.getGrade());
         myReview.update(reviewRequestDto);
@@ -211,16 +217,22 @@ public class RestaurantService {
     }
 
     @Transactional
-    public void deleteMyReviewByRestaurantId(Long restaurantId, Long reviewId) throws IllegalArgumentException {
+    public void deleteMyReviewByRestaurantId(Long restaurantId) throws IllegalArgumentException {
         Restaurant restaurant = getRestaurantById(restaurantId);
-        Optional<Review> review = reviewRepository.findById(reviewId);
-        if (!review.isPresent()) {
-            throw new IllegalArgumentException("일치하는 리뷰가 없습니다. Review Id = " + reviewId);
+        Review myReview = null;
+        Long myId = SecurityUtil.getCurrentMemberId();
+        for (Review review : restaurant.getReviews()) {
+            if (myId.equals(review.getAuthor().getId())) {
+                myReview = review;
+            }
         }
-        if (!review.get().getAuthor().getId().equals(SecurityUtil.getCurrentMemberId())) {
+
+        if (myReview == null) {
+            throw new IllegalArgumentException("작성된 리뷰가 없습니다. Restaurant Id = " + restaurantId);
+        }
+        if (!myReview.getAuthor().getId().equals(SecurityUtil.getCurrentMemberId())) {
             throw new IllegalArgumentException("해당 리뷰의 소유주가 아닙니다");
         }
-        Review myReview = review.get();
 
         restaurant.calculateSubtractedAverageGrade(myReview.getGrade());
         reviewRepository.delete(myReview);
