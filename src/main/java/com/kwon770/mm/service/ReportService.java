@@ -55,7 +55,7 @@ public class ReportService {
         if (report.isEmpty()) {
             throw new IllegalArgumentException("해당 id와 일치하는 Report가 없습니다 reportId="+reportId);
         }
-        if (!report.get().getId().equals(SecurityUtil.getCurrentMemberId())) {
+        if (!report.get().getAuthor().getId().equals(SecurityUtil.getCurrentMemberId())) {
             throw new IllegalArgumentException("해당 Report의 소유자가 아닙니다");
         }
 
