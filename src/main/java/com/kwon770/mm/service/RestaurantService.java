@@ -107,7 +107,7 @@ public class RestaurantService {
 
     public RestaurantGachaDto getRestaurantGachaDtoByMultipleCondition(List<String> type, List<String> price, List<String> location, Boolean deliverable) throws IllegalArgumentException {
         Optional<Restaurant> restaurant = restaurantQueryRepository.findByMultipleConditions(type, price, location, deliverable);
-        if (!restaurant.isPresent()) {
+        if (restaurant.isEmpty()) {
             throw new IllegalArgumentException("해당 조건을 충족하는 식당이 없습니다.");
         }
 
@@ -181,18 +181,14 @@ public class RestaurantService {
     @Transactional
     public ReviewInfoDto getMyReviewInfoDtoByRestaurantId(Long restaurantId) {
         Optional<Review> review = reviewRepository.findByRestaurant_IdAndAuthor_Id(restaurantId, SecurityUtil.getCurrentMemberId());
-        if (review.isPresent()) {
-            return RestaurantMapper.INSTANCE.reviewToReviewInfoDto(review.get());
-        } else {
-            return null;
-        }
+        return review.map(RestaurantMapper.INSTANCE::reviewToReviewInfoDto).orElse(null);
     }
 
     @Transactional
     public Long updateMyReviewByRestaurantId(Long restaurantId, ReviewRequestDto reviewRequestDto) {
         Restaurant restaurant = getRestaurantById(restaurantId);
         Optional<Review> review = reviewRepository.findByRestaurant_IdAndAuthor_Id(restaurantId, SecurityUtil.getCurrentMemberId());
-        if (!review.isPresent()) {
+        if (review.isEmpty()) {
             throw new IllegalArgumentException("작성된 리뷰가 없습니다. Restaurant Id = " + restaurantId);
         }
         Review myReview = review.get();
@@ -207,7 +203,7 @@ public class RestaurantService {
     public void deleteMyReviewByRestaurantId(Long restaurantId) throws IllegalArgumentException {
         Restaurant restaurant = getRestaurantById(restaurantId);
         Optional<Review> review = reviewRepository.findByRestaurant_IdAndAuthor_Id(restaurantId, SecurityUtil.getCurrentMemberId());
-        if (!review.isPresent()) {
+        if (review.isEmpty()) {
             throw new IllegalArgumentException("작성된 리뷰가 없습니다. Restaurant Id = " + restaurantId);
         }
         Review myReview = review.get();

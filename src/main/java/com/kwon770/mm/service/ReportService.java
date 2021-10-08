@@ -41,7 +41,7 @@ public class ReportService {
 
     public void deleteMyReportByReportId(Long reportId) {
         Optional<Report> report = reportRepository.findById(reportId);
-        if (report.isPresent()) {
+        if (report.isEmpty()) {
             throw new IllegalArgumentException("해당 id와 일치하는 Report가 없습니다 reportId="+reportId);
         }
         if (!report.get().getId().equals(SecurityUtil.getCurrentMemberId())) {
