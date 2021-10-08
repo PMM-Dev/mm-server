@@ -128,20 +128,26 @@ public class Restaurant {
         this.specials.remove(restaurantSpecial);
     }
 
-    public void calculateAddedAverageGrade(Float newGrade) {
+    public void calculateAddedAverageGrade(float grade) {
         int reviewCount = reviews.size();
-        Float sum = (averageGrade * reviewCount) + newGrade;
+        float sum = (averageGrade * reviewCount) + grade;
         averageGrade = sum / (reviewCount + 1);
     }
 
-    public void calculateSubtractedAverageGrade(Float newGrade) {
+    public void calculateSubtractedAverageGrade(float grade) {
         int reviewCount = reviews.size();
         if (reviewCount == 1) {
             averageGrade = 0F;
             return;
         }
 
-        Float sum = (averageGrade * reviewCount) - newGrade;
+        float sum = (averageGrade * reviewCount) - grade;
         averageGrade = sum / (reviewCount - 1);
+    }
+
+    public void calculateUpdatedAverageGrade(float oldGrade, float newGrade) {
+        int reviewCount = reviews.size();
+        float sum = (averageGrade * reviewCount) - oldGrade + newGrade;
+        averageGrade = sum / reviewCount;
     }
 }

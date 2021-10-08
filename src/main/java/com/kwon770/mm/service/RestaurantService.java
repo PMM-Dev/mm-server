@@ -198,9 +198,8 @@ public class RestaurantService {
         }
         Review myReview = review.get();
 
-        restaurant.calculateSubtractedAverageGrade(myReview.getGrade());
+        restaurant.calculateUpdatedAverageGrade(myReview.getGrade(), reviewRequestDto.getGrade());
         myReview.update(reviewRequestDto);
-        restaurant.calculateAddedAverageGrade(myReview.getGrade());
 
         return myReview.getId();
     }
