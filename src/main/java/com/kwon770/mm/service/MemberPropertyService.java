@@ -11,7 +11,6 @@ import com.kwon770.mm.util.SecurityUtil;
 import com.kwon770.mm.web.dto.MemberTitleRequestDto;
 import com.kwon770.mm.web.dto.Restaurant.MyReviewDto;
 import com.kwon770.mm.web.dto.Restaurant.RestaurantElementDto;
-import com.kwon770.mm.web.dto.Restaurant.ReviewInfoDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -74,11 +73,5 @@ public class MemberPropertyService {
         Restaurant restaurant = restaurantService.getRestaurantById(restaurantId);
 
         member.subtractedLikedRestaurant(restaurant);
-    }
-
-    public List<MyReviewDto> getMyReviewList(Long userId) {
-        List<Review> reviews = reviewRepository.findAllByAuthor_Id(userId);
-
-        return reviews.stream().map(review -> new MyReviewDto(review)).collect(Collectors.toList());
     }
 }

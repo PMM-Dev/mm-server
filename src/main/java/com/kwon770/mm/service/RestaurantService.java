@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import javax.transaction.Transactional;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @RequiredArgsConstructor
 @Service
@@ -119,6 +120,11 @@ public class RestaurantService {
         return RestaurantMapper.INSTANCE.restaurantToRestaurantLocationDtos(restaurants);
     }
 
+    public void updateRestaurant(Long restaurantId, RestaurantRequestDto restaurantRequestDto) {
+        Restaurant restaurant = getRestaurantById(restaurantId);
+        restaurant.update(restaurantRequestDto);
+    }
+
     public void deleteRestaurantById(Long id) {
         restaurantRepository.deleteById(id);
     }
@@ -127,6 +133,30 @@ public class RestaurantService {
         Restaurant targetRestaurant = getRestaurantByName(name);
 
         restaurantRepository.delete(targetRestaurant);
+    }
+
+    public List<ReviewInfoDto> getReviewInfoDtosByRestaurantId(Long restaurantId) {
+        List<Review> reviews = reviewRepository.findAllByRestaurant_Id(restaurantId);
+
+        return RestaurantMapper.INSTANCE.reviewsToReviewInfoDtos(reviews);
+    }
+
+    public List<ReviewInfoDto> getReviewInfoDtosByRestaurantIdOrderByCreatedDateDesc(Long restaurantId) {
+        List<Review> reviews = reviewRepository.findAllByRestaurant_IdOrderByCreatedDateDesc(restaurantId);
+
+        return RestaurantMapper.INSTANCE.reviewsToReviewInfoDtos(reviews);
+    }
+
+    public List<ReviewInfoDto> getReviewInfoDtosByRestaurantIdOrderByGradeDesc(Long restaurantId) {
+        List<Review> reviews = reviewRepository.findAllByRestaurant_IdOrderByGradeDesc(restaurantId);
+
+        return RestaurantMapper.INSTANCE.reviewsToReviewInfoDtos(reviews);
+    }
+
+    public List<ReviewInfoDto> getReviewInfoDtosByRestaurantIdOrderByGradeAsc(Long restaurantId) {
+        List<Review> reviews = reviewRepository.findAllByRestaurant_IdOrderByGradeAsc(restaurantId);
+
+        return RestaurantMapper.INSTANCE.reviewsToReviewInfoDtos(reviews);
     }
 
     @Transactional
@@ -158,42 +188,10 @@ public class RestaurantService {
         return null;
     }
 
-    public List<ReviewInfoDto> getReviewInfoDtosByRestaurantId(Long restaurantId) {
-        List<Review> reviews = reviewRepository.findAllByRestaurant_Id(restaurantId);
+    public List<MyReviewDto> getMyReviewList(Long userId) {
+        List<Review> reviews = reviewRepository.findAllByAuthor_Id(userId);
 
-        return RestaurantMapper.INSTANCE.reviewsToReviewInfoDtos(reviews);
-    }
-
-    public List<ReviewInfoDto> getReviewInfoDtosByRestaurantIdOrderByCreatedDateDesc(Long restaurantId) {
-        List<Review> reviews = reviewRepository.findAllByRestaurant_IdOrderByCreatedDateDesc(restaurantId);
-
-        return RestaurantMapper.INSTANCE.reviewsToReviewInfoDtos(reviews);
-    }
-
-    public List<ReviewInfoDto> getReviewInfoDtosByRestaurantIdOrderByGradeDesc(Long restaurantId) {
-        List<Review> reviews = reviewRepository.findAllByRestaurant_IdOrderByGradeDesc(restaurantId);
-
-        return RestaurantMapper.INSTANCE.reviewsToReviewInfoDtos(reviews);
-    }
-
-    public List<ReviewInfoDto> getReviewInfoDtosByRestaurantIdOrderByGradeAsc(Long restaurantId) {
-        List<Review> reviews = reviewRepository.findAllByRestaurant_IdOrderByGradeAsc(restaurantId);
-
-        return RestaurantMapper.INSTANCE.reviewsToReviewInfoDtos(reviews);
-    }
-
-    @Transactional
-    public Review ab(Long restaurantId) throws IllegalArgumentException {
-        Review myReview = null;
-        Restaurant restaurant = getRestaurantById(restaurantId);
-        Long myId = SecurityUtil.getCurrentMemberId();
-        for (Review review : restaurant.getReviews()) {
-            System.out.println(review.getAuthor().getId());
-            if (myId.equals(review.getAuthor().getId())) {
-                myReview = review;
-            }
-        }
-        return myReview;
+        return RestaurantMapper.INSTANCE.reviewsToMyReviewDtos(reviews);
     }
 
     @Transactional
@@ -218,10 +216,4 @@ public class RestaurantService {
         reviewRepository.delete(myReview);
         memberService.getMemberById(myId).decreaseReviewCount();
     }
-
-    public void updateRestaurant(Long restaurantId, RestaurantRequestDto restaurantRequestDto) {
-        Restaurant restaurant = getRestaurantById(restaurantId);
-        restaurant.update(restaurantRequestDto);
-    }
-
 }

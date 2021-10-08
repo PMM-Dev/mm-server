@@ -129,10 +129,4 @@ public class RestauarntApiController {
         restaurantService.deleteMyReviewByRestaurantId(restaurantId);
         return true;
     }
-
-    @GetMapping("/ab")
-    public Review ab() {
-        return restaurantService.ab(2L);
-    }
-
 }

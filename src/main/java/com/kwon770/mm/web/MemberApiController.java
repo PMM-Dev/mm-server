@@ -2,6 +2,7 @@ package com.kwon770.mm.web;
 
 import com.kwon770.mm.service.MemberPropertyService;
 import com.kwon770.mm.service.MemberService;
+import com.kwon770.mm.service.RestaurantService;
 import com.kwon770.mm.util.SecurityUtil;
 import com.kwon770.mm.web.dto.MemberInfoDto;
 import com.kwon770.mm.web.dto.MemberRequestDto;
@@ -21,6 +22,7 @@ public class MemberApiController {
 
     private final MemberService memberService;
     private final MemberPropertyService memberPropertyService;
+    private final RestaurantService restaurantService;
 
     @GetMapping("/member/me")
     public MemberInfoDto getMyMemberInfo() {
@@ -59,6 +61,6 @@ public class MemberApiController {
 
     @GetMapping("/member/me/review")
     public List<MyReviewDto> getMyReviewList() {
-        return memberPropertyService.getMyReviewList(SecurityUtil.getCurrentMemberId());
+        return restaurantService.getMyReviewList(SecurityUtil.getCurrentMemberId());
     }
 }
