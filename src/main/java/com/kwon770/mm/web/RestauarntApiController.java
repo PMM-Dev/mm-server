@@ -1,8 +1,6 @@
 package com.kwon770.mm.web;
 
-import com.kwon770.mm.domain.restaurant.Restaurant;
 import com.kwon770.mm.domain.member.Member;
-import com.kwon770.mm.domain.review.Review;
 import com.kwon770.mm.service.RestaurantService;
 import com.kwon770.mm.service.MemberService;
 import com.kwon770.mm.util.SecurityUtil;
@@ -11,7 +9,6 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Optional;
 
 import static com.kwon770.mm.Utility.isDigit;
 
@@ -124,9 +121,15 @@ public class RestauarntApiController {
         return restaurantService.getMyReviewInfoDtoByRestaurantId(restaurantId);
     }
 
-    @DeleteMapping("/restaurant/{restaurantId}/review/me")
-    public boolean deleteMyReviewByRestaurantId(@PathVariable Long restaurantId) {
-        restaurantService.deleteMyReviewByRestaurantId(restaurantId);
+    @PutMapping("/restaurant/{restaurantId}/review/{reviewId}")
+    public Long updateMyReviewByReviewId(@PathVariable Long restaurantId, @PathVariable Long reviewId, @RequestBody ReviewRequestDto reviewRequestDto) {
+        return restaurantService.updateMyReviewByRestaurantId(restaurantId, reviewId, reviewRequestDto);
+    }
+
+    @DeleteMapping("/restaurant/{restaurantId}/review/{reviewId}")
+    public boolean deleteMyReviewByReviewId(@PathVariable Long restaurantId, @PathVariable Long reviewId) {
+        restaurantService.deleteMyReviewByRestaurantId(restaurantId, reviewId);
+
         return true;
     }
 }

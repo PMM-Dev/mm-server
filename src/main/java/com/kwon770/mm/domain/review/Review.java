@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.kwon770.mm.domain.BaseTimeEntity;
 import com.kwon770.mm.domain.restaurant.Restaurant;
 import com.kwon770.mm.domain.member.Member;
+import com.kwon770.mm.web.dto.Restaurant.ReviewRequestDto;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -41,5 +42,9 @@ public class Review extends BaseTimeEntity {
         this.restaurant = restaurant;
         this.description = description;
         this.grade = grade;
+    }
+
+    public void update(ReviewRequestDto reviewRequestDto) {
+
     }
 }

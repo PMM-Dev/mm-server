@@ -22,8 +22,8 @@ public class RestaurantAdminApiController {
     }
 
     @PutMapping("/restaurant/{restaurantId}")
-    public void updateRestaurantById(@PathVariable Long restaurantId, @RequestBody RestaurantRequestDto restaurantRequestDto) {
-        restaurantService.updateRestaurant(restaurantId, restaurantRequestDto);
+    public Long updateRestaurantById(@PathVariable Long restaurantId, @RequestBody RestaurantRequestDto restaurantRequestDto) {
+        return restaurantService.updateRestaurant(restaurantId, restaurantRequestDto);
     }
 
     @DeleteMapping("/restaurant/{identifier}")
