@@ -200,7 +200,6 @@ public class RestaurantService {
 
         restaurant.calculateSubtractedAverageGrade(myReview.getGrade());
         myReview.update(reviewRequestDto);
-        reviewRepository.save(myReview);
         restaurant.calculateAddedAverageGrade(myReview.getGrade());
 
         return myReview.getId();
