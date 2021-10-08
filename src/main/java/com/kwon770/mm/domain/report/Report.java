@@ -36,4 +36,10 @@ public class Report extends BaseTimeEntity {
         this.author = author;
         this.content = content;
     }
+
+    public void removeAllMemberConnection() {
+        for (Member member : likingMembers) {
+            member.subtractedLikedReport(this);
+        }
+    }
 }

@@ -59,6 +59,7 @@ public class ReportService {
             throw new IllegalArgumentException("해당 Report의 소유자가 아닙니다");
         }
 
+        report.get().removeAllMemberConnection();
         reportRepository.deleteById(reportId);
     }
 }
