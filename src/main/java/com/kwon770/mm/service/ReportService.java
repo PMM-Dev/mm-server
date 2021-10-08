@@ -3,6 +3,7 @@ package com.kwon770.mm.service;
 import com.kwon770.mm.domain.member.Member;
 import com.kwon770.mm.domain.member.MemberRepository;
 import com.kwon770.mm.domain.report.Report;
+import com.kwon770.mm.domain.report.ReportQueryRepository;
 import com.kwon770.mm.domain.report.ReportRepository;
 import com.kwon770.mm.util.SecurityUtil;
 import com.kwon770.mm.web.dto.ReportInfoDto;
@@ -18,8 +19,9 @@ import java.util.stream.Collectors;
 @Service
 public class ReportService {
 
-    private final ReportRepository reportRepository;
     private final MemberService memberService;
+    private final ReportRepository reportRepository;
+    private final ReportQueryRepository reportQueryRepository;
 
     public Long save(ReportRequestDto reportRequestDto) {
         Member me = memberService.getMemberById(SecurityUtil.getCurrentMemberId());
@@ -43,7 +45,7 @@ public class ReportService {
     }
 
     public List<ReportInfoDto> getReportsOrderByLikeCountDesc() {
-        List<Report> reports = reportRepository.findAllByOrderByLikeCountDesc();
+        List<Report> reports = reportQueryRepository.findAllOrderByLikeCountDesc();
 
         return reports.stream().map(report -> new ReportInfoDto(report)).collect(Collectors.toList());
     }
