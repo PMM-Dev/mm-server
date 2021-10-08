@@ -45,6 +45,7 @@ public class Review extends BaseTimeEntity {
     }
 
     public void update(ReviewRequestDto reviewRequestDto) {
-
+        this.description = reviewRequestDto.getDescription();
+        this.grade = reviewRequestDto.getGrade();
     }
 }
