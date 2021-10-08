@@ -123,7 +123,6 @@ public class RestaurantService {
     public Long updateRestaurant(Long restaurantId, RestaurantRequestDto restaurantRequestDto) {
         Restaurant restaurant = getRestaurantById(restaurantId);
         restaurant.update(restaurantRequestDto);
-        restaurantRepository.save(restaurant);
 
         return restaurant.getId();
     }
