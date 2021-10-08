@@ -179,6 +179,7 @@ public class RestaurantService {
         return reviewRepository.save(review).getId();
     }
 
+    @Transactional
     public ReviewInfoDto getMyReviewInfoDtoByRestaurantId(Long restaurantId) {
         Restaurant restaurant = getRestaurantById(restaurantId);
         Long myId = SecurityUtil.getCurrentMemberId();
@@ -191,6 +192,7 @@ public class RestaurantService {
         return null;
     }
 
+    @Transactional
     public Long updateMyReviewByRestaurantId(Long restaurantId, ReviewRequestDto reviewRequestDto) {
         Restaurant restaurant = getRestaurantById(restaurantId);
         Review myReview = null;

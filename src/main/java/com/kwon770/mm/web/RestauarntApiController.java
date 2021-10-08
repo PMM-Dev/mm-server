@@ -109,7 +109,7 @@ public class RestauarntApiController {
         return restaurantService.getReviewInfoDtosByRestaurantIdOrderByGradeAsc(restaurantId);
     }
 
-    @PostMapping("/restaurant/{restaurantId}/review")
+    @PostMapping("/restaurant/{restaurantId}/review/me")
     public Long uploadMyReviewByRestaurantId(@PathVariable Long restaurantId, @RequestBody ReviewRequestDto reviewRequestDto) {
         Member author = memberService.getMemberById(SecurityUtil.getCurrentMemberId());
 
@@ -121,12 +121,12 @@ public class RestauarntApiController {
         return restaurantService.getMyReviewInfoDtoByRestaurantId(restaurantId);
     }
 
-    @PutMapping("/restaurant/{restaurantId}/review")
+    @PutMapping("/restaurant/{restaurantId}/review/me")
     public Long updateMyReviewByReviewId(@PathVariable Long restaurantId, @RequestBody ReviewRequestDto reviewRequestDto) {
         return restaurantService.updateMyReviewByRestaurantId(restaurantId, reviewRequestDto);
     }
 
-    @DeleteMapping("/restaurant/{restaurantId}/review")
+    @DeleteMapping("/restaurant/{restaurantId}/review/me")
     public boolean deleteMyReviewByReviewId(@PathVariable Long restaurantId) {
         restaurantService.deleteMyReviewByRestaurantId(restaurantId);
 
