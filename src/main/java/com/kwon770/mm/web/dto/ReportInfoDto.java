@@ -2,6 +2,7 @@ package com.kwon770.mm.web.dto;
 
 import com.kwon770.mm.domain.member.Member;
 import com.kwon770.mm.domain.report.Report;
+import com.kwon770.mm.util.CommonUtil;
 import com.kwon770.mm.util.SecurityUtil;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -17,6 +18,7 @@ import java.util.List;
 public class ReportInfoDto {
 
     private Long id;
+    private String createdDate;
     private String authorName;
     private String authorPicture;
     private String content;
@@ -26,6 +28,7 @@ public class ReportInfoDto {
 
     public ReportInfoDto(Report report) {
         this.id = report.getId();
+        this.createdDate = CommonUtil.convertLocalDateTimeToFormatString(report.getCreatedDate());
         this.authorName = report.getAuthor().getName();
         this.authorPicture = report.getAuthor().getPicture();
         this.content = report.getContent();
