@@ -7,6 +7,7 @@ import com.kwon770.mm.domain.report.ReportQueryRepository;
 import com.kwon770.mm.domain.report.ReportRepository;
 import com.kwon770.mm.util.SecurityUtil;
 import com.kwon770.mm.web.dto.ReportInfoDto;
+import com.kwon770.mm.web.dto.ReportPreviewDto;
 import com.kwon770.mm.web.dto.ReportRequestDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -27,6 +28,15 @@ public class ReportService {
         Member me = memberService.getMemberById(SecurityUtil.getCurrentMemberId());
 
         return reportRepository.save(reportRequestDto.toEntity(me)).getId();
+    }
+
+    public ReportPreviewDto getLatestReportPreviewDto() {
+        Optional<Report> report = reportRepository.findTopByOrderByCreatedDateDesc();
+        if (report.isEmpty()) {
+            return null;
+        }
+
+        return new ReportPreviewDto(report.get());
     }
 
     public Report getReportById(Long reportId) {

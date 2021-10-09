@@ -2,6 +2,7 @@ package com.kwon770.mm.web;
 
 import com.kwon770.mm.service.ReportService;
 import com.kwon770.mm.web.dto.ReportInfoDto;
+import com.kwon770.mm.web.dto.ReportPreviewDto;
 import com.kwon770.mm.web.dto.ReportRequestDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
@@ -17,6 +18,11 @@ public class ReportApiController {
     @PostMapping("/report")
     public Long uploadReport(@RequestBody ReportRequestDto reportRequestDto) {
         return reportService.save(reportRequestDto);
+    }
+
+    @GetMapping("/report/preview")
+    public ReportPreviewDto getLatestReportPreviewDto() {
+        return reportService.getLatestReportPreviewDto();
     }
 
     @GetMapping("/report/orderBy/createdDateDesc")
