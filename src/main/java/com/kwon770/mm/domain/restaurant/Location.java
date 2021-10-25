@@ -5,5 +5,5 @@ public enum Location {
     FRONTGATE,
     SIDEGATE,
     BACKGATE,
-    ARTGATE
+    COMMERCEGATE
 }
