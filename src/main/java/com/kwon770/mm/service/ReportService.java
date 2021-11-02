@@ -30,13 +30,13 @@ public class ReportService {
         return reportRepository.save(reportRequestDto.toEntity(me)).getId();
     }
 
-    public ReportPreviewDto getLatestReportPreviewDto() {
+    public Optional<ReportPreviewDto> getLatestReportPreviewDto() {
         Optional<Report> report = reportRepository.findTopByOrderByCreatedDateDesc();
         if (report.isEmpty()) {
-            return null;
+            return Optional.empty();
         }
 
-        return new ReportPreviewDto(report.get());
+        return Optional.of(new ReportPreviewDto(report.get()));
     }
 
     public Report getReportById(Long reportId) {

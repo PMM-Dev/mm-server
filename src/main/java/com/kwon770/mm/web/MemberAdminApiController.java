@@ -4,6 +4,8 @@ import com.kwon770.mm.domain.member.Member;
 import com.kwon770.mm.service.MemberService;
 import com.kwon770.mm.web.dto.MemberRequestDto;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -17,22 +19,27 @@ public class MemberAdminApiController {
     private final MemberService memberService;
 
     @GetMapping("/member/list")
-    public List<Member> getAllMemberList() {
-        return memberService.getAllMembers();
+    public ResponseEntity<List<Member>> getAllMemberList() {
+        List<Member> members = memberService.getAllMembers();
+
+        return new ResponseEntity<>(members, HttpStatus.OK);
     }
 
     @PutMapping("/member/{userId}")
-    public void updateMemberByEmail(@PathVariable Long userId, @RequestBody MemberRequestDto memberRequestDto) {
+    public ResponseEntity<Void> updateMemberByEmail(@PathVariable Long userId, @RequestBody MemberRequestDto memberRequestDto) {
         memberService.updateMemberByEmail(userId, memberRequestDto);
+
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 
     @DeleteMapping("/member/{identifier}")
-    public boolean deleteMemberByIdentifier(@PathVariable String identifier) {
+    public ResponseEntity<Void> deleteMemberByIdentifier(@PathVariable String identifier) {
         if (isDigit(identifier)) {
             memberService.deleteMemberById(Long.parseLong(identifier));
         } else {
             memberService.deleteMemberByEmail(identifier);
         }
-        return true;
+
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 }

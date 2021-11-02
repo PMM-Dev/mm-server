@@ -1,9 +1,12 @@
 package com.kwon770.mm.service;
 
+import com.kwon770.mm.domain.notice.Notice;
 import com.kwon770.mm.domain.notice.NoticeRepository;
 import com.kwon770.mm.web.dto.NoticeDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+
+import java.util.Optional;
 
 @RequiredArgsConstructor
 @Service
@@ -15,7 +18,12 @@ public class NoticeService {
         return noticeRepository.save(notice.toEntity()).getId();
     }
 
-    public NoticeDto getLatestNoticeDto() {
-        return new NoticeDto(noticeRepository.findTopByOrderByIdDesc());
+    public Optional<NoticeDto> getLatestNoticeDto() {
+        Optional<Notice> notice = noticeRepository.findTopByOrderByIdDesc();
+        if (notice.isEmpty()) {
+            return Optional.empty();
+        }
+
+        return Optional.of(new NoticeDto(notice.get()));
     }
 }

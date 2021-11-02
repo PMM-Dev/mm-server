@@ -105,13 +105,13 @@ public class RestaurantService {
         return RestaurantMapper.INSTANCE.restaurantsToRestaurantElementDtos(restaurants);
     }
 
-    public RestaurantGachaDto getRestaurantGachaDtoByMultipleCondition(List<String> type, List<String> price, List<String> location, Boolean deliverable) throws IllegalArgumentException {
+    public Optional<RestaurantGachaDto> getRestaurantGachaDtoByMultipleCondition(List<String> type, List<String> price, List<String> location, Boolean deliverable) throws IllegalArgumentException {
         Optional<Restaurant> restaurant = restaurantQueryRepository.findByMultipleConditions(type, price, location, deliverable);
         if (restaurant.isEmpty()) {
-            throw new IllegalArgumentException("해당 조건을 충족하는 식당이 없습니다.");
+            return Optional.empty();
         }
 
-        return RestaurantMapper.INSTANCE.restaurantToRestaurantGachaDto(restaurant.get());
+        return Optional.of(RestaurantMapper.INSTANCE.restaurantToRestaurantGachaDto(restaurant.get()));
     }
 
     public List<RestaurantLocationDto> getAllRestaurantLocationDtos() {
@@ -179,13 +179,17 @@ public class RestaurantService {
     }
 
     @Transactional
-    public ReviewInfoDto getMyReviewInfoDtoByRestaurantId(Long restaurantId) {
+    public Optional<ReviewInfoDto> getMyReviewInfoDtoByRestaurantId(Long restaurantId) {
         Optional<Review> review = reviewRepository.findByRestaurant_IdAndAuthor_Id(restaurantId, SecurityUtil.getCurrentMemberId());
-        return review.map(RestaurantMapper.INSTANCE::reviewToReviewInfoDto).orElse(null);
+        if (review.isEmpty()) {
+            return Optional.empty();
+        }
+
+        return Optional.of(RestaurantMapper.INSTANCE.reviewToReviewInfoDto(review.get()));
     }
 
     @Transactional
-    public Long updateMyReviewByRestaurantId(Long restaurantId, ReviewRequestDto reviewRequestDto) {
+    public void updateMyReviewByRestaurantId(Long restaurantId, ReviewRequestDto reviewRequestDto) throws IllegalArgumentException {
         Restaurant restaurant = getRestaurantById(restaurantId);
         Optional<Review> review = reviewRepository.findByRestaurant_IdAndAuthor_Id(restaurantId, SecurityUtil.getCurrentMemberId());
         if (review.isEmpty()) {
@@ -195,8 +199,6 @@ public class RestaurantService {
 
         restaurant.calculateUpdatedAverageGrade(myReview.getGrade(), reviewRequestDto.getGrade());
         myReview.update(reviewRequestDto);
-
-        return myReview.getId();
     }
 
     @Transactional

@@ -10,6 +10,8 @@ import com.kwon770.mm.web.dto.Restaurant.MyReviewDto;
 import com.kwon770.mm.web.dto.Restaurant.RestaurantElementDto;
 import com.kwon770.mm.web.dto.Restaurant.ReviewInfoDto;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -25,55 +27,70 @@ public class MemberApiController {
     private final RestaurantService restaurantService;
 
     @GetMapping("/member/me")
-    public MemberInfoDto getMyMemberInfo() {
-        return memberService.getMyInfoDto();
+    public ResponseEntity<MemberInfoDto> getMyMemberInfo() {
+        MemberInfoDto memberInfoDto = memberService.getMyInfoDto();
+
+        return new ResponseEntity<>(memberInfoDto, HttpStatus.OK);
     }
 
     @GetMapping("/member/{identifier}")
-    public MemberInfoDto getMemberByIdentifier(@PathVariable String identifier) {
+    public ResponseEntity<MemberInfoDto> getMemberByIdentifier(@PathVariable String identifier) {
+        MemberInfoDto memberInfoDto;
         if (isDigit(identifier)) {
-            return memberService.getMemberInfoDtoById(Long.parseLong(identifier));
+            memberInfoDto = memberService.getMemberInfoDtoById(Long.parseLong(identifier));
         } else {
-            return memberService.getMemberInfoDtoByEmail(identifier);
+            memberInfoDto = memberService.getMemberInfoDtoByEmail(identifier);
         }
+
+        return new ResponseEntity<>(memberInfoDto, HttpStatus.OK);
     }
 
     @PutMapping("/member/me")
-    public void updateMemberByEmail(@RequestBody MemberRequestDto memberRequestDto) {
+    public ResponseEntity<Void> updateMemberByEmail(@RequestBody MemberRequestDto memberRequestDto) {
         memberService.updateMemberByEmail(SecurityUtil.getCurrentMemberId(), memberRequestDto);
+
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 
     @GetMapping("/member/me/like")
-    public List<RestaurantElementDto> getMyLikedRestaurantList() {
-        return memberPropertyService.getLikedRestaurantList(SecurityUtil.getCurrentMemberId());
+    public ResponseEntity<List<RestaurantElementDto>> getMyLikedRestaurantList() {
+        List<RestaurantElementDto> restaurantElementDtos = memberPropertyService.getLikedRestaurantList(SecurityUtil.getCurrentMemberId());
+
+        return new ResponseEntity<>(restaurantElementDtos, HttpStatus.OK);
     }
 
     @PutMapping("/member/like/restaurant/{restaurantId}")
-    public Long appendLikedRestaurant(@PathVariable Long restaurantId) {
+    public ResponseEntity<Void> appendLikedRestaurant(@PathVariable Long restaurantId) {
         memberPropertyService.appendLikedRestaurant(restaurantId);
-        return restaurantId;
+
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 
     @DeleteMapping("/member/like/restaurant/{restaurantId}")
-    public boolean subtractLikedRestaurant(@PathVariable Long restaurantId) {
+    public ResponseEntity<Void> subtractLikedRestaurant(@PathVariable Long restaurantId) {
         memberPropertyService.subtractedLikedRestaurant(restaurantId);
-        return true;
+
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 
     @PutMapping("/member/like/report/{reportId}")
-    public Long appendLikedReport(@PathVariable Long reportId) {
+    public ResponseEntity<Void> appendLikedReport(@PathVariable Long reportId) {
         memberPropertyService.appendLikedReport(reportId);
-        return reportId;
+
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 
     @DeleteMapping("/member/like/report/{reportId}")
-    public boolean subtractLikedReport(@PathVariable Long reportId) {
+    public ResponseEntity<Void> subtractLikedReport(@PathVariable Long reportId) {
         memberPropertyService.subtractedLikedReport(reportId);
-        return true;
+
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 
     @GetMapping("/member/me/review")
-    public List<MyReviewDto> getMyReviewList() {
-        return restaurantService.getMyReviewList(SecurityUtil.getCurrentMemberId());
+    public ResponseEntity<List<MyReviewDto>> getMyReviewList() {
+        List<MyReviewDto> myReviewDtos = restaurantService.getMyReviewList(SecurityUtil.getCurrentMemberId());
+
+        return new ResponseEntity<>(myReviewDtos, HttpStatus.OK);
     }
 }

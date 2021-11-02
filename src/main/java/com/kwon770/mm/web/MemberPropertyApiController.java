@@ -5,6 +5,8 @@ import com.kwon770.mm.util.SecurityUtil;
 import com.kwon770.mm.web.dto.MemberTitleRequestDto;
 import com.kwon770.mm.web.dto.Restaurant.RestaurantElementDto;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -16,29 +18,37 @@ public class MemberPropertyApiController {
     private final MemberPropertyService memberPropertyService;
 
     @PostMapping("/title")
-    public Long saveTitle(@RequestBody MemberTitleRequestDto memberTitleRequestDto) {
-        return memberPropertyService.saveTitle(memberTitleRequestDto);
+    public ResponseEntity<Long> saveTitle(@RequestBody MemberTitleRequestDto memberTitleRequestDto) {
+        Long titleId = memberPropertyService.saveTitle(memberTitleRequestDto);
+
+        return new ResponseEntity<>(titleId, HttpStatus.OK);
     }
 
     @DeleteMapping("/title/{title}")
-    public boolean deleteTitle(@PathVariable String title) {
+    public ResponseEntity<Void> deleteTitle(@PathVariable String title) {
         memberPropertyService.deleteTitle(title);
-        return true;
+
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 
     @PutMapping("/member/title/{title}")
-    public void appendTitle(@PathVariable String title) {
+    public ResponseEntity<Void> appendTitle(@PathVariable String title) {
         memberPropertyService.appendTitle(title);
+
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 
     @DeleteMapping("/member/title/{title}")
-    public boolean subtractTitle(@PathVariable String title) {
+    public ResponseEntity<Void> subtractTitle(@PathVariable String title) {
         memberPropertyService.subtractTitle(title);
-        return true;
+
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 
     @GetMapping("/member/{userId}/like")
-    public List<RestaurantElementDto> getLikedRestaurantList(@PathVariable Long userId) {
-        return memberPropertyService.getLikedRestaurantList(userId);
+    public ResponseEntity<List<RestaurantElementDto>> getLikedRestaurantList(@PathVariable Long userId) {
+        List<RestaurantElementDto> restaurantElementDtos = memberPropertyService.getLikedRestaurantList(userId);
+
+        return new ResponseEntity<>(restaurantElementDtos, HttpStatus.OK);
     }
 }
