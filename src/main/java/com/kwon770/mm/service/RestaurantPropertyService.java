@@ -25,7 +25,7 @@ public class RestaurantPropertyService {
     public void deleteTheme(String theme) {
         Optional<RestaurantTheme> restaurantTheme = restaurantThemeRepository.findByTheme(Theme.valueOf(theme));
         if (restaurantTheme.isEmpty()) {
-            throw new IllegalArgumentException(ErrorCode.NO_SPECIFIC_THEME_MESSAGE + theme);
+            throw new IllegalArgumentException(ErrorCode.NO_THEME_MESSAGE + theme);
         }
 
         restaurantThemeRepository.delete(restaurantTheme.get());
@@ -36,7 +36,7 @@ public class RestaurantPropertyService {
         Restaurant restaurant = restaurantService.getRestaurantById(restaurantId);
         Optional<RestaurantTheme> restaurantTheme = restaurantThemeRepository.findByTheme(Theme.valueOf(theme));
         if (restaurantTheme.isEmpty()) {
-            throw new IllegalArgumentException(ErrorCode.NO_SPECIFIC_THEME_MESSAGE + theme);
+            throw new IllegalArgumentException(ErrorCode.NO_THEME_MESSAGE + theme);
         }
 
         restaurant.appendTheme(restaurantTheme.get());
@@ -47,7 +47,7 @@ public class RestaurantPropertyService {
         Restaurant restaurant = restaurantService.getRestaurantById(restaurantId);
         Optional<RestaurantTheme> restaurantTheme = restaurantThemeRepository.findByTheme(Theme.valueOf(theme));
         if (restaurantTheme.isEmpty()) {
-            throw new IllegalArgumentException(ErrorCode.NO_SPECIFIC_THEME_MESSAGE + theme);
+            throw new IllegalArgumentException(ErrorCode.NO_THEME_MESSAGE + theme);
         }
 
         restaurant.subtractTheme(restaurantTheme.get());
@@ -60,7 +60,7 @@ public class RestaurantPropertyService {
     public void deleteSpecial(String special) {
         Optional<RestaurantSpecial> restaurantSpecial = restaurantSpecialRepository.findBySpecial(Special.valueOf(special));
         if (restaurantSpecial.isEmpty()) {
-            throw new IllegalArgumentException(ErrorCode.NO_SPECIFIC_SPECIAL_MESSAGE + special);
+            throw new IllegalArgumentException(ErrorCode.NO_SPECIAL_MESSAGE + special);
         }
 
         restaurantSpecialRepository.delete(restaurantSpecial.get());
@@ -71,7 +71,7 @@ public class RestaurantPropertyService {
         Restaurant restaurant = restaurantService.getRestaurantById(restaurantId);
         Optional<RestaurantSpecial> restaurantSpecial = restaurantSpecialRepository.findBySpecial(Special.valueOf(special));
         if (restaurantSpecial.isEmpty()) {
-            throw new IllegalArgumentException(ErrorCode.NO_SPECIFIC_SPECIAL_MESSAGE + special);
+            throw new IllegalArgumentException(ErrorCode.NO_SPECIAL_MESSAGE + special);
         }
 
         restaurant.appendSpecial(restaurantSpecial.get());
@@ -82,7 +82,7 @@ public class RestaurantPropertyService {
         Restaurant restaurant = restaurantService.getRestaurantById(restaurantId);
         Optional<RestaurantSpecial> restaurantSpecial = restaurantSpecialRepository.findBySpecial(Special.valueOf(special));
         if (restaurantSpecial.isEmpty()) {
-            throw new IllegalArgumentException(ErrorCode.NO_SPECIFIC_SPECIAL_MESSAGE + special);
+            throw new IllegalArgumentException(ErrorCode.NO_SPECIAL_MESSAGE + special);
         }
 
         restaurant.subtractSpecial(restaurantSpecial.get());

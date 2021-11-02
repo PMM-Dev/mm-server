@@ -7,16 +7,15 @@ import com.kwon770.mm.domain.restaurant.Type;
 import com.kwon770.mm.domain.review.Review;
 import com.kwon770.mm.domain.review.ReviewRepository;
 import com.kwon770.mm.domain.member.Member;
+import com.kwon770.mm.exception.ErrorCode;
 import com.kwon770.mm.util.SecurityUtil;
 import com.kwon770.mm.web.dto.Restaurant.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.GetMapping;
 
 import javax.transaction.Transactional;
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 @RequiredArgsConstructor
 @Service
@@ -37,7 +36,7 @@ public class RestaurantService {
 
     public Restaurant getRestaurantById(Long id) {
         return restaurantRepository.findOneById(id)
-                .orElseThrow(() -> new IllegalArgumentException("id가 일치하는 식당이 없습니다. id=" + id));
+                .orElseThrow(() -> new IllegalArgumentException(ErrorCode.NO_MEMBER_BY_EMAIL + id));
     }
 
     public RestaurantInfoDto getRestaurantInfoDtoById(Long id) {
@@ -48,7 +47,7 @@ public class RestaurantService {
 
     public Restaurant getRestaurantByName(String name) {
         return restaurantRepository.findByName(name)
-                .orElseThrow(() -> new IllegalArgumentException("name 이 일치하는 식당이 없습니다. name=" + name));
+                .orElseThrow(() -> new IllegalArgumentException(ErrorCode.NO_RESTAURANT_BY_RESTAURANTNAME + name));
     }
 
     public RestaurantInfoDto getRestaurantInfoDtoByName(String name) {
@@ -193,7 +192,7 @@ public class RestaurantService {
         Restaurant restaurant = getRestaurantById(restaurantId);
         Optional<Review> review = reviewRepository.findByRestaurant_IdAndAuthor_Id(restaurantId, SecurityUtil.getCurrentMemberId());
         if (review.isEmpty()) {
-            throw new IllegalArgumentException("작성된 리뷰가 없습니다. Restaurant Id = " + restaurantId);
+            throw new IllegalArgumentException(ErrorCode.NO_REVIEW_BY_RESTAURANTID + restaurantId);
         }
         Review myReview = review.get();
 
@@ -206,7 +205,7 @@ public class RestaurantService {
         Restaurant restaurant = getRestaurantById(restaurantId);
         Optional<Review> review = reviewRepository.findByRestaurant_IdAndAuthor_Id(restaurantId, SecurityUtil.getCurrentMemberId());
         if (review.isEmpty()) {
-            throw new IllegalArgumentException("작성된 리뷰가 없습니다. Restaurant Id = " + restaurantId);
+            throw new IllegalArgumentException(ErrorCode.NO_REVIEW_BY_RESTAURANTID + restaurantId);
         }
         Review myReview = review.get();
 

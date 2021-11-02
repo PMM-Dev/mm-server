@@ -5,6 +5,7 @@ import com.kwon770.mm.domain.member.MemberRepository;
 import com.kwon770.mm.domain.report.Report;
 import com.kwon770.mm.domain.report.ReportQueryRepository;
 import com.kwon770.mm.domain.report.ReportRepository;
+import com.kwon770.mm.exception.ErrorCode;
 import com.kwon770.mm.util.SecurityUtil;
 import com.kwon770.mm.web.dto.ReportInfoDto;
 import com.kwon770.mm.web.dto.ReportPreviewDto;
@@ -42,7 +43,7 @@ public class ReportService {
     public Report getReportById(Long reportId) {
         Optional<Report> report = reportRepository.findById(reportId);
         if (report.isEmpty()) {
-            throw new IllegalArgumentException("해당 id와 일치하는 Report가 없습니다 reportId="+reportId);
+            throw new IllegalArgumentException(ErrorCode.NO_REPORT_BY_REPORTID + reportId);
         }
 
         return report.get();
@@ -63,10 +64,10 @@ public class ReportService {
     public void deleteMyReportByReportId(Long reportId) {
         Optional<Report> report = reportRepository.findById(reportId);
         if (report.isEmpty()) {
-            throw new IllegalArgumentException("해당 id와 일치하는 Report가 없습니다 reportId="+reportId);
+            throw new IllegalArgumentException(ErrorCode.NO_REPORT_BY_REPORTID + reportId);
         }
         if (!report.get().getAuthor().getId().equals(SecurityUtil.getCurrentMemberId())) {
-            throw new IllegalArgumentException("해당 Report의 소유자가 아닙니다");
+            throw new IllegalArgumentException(ErrorCode.NOT_REPORT_OWNER);
         }
 
         report.get().removeAllMemberConnection();

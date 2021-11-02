@@ -6,12 +6,9 @@ import com.kwon770.mm.domain.member.Title;
 import com.kwon770.mm.domain.member.Member;
 import com.kwon770.mm.domain.member.MemberTitle;
 import com.kwon770.mm.domain.member.MemberTitleRepository;
-import com.kwon770.mm.domain.review.Review;
-import com.kwon770.mm.domain.review.ReviewRepository;
 import com.kwon770.mm.exception.ErrorCode;
 import com.kwon770.mm.util.SecurityUtil;
 import com.kwon770.mm.web.dto.MemberTitleRequestDto;
-import com.kwon770.mm.web.dto.Restaurant.MyReviewDto;
 import com.kwon770.mm.web.dto.Restaurant.RestaurantElementDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -19,7 +16,6 @@ import org.springframework.stereotype.Service;
 import javax.transaction.Transactional;
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 @RequiredArgsConstructor
 @Service
@@ -38,7 +34,7 @@ public class MemberPropertyService {
     public void deleteTitle(String title) {
         Optional<MemberTitle> memberTitle = memberTitleRepository.findByTitle(Title.valueOf(title));
         if (memberTitle.isEmpty()) {
-            throw new IllegalArgumentException(ErrorCode.NO_SPECIFIC_TITLE_MESSAGE + title);
+            throw new IllegalArgumentException(ErrorCode.NO_TITLE_MESSAGE + title);
         }
 
         memberTitleRepository.delete(memberTitle.get());
@@ -49,7 +45,7 @@ public class MemberPropertyService {
         Member member = memberService.getMemberById(SecurityUtil.getCurrentMemberId());
         Optional<MemberTitle> memberTitle = memberTitleRepository.findByTitle(Title.valueOf(title));
         if (memberTitle.isEmpty()) {
-            throw new IllegalArgumentException(ErrorCode.NO_SPECIFIC_TITLE_MESSAGE + title);
+            throw new IllegalArgumentException(ErrorCode.NO_TITLE_MESSAGE + title);
         }
 
         member.appendTitle(memberTitle.get());
@@ -60,7 +56,7 @@ public class MemberPropertyService {
         Member member = memberService.getMemberById(SecurityUtil.getCurrentMemberId());
         Optional<MemberTitle> memberTitle = memberTitleRepository.findByTitle(Title.valueOf(title));
         if (memberTitle.isEmpty()) {
-            throw new IllegalArgumentException(ErrorCode.NO_SPECIFIC_TITLE_MESSAGE + title);
+            throw new IllegalArgumentException(ErrorCode.NO_TITLE_MESSAGE + title);
         }
 
         member.subtractTitle(memberTitle.get());

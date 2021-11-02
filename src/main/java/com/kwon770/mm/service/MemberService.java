@@ -2,20 +2,14 @@ package com.kwon770.mm.service;
 
 import com.kwon770.mm.domain.member.Member;
 import com.kwon770.mm.domain.member.MemberRepository;
-import com.kwon770.mm.provider.security.JwtTokenProvider;
+import com.kwon770.mm.exception.ErrorCode;
 import com.kwon770.mm.util.SecurityUtil;
-import com.kwon770.mm.view.LogView;
 import com.kwon770.mm.web.dto.MemberInfoDto;
 import com.kwon770.mm.web.dto.MemberRequestDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
-import javax.net.ssl.HttpsURLConnection;
 import javax.transaction.Transactional;
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.net.URL;
 import java.util.List;
 
 @RequiredArgsConstructor
@@ -34,7 +28,7 @@ public class MemberService {
     }
 
     public Member getMemberById(Long id) {
-        return memberRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("id가 일치하는 유저가 없습니다. id=" + id));
+        return memberRepository.findById(id).orElseThrow(() -> new IllegalArgumentException(ErrorCode.NO_MEMBER_BY_USERID + id));
     }
 
     public MemberInfoDto getMemberInfoDtoById(Long id) {
@@ -42,7 +36,7 @@ public class MemberService {
     }
 
     public Member getMemberByEmail(String email) {
-        return memberRepository.findByEmail(email).orElseThrow(() -> new IllegalArgumentException("email이 일치하는 유저가 없습니다. email=" + email));
+        return memberRepository.findByEmail(email).orElseThrow(() -> new IllegalArgumentException(ErrorCode.NO_MEMBER_BY_EMAIL + email));
     }
 
     public MemberInfoDto getMemberInfoDtoByEmail(String email) {

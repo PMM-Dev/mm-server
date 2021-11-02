@@ -2,6 +2,7 @@ package com.kwon770.mm.service;
 
 import com.kwon770.mm.domain.member.Member;
 import com.kwon770.mm.domain.member.MemberRepository;
+import com.kwon770.mm.exception.ErrorCode;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -25,7 +26,7 @@ public class CustomUserDetailsService implements UserDetailsService {
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
         return memberRepository.findByEmail(email)
                 .map(this::createUserDetails)
-                .orElseThrow(() -> new UsernameNotFoundException("email 이 일치하는 유저가 없습니다. < email = " + email));
+                .orElseThrow(() -> new UsernameNotFoundException(ErrorCode.NO_MEMBER_BY_EMAIL + email));
     }
 
     private UserDetails createUserDetails(Member member) {
