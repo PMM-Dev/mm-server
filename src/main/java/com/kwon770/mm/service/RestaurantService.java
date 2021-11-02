@@ -104,7 +104,7 @@ public class RestaurantService {
         return RestaurantMapper.INSTANCE.restaurantsToRestaurantElementDtos(restaurants);
     }
 
-    public Optional<RestaurantGachaDto> getRestaurantGachaDtoByMultipleCondition(List<String> type, List<String> price, List<String> location, Boolean deliverable) throws IllegalArgumentException {
+    public Optional<RestaurantGachaDto> getRestaurantGachaDtoByMultipleCondition(List<String> type, List<String> price, List<String> location, Boolean deliverable) {
         Optional<Restaurant> restaurant = restaurantQueryRepository.findByMultipleConditions(type, price, location, deliverable);
         if (restaurant.isEmpty()) {
             return Optional.empty();
@@ -188,7 +188,7 @@ public class RestaurantService {
     }
 
     @Transactional
-    public void updateMyReviewByRestaurantId(Long restaurantId, ReviewRequestDto reviewRequestDto) throws IllegalArgumentException {
+    public void updateMyReviewByRestaurantId(Long restaurantId, ReviewRequestDto reviewRequestDto) {
         Restaurant restaurant = getRestaurantById(restaurantId);
         Optional<Review> review = reviewRepository.findByRestaurant_IdAndAuthor_Id(restaurantId, SecurityUtil.getCurrentMemberId());
         if (review.isEmpty()) {
@@ -201,7 +201,7 @@ public class RestaurantService {
     }
 
     @Transactional
-    public void deleteMyReviewByRestaurantId(Long restaurantId) throws IllegalArgumentException {
+    public void deleteMyReviewByRestaurantId(Long restaurantId) {
         Restaurant restaurant = getRestaurantById(restaurantId);
         Optional<Review> review = reviewRepository.findByRestaurant_IdAndAuthor_Id(restaurantId, SecurityUtil.getCurrentMemberId());
         if (review.isEmpty()) {
