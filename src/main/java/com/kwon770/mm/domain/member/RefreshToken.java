@@ -19,16 +19,16 @@ public class RefreshToken {
     private String memberId;
 
     @Column(nullable = false)
-    private String key;
+    private String tokenKey;
 
     public RefreshToken updateValue(String token) {
-        this.key = token;
+        this.tokenKey = token;
         return this;
     }
 
     @Builder
-    public RefreshToken(String memberId, String key) {
+    public RefreshToken(String memberId, String tokenKey) {
         this.memberId = memberId;
-        this.key = key;
+        this.tokenKey = tokenKey;
     }
 }

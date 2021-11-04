@@ -67,7 +67,7 @@ public class AuthService {
         // 4. RefreshToken 저장
         RefreshToken refreshToken = RefreshToken.builder()
                 .memberId(authentication.getName())
-                .key(jwtTokenDto.getRefreshToken())
+                .tokenKey(jwtTokenDto.getRefreshToken())
                 .build();
 
         refreshTokenRepository.save(refreshToken);
@@ -118,7 +118,7 @@ public class AuthService {
 
         UsernamePasswordAuthenticationToken authentication = jwtTokenProvider.getAuthentication(tokenRequestDto.getAccessToken());
 
-        RefreshToken refreshToken = refreshTokenRepository.findByKey(tokenRequestDto.getRefreshToken())
+        RefreshToken refreshToken = refreshTokenRepository.findByTokenKey(tokenRequestDto.getRefreshToken())
                 .orElseThrow(() -> new CustomAuthenticationException("해당하는 RefreshToken이 없습니다"));
         // authentication.getName() = member id
         if (!refreshToken.getMemberId().equals(authentication.getName())) {
