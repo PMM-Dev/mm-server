@@ -19,7 +19,7 @@ public class ReportInfoDto {
 
     private Long id;
     private String createdDate;
-    private String authorName;
+    private String authorEmail;
     private String authorPicture;
     private String content;
     private Integer likeCount;
@@ -29,7 +29,7 @@ public class ReportInfoDto {
     public ReportInfoDto(Report report) {
         this.id = report.getId();
         this.createdDate = CommonUtil.convertLocalDateTimeToFormatString(report.getCreatedDate());
-        this.authorName = report.getAuthor().getName();
+        this.authorEmail = report.getAuthor().getEmail();
         this.authorPicture = report.getAuthor().getPicture();
         this.content = report.getContent();
         this.likeCount = report.getLikingMembers().size();

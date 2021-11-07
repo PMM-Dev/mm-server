@@ -13,13 +13,13 @@ import lombok.NoArgsConstructor;
 public class ReportPreviewDto {
 
     private Long id;
-    private String authorName;
+    private String authorEmail;
     private String content;
     private Integer likeCount;
 
     public ReportPreviewDto(Report report) {
         this.id = report.getId();
-        this.authorName = report.getAuthor().getName();
+        this.authorEmail = report.getAuthor().getEmail();
         this.content = report.getContent();
         this.likeCount = report.getLikingMembers().size();
     }
