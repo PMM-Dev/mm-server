@@ -35,6 +35,10 @@ public interface RestaurantMapper {
         return new ReviewInfoDto(review);
     }
 
+    RestaurantSearchDto restaurantToRestaurantSearchDto(Restaurant restaurant);
+
+    List<RestaurantSearchDto> restaurantsToRestaurantSearchDtos(List<Restaurant> restaurants);
+
     List<ReviewInfoDto> reviewsToReviewInfoDtos(List<Review> reviews);
 
     default MyReviewDto reviewToMyReviewDto(Review review) {
