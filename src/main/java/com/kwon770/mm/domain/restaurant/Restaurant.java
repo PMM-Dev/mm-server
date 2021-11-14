@@ -53,6 +53,10 @@ public class Restaurant {
 
     private String closeTime;
 
+    @OneToOne(mappedBy = "restaurant")
+    @JsonManagedReference
+    private RestaurantPicture restaurantPicture;
+
     @ManyToMany
     @JoinTable(
             name = "restaurant_theme_relation",
@@ -69,6 +73,10 @@ public class Restaurant {
     )
     private List<RestaurantSpecial> specials = new ArrayList<>();
 
+
+    /*
+      Relation With Other Entities
+     */
     @OneToMany(mappedBy = "restaurant")
     @JsonManagedReference
     private List<Review> reviews = new ArrayList<>();

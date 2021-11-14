@@ -7,12 +7,27 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
+
+import java.io.IOException;
 
 @RequiredArgsConstructor
 @RestController
 public class RestaurantPropertyApiController {
 
     private final RestaurantPropertyService restaurantPropertyService;
+
+    @PostMapping("/restaurant/{restaurantId}/picture")
+    public ResponseEntity<Void> uploadRestaurantPicture(@PathVariable Long restaurantId, @RequestParam("picture") MultipartFile picture) {
+        try {
+            restaurantPropertyService.uploadRestaurantPicture(restaurantId, picture);
+
+            return new ResponseEntity<>(HttpStatus.OK);
+        } catch (IOException e) {
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+
+    }
 
     @PostMapping("/theme")
     public ResponseEntity<Long> saveTheme(@RequestBody RestaurantThemeRequestDto restaurantThemeRequestDto) {

@@ -7,7 +7,9 @@ import com.kwon770.mm.web.dto.Restaurant.RestaurantThemeRequestDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
 import java.util.Optional;
 
 @RequiredArgsConstructor
@@ -15,8 +17,20 @@ import java.util.Optional;
 public class RestaurantPropertyService {
 
     private final RestaurantService restaurantService;
+    private final RestaurantPictureRepository restaurantPictureRepository;
     private final RestaurantThemeRepository restaurantThemeRepository;
     private final RestaurantSpecialRepository restaurantSpecialRepository;
+
+    private final PictureHandler pictureHandler;
+
+    public void uploadRestaurantPicture(Long restaurantId, MultipartFile picture) throws IOException {
+        RestaurantPicture restaurantPicture = pictureHandler.parseRestaurantPicture(picture);
+        Restaurant restaurant = restaurantService.getRestaurantById(restaurantId);
+        restaurantPicture.setRestaurant(restaurant);
+
+        pictureHandler.downloadPicture(picture, restaurantPicture.getFilePath());
+        restaurantPictureRepository.save(restaurantPicture);
+    }
 
     public Long saveTheme(RestaurantThemeRequestDto restaurantThemeRequestDto) {
         return restaurantThemeRepository.save(restaurantThemeRequestDto.toEntity()).getId();
