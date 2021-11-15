@@ -6,8 +6,23 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 
+import java.io.IOException;
+
 @ControllerAdvice
 public class GlobalExceptionHandler {
+
+    @ExceptionHandler(ImageIOException.class)
+    protected ResponseEntity<CommonResponse> handleIllegalArgumentException(final ImageIOException e) {
+        LogView.logInfoExceptionTitle(e);
+
+        CommonResponse response = CommonResponse.builder()
+                .status(ErrorCode.IMAGE_IO_ERROR.getStatus())
+                .code(ErrorCode.IMAGE_IO_ERROR.name())
+                .message(e.getMessage())
+                .build();
+
+        return new ResponseEntity<>(response, HttpStatus.INTERNAL_SERVER_ERROR);
+    }
 
     @ExceptionHandler(IllegalArgumentException.class)
     protected ResponseEntity<CommonResponse> handleIllegalArgumentException(final IllegalArgumentException e) {

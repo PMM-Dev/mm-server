@@ -11,7 +11,7 @@ import javax.validation.constraints.NotNull;
 @NoArgsConstructor
 @Getter
 @Entity
-public class RestaurantPicture {
+public class RestaurantImage {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -30,7 +30,7 @@ public class RestaurantPicture {
     private Restaurant restaurant;
 
     @Builder
-    public RestaurantPicture(String originalFileName, String filePath, Long fileSize) {
+    public RestaurantImage(String originalFileName, String filePath, Long fileSize) {
         this.originalFileName = originalFileName;
         this.filePath = filePath;
         this.fileSize = fileSize;

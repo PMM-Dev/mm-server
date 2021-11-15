@@ -53,9 +53,13 @@ public class Restaurant {
 
     private String closeTime;
 
-    @OneToOne(mappedBy = "restaurant")
+    @OneToOne
     @JsonManagedReference
-    private RestaurantPicture restaurantPicture;
+    private RestaurantImage restaurantPicture;
+
+    @OneToOne
+    @JsonManagedReference
+    private RestaurantImage restaurantThumbnail;
 
     @ManyToMany
     @JoinTable(

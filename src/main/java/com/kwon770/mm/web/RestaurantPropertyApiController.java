@@ -24,36 +24,6 @@ public class RestaurantPropertyApiController {
 
     private final RestaurantPropertyService restaurantPropertyService;
 
-    @PostMapping("/restaurant/{restaurantId}/picture")
-    public ResponseEntity<Void> uploadRestaurantPicture(@PathVariable Long restaurantId, @RequestParam("picture") MultipartFile picture) {
-        try {
-            restaurantPropertyService.uploadRestaurantPicture(restaurantId, picture);
-
-            return new ResponseEntity<>(HttpStatus.OK);
-        } catch (IOException e) {
-            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
-        }
-
-    }
-
-    @PostMapping("/restaurant/{restaurantId}/picture")
-    public ResponseEntity<Void> getRestaurantPicture(HttpServletResponse response, @PathVariable Long restaurantId) {
-        try {
-            Optional<String> picturePath = restaurantPropertyService.getRestaurantPicturePath(restaurantId);
-            if (picturePath.isEmpty()) {
-                return new ResponseEntity<>(HttpStatus.NO_CONTENT);
-
-            }
-            byte[] pictureBytes = FileUtils.readFileToByteArray(new File(picturePath.get()));
-            response.getOutputStream().write(pictureBytes);
-            response.getOutputStream().flush();
-            response.getOutputStream().close();
-            return new ResponseEntity<>(HttpStatus.OK);
-        } catch (IOException e) {
-            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
-        }
-    }
-
     @PostMapping("/theme")
     public ResponseEntity<Long> saveTheme(@RequestBody RestaurantThemeRequestDto restaurantThemeRequestDto) {
         Long themeId = restaurantPropertyService.saveTheme(restaurantThemeRequestDto);
