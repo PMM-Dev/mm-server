@@ -10,11 +10,12 @@ import java.io.IOException;
 @Component
 public class PictureHandler {
 
+    private static String absolutePath = new File("").getAbsolutePath() + "/";
+    private static String restaurantPicturePath = absolutePath + "images/restaurant/picture";
+    private static String restaurantThumbnailPath = absolutePath + "images/restaurant/thumbnail";
+
     public void downloadPicture(MultipartFile multipartFile, String filePath) throws IOException {
         String absolutePath = new File("").getAbsolutePath() + "/";
-        System.out.println(absolutePath);
-        System.out.println(filePath);
-
         File file = new File(absolutePath + filePath);
         multipartFile.transferTo(file);
     }
@@ -40,17 +41,15 @@ public class PictureHandler {
     }
 
     public RestaurantPicture parseRestaurantPicture(MultipartFile multipartFile) {
-        String path = "images/restaurant/";
-        validateSavingPath(path);
+        validateSavingPath(restaurantPicturePath);
         validatePictureExtension(multipartFile.getContentType());
 
         String fileExtension = getFileExtension(multipartFile.getContentType());
         String fileName = System.nanoTime() + fileExtension;
         return RestaurantPicture.builder()
                 .originalFileName(multipartFile.getOriginalFilename())
-                .filePath(path + fileName)
+                .filePath(restaurantPicturePath + fileName)
                 .fileSize(multipartFile.getSize())
                 .build();
-
     }
 }

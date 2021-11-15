@@ -4,12 +4,19 @@ import com.kwon770.mm.service.RestaurantPropertyService;
 import com.kwon770.mm.web.dto.Restaurant.RestaurantSpecialRequestDto;
 import com.kwon770.mm.web.dto.Restaurant.RestaurantThemeRequestDto;
 import lombok.RequiredArgsConstructor;
+import org.apache.commons.io.FileUtils;
+import org.apache.commons.io.IOUtils;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.servlet.http.HttpServletResponse;
+import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.InputStream;
+import java.util.Optional;
 
 @RequiredArgsConstructor
 @RestController
@@ -27,6 +34,24 @@ public class RestaurantPropertyApiController {
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
 
+    }
+
+    @PostMapping("/restaurant/{restaurantId}/picture")
+    public ResponseEntity<Void> getRestaurantPicture(HttpServletResponse response, @PathVariable Long restaurantId) {
+        try {
+            Optional<String> picturePath = restaurantPropertyService.getRestaurantPicturePath(restaurantId);
+            if (picturePath.isEmpty()) {
+                return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+
+            }
+            byte[] pictureBytes = FileUtils.readFileToByteArray(new File(picturePath.get()));
+            response.getOutputStream().write(pictureBytes);
+            response.getOutputStream().flush();
+            response.getOutputStream().close();
+            return new ResponseEntity<>(HttpStatus.OK);
+        } catch (IOException e) {
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
     }
 
     @PostMapping("/theme")

@@ -39,6 +39,9 @@ dependencies {
     implementation group: 'org.apache.tomcat', name: 'tomcat-jdbc'
     implementation 'junit:junit:4.12'
 
+    implementation group: 'io.springfox', name: 'springfox-swagger2', version: '2.5.0'
+    implementation group: 'io.springfox', name: 'springfox-swagger-ui', version: '2.5.0'
+
     compile('com.h2database:h2')
     implementation('org.mariadb.jdbc:mariadb-java-client')
 
@@ -66,8 +69,7 @@ dependencies {
     runtime group: 'io.jsonwebtoken', name: 'jjwt-impl', version: '0.11.2'
     runtime group: 'io.jsonwebtoken', name: 'jjwt-jackson', version: '0.11.2'
 
-    implementation group: 'io.springfox', name: 'springfox-swagger2', version: '2.5.0'
-    implementation group: 'io.springfox', name: 'springfox-swagger-ui', version: '2.5.0'
+    implementation group: 'commons-io', name: 'commons-io', version: '2.8.0'
 }
 
 def generated = 'src/main/generated'
