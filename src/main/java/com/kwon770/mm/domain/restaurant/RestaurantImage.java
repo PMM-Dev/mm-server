@@ -25,7 +25,7 @@ public class RestaurantImage {
 
     private Long fileSize;
 
-    @OneToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JsonBackReference
     private Restaurant restaurant;
 
@@ -34,9 +34,5 @@ public class RestaurantImage {
         this.originalFileName = originalFileName;
         this.filePath = filePath;
         this.fileSize = fileSize;
-    }
-
-    public void setRestaurant(Restaurant restaurant) {
-        this.restaurant = restaurant;
     }
 }

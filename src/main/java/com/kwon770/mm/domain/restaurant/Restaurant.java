@@ -13,6 +13,7 @@ import lombok.NoArgsConstructor;
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @NoArgsConstructor
 @Getter
@@ -53,13 +54,9 @@ public class Restaurant {
 
     private String closeTime;
 
-    @OneToOne
+    @OneToMany(mappedBy = "restaurant")
     @JsonManagedReference
-    private RestaurantImage restaurantPicture;
-
-    @OneToOne
-    @JsonManagedReference
-    private RestaurantImage restaurantThumbnail;
+    private List<RestaurantImage> restaurantImages = new ArrayList<>();
 
     @ManyToMany
     @JoinTable(
@@ -122,6 +119,28 @@ public class Restaurant {
         this.longitude = restaurantRequestDto.getLongitude();
         this.openTime = restaurantRequestDto.getOpenTime();
         this.closeTime = restaurantRequestDto.getCloseTime();
+    }
+
+    public void setRestaurantImages(RestaurantImage restaurantPicture, RestaurantImage restaurantThumbnail) {
+        restaurantImages.clear();
+        restaurantImages.add(restaurantThumbnail);
+        restaurantImages.add(restaurantPicture);
+    }
+
+    public Optional<RestaurantImage> getRestaurantThumbnail() {
+        if(restaurantImages.isEmpty()) {
+            return Optional.empty();
+        }
+
+        return Optional.of(restaurantImages.get(0));
+    }
+
+    public Optional<RestaurantImage> getRestaurantPicture() {
+        if(restaurantImages.isEmpty()) {
+            return Optional.empty();
+        }
+
+        return Optional.of(restaurantImages.get(1));
     }
 
     public void appendTheme(RestaurantTheme restaurantTheme) {

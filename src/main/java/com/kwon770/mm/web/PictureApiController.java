@@ -20,21 +20,10 @@ public class PictureApiController {
 
     private final ImageService imageService;
 
-    @PostMapping("/restaurant/{restaurantId}/picture")
-    public ResponseEntity<Void> uploadRestaurantPicture(@PathVariable Long restaurantId, @RequestParam("image") MultipartFile picture) {
+    @PostMapping("/restaurant/{restaurantId}/image")
+    public ResponseEntity<Void> uploadRestaurantImages(@PathVariable Long restaurantId, @RequestParam("picture") MultipartFile picture, @RequestParam("thumbnail") MultipartFile thumbnail) {
         try {
-            imageService.uploadRestaurantPicture(restaurantId, picture);
-            return new ResponseEntity<>(HttpStatus.OK);
-
-        } catch (IOException e) {
-            throw new ImageIOException(e);
-        }
-    }
-
-    @PostMapping("/restaurant/{restaurantId}/thumbnail")
-    public ResponseEntity<Void> uploadRestaurantThumbnail(@PathVariable Long restaurantId, @RequestParam("image") MultipartFile thumbnail) {
-        try {
-            imageService.uploadRestaurantThumbnail(restaurantId, thumbnail);
+            imageService.uploadRestaurantImages(restaurantId, picture, thumbnail);
             return new ResponseEntity<>(HttpStatus.OK);
 
         } catch (IOException e) {
@@ -70,15 +59,9 @@ public class PictureApiController {
         return outputImage(response, thumbnailPath);
     }
 
-    @DeleteMapping("/restaurant/{restaurantId}/picture")
+    @DeleteMapping("/restaurant/{restaurantId}/image")
     public ResponseEntity<Void> deleteRestaurantPicture(@PathVariable Long restaurantId) {
-        imageService.deleteRestaurantPicture(restaurantId);
-        return new ResponseEntity<>(HttpStatus.OK);
-    }
-
-    @DeleteMapping("/restaurant/{restaurantId}/thumbnail")
-    public ResponseEntity<Void> deleteRestaurantThumbnail(@PathVariable Long restaurantId) {
-        imageService.deleteRestaurantThumbnail(restaurantId);
+        imageService.deleteRestaurantImages(restaurantId);
         return new ResponseEntity<>(HttpStatus.OK);
     }
 }

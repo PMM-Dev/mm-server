@@ -6,6 +6,7 @@ import com.kwon770.mm.domain.restaurant.RestaurantImageRepository;
 import com.kwon770.mm.exception.ErrorCode;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
@@ -20,61 +21,45 @@ public class ImageService {
     private final RestaurantService restaurantService;
     private final RestaurantImageRepository restaurantImageRepository;
 
-    public void uploadRestaurantPicture(Long restaurantId, MultipartFile picture) throws IOException {
+    @Transactional
+    public void uploadRestaurantImages(Long restaurantId, MultipartFile picture, MultipartFile thumbnail) throws IOException {
         RestaurantImage restaurantPicture = imageHandler.parseRestaurantPicture(picture);
-        Restaurant restaurant = restaurantService.getRestaurantById(restaurantId);
-        restaurantPicture.setRestaurant(restaurant);
-
-        imageHandler.downloadImage(picture, restaurantPicture.getFilePath());
-        restaurantImageRepository.save(restaurantPicture);
-    }
-
-    public void uploadRestaurantThumbnail(Long restaurantId, MultipartFile thumbnail) throws IOException {
         RestaurantImage restaurantThumbnail = imageHandler.parseRestaurantThumbnail(thumbnail);
         Restaurant restaurant = restaurantService.getRestaurantById(restaurantId);
-        restaurantThumbnail.setRestaurant(restaurant);
+        restaurant.setRestaurantImages(restaurantPicture, restaurantThumbnail);
 
+        imageHandler.downloadImage(picture, restaurantPicture.getFilePath());
         imageHandler.downloadImage(thumbnail, restaurantThumbnail.getFilePath());
+        restaurantImageRepository.save(restaurantPicture);
         restaurantImageRepository.save(restaurantThumbnail);
     }
 
     public Optional<String> getRestaurantPicturePath(Long restaurantId) {
         Restaurant restaurant = restaurantService.getRestaurantById(restaurantId);
-        RestaurantImage restaurantPicture = restaurant.getRestaurantPicture();
-        if (restaurantPicture == null) {
+        Optional<RestaurantImage> restaurantPicture = restaurant.getRestaurantPicture();
+        if (restaurantPicture.isEmpty()) {
             return Optional.empty();
         }
 
-        return Optional.of(restaurantPicture.getFilePath());
+        return Optional.of(restaurantPicture.get().getFilePath());
     }
 
     public Optional<String> getRestaurantThumbnail(Long restaurantId) {
         Restaurant restaurant = restaurantService.getRestaurantById(restaurantId);
-        RestaurantImage restaurantThumbnail = restaurant.getRestaurantThumbnail();
-        if (restaurantThumbnail == null) {
+        Optional<RestaurantImage> restaurantThumbnail = restaurant.getRestaurantThumbnail();
+        if (restaurantThumbnail.isEmpty()) {
             return Optional.empty();
         }
 
-        return Optional.of(restaurantThumbnail.getFilePath());
+        return Optional.of(restaurantThumbnail.get().getFilePath());
     }
 
-    public void deleteRestaurantPicture(Long restaurantId) {
+    public void deleteRestaurantImages(Long restaurantId) {
         Restaurant restaurant = restaurantService.getRestaurantById(restaurantId);
-        RestaurantImage restaurantPicture = restaurant.getRestaurantPicture();
-        if (restaurantPicture == null) {
-            throw new IllegalArgumentException(ErrorCode.NO_IMAGE_BY_RESTAURANTID + restaurantId);
-        }
+        Optional<RestaurantImage> restaurantPicture = restaurant.getRestaurantPicture();
+        restaurantPicture.ifPresent(restaurantImageRepository::delete);
 
-        restaurantImageRepository.delete(restaurantPicture);
-    }
-
-    public void deleteRestaurantThumbnail(Long restaurantId) {
-        Restaurant restaurant = restaurantService.getRestaurantById(restaurantId);
-        RestaurantImage restaurantThumbnail = restaurant.getRestaurantThumbnail();
-        if (restaurantThumbnail == null) {
-            throw new IllegalArgumentException(ErrorCode.NO_IMAGE_BY_RESTAURANTID + restaurantId);
-        }
-
-        restaurantImageRepository.delete(restaurantThumbnail);
+        Optional<RestaurantImage> restaurantThumbnail = restaurant.getRestaurantThumbnail();
+        restaurantThumbnail.ifPresent(restaurantImageRepository::delete);
     }
 }
