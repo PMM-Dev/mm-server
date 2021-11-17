@@ -23,8 +23,10 @@ public class RestaurantImage {
     @NotNull
     private String filePath;
 
+    @NotNull
     private Long fileSize;
 
+    @NotNull
     @ManyToOne(fetch = FetchType.LAZY)
     @JsonBackReference
     private Restaurant restaurant;
