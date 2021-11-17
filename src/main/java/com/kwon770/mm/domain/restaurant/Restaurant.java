@@ -54,8 +54,7 @@ public class Restaurant {
 
     private String closeTime;
 
-    @OneToMany(mappedBy = "restaurant")
-    @JsonManagedReference
+    @OneToMany(mappedBy = "restaurant", orphanRemoval = true, fetch = FetchType.EAGER)
     private List<RestaurantImage> restaurantImages = new ArrayList<>();
 
     @ManyToMany

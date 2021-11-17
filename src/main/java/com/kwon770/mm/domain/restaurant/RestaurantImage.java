@@ -26,9 +26,8 @@ public class RestaurantImage {
     @NotNull
     private Long fileSize;
 
-    @NotNull
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JsonBackReference
+    @ManyToOne
+    @JoinColumn(name = "restaurant_id", nullable = false)
     private Restaurant restaurant;
 
     @Builder
