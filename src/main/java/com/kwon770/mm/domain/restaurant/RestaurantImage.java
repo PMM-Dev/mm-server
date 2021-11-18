@@ -27,7 +27,7 @@ public class RestaurantImage {
     private Long fileSize;
 
     @ManyToOne
-    @JoinColumn(name = "restaurant_id", nullable = false)
+    @JoinColumn(name = "restaurant_id")
     private Restaurant restaurant;
 
     @Builder
