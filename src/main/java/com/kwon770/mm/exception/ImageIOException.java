@@ -7,7 +7,7 @@ public class ImageIOException extends RuntimeException {
     }
 
     public ImageIOException(Exception e) {
-        super(ErrorCode.IMAGE_IO_ERROR_MESSAGE + " : " + e.getMessage());
+        super(ErrorCode.IMAGE_IO_ERROR_MESSAGE + e.getMessage());
         e.printStackTrace();
     }
 }
