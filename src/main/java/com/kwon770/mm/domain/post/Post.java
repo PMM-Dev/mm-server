@@ -10,9 +10,7 @@ import org.springframework.web.multipart.MultipartFile;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 import java.util.stream.Collectors;
 
 @NoArgsConstructor
@@ -33,7 +31,6 @@ public class Post {
     @OneToMany(mappedBy = "post", orphanRemoval = true, fetch = FetchType.EAGER)
     private List<PostImage> postImages = new ArrayList<>();
 
-
     @ManyToOne
     @JoinColumn(name = "member_id", nullable = false)
     private Member author;
@@ -48,9 +45,9 @@ public class Post {
         this.author = author;
     }
 
-    public void update(PostRequestDto postRequestDto, List<PostImage> newPostImages) {
-        this.title = postRequestDto.getTitle();
-        this.content = postRequestDto.getContent();
+    public void update(String title, String content, List<PostImage> newPostImages) {
+        this.title = title;
+        this.content = content;
         this.postImages.addAll(newPostImages);
     }
 

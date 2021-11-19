@@ -17,7 +17,6 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 import java.util.stream.Collectors;
 
 @RequiredArgsConstructor
@@ -29,11 +28,11 @@ public class PostService {
     private final PostImageRepository postImageRepository;
     private final MemberService memberService;
 
-    public Long createPost(PostRequestDto postRequestDto, List<MultipartFile> images) {
+    public Long createPost(String title, String content, List<MultipartFile> images) {
         Member author = memberService.getMemberById(SecurityUtil.getCurrentMemberId());
         Post post = Post.builder()
-                .title(postRequestDto.getTitle())
-                .content(postRequestDto.getContent())
+                .title(title)
+                .content(content)
                 .author(author)
                 .build();
         List<PostImage> postImages = getPostImages(post, images);
@@ -44,6 +43,10 @@ public class PostService {
     }
 
     private List<PostImage> getPostImages(Post post, List<MultipartFile> images) {
+        if (images == null) {
+            System.out.println("null");
+            return new ArrayList<>();
+        }
         return images.stream().map(image -> {
             PostImage postImage = imageHandler.parsePostImage(post, image);
             imageHandler.downloadImage(image, postImage.getFilePath());
@@ -59,7 +62,7 @@ public class PostService {
         }
     }
 
-    public void updatePost(Long postId, PostRequestDto postRequestDto, List<MultipartFile> images) {
+    public void updatePost(Long postId, String title, String content, List<MultipartFile> images) {
         Post post = findById(postId);
 
         List<PostImage> removedPostImages = post.getRemovedPostImages(images);
@@ -68,7 +71,7 @@ public class PostService {
         List<MultipartFile> addedImages = post.getAddedPostImages(images);
         List<PostImage> addedPostImage = getPostImages(post, addedImages);
 
-        post.update(postRequestDto, addedPostImage);
+        post.update(title, content, addedPostImage);
     }
 
     public Post findById(Long postId) {

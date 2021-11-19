@@ -58,6 +58,17 @@ public class Member {
     )
     private List<MemberTitle> titles = new ArrayList<>();
 
+    @OneToMany(mappedBy = "author")
+    private List<Post> posts = new ArrayList<>();
+
+    @ManyToMany
+    @JoinTable(
+            name = "member_post_like_relation",
+            joinColumns = @JoinColumn(name = "member_id"),
+            inverseJoinColumns = @JoinColumn(name = "post_id")
+    )
+    private Set<Post> likedPosts = new HashSet<>();
+
     @ManyToMany
     @JoinTable(
             name = "member_restaurant_like_relation",
@@ -74,13 +85,6 @@ public class Member {
     )
     private List<Report> likedReports = new ArrayList<>();
 
-    @ManyToMany
-    @JoinTable(
-            name = "member_post_like_relation",
-            joinColumns = @JoinColumn(name = "member_id"),
-            inverseJoinColumns = @JoinColumn(name = "post_id")
-    )
-    private Set<Post> likedPosts = new HashSet<>();
 
     @Builder
     public Member(String name, String email, String encodedEmail, String picture, Role role, String socialToken, SocialTokenType socialTokenType) {
