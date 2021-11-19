@@ -1,4 +1,4 @@
-package com.kwon770.mm.web;
+package com.kwon770.mm.web.post;
 
 import com.kwon770.mm.service.post.CommentService;
 import com.kwon770.mm.web.dto.post.CommentInfoDto;
@@ -30,7 +30,7 @@ public class CommentApiController {
         return new ResponseEntity<>(commentInfoDtos, HttpStatus.OK);
     }
 
-    @PutMapping("/post/comment/{commentId}")
+    @PutMapping("/post/comment/{commentId}/like")
     public ResponseEntity<Boolean> toggleCommentLike(@PathVariable Long commentId) {
         boolean didLike = commentService.toggleCommentLike(commentId);
 

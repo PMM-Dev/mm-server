@@ -138,6 +138,10 @@ public class Member {
 
     public void subtractedLikedReport(Report report) { this.likedReports.remove(report); }
 
+    public void appendLikedPost(Post post) { this.likedPosts.add(post); }
+
+    public void subtractedLikedPost(Post post) { this.likedPosts.remove(post); }
+
     public void appendLikedComment(Comment comment) { this.likedComments.add(comment); }
 
     public void subtractedLikedComment(Comment comment) { this.likedComments.remove(comment); }

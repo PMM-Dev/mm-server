@@ -30,7 +30,7 @@ public class PostService {
     private final MemberService memberService;
 
     public Long createPost(String title, String content, List<MultipartFile> images) {
-        Member author = memberService.getMemberById(SecurityUtil.getCurrentMemberId());
+        Member author = memberService.getMeById();
         Post post = Post.builder()
                 .title(title)
                 .content(content)
@@ -93,6 +93,18 @@ public class PostService {
             return Optional.of(post.getPostImages().get(index).getFilePath());
         } catch (IndexOutOfBoundsException e) {
             throw new IllegalArgumentException(ErrorCode.NOT_FOUND_IMAGE_BY_INDEX + index);
+        }
+    }
+
+    public boolean togglePostLike(Long postId) {
+        Member member = memberService.getMeById();
+        Post post = findById(postId);
+        if (post.getDidLike(member.getId())) {
+            member.subtractedLikedPost(post);
+            return false;
+        } else {
+            member.appendLikedPost(post);
+            return true;
         }
     }
 

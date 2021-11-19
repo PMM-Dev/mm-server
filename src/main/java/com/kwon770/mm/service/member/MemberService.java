@@ -31,6 +31,10 @@ public class MemberService {
         return memberRepository.findById(id).orElseThrow(() -> new IllegalArgumentException(ErrorCode.NO_MEMBER_BY_USERID + id));
     }
 
+    public Member getMeById() {
+        return memberRepository.findById(SecurityUtil.getCurrentMemberId()).orElseThrow(() -> new IllegalArgumentException(ErrorCode.NO_MEMBER_BY_USERID));
+    }
+
     public MemberInfoDto getMemberInfoDtoById(Long id) {
         return MemberMapper.INSTANCE.memberToMemberInfoDto(getMemberById(id));
     }

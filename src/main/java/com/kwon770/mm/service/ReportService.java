@@ -26,7 +26,7 @@ public class ReportService {
     private final ReportQueryRepository reportQueryRepository;
 
     public Long save(ReportRequestDto reportRequestDto) {
-        Member me = memberService.getMemberById(SecurityUtil.getCurrentMemberId());
+        Member me = memberService.getMeById();
 
         return reportRepository.save(reportRequestDto.toEntity(me)).getId();
     }

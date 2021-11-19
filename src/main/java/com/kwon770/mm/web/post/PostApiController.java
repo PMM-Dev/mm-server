@@ -1,4 +1,4 @@
-package com.kwon770.mm.web;
+package com.kwon770.mm.web.post;
 
 import com.kwon770.mm.service.post.PostService;
 import com.kwon770.mm.web.dto.post.PostInfoDto;
@@ -51,6 +51,13 @@ public class PostApiController {
         PostInfoDto postInfoDto = postService.getPostInfoDto(postId);
 
         return new ResponseEntity<>(postInfoDto, HttpStatus.OK);
+    }
+
+    @PutMapping("/post/{postId}/like")
+    public ResponseEntity<Boolean> togglePostLike(@PathVariable Long postId) {
+        boolean didLike = postService.togglePostLike(postId);
+
+        return new ResponseEntity<>(didLike, HttpStatus.OK);
     }
 
     @DeleteMapping("/post/{postId}")

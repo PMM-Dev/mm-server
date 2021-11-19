@@ -150,7 +150,7 @@ public class RestaurantApiController {
 
     @PostMapping("/restaurant/{restaurantId}/review/me")
     public ResponseEntity<Long> uploadMyReviewByRestaurantId(@PathVariable Long restaurantId, @RequestBody ReviewRequestDto reviewRequestDto) {
-        Member author = memberService.getMemberById(SecurityUtil.getCurrentMemberId());
+        Member author = memberService.getMeById();
         Long reviewId = restaurantService.uploadMyReviewByRestaurantId(author, restaurantId, reviewRequestDto);
 
         return new ResponseEntity<>(reviewId, HttpStatus.OK);

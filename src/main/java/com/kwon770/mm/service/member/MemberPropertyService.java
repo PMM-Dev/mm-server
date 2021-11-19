@@ -45,7 +45,7 @@ public class MemberPropertyService {
 
     @Transactional
     public void appendTitle(String title) {
-        Member member = memberService.getMemberById(SecurityUtil.getCurrentMemberId());
+        Member member = memberService.getMeById();
         Optional<MemberTitle> memberTitle = memberTitleRepository.findByTitle(Title.valueOf(title));
         if (memberTitle.isEmpty()) {
             throw new IllegalArgumentException(ErrorCode.NO_TITLE_MESSAGE + title);
@@ -56,7 +56,7 @@ public class MemberPropertyService {
 
     @Transactional
     public void subtractTitle(String title) {
-        Member member = memberService.getMemberById(SecurityUtil.getCurrentMemberId());
+        Member member = memberService.getMeById();
         Optional<MemberTitle> memberTitle = memberTitleRepository.findByTitle(Title.valueOf(title));
         if (memberTitle.isEmpty()) {
             throw new IllegalArgumentException(ErrorCode.NO_TITLE_MESSAGE + title);
@@ -74,7 +74,7 @@ public class MemberPropertyService {
 
     @Transactional
     public void appendLikedRestaurant(Long restaurantId) {
-        Member member = memberService.getMemberById(SecurityUtil.getCurrentMemberId());
+        Member member = memberService.getMeById();
         Restaurant restaurant = restaurantService.getRestaurantById(restaurantId);
 
         member.appendLikedRestaurant(restaurant);
@@ -82,7 +82,7 @@ public class MemberPropertyService {
 
     @Transactional
     public void subtractedLikedRestaurant(Long restaurantId) {
-        Member member = memberService.getMemberById(SecurityUtil.getCurrentMemberId());
+        Member member = memberService.getMeById();
         Restaurant restaurant = restaurantService.getRestaurantById(restaurantId);
 
         member.subtractedLikedRestaurant(restaurant);
@@ -90,7 +90,7 @@ public class MemberPropertyService {
 
     @Transactional
     public void appendLikedReport(Long reportId) {
-        Member member = memberService.getMemberById(SecurityUtil.getCurrentMemberId());
+        Member member = memberService.getMeById();
         Report report = reportService.getReportById(reportId);
 
         member.appendLikedReport(report);
@@ -98,7 +98,7 @@ public class MemberPropertyService {
 
     @Transactional
     public void subtractedLikedReport(Long reportId) {
-        Member member = memberService.getMemberById(SecurityUtil.getCurrentMemberId());
+        Member member = memberService.getMeById();
         Report report = reportService.getReportById(reportId);
 
         member.subtractedLikedReport(report);

@@ -24,7 +24,7 @@ public class CommentService {
     private final PostService postService;
 
     public Long createComment(Long postId, CommentRequestDto commentRequestDto) {
-        Member author = memberService.getMemberById(SecurityUtil.getCurrentMemberId());
+        Member author = memberService.getMeById();
         Post post = postService.findById(postId);
         Comment comment = Comment.builder()
                 .content(commentRequestDto.getContent())
@@ -48,13 +48,13 @@ public class CommentService {
     }
 
     public boolean toggleCommentLike(Long commentId) {
-        Member me = memberService.getMemberById(SecurityUtil.getCurrentMemberId());
+        Member member = memberService.getMeById();
         Comment comment = findById(commentId);
-        if (comment.getDidLike(me.getId())) {
-            me.subtractedLikedComment(comment);
+        if (comment.getDidLike(member.getId())) {
+            member.subtractedLikedComment(comment);
             return false;
         } else {
-            me.appendLikedComment(comment);
+            member.appendLikedComment(comment);
             return true;
         }
     }
