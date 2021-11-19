@@ -22,7 +22,7 @@ public class ImageApiController {
     private final RestaurantImageService restaurantImageService;
     private final PostService postService;
 
-    @PostMapping("/restaurant/{restaurantId}/image")
+    @PostMapping("/image/restaurant/{restaurantId}/image")
     public ResponseEntity<Void> uploadRestaurantImages(@PathVariable Long restaurantId, @RequestParam("picture") MultipartFile picture, @RequestParam("thumbnail") MultipartFile thumbnail) {
         restaurantImageService.uploadRestaurantImages(restaurantId, picture, thumbnail);
         return new ResponseEntity<>(HttpStatus.OK);
@@ -44,25 +44,25 @@ public class ImageApiController {
         }
     }
 
-    @GetMapping("/restaurant/{restaurantId}/picture")
+    @GetMapping("/image/restaurant/{restaurantId}/picture")
     public ResponseEntity<Void> getRestaurantPicture(HttpServletResponse response, @PathVariable Long restaurantId) {
         Optional<String> picturePath = restaurantImageService.getRestaurantPicturePath(restaurantId);
         return outputImage(response, picturePath);
     }
 
-    @GetMapping("/restaurant/{restaurantId}/thumbnail")
+    @GetMapping("/image/restaurant/{restaurantId}/thumbnail")
     public ResponseEntity<Void> getRestaurantThumbnail(HttpServletResponse response, @PathVariable Long restaurantId) {
         Optional<String> thumbnailPath = restaurantImageService.getRestaurantThumbnail(restaurantId);
         return outputImage(response, thumbnailPath);
     }
 
-    @DeleteMapping("/restaurant/{restaurantId}/image")
+    @DeleteMapping("/image/restaurant/{restaurantId}/image")
     public ResponseEntity<Void> deleteRestaurantPicture(@PathVariable Long restaurantId) {
         restaurantImageService.deleteRestaurantImages(restaurantId);
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
-    @GetMapping("/picture/post/{postId}/{index}")
+    @GetMapping("/image/post/{postId}/{index}")
     public ResponseEntity<Void> getPostImageOnIndexByPostId(HttpServletResponse response, @PathVariable Long postId, @PathVariable int index) {
         Optional<String> imagePath = postService.getPostImagePathOnIndexByPostId(postId, index);
         return outputImage(response, imagePath);
