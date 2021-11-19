@@ -3,7 +3,9 @@ package com.kwon770.mm.web.dto.post;
 import com.kwon770.mm.domain.post.Post;
 import com.kwon770.mm.util.CommonUtil;
 import com.kwon770.mm.util.SecurityUtil;
+import lombok.Getter;
 
+@Getter
 public class PostInfoDto {
 
     private Long id;

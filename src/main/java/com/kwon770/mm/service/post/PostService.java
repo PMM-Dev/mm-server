@@ -81,10 +81,10 @@ public class PostService {
         return posts.stream().map(PostPreviewDto::new).collect(Collectors.toList());
     }
 
-    public List<PostInfoDto> getPostInfoDtos() {
-        List<Post> posts = postRepository.findAll();
+    public PostInfoDto getPostInfoDto(Long postId) {
+        Post post = findById(postId);
 
-        return posts.stream().map(PostInfoDto::new).collect(Collectors.toList());
+        return new PostInfoDto(post);
     }
 
     public Optional<String> getPostImagePathOnIndexByPostId(Long postId, int index) {

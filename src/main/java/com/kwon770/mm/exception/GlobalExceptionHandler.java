@@ -24,13 +24,26 @@ public class GlobalExceptionHandler {
         return new ResponseEntity<>(response, HttpStatus.BAD_REQUEST);
     }
 
+    @ExceptionHandler(SystemIOException.class)
+    protected ResponseEntity<CommonResponse> handleIllegalArgumentException(final SystemIOException e) {
+        LogView.logInfoExceptionTitle(e);
+
+        CommonResponse response = CommonResponse.builder()
+                .status(ErrorCode.SYSTEM_IO_ERROR.getStatus())
+                .code(ErrorCode.SYSTEM_IO_ERROR.name())
+                .message(e.getMessage())
+                .build();
+
+        return new ResponseEntity<>(response, HttpStatus.INTERNAL_SERVER_ERROR);
+    }
+
     @ExceptionHandler(ImageIOException.class)
     protected ResponseEntity<CommonResponse> handleIllegalArgumentException(final ImageIOException e) {
         LogView.logInfoExceptionTitle(e);
 
         CommonResponse response = CommonResponse.builder()
-                .status(ErrorCode.IMAGE_IO_ERROR.getStatus())
-                .code(ErrorCode.IMAGE_IO_ERROR.name())
+                .status(ErrorCode.SYSTEM_IO_ERROR.getStatus())
+                .code(ErrorCode.SYSTEM_IO_ERROR.name())
                 .message(e.getMessage())
                 .build();
 

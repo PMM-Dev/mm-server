@@ -47,10 +47,10 @@ public class PostApiController {
     }
 
     @GetMapping("/post/{postId}")
-    public ResponseEntity<List<PostInfoDto>> getPostInfoDtoList() {
-        List<PostInfoDto> postInfoDtos = postService.getPostInfoDtos();
+    public ResponseEntity<PostInfoDto> getPostInfoDtoList(@PathVariable Long postId) {
+        PostInfoDto postInfoDto = postService.getPostInfoDto(postId);
 
-        return new ResponseEntity<>(postInfoDtos, HttpStatus.OK);
+        return new ResponseEntity<>(postInfoDto, HttpStatus.OK);
     }
 
     @DeleteMapping("/post/{postId}")

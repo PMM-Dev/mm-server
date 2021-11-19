@@ -1,6 +1,5 @@
 package com.kwon770.mm.domain.restaurant;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -31,9 +30,10 @@ public class RestaurantImage {
     private Restaurant restaurant;
 
     @Builder
-    public RestaurantImage(String originalFileName, String filePath, Long fileSize) {
+    public RestaurantImage(String originalFileName, String filePath, Long fileSize, Restaurant restaurant) {
         this.originalFileName = originalFileName;
         this.filePath = filePath;
         this.fileSize = fileSize;
+        this.restaurant = restaurant;
     }
 }

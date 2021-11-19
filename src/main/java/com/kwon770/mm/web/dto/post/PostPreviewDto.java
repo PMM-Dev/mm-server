@@ -2,7 +2,9 @@ package com.kwon770.mm.web.dto.post;
 
 import com.kwon770.mm.domain.post.Post;
 import com.kwon770.mm.util.CommonUtil;
+import lombok.Getter;
 
+@Getter
 public class PostPreviewDto {
 
     private Long id;
