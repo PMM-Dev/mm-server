@@ -1,4 +1,4 @@
-package com.kwon770.mm.service;
+package com.kwon770.mm.service.restaurant;
 
 import com.kwon770.mm.domain.restaurant.*;
 import com.kwon770.mm.exception.ErrorCode;

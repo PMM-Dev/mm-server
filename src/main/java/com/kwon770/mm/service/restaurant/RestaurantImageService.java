@@ -1,9 +1,10 @@
-package com.kwon770.mm.service;
+package com.kwon770.mm.service.restaurant;
 
 import com.kwon770.mm.domain.restaurant.Restaurant;
 import com.kwon770.mm.domain.restaurant.RestaurantImage;
 import com.kwon770.mm.domain.restaurant.RestaurantImageRepository;
-import com.kwon770.mm.exception.ErrorCode;
+import com.kwon770.mm.service.ImageHandler;
+import com.kwon770.mm.service.restaurant.RestaurantService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -14,7 +15,7 @@ import java.util.Optional;
 
 @RequiredArgsConstructor
 @Service
-public class ImageService {
+public class RestaurantImageService {
 
     private final ImageHandler imageHandler;
 

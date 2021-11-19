@@ -1,7 +1,7 @@
-package com.kwon770.mm.web;
+package com.kwon770.mm.web.restaurant;
 
 import com.kwon770.mm.domain.restaurant.Restaurant;
-import com.kwon770.mm.service.RestaurantService;
+import com.kwon770.mm.service.restaurant.RestaurantService;
 import com.kwon770.mm.web.dto.Restaurant.RestaurantRequestDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;

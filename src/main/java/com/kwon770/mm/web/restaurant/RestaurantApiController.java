@@ -1,8 +1,8 @@
-package com.kwon770.mm.web;
+package com.kwon770.mm.web.restaurant;
 
 import com.kwon770.mm.domain.member.Member;
-import com.kwon770.mm.service.RestaurantService;
-import com.kwon770.mm.service.MemberService;
+import com.kwon770.mm.service.restaurant.RestaurantService;
+import com.kwon770.mm.service.member.MemberService;
 import com.kwon770.mm.util.SecurityUtil;
 import com.kwon770.mm.web.dto.Restaurant.*;
 import lombok.RequiredArgsConstructor;

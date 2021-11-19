@@ -1,4 +1,4 @@
-package com.kwon770.mm.service;
+package com.kwon770.mm.service.restaurant;
 
 import com.kwon770.mm.domain.restaurant.Restaurant;
 import com.kwon770.mm.domain.restaurant.RestaurantQueryRepository;
@@ -8,6 +8,7 @@ import com.kwon770.mm.domain.review.Review;
 import com.kwon770.mm.domain.review.ReviewRepository;
 import com.kwon770.mm.domain.member.Member;
 import com.kwon770.mm.exception.ErrorCode;
+import com.kwon770.mm.service.member.MemberService;
 import com.kwon770.mm.util.SecurityUtil;
 import com.kwon770.mm.web.dto.Restaurant.*;
 import lombok.RequiredArgsConstructor;

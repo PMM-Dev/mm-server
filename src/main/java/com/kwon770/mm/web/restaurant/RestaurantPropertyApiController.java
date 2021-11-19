@@ -1,22 +1,12 @@
-package com.kwon770.mm.web;
+package com.kwon770.mm.web.restaurant;
 
-import com.kwon770.mm.service.RestaurantPropertyService;
+import com.kwon770.mm.service.restaurant.RestaurantPropertyService;
 import com.kwon770.mm.web.dto.Restaurant.RestaurantSpecialRequestDto;
 import com.kwon770.mm.web.dto.Restaurant.RestaurantThemeRequestDto;
 import lombok.RequiredArgsConstructor;
-import org.apache.commons.io.FileUtils;
-import org.apache.commons.io.IOUtils;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.multipart.MultipartFile;
-
-import javax.servlet.http.HttpServletResponse;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.util.Optional;
 
 @RequiredArgsConstructor
 @RestController

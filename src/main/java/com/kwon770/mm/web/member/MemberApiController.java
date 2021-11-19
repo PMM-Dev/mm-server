@@ -1,14 +1,13 @@
-package com.kwon770.mm.web;
+package com.kwon770.mm.web.member;
 
-import com.kwon770.mm.service.MemberPropertyService;
-import com.kwon770.mm.service.MemberService;
-import com.kwon770.mm.service.RestaurantService;
+import com.kwon770.mm.service.member.MemberPropertyService;
+import com.kwon770.mm.service.member.MemberService;
+import com.kwon770.mm.service.restaurant.RestaurantService;
 import com.kwon770.mm.util.SecurityUtil;
 import com.kwon770.mm.web.dto.MemberInfoDto;
 import com.kwon770.mm.web.dto.MemberRequestDto;
 import com.kwon770.mm.web.dto.Restaurant.MyReviewDto;
 import com.kwon770.mm.web.dto.Restaurant.RestaurantElementDto;
-import com.kwon770.mm.web.dto.Restaurant.ReviewInfoDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

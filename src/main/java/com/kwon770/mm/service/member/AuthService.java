@@ -1,4 +1,4 @@
-package com.kwon770.mm.service;
+package com.kwon770.mm.service.member;
 
 import com.kwon770.mm.domain.member.MemberRepository;
 import com.kwon770.mm.domain.member.RefreshToken;

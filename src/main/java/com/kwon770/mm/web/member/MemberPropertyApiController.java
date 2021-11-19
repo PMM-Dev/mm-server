@@ -1,7 +1,6 @@
-package com.kwon770.mm.web;
+package com.kwon770.mm.web.member;
 
-import com.kwon770.mm.service.MemberPropertyService;
-import com.kwon770.mm.util.SecurityUtil;
+import com.kwon770.mm.service.member.MemberPropertyService;
 import com.kwon770.mm.web.dto.MemberTitleRequestDto;
 import com.kwon770.mm.web.dto.Restaurant.RestaurantElementDto;
 import lombok.RequiredArgsConstructor;

@@ -1,8 +1,6 @@
-package com.kwon770.mm.web;
+package com.kwon770.mm.web.member;
 
-import com.kwon770.mm.service.AuthService;
-import com.kwon770.mm.service.MemberService;
-import com.kwon770.mm.util.SecurityUtil;
+import com.kwon770.mm.service.member.AuthService;
 import com.kwon770.mm.web.dto.JwtTokenDto;
 import com.kwon770.mm.web.dto.JwtTokenRequestDto;
 import com.kwon770.mm.web.dto.MemberRequestDto;

@@ -1,4 +1,4 @@
-package com.kwon770.mm.service;
+package com.kwon770.mm.service.member;
 
 import com.kwon770.mm.domain.report.Report;
 import com.kwon770.mm.domain.restaurant.Restaurant;
@@ -7,6 +7,9 @@ import com.kwon770.mm.domain.member.Member;
 import com.kwon770.mm.domain.member.MemberTitle;
 import com.kwon770.mm.domain.member.MemberTitleRepository;
 import com.kwon770.mm.exception.ErrorCode;
+import com.kwon770.mm.service.ReportService;
+import com.kwon770.mm.service.restaurant.RestaurantMapper;
+import com.kwon770.mm.service.restaurant.RestaurantService;
 import com.kwon770.mm.util.SecurityUtil;
 import com.kwon770.mm.web.dto.MemberTitleRequestDto;
 import com.kwon770.mm.web.dto.Restaurant.RestaurantElementDto;
