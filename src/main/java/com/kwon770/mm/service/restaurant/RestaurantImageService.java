@@ -23,7 +23,7 @@ public class RestaurantImageService {
     private final RestaurantImageRepository restaurantImageRepository;
 
     @Transactional
-    public void uploadRestaurantImages(Long restaurantId, MultipartFile picture, MultipartFile thumbnail) throws IOException {
+    public void uploadRestaurantImages(Long restaurantId, MultipartFile picture, MultipartFile thumbnail) {
         RestaurantImage restaurantPicture = imageHandler.parseRestaurantPicture(picture);
         RestaurantImage restaurantThumbnail = imageHandler.parseRestaurantThumbnail(thumbnail);
         Restaurant restaurant = restaurantService.getRestaurantById(restaurantId);

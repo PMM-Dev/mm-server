@@ -1,6 +1,7 @@
 package com.kwon770.mm.domain.member;
 
 import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.kwon770.mm.domain.post.Post;
 import com.kwon770.mm.domain.report.Report;
 import com.kwon770.mm.domain.restaurant.Restaurant;
 import com.kwon770.mm.web.dto.MemberRequestDto;
@@ -10,7 +11,9 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @NoArgsConstructor
 @Getter
@@ -70,6 +73,14 @@ public class Member {
             inverseJoinColumns = @JoinColumn(name = "report_id")
     )
     private List<Report> likedReports = new ArrayList<>();
+
+    @ManyToMany
+    @JoinTable(
+            name = "member_post_like_relation",
+            joinColumns = @JoinColumn(name = "member_id"),
+            inverseJoinColumns = @JoinColumn(name = "post_id")
+    )
+    private Set<Post> likedPosts = new HashSet<>();
 
     @Builder
     public Member(String name, String email, String encodedEmail, String picture, Role role, String socialToken, SocialTokenType socialTokenType) {

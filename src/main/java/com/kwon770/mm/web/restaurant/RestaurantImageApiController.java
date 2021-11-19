@@ -1,4 +1,4 @@
-package com.kwon770.mm.web;
+package com.kwon770.mm.web.restaurant;
 
 import com.kwon770.mm.exception.ImageIOException;
 import com.kwon770.mm.service.restaurant.RestaurantImageService;
@@ -16,19 +16,14 @@ import java.util.Optional;
 
 @RequiredArgsConstructor
 @RestController
-public class PictureApiController {
+public class RestaurantImageApiController {
 
     private final RestaurantImageService restaurantImageService;
 
     @PostMapping("/restaurant/{restaurantId}/image")
     public ResponseEntity<Void> uploadRestaurantImages(@PathVariable Long restaurantId, @RequestParam("picture") MultipartFile picture, @RequestParam("thumbnail") MultipartFile thumbnail) {
-        try {
-            restaurantImageService.uploadRestaurantImages(restaurantId, picture, thumbnail);
-            return new ResponseEntity<>(HttpStatus.OK);
-
-        } catch (IOException e) {
-            throw new ImageIOException(e);
-        }
+        restaurantImageService.uploadRestaurantImages(restaurantId, picture, thumbnail);
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 
     private ResponseEntity<Void> outputImage(HttpServletResponse response, Optional<String> imagePath) {
