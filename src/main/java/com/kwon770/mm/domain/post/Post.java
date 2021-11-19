@@ -1,7 +1,7 @@
 package com.kwon770.mm.domain.post;
 
+import com.kwon770.mm.domain.BaseTimeEntity;
 import com.kwon770.mm.domain.member.Member;
-import com.kwon770.mm.web.dto.post.PostRequestDto;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -16,7 +16,7 @@ import java.util.stream.Collectors;
 @NoArgsConstructor
 @Getter
 @Entity
-public class Post {
+public class Post extends BaseTimeEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -35,6 +35,8 @@ public class Post {
     @JoinColumn(name = "member_id", nullable = false)
     private Member author;
 
+    private int viewCount = 0;
+
     @ManyToMany(mappedBy = "likedPosts")
     List<Member> likingMembers = new ArrayList<>();
 
@@ -49,6 +51,28 @@ public class Post {
         this.title = title;
         this.content = content;
         this.postImages.addAll(newPostImages);
+    }
+
+    public int getPostImagesCount() {
+        return postImages.size();
+    }
+
+    public boolean getIsExistImages() {
+        if (postImages.isEmpty()) {
+            return true;
+        }
+
+        return false;
+    }
+
+    public boolean getDidLike(Long memberId) {
+        for (final Member likedMember : likingMembers) {
+            if (memberId.equals(likedMember.getId())) {
+                return true;
+            }
+        }
+
+        return false;
     }
 
     public List<MultipartFile> getAddedPostImages(List<MultipartFile> newImages) {

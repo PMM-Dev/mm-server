@@ -10,13 +10,14 @@ import com.kwon770.mm.exception.NotAuthorException;
 import com.kwon770.mm.service.ImageHandler;
 import com.kwon770.mm.service.member.MemberService;
 import com.kwon770.mm.util.SecurityUtil;
-import com.kwon770.mm.web.dto.post.PostRequestDto;
+import com.kwon770.mm.web.dto.post.PostInfoDto;
+import com.kwon770.mm.web.dto.post.PostPreviewDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @RequiredArgsConstructor
@@ -43,10 +44,6 @@ public class PostService {
     }
 
     private List<PostImage> getPostImages(Post post, List<MultipartFile> images) {
-        if (images == null) {
-            System.out.println("null");
-            return new ArrayList<>();
-        }
         return images.stream().map(image -> {
             PostImage postImage = imageHandler.parsePostImage(post, image);
             imageHandler.downloadImage(image, postImage.getFilePath());
@@ -76,5 +73,30 @@ public class PostService {
 
     public Post findById(Long postId) {
         return postRepository.findById(postId).orElseThrow(() -> new IllegalArgumentException(ErrorCode.NO_POST_BY_POSTID + postId));
+    }
+
+    public List<PostPreviewDto> getPostPreviewDtos() {
+        List<Post> posts = postRepository.findAll();
+
+        return posts.stream().map(PostPreviewDto::new).collect(Collectors.toList());
+    }
+
+    public List<PostInfoDto> getPostInfoDtos() {
+        List<Post> posts = postRepository.findAll();
+
+        return posts.stream().map(PostInfoDto::new).collect(Collectors.toList());
+    }
+
+    public Optional<String> getPostImagePathOnIndexByPostId(Long postId, int index) {
+        Post post = findById(postId);
+        try {
+            return Optional.of(post.getPostImages().get(index).getFilePath());
+        } catch (IndexOutOfBoundsException e) {
+            throw new IllegalArgumentException(ErrorCode.NOT_FOUND_IMAGE_BY_INDEX + index);
+        }
+    }
+
+    public void deletePostByPostId(Long postId) {
+        postRepository.deleteById(postId);
     }
 }

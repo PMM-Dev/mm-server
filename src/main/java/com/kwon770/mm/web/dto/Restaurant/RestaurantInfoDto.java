@@ -28,7 +28,6 @@ public class RestaurantInfoDto {
     private List<ReviewInfoDto> reviews;
     private Integer reviewCount;
     private Integer likeCount;
-
     private boolean didLike;
 
     public RestaurantInfoDto(Restaurant restaurant) {

@@ -1,8 +1,8 @@
 package com.kwon770.mm.web;
 
 import com.kwon770.mm.service.post.PostService;
-import com.kwon770.mm.web.dto.post.PostRequest;
-import com.kwon770.mm.web.dto.post.PostRequestDto;
+import com.kwon770.mm.web.dto.post.PostInfoDto;
+import com.kwon770.mm.web.dto.post.PostPreviewDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -27,10 +27,6 @@ public class PostApiController {
         return new ResponseEntity<>(postId, HttpStatus.OK);
     }
 
-//    @GetMapping("/post")
-
-//    @GetMapping("/post/{postId}")
-
     @PutMapping("/post/{postId}")
     public ResponseEntity<Long> updatePost(@PathVariable Long postId,
                                            @RequestParam(value = "title") String title,
@@ -43,5 +39,26 @@ public class PostApiController {
         return new ResponseEntity<>(postId, HttpStatus.OK);
     }
 
-//    @DeleteMapping("/post/{postId}")
+    @GetMapping("/post")
+    public ResponseEntity<List<PostPreviewDto>> getPostPreviewDtoList() {
+        List<PostPreviewDto> postPreviewDtos = postService.getPostPreviewDtos();
+
+        return new ResponseEntity<>(postPreviewDtos, HttpStatus.OK);
+    }
+
+    @GetMapping("/post/{postId}")
+    public ResponseEntity<List<PostInfoDto>> getPostInfoDtoList() {
+        List<PostInfoDto> postInfoDtos = postService.getPostInfoDtos();
+
+        return new ResponseEntity<>(postInfoDtos, HttpStatus.OK);
+    }
+
+    @DeleteMapping("/post/{postId}")
+    public ResponseEntity<Void> deletePostByPostId(@PathVariable Long postId) {
+        postService.validateAuthor(postId);
+
+        postService.deletePostByPostId(postId);
+
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
 }

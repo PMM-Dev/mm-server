@@ -32,6 +32,7 @@ public enum ErrorCode {
     public static String NO_SPECIAL_MESSAGE = "해당 special 존재하지 않음 : ";
 
     public static String IMAGE_IO_ERROR_MESSAGE = "서버에서 이미지 IO하는 과정에서 문제 발생 :";
+    public static String NOT_FOUND_IMAGE_BY_INDEX = "해당 index에 해당하는 이미지가 없음 : index = ";
 
     private final int status;
 

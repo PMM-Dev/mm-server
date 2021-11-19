@@ -1,6 +1,7 @@
-package com.kwon770.mm.web.restaurant;
+package com.kwon770.mm.web;
 
 import com.kwon770.mm.exception.ImageIOException;
+import com.kwon770.mm.service.post.PostService;
 import com.kwon770.mm.service.restaurant.RestaurantImageService;
 import lombok.RequiredArgsConstructor;
 import org.apache.commons.io.FileUtils;
@@ -16,9 +17,10 @@ import java.util.Optional;
 
 @RequiredArgsConstructor
 @RestController
-public class RestaurantImageApiController {
+public class ImageApiController {
 
     private final RestaurantImageService restaurantImageService;
+    private final PostService postService;
 
     @PostMapping("/restaurant/{restaurantId}/image")
     public ResponseEntity<Void> uploadRestaurantImages(@PathVariable Long restaurantId, @RequestParam("picture") MultipartFile picture, @RequestParam("thumbnail") MultipartFile thumbnail) {
@@ -58,5 +60,11 @@ public class RestaurantImageApiController {
     public ResponseEntity<Void> deleteRestaurantPicture(@PathVariable Long restaurantId) {
         restaurantImageService.deleteRestaurantImages(restaurantId);
         return new ResponseEntity<>(HttpStatus.OK);
+    }
+
+    @GetMapping("/picture/post/{postId}/{index}")
+    public ResponseEntity<Void> getPostImageOnIndexByPostId(HttpServletResponse response, @PathVariable Long postId, @PathVariable int index) {
+        Optional<String> imagePath = postService.getPostImagePathOnIndexByPostId(postId, index);
+        return outputImage(response, imagePath);
     }
 }
