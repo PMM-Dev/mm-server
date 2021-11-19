@@ -5,6 +5,9 @@ import com.kwon770.mm.util.CommonUtil;
 import com.kwon770.mm.util.SecurityUtil;
 import lombok.Getter;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 @Getter
 public class PostInfoDto {
 
@@ -18,6 +21,7 @@ public class PostInfoDto {
     private int likeCount;
     private boolean didLike;
     private boolean isExistImage;
+    private List<CommentInfoDto> commentInfoDtoList;
 
     public PostInfoDto(Post post) {
         this.id = post.getId();
@@ -30,5 +34,6 @@ public class PostInfoDto {
         this.likeCount = post.getLikingMembers().size();
         this.didLike = post.getDidLike(SecurityUtil.getCurrentMemberId());
         this.isExistImage = post.getIsExistImages();
+        this.commentInfoDtoList = post.getComments().stream().map(CommentInfoDto::new).collect(Collectors.toList());
     }
 }

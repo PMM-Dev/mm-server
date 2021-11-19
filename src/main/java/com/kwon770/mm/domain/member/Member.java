@@ -2,6 +2,7 @@ package com.kwon770.mm.domain.member;
 
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.kwon770.mm.domain.post.Post;
+import com.kwon770.mm.domain.post.comment.Comment;
 import com.kwon770.mm.domain.report.Report;
 import com.kwon770.mm.domain.restaurant.Restaurant;
 import com.kwon770.mm.web.dto.MemberRequestDto;
@@ -61,6 +62,9 @@ public class Member {
     @OneToMany(mappedBy = "author")
     private List<Post> posts = new ArrayList<>();
 
+    @OneToMany(mappedBy = "post")
+    private List<Comment> comments = new ArrayList<>();
+
     @ManyToMany
     @JoinTable(
             name = "member_post_like_relation",
@@ -84,6 +88,14 @@ public class Member {
             inverseJoinColumns = @JoinColumn(name = "report_id")
     )
     private List<Report> likedReports = new ArrayList<>();
+
+    @ManyToMany
+    @JoinTable(
+            name = "member_comment_like_relation",
+            joinColumns = @JoinColumn(name = "member_id"),
+            inverseJoinColumns = @JoinColumn(name = "comment_id")
+    )
+    private List<Comment> likedComments = new ArrayList<>();
 
 
     @Builder
@@ -125,4 +137,8 @@ public class Member {
     public void appendLikedReport(Report report) { this.likedReports.add(report); }
 
     public void subtractedLikedReport(Report report) { this.likedReports.remove(report); }
+
+    public void appendLikedComment(Comment comment) { this.likedComments.add(comment); }
+
+    public void subtractedLikedComment(Comment comment) { this.likedComments.remove(comment); }
 }

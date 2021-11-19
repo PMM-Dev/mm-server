@@ -2,6 +2,7 @@ package com.kwon770.mm.domain.post;
 
 import com.kwon770.mm.domain.BaseTimeEntity;
 import com.kwon770.mm.domain.member.Member;
+import com.kwon770.mm.domain.post.comment.Comment;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -39,6 +40,10 @@ public class Post extends BaseTimeEntity {
 
     @ManyToMany(mappedBy = "likedPosts")
     List<Member> likingMembers = new ArrayList<>();
+
+    @OneToMany(mappedBy = "post", orphanRemoval = true)
+    private List<Comment> comments = new ArrayList<>();
+
 
     @Builder
     public Post(String title, String content, Member author) {

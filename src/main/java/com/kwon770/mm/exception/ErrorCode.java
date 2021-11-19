@@ -27,6 +27,7 @@ public enum ErrorCode {
     public static String NO_IMAGE_BY_RESTAURANTID = "Restaurant에 업로드된 사진이 없음 : restaurantId = ";
     public static String NO_REPORT_BY_REPORTID = "reportId와 일치하는 Report가 없음 : reportId = ";
     public static String NO_POST_BY_POSTID = "postId와 일치하는 Post가 없음 : postId = ";
+    public static String NO_COMMENT_BY_COMMENTID = "commentId와 일치하는 Comment가 없음 : commentId = ";
 
     public static String NO_TITLE_MESSAGE = "해당 title 존재하지 않음 : ";
     public static String NO_THEME_MESSAGE = "해당 theme 존재하지 않음 : ";

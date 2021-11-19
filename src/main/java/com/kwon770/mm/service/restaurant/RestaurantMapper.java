@@ -1,7 +1,7 @@
 package com.kwon770.mm.service.restaurant;
 
 import com.kwon770.mm.domain.restaurant.Restaurant;
-import com.kwon770.mm.domain.review.Review;
+import com.kwon770.mm.domain.restaurant.review.Review;
 import com.kwon770.mm.web.dto.Restaurant.*;
 import org.mapstruct.Mapper;
 import org.mapstruct.factory.Mappers;

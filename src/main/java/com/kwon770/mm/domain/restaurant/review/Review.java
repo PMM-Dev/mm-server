@@ -1,4 +1,4 @@
-package com.kwon770.mm.domain.review;
+package com.kwon770.mm.domain.restaurant.review;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.kwon770.mm.domain.BaseTimeEntity;
