@@ -4,6 +4,8 @@ import com.kwon770.mm.domain.member.Member;
 import com.kwon770.mm.domain.member.MemberRepository;
 import com.kwon770.mm.domain.restaurant.Restaurant;
 import com.kwon770.mm.domain.restaurant.RestaurantRepository;
+import com.kwon770.mm.service.member.MemberMapper;
+import com.kwon770.mm.service.restaurant.RestaurantMapper;
 import com.kwon770.mm.web.dto.MemberSearchDto;
 import com.kwon770.mm.web.dto.Restaurant.RestaurantSearchDto;
 import lombok.RequiredArgsConstructor;

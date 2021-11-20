@@ -1,4 +1,4 @@
-package com.kwon770.mm.domain.restaurant;
+package com.kwon770.mm.domain.post;
 
 import lombok.Builder;
 import lombok.Getter;
@@ -10,7 +10,7 @@ import javax.validation.constraints.NotNull;
 @NoArgsConstructor
 @Getter
 @Entity
-public class RestaurantImage {
+public class PostImage {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -26,14 +26,14 @@ public class RestaurantImage {
     private Long fileSize;
 
     @ManyToOne
-    @JoinColumn(name = "restaurant_id")
-    private Restaurant restaurant;
+    @JoinColumn(name = "post_id", nullable = false)
+    private Post post;
 
     @Builder
-    public RestaurantImage(String originalFileName, String filePath, Long fileSize, Restaurant restaurant) {
+    public PostImage(String originalFileName, String filePath, Long fileSize, Post post) {
         this.originalFileName = originalFileName;
         this.filePath = filePath;
         this.fileSize = fileSize;
-        this.restaurant = restaurant;
+        this.post = post;
     }
 }

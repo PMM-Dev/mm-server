@@ -1,10 +1,8 @@
 package com.kwon770.mm.web.dto.Restaurant;
 
-import com.kwon770.mm.domain.review.Review;
+import com.kwon770.mm.domain.restaurant.review.Review;
 import com.kwon770.mm.util.CommonUtil;
 import lombok.*;
-
-import java.text.SimpleDateFormat;
 
 @AllArgsConstructor
 @Builder

@@ -1,6 +1,8 @@
 package com.kwon770.mm.domain.member;
 
 import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.kwon770.mm.domain.post.Post;
+import com.kwon770.mm.domain.post.comment.Comment;
 import com.kwon770.mm.domain.report.Report;
 import com.kwon770.mm.domain.restaurant.Restaurant;
 import com.kwon770.mm.web.dto.MemberRequestDto;
@@ -10,7 +12,9 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @NoArgsConstructor
 @Getter
@@ -55,6 +59,20 @@ public class Member {
     )
     private List<MemberTitle> titles = new ArrayList<>();
 
+    @OneToMany(mappedBy = "author")
+    private List<Post> posts = new ArrayList<>();
+
+    @OneToMany(mappedBy = "post")
+    private List<Comment> comments = new ArrayList<>();
+
+    @ManyToMany
+    @JoinTable(
+            name = "member_post_like_relation",
+            joinColumns = @JoinColumn(name = "member_id"),
+            inverseJoinColumns = @JoinColumn(name = "post_id")
+    )
+    private Set<Post> likedPosts = new HashSet<>();
+
     @ManyToMany
     @JoinTable(
             name = "member_restaurant_like_relation",
@@ -70,6 +88,15 @@ public class Member {
             inverseJoinColumns = @JoinColumn(name = "report_id")
     )
     private List<Report> likedReports = new ArrayList<>();
+
+    @ManyToMany
+    @JoinTable(
+            name = "member_comment_like_relation",
+            joinColumns = @JoinColumn(name = "member_id"),
+            inverseJoinColumns = @JoinColumn(name = "comment_id")
+    )
+    private List<Comment> likedComments = new ArrayList<>();
+
 
     @Builder
     public Member(String name, String email, String encodedEmail, String picture, Role role, String socialToken, SocialTokenType socialTokenType) {
@@ -110,4 +137,12 @@ public class Member {
     public void appendLikedReport(Report report) { this.likedReports.add(report); }
 
     public void subtractedLikedReport(Report report) { this.likedReports.remove(report); }
+
+    public void appendLikedPost(Post post) { this.likedPosts.add(post); }
+
+    public void subtractedLikedPost(Post post) { this.likedPosts.remove(post); }
+
+    public void appendLikedComment(Comment comment) { this.likedComments.add(comment); }
+
+    public void subtractedLikedComment(Comment comment) { this.likedComments.remove(comment); }
 }

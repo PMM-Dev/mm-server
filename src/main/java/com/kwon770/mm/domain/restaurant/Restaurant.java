@@ -3,7 +3,7 @@ package com.kwon770.mm.domain.restaurant;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
-import com.kwon770.mm.domain.review.Review;
+import com.kwon770.mm.domain.restaurant.review.Review;
 import com.kwon770.mm.domain.member.Member;
 import com.kwon770.mm.web.dto.Restaurant.RestaurantRequestDto;
 import lombok.Builder;
