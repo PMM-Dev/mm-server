@@ -1,12 +1,11 @@
 package com.kwon770.mm.provider.security;
 
-import com.kwon770.mm.web.dto.JwtTokenDto;
+import com.kwon770.mm.dto.JwtTokenDto;
 import io.jsonwebtoken.*;
 import io.jsonwebtoken.security.Keys;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.context.annotation.PropertySource;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;

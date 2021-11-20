@@ -7,8 +7,8 @@ import com.kwon770.mm.domain.post.comment.CommentRepository;
 import com.kwon770.mm.exception.ErrorCode;
 import com.kwon770.mm.service.member.MemberService;
 import com.kwon770.mm.util.SecurityUtil;
-import com.kwon770.mm.web.dto.post.CommentInfoDto;
-import com.kwon770.mm.web.dto.post.CommentRequestDto;
+import com.kwon770.mm.dto.post.CommentInfoDto;
+import com.kwon770.mm.dto.post.CommentRequestDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 

@@ -1,4 +1,4 @@
-package com.kwon770.mm.web.dto;
+package com.kwon770.mm.dto.member;
 
 import com.kwon770.mm.domain.member.Member;
 import com.kwon770.mm.domain.member.Role;
@@ -7,11 +7,9 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
 @Getter
-@NoArgsConstructor
 public class MemberRequestDto {
 
     private String name;

@@ -1,7 +1,7 @@
 package com.kwon770.mm.web;
 
 import com.kwon770.mm.service.NoticeService;
-import com.kwon770.mm.web.dto.NoticeDto;
+import com.kwon770.mm.dto.NoticeDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

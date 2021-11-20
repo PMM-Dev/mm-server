@@ -1,4 +1,4 @@
-package com.kwon770.mm.web.dto.post;
+package com.kwon770.mm.dto.post;
 
 import com.kwon770.mm.domain.post.comment.Comment;
 import com.kwon770.mm.util.CommonUtil;

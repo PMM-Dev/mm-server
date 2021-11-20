@@ -2,7 +2,7 @@ package com.kwon770.mm.web.member;
 
 import com.kwon770.mm.domain.member.Member;
 import com.kwon770.mm.service.member.MemberService;
-import com.kwon770.mm.web.dto.MemberRequestDto;
+import com.kwon770.mm.dto.member.MemberRequestDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -26,8 +26,8 @@ public class MemberAdminApiController {
     }
 
     @PutMapping("/member/{userId}")
-    public ResponseEntity<Void> updateMemberByEmail(@PathVariable Long userId, @RequestBody MemberRequestDto memberRequestDto) {
-        memberService.updateMemberByEmail(userId, memberRequestDto);
+    public ResponseEntity<Void> updateMemberByUserId(@PathVariable Long userId, @RequestBody MemberRequestDto memberRequestDto) {
+        memberService.updateMemberByUserId(userId, memberRequestDto);
 
         return new ResponseEntity<>(HttpStatus.OK);
     }

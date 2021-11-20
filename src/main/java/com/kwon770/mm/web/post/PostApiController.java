@@ -1,8 +1,8 @@
 package com.kwon770.mm.web.post;
 
 import com.kwon770.mm.service.post.PostService;
-import com.kwon770.mm.web.dto.post.PostInfoDto;
-import com.kwon770.mm.web.dto.post.PostPreviewDto;
+import com.kwon770.mm.dto.post.PostInfoDto;
+import com.kwon770.mm.dto.post.PostPreviewDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

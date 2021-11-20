@@ -2,10 +2,11 @@ package com.kwon770.mm.service.member;
 
 import com.kwon770.mm.domain.member.Member;
 import com.kwon770.mm.domain.member.MemberRepository;
+import com.kwon770.mm.dto.member.MemberUpdateDto;
 import com.kwon770.mm.exception.ErrorCode;
 import com.kwon770.mm.util.SecurityUtil;
-import com.kwon770.mm.web.dto.MemberInfoDto;
-import com.kwon770.mm.web.dto.MemberRequestDto;
+import com.kwon770.mm.dto.member.MemberInfoDto;
+import com.kwon770.mm.dto.member.MemberRequestDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -47,9 +48,14 @@ public class MemberService {
         return MemberMapper.INSTANCE.memberToMemberInfoDto(getMemberByEmail(email));
     }
 
-    public void updateMemberByEmail(Long userId, MemberRequestDto memberRequestDto) {
+    public void updateMemberByUserId(Long userId, MemberRequestDto memberRequestDto) {
         Member member = getMemberById(userId);
         member.update(memberRequestDto);
+    }
+
+    public void updateMemberByUserId(Long userId, MemberUpdateDto memberUpdateDto) {
+        Member member = getMemberById(userId);
+        member.update(memberUpdateDto);
     }
 
     public void deleteMemberById(Long id) {

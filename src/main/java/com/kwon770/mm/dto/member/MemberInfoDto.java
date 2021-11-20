@@ -1,4 +1,4 @@
-package com.kwon770.mm.web.dto;
+package com.kwon770.mm.dto.member;
 
 import com.kwon770.mm.domain.member.Member;
 import com.kwon770.mm.domain.member.Role;

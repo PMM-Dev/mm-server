@@ -1,4 +1,4 @@
-package com.kwon770.mm.web.dto.post;
+package com.kwon770.mm.dto.post;
 
 import lombok.Getter;
 

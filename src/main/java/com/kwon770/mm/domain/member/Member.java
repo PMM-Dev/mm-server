@@ -1,11 +1,11 @@
 package com.kwon770.mm.domain.member;
 
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.kwon770.mm.domain.post.Post;
 import com.kwon770.mm.domain.post.comment.Comment;
 import com.kwon770.mm.domain.report.Report;
 import com.kwon770.mm.domain.restaurant.Restaurant;
-import com.kwon770.mm.web.dto.MemberRequestDto;
+import com.kwon770.mm.dto.member.MemberRequestDto;
+import com.kwon770.mm.dto.member.MemberUpdateDto;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -116,6 +116,11 @@ public class Member {
         this.role = memberRequestDto.getRole();
         this.socialToken = memberRequestDto.getSocialToken();
         this.socialTokenType = memberRequestDto.getSocialTokenType();
+    }
+
+    public void update(MemberUpdateDto memberUpdateDto) {
+        this.name = memberUpdateDto.getName();
+        this.picture = memberUpdateDto.getPicture();
     }
 
     public void increaseReviewCount() {

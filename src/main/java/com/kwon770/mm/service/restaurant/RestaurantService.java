@@ -10,7 +10,7 @@ import com.kwon770.mm.domain.member.Member;
 import com.kwon770.mm.exception.ErrorCode;
 import com.kwon770.mm.service.member.MemberService;
 import com.kwon770.mm.util.SecurityUtil;
-import com.kwon770.mm.web.dto.Restaurant.*;
+import com.kwon770.mm.dto.Restaurant.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 

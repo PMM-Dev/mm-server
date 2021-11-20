@@ -1,4 +1,4 @@
-package com.kwon770.mm.web.dto;
+package com.kwon770.mm.dto;
 
 import com.kwon770.mm.domain.notice.Notice;
 import lombok.AllArgsConstructor;

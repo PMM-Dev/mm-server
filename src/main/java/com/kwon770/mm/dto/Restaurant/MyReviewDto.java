@@ -1,14 +1,17 @@
-package com.kwon770.mm.web.dto.Restaurant;
+package com.kwon770.mm.dto.Restaurant;
 
 import com.kwon770.mm.domain.restaurant.review.Review;
 import com.kwon770.mm.util.CommonUtil;
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 @AllArgsConstructor
 @Builder
 @Getter
 @NoArgsConstructor
-public class ReviewInfoDto {
+public class MyReviewDto {
 
     private Long id;
     private String createdDate;
@@ -17,8 +20,10 @@ public class ReviewInfoDto {
     private String authorPicture;
     private String description;
     private Float grade;
+    private Long restaurantId;
+    private String restaurantName;
 
-    public ReviewInfoDto(Review review) {
+    public MyReviewDto(Review review) {
         this.id = review.getId();
         this.createdDate = CommonUtil.convertLocalDateTimeToFormatString(review.getCreatedDate());
         this.authorName = review.getAuthor().getName();
@@ -26,5 +31,7 @@ public class ReviewInfoDto {
         this.authorPicture = review.getAuthor().getPicture();
         this.description = review.getDescription();
         this.grade = review.getGrade();
+        this.restaurantId = review.getRestaurant().getId();
+        this.restaurantName = review.getRestaurant().getName();
     }
 }

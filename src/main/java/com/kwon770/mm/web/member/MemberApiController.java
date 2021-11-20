@@ -1,13 +1,14 @@
 package com.kwon770.mm.web.member;
 
+import com.kwon770.mm.dto.member.MemberUpdateDto;
 import com.kwon770.mm.service.member.MemberPropertyService;
 import com.kwon770.mm.service.member.MemberService;
 import com.kwon770.mm.service.restaurant.RestaurantService;
 import com.kwon770.mm.util.SecurityUtil;
-import com.kwon770.mm.web.dto.MemberInfoDto;
-import com.kwon770.mm.web.dto.MemberRequestDto;
-import com.kwon770.mm.web.dto.Restaurant.MyReviewDto;
-import com.kwon770.mm.web.dto.Restaurant.RestaurantElementDto;
+import com.kwon770.mm.dto.member.MemberInfoDto;
+import com.kwon770.mm.dto.member.MemberRequestDto;
+import com.kwon770.mm.dto.Restaurant.MyReviewDto;
+import com.kwon770.mm.dto.Restaurant.RestaurantElementDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -26,14 +27,14 @@ public class MemberApiController {
     private final RestaurantService restaurantService;
 
     @GetMapping("/member/me")
-    public ResponseEntity<MemberInfoDto> getMyMemberInfo() {
+    public ResponseEntity<MemberInfoDto> getMyMemberInfoDto() {
         MemberInfoDto memberInfoDto = memberService.getMyInfoDto();
 
         return new ResponseEntity<>(memberInfoDto, HttpStatus.OK);
     }
 
     @GetMapping("/member/{identifier}")
-    public ResponseEntity<MemberInfoDto> getMemberByIdentifier(@PathVariable String identifier) {
+    public ResponseEntity<MemberInfoDto> getMemberInfoDtoByIdentifier(@PathVariable String identifier) {
         MemberInfoDto memberInfoDto;
         if (isDigit(identifier)) {
             memberInfoDto = memberService.getMemberInfoDtoById(Long.parseLong(identifier));
@@ -45,8 +46,8 @@ public class MemberApiController {
     }
 
     @PutMapping("/member/me")
-    public ResponseEntity<Void> updateMemberByEmail(@RequestBody MemberRequestDto memberRequestDto) {
-        memberService.updateMemberByEmail(SecurityUtil.getCurrentMemberId(), memberRequestDto);
+    public ResponseEntity<Void> updateMyMember(@RequestBody MemberUpdateDto memberUpdateDto) {
+        memberService.updateMemberByUserId(SecurityUtil.getCurrentMemberId(), memberUpdateDto);
 
         return new ResponseEntity<>(HttpStatus.OK);
     }
@@ -92,4 +93,6 @@ public class MemberApiController {
 
         return new ResponseEntity<>(myReviewDtos, HttpStatus.OK);
     }
+
+
 }

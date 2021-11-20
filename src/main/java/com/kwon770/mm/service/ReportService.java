@@ -7,9 +7,9 @@ import com.kwon770.mm.domain.report.ReportRepository;
 import com.kwon770.mm.exception.ErrorCode;
 import com.kwon770.mm.service.member.MemberService;
 import com.kwon770.mm.util.SecurityUtil;
-import com.kwon770.mm.web.dto.ReportInfoDto;
-import com.kwon770.mm.web.dto.ReportPreviewDto;
-import com.kwon770.mm.web.dto.ReportRequestDto;
+import com.kwon770.mm.dto.report.ReportInfoDto;
+import com.kwon770.mm.dto.report.ReportPreviewDto;
+import com.kwon770.mm.dto.report.ReportRequestDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 

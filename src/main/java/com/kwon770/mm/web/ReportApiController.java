@@ -1,9 +1,9 @@
 package com.kwon770.mm.web;
 
 import com.kwon770.mm.service.ReportService;
-import com.kwon770.mm.web.dto.ReportInfoDto;
-import com.kwon770.mm.web.dto.ReportPreviewDto;
-import com.kwon770.mm.web.dto.ReportRequestDto;
+import com.kwon770.mm.dto.report.ReportInfoDto;
+import com.kwon770.mm.dto.report.ReportPreviewDto;
+import com.kwon770.mm.dto.report.ReportRequestDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

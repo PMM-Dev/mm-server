@@ -1,4 +1,4 @@
-package com.kwon770.mm.web.dto.Restaurant;
+package com.kwon770.mm.dto.Restaurant;
 
 import com.kwon770.mm.domain.restaurant.RestaurantSpecial;
 import com.kwon770.mm.domain.restaurant.Special;

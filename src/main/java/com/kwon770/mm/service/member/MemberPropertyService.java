@@ -10,9 +10,8 @@ import com.kwon770.mm.exception.ErrorCode;
 import com.kwon770.mm.service.ReportService;
 import com.kwon770.mm.service.restaurant.RestaurantMapper;
 import com.kwon770.mm.service.restaurant.RestaurantService;
-import com.kwon770.mm.util.SecurityUtil;
-import com.kwon770.mm.web.dto.MemberTitleRequestDto;
-import com.kwon770.mm.web.dto.Restaurant.RestaurantElementDto;
+import com.kwon770.mm.dto.member.MemberTitleRequestDto;
+import com.kwon770.mm.dto.Restaurant.RestaurantElementDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 

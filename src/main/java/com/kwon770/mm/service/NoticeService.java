@@ -2,7 +2,7 @@ package com.kwon770.mm.service;
 
 import com.kwon770.mm.domain.notice.Notice;
 import com.kwon770.mm.domain.notice.NoticeRepository;
-import com.kwon770.mm.web.dto.NoticeDto;
+import com.kwon770.mm.dto.NoticeDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 

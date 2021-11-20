@@ -6,8 +6,8 @@ import com.kwon770.mm.domain.restaurant.Restaurant;
 import com.kwon770.mm.domain.restaurant.RestaurantRepository;
 import com.kwon770.mm.service.member.MemberMapper;
 import com.kwon770.mm.service.restaurant.RestaurantMapper;
-import com.kwon770.mm.web.dto.MemberSearchDto;
-import com.kwon770.mm.web.dto.Restaurant.RestaurantSearchDto;
+import com.kwon770.mm.dto.member.MemberSearchDto;
+import com.kwon770.mm.dto.Restaurant.RestaurantSearchDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 

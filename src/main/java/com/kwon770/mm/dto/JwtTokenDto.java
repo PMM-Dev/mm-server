@@ -1,4 +1,4 @@
-package com.kwon770.mm.web.dto;
+package com.kwon770.mm.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;

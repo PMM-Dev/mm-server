@@ -1,8 +1,8 @@
 package com.kwon770.mm.service.member;
 
 import com.kwon770.mm.domain.member.Member;
-import com.kwon770.mm.web.dto.MemberInfoDto;
-import com.kwon770.mm.web.dto.MemberSearchDto;
+import com.kwon770.mm.dto.member.MemberInfoDto;
+import com.kwon770.mm.dto.member.MemberSearchDto;
 import org.mapstruct.Mapper;
 import org.mapstruct.factory.Mappers;
 

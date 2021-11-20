@@ -1,8 +1,8 @@
 package com.kwon770.mm.web.post;
 
 import com.kwon770.mm.service.post.CommentService;
-import com.kwon770.mm.web.dto.post.CommentInfoDto;
-import com.kwon770.mm.web.dto.post.CommentRequestDto;
+import com.kwon770.mm.dto.post.CommentInfoDto;
+import com.kwon770.mm.dto.post.CommentRequestDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

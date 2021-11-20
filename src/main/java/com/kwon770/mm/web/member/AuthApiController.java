@@ -1,9 +1,9 @@
 package com.kwon770.mm.web.member;
 
 import com.kwon770.mm.service.member.AuthService;
-import com.kwon770.mm.web.dto.JwtTokenDto;
-import com.kwon770.mm.web.dto.JwtTokenRequestDto;
-import com.kwon770.mm.web.dto.MemberRequestDto;
+import com.kwon770.mm.dto.JwtTokenDto;
+import com.kwon770.mm.dto.JwtTokenRequestDto;
+import com.kwon770.mm.dto.member.MemberRequestDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
