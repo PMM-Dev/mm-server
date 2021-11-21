@@ -15,6 +15,12 @@ public enum ErrorCode {
     SYSTEM_IO_ERROR(500),
     IMAGE_IO_ERROR(500);
 
+    public static String SOCIAL_TOKEN_TYPE_NOT_EXIST = "socialTokenType 필드가 null";
+    public static String NO_USER_BY_GOOGLE_SOCIAL_TOKEN = "해당 Google SocialToken과 일치하는 Member가 없음";
+    public static String WRONG_GOOGLE_SOCIAL_TOKEN = "올바르지 않은 Google SocialToken";
+    public static String NO_USER_BY_APPLE_SOCIAL_TOKEN = "해당 Apple SocialToken과 일치하는 Member가 없음";
+    public static String WRONG_APPLE_SOCIAL_TOKEN = "올바르지 않은 Apple SocialToken";
+
     public static String NOT_AUTHOR_MESSAGE = "이 요청을 보낼 수 있는 소유자가 아님 : currentMemberId = ";
     // ?
     public static String NOT_REPORT_OWNER = "Report의 소유자가 아닙니다";

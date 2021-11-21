@@ -69,8 +69,6 @@ public class ImageApiController {
             bStream.writeTo(response.getOutputStream());
             response.getOutputStream().flush();
             response.getOutputStream().close();
-//            HttpHeaders header = new HttpHeaders();
-//            header.add("Content-Type", Files.probeContentType(Paths.get(imagePath.get())));
         } catch (Exception e) {
             throw new SystemIOException();
         } finally {

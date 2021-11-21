@@ -36,8 +36,6 @@ public class MemberRequestDto {
                 .encodedEmail(passwordEncoder.encode(email))
                 .picture(picture)
                 .role(role)
-                .socialToken(socialToken)
-                .socialTokenType(socialTokenType)
                 .build();
     }
 
