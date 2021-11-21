@@ -64,10 +64,10 @@ public class Post extends BaseTimeEntity {
 
     public boolean getIsExistImages() {
         if (postImages.isEmpty()) {
-            return true;
+            return false;
         }
 
-        return false;
+        return true;
     }
 
     public boolean getDidLike(Long memberId) {
