@@ -11,7 +11,7 @@ import com.kwon770.mm.service.ImageHandler;
 import com.kwon770.mm.service.member.MemberService;
 import com.kwon770.mm.util.SecurityUtil;
 import com.kwon770.mm.dto.post.PostInfoDto;
-import com.kwon770.mm.dto.post.PostPreviewDto;
+import com.kwon770.mm.dto.post.PostElementDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
@@ -75,10 +75,16 @@ public class PostService {
         return postRepository.findById(postId).orElseThrow(() -> new IllegalArgumentException(ErrorCode.NO_POST_BY_POSTID + postId));
     }
 
-    public List<PostPreviewDto> getPostPreviewDtos() {
+    public List<PostElementDto> getPostElementDtos() {
         List<Post> posts = postRepository.findAll();
 
-        return posts.stream().map(PostPreviewDto::new).collect(Collectors.toList());
+        return posts.stream().map(PostElementDto::new).collect(Collectors.toList());
+    }
+
+    public List<PostElementDto> getLatest3PostElementDtos() {
+        List<Post> posts = postRepository.findLimit3ByOrderByCreatedDateDesc();
+
+        return posts.stream().map(PostElementDto::new).collect(Collectors.toList());
     }
 
     public PostInfoDto getPostInfoDto(Long postId) {

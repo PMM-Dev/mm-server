@@ -2,7 +2,7 @@ package com.kwon770.mm.web.post;
 
 import com.kwon770.mm.service.post.PostService;
 import com.kwon770.mm.dto.post.PostInfoDto;
-import com.kwon770.mm.dto.post.PostPreviewDto;
+import com.kwon770.mm.dto.post.PostElementDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -40,10 +40,17 @@ public class PostApiController {
     }
 
     @GetMapping("/post")
-    public ResponseEntity<List<PostPreviewDto>> getPostPreviewDtoList() {
-        List<PostPreviewDto> postPreviewDtos = postService.getPostPreviewDtos();
+    public ResponseEntity<List<PostElementDto>> getPostElementDtoList() {
+        List<PostElementDto> postElementDtos = postService.getPostElementDtos();
 
-        return new ResponseEntity<>(postPreviewDtos, HttpStatus.OK);
+        return new ResponseEntity<>(postElementDtos, HttpStatus.OK);
+    }
+
+    @GetMapping("/post/preview")
+    public ResponseEntity<List<PostElementDto>> getLatest3PostElementDtoList() {
+        List<PostElementDto> latest3PostElementDtos = postService.getLatest3PostElementDtos();
+
+        return new ResponseEntity<>(latest3PostElementDtos, HttpStatus.OK);
     }
 
     @GetMapping("/post/{postId}")

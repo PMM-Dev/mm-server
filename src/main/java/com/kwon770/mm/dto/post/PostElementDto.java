@@ -5,7 +5,7 @@ import com.kwon770.mm.util.CommonUtil;
 import lombok.Getter;
 
 @Getter
-public class PostPreviewDto {
+public class PostElementDto {
 
     private Long id;
     private String title;
@@ -15,7 +15,7 @@ public class PostPreviewDto {
     private int likeCount;
     private boolean isExistImage;
 
-    public PostPreviewDto(Post post) {
+    public PostElementDto(Post post) {
         this.id = post.getId();
         this.title = post.getTitle();
         this.authorName = post.getAuthor().getName();
