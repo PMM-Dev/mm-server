@@ -15,6 +15,7 @@ public class PostInfoDto {
     private String title;
     private String content;
     private String authorName;
+    private String authorEmail;
     private String createDate;
     private int imagesCount;
     private int viewCount;
@@ -28,6 +29,7 @@ public class PostInfoDto {
         this.title = post.getTitle();
         this.content = post.getContent();
         this.authorName = post.getAuthor().getName();
+        this.authorEmail = post.getAuthor().getEmail();
         this.createDate = CommonUtil.convertLocalDateTimeToFormatString(post.getCreatedDate());
         this.imagesCount = post.getPostImagesCount();
         this.viewCount = post.getViewCount();
