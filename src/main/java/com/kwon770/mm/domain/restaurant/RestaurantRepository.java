@@ -23,5 +23,7 @@ public interface RestaurantRepository extends JpaRepository<Restaurant, Long> {
 
     List<Restaurant> findAllByTypeOrderByAverageGradeDesc(Type type);
 
+    List<Restaurant> findAllByThemesContaining(RestaurantTheme restaurantTheme);
+
     List<Restaurant> findLimit10ByNameContaining(String keyword);
 }

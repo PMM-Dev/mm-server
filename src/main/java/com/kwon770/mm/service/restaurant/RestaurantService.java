@@ -1,9 +1,6 @@
 package com.kwon770.mm.service.restaurant;
 
-import com.kwon770.mm.domain.restaurant.Restaurant;
-import com.kwon770.mm.domain.restaurant.RestaurantQueryRepository;
-import com.kwon770.mm.domain.restaurant.RestaurantRepository;
-import com.kwon770.mm.domain.restaurant.Type;
+import com.kwon770.mm.domain.restaurant.*;
 import com.kwon770.mm.domain.restaurant.review.Review;
 import com.kwon770.mm.domain.restaurant.review.ReviewRepository;
 import com.kwon770.mm.domain.member.Member;
@@ -17,15 +14,16 @@ import org.springframework.stereotype.Service;
 import javax.transaction.Transactional;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @RequiredArgsConstructor
 @Service
 public class RestaurantService {
 
-    private final MemberService memberService;
     private final RestaurantRepository restaurantRepository;
     private final RestaurantQueryRepository restaurantQueryRepository;
-    private final ReviewRepository reviewRepository;
+    private final RestaurantThemeService restaurantThemeService;
+
 
     public Long save(RestaurantRequestDto restaurantRequestDto) {
         return restaurantRepository.save(restaurantRequestDto.toEntity()).getId();
@@ -120,6 +118,13 @@ public class RestaurantService {
         return RestaurantMapper.INSTANCE.restaurantToRestaurantLocationDtos(restaurants);
     }
 
+    public List<RestaurantThemeDto> getRestaurantThemeDtosByTheme(String theme) {
+        RestaurantTheme restaurantTheme = restaurantThemeService.findRestaurantThemeByTheme(theme);
+        List<Restaurant> restaurants = restaurantRepository.findAllByThemesContaining(restaurantTheme);
+
+        return restaurants.stream().map(RestaurantThemeDto::new).collect(Collectors.toList());
+    }
+
     public Long updateRestaurant(Long restaurantId, RestaurantRequestDto restaurantRequestDto) {
         Restaurant restaurant = getRestaurantById(restaurantId);
         restaurant.update(restaurantRequestDto);
@@ -135,89 +140,5 @@ public class RestaurantService {
         Restaurant targetRestaurant = getRestaurantByName(name);
 
         restaurantRepository.delete(targetRestaurant);
-    }
-
-    public List<ReviewInfoDto> getReviewInfoDtosByRestaurantId(Long restaurantId) {
-        List<Review> reviews = reviewRepository.findAllByRestaurant_Id(restaurantId);
-
-        return RestaurantMapper.INSTANCE.reviewsToReviewInfoDtos(reviews);
-    }
-
-    public List<ReviewInfoDto> getReviewInfoDtosByRestaurantIdOrderByCreatedDateDesc(Long restaurantId) {
-        List<Review> reviews = reviewRepository.findAllByRestaurant_IdOrderByCreatedDateDesc(restaurantId);
-
-        return RestaurantMapper.INSTANCE.reviewsToReviewInfoDtos(reviews);
-    }
-
-    public List<ReviewInfoDto> getReviewInfoDtosByRestaurantIdOrderByGradeDesc(Long restaurantId) {
-        List<Review> reviews = reviewRepository.findAllByRestaurant_IdOrderByGradeDesc(restaurantId);
-
-        return RestaurantMapper.INSTANCE.reviewsToReviewInfoDtos(reviews);
-    }
-
-    public List<ReviewInfoDto> getReviewInfoDtosByRestaurantIdOrderByGradeAsc(Long restaurantId) {
-        List<Review> reviews = reviewRepository.findAllByRestaurant_IdOrderByGradeAsc(restaurantId);
-
-        return RestaurantMapper.INSTANCE.reviewsToReviewInfoDtos(reviews);
-    }
-
-    @Transactional
-    public Long uploadMyReviewByRestaurantId(Member author, Long restaurantId, ReviewRequestDto reviewRequestDto) {
-        Restaurant restaurant = getRestaurantById(restaurantId);
-        Review review = Review.builder()
-                .author(author)
-                .restaurant(restaurant)
-                .description(reviewRequestDto.getDescription())
-                .grade(reviewRequestDto.getGrade())
-                .build();
-
-        restaurant.calculateAddedAverageGrade(review.getGrade());
-
-        memberService.getMemberById(author.getId()).increaseReviewCount();
-
-        return reviewRepository.save(review).getId();
-    }
-
-    @Transactional
-    public Optional<ReviewInfoDto> getMyReviewInfoDtoByRestaurantId(Long restaurantId) {
-        Optional<Review> review = reviewRepository.findByRestaurant_IdAndAuthor_Id(restaurantId, SecurityUtil.getCurrentMemberId());
-        if (review.isEmpty()) {
-            return Optional.empty();
-        }
-
-        return Optional.of(RestaurantMapper.INSTANCE.reviewToReviewInfoDto(review.get()));
-    }
-
-    @Transactional
-    public void updateMyReviewByRestaurantId(Long restaurantId, ReviewRequestDto reviewRequestDto) {
-        Restaurant restaurant = getRestaurantById(restaurantId);
-        Optional<Review> review = reviewRepository.findByRestaurant_IdAndAuthor_Id(restaurantId, SecurityUtil.getCurrentMemberId());
-        if (review.isEmpty()) {
-            throw new IllegalArgumentException(ErrorCode.NO_REVIEW_BY_RESTAURANTID + restaurantId);
-        }
-        Review myReview = review.get();
-
-        restaurant.calculateUpdatedAverageGrade(myReview.getGrade(), reviewRequestDto.getGrade());
-        myReview.update(reviewRequestDto);
-    }
-
-    @Transactional
-    public void deleteMyReviewByRestaurantId(Long restaurantId) {
-        Restaurant restaurant = getRestaurantById(restaurantId);
-        Optional<Review> review = reviewRepository.findByRestaurant_IdAndAuthor_Id(restaurantId, SecurityUtil.getCurrentMemberId());
-        if (review.isEmpty()) {
-            throw new IllegalArgumentException(ErrorCode.NO_REVIEW_BY_RESTAURANTID + restaurantId);
-        }
-        Review myReview = review.get();
-
-        restaurant.calculateSubtractedAverageGrade(myReview.getGrade());
-        reviewRepository.delete(myReview);
-        memberService.getMemberById(SecurityUtil.getCurrentMemberId()).decreaseReviewCount();
-    }
-
-    public List<MyReviewDto> getMyReviewList(Long userId) {
-        List<Review> reviews = reviewRepository.findAllByAuthor_Id(userId);
-
-        return RestaurantMapper.INSTANCE.reviewsToMyReviewDtos(reviews);
     }
 }

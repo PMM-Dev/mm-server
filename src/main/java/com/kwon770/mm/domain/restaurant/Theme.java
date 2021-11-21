@@ -2,6 +2,8 @@ package com.kwon770.mm.domain.restaurant;
 
 public enum Theme {
     SPACE,
-    DATINGCOURSE,
-    WORKHARD
+    CAFE_STUDY,
+    EXAM_MEAL,
+    FLEX_COURSE,
+    WITH_PARENT;
 }

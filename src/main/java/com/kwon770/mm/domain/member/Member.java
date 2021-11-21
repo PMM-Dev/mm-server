@@ -59,6 +59,11 @@ public class Member {
     )
     private List<MemberTitle> titles = new ArrayList<>();
 
+
+
+    /*
+      Relation With Other Entities
+     */
     @OneToMany(mappedBy = "author")
     private List<Post> posts = new ArrayList<>();
 

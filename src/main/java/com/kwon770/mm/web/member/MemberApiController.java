@@ -4,6 +4,7 @@ import com.kwon770.mm.dto.member.MemberUpdateDto;
 import com.kwon770.mm.service.member.MemberPropertyService;
 import com.kwon770.mm.service.member.MemberService;
 import com.kwon770.mm.service.restaurant.RestaurantService;
+import com.kwon770.mm.service.restaurant.ReviewService;
 import com.kwon770.mm.util.SecurityUtil;
 import com.kwon770.mm.dto.member.MemberInfoDto;
 import com.kwon770.mm.dto.member.MemberRequestDto;
@@ -24,7 +25,7 @@ public class MemberApiController {
 
     private final MemberService memberService;
     private final MemberPropertyService memberPropertyService;
-    private final RestaurantService restaurantService;
+    private final ReviewService reviewService;
 
     @GetMapping("/member/me")
     public ResponseEntity<MemberInfoDto> getMyMemberInfoDto() {
@@ -89,7 +90,7 @@ public class MemberApiController {
 
     @GetMapping("/member/me/review")
     public ResponseEntity<List<MyReviewDto>> getMyReviewList() {
-        List<MyReviewDto> myReviewDtos = restaurantService.getMyReviewList(SecurityUtil.getCurrentMemberId());
+        List<MyReviewDto> myReviewDtos = reviewService.getMyReviewList(SecurityUtil.getCurrentMemberId());
 
         return new ResponseEntity<>(myReviewDtos, HttpStatus.OK);
     }

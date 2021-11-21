@@ -85,6 +85,7 @@ public class Restaurant {
     @JsonBackReference
     private List<Member> likingMembers = new ArrayList<>();
 
+
     @Builder
     public Restaurant(String name, String description,
                       Type type, Price price, Location location,

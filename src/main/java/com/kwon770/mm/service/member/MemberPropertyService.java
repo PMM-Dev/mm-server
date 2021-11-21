@@ -25,7 +25,6 @@ public class MemberPropertyService {
 
     private final MemberService memberService;
     private final MemberTitleRepository memberTitleRepository;
-
     private final RestaurantService restaurantService;
     private final ReportService reportService;
 

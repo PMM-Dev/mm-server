@@ -19,19 +19,6 @@ public class RestaurantPropertyService {
     private final RestaurantSpecialRepository restaurantSpecialRepository;
 
 
-    public Long saveTheme(RestaurantThemeRequestDto restaurantThemeRequestDto) {
-        return restaurantThemeRepository.save(restaurantThemeRequestDto.toEntity()).getId();
-    }
-
-    public void deleteTheme(String theme) {
-        Optional<RestaurantTheme> restaurantTheme = restaurantThemeRepository.findByTheme(Theme.valueOf(theme));
-        if (restaurantTheme.isEmpty()) {
-            throw new IllegalArgumentException(ErrorCode.NO_THEME_MESSAGE + theme);
-        }
-
-        restaurantThemeRepository.delete(restaurantTheme.get());
-    }
-
     @Transactional
     public void appendTheme(Long restaurantId, String theme) {
         Restaurant restaurant = restaurantService.getRestaurantById(restaurantId);

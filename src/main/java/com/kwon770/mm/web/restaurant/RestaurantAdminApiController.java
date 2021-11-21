@@ -26,10 +26,10 @@ public class RestaurantAdminApiController {
     }
 
     @PutMapping("/restaurant/{restaurantId}")
-    public ResponseEntity<Void> updateRestaurantById(@PathVariable Long restaurantId, @RequestBody RestaurantRequestDto restaurantRequestDto) {
+    public ResponseEntity<Long> updateRestaurantById(@PathVariable Long restaurantId, @RequestBody RestaurantRequestDto restaurantRequestDto) {
         restaurantService.updateRestaurant(restaurantId, restaurantRequestDto);
 
-        return new ResponseEntity<>(HttpStatus.OK);
+        return new ResponseEntity<>(restaurantId, HttpStatus.OK);
     }
 
     @DeleteMapping("/restaurant/{identifier}")
