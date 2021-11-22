@@ -32,6 +32,8 @@ public class AuthApiController {
             throw new IllegalArgumentException(ErrorCode.SOCIAL_TOKEN_TYPE_NOT_EXIST);
         }
 
+        System.out.println(memberRequestDto.getSocialTokenType());
+
         Optional<JwtTokenDto> jwtTokenDto = Optional.empty();
         if (memberRequestDto.getSocialTokenType().equals(SocialTokenType.GOOGLE)) {
             jwtTokenDto = authService.loginByGoogle(memberRequestDto);

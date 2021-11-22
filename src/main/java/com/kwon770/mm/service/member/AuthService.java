@@ -68,13 +68,13 @@ public class AuthService {
     @Transactional
     public Optional<JwtTokenDto> loginByGoogle(MemberRequestDto memberRequestDto) {
         // 관리자 토큰이 아닌 경우, 토큰 유효성 확인
+        String requestTokenEmail = getEmailBySocialTokenFromGoogle(memberRequestDto.getSocialToken());
         if (!memberRequestDto.getSocialToken().equals(adminTokenSecret)) {
-            String requestTokenEmail = getEmailBySocialTokenFromGoogle(memberRequestDto.getSocialToken());
             validateSocialToken(requestTokenEmail, memberRequestDto.getEmail());
+        }
 
-            if (!memberRepository.existsByEmail(requestTokenEmail)) {
-                return Optional.empty();
-            }
+        if (!memberRepository.existsByEmail(requestTokenEmail)) {
+            return Optional.empty();
         }
 
         return issueJwtTokenDto(memberRequestDto);
@@ -113,13 +113,10 @@ public class AuthService {
 
     @Transactional
     public Optional<JwtTokenDto> loginByApple(MemberRequestDto memberRequestDto) {
-        // 관리자 토큰이 아닌 경우, 토큰 유효성 확인
-        if (!memberRequestDto.getSocialToken().equals(adminTokenSecret)) {
-            String requestTokenEmail = getEmailBySocialTokenFromApple(memberRequestDto.getSocialToken());
+        String requestTokenEmail = getEmailBySocialTokenFromApple(memberRequestDto.getSocialToken());
 
-            if (!memberRepository.existsByEmail(requestTokenEmail)) {
-                return Optional.empty();
-            }
+        if (!memberRepository.existsByEmail(requestTokenEmail)) {
+            return Optional.empty();
         }
 
         return issueJwtTokenDto(memberRequestDto);
