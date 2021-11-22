@@ -11,6 +11,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
@@ -40,6 +41,10 @@ public class Member {
     @Column(nullable = false)
     @Enumerated(EnumType.STRING)
     private Role role;
+
+    @NotNull
+    @Enumerated(EnumType.STRING)
+    private SocialTokenType socialTokenType;
 
     @Column(nullable = false)
     private Integer reviewCount = 0;
@@ -97,12 +102,13 @@ public class Member {
 
 
     @Builder
-    public Member(String name, String email, String encodedEmail, String picture, Role role) {
+    public Member(String name, String email, String encodedEmail, String picture, Role role, SocialTokenType socialTokenType) {
         this.name = name;
         this.email = email;
         this.encodedEmail = encodedEmail;
         this.picture = picture;
         this.role = role;
+        this.socialTokenType = socialTokenType;
     }
 
     public void update(MemberRequestDto memberRequestDto) {
@@ -110,6 +116,7 @@ public class Member {
         this.email = memberRequestDto.getEmail();
         this.picture = memberRequestDto.getPicture();
         this.role = memberRequestDto.getRole();
+        this.socialTokenType = memberRequestDto.getSocialTokenType();
     }
 
     public void update(MemberUpdateDto memberUpdateDto) {

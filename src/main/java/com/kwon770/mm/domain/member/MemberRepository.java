@@ -11,7 +11,7 @@ public interface MemberRepository extends JpaRepository<Member, Long> {
 
     Optional<Member> findById(Long id);
 
-    boolean existsByEmail(String email);
+    boolean existsBySocialTokenTypeAndEmail(SocialTokenType socialTokenType, String email);
 
     List<Member> findLimit10ByNameContaining(String keyword);
 }

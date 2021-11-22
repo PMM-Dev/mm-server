@@ -54,8 +54,8 @@ public class AuthService {
 
     @Transactional
     public Long register(MemberRequestDto memberRequestDto) {
-        if (memberRepository.existsByEmail(memberRequestDto.getEmail())) {
-            throw new RuntimeException("이미 가입되어 있는 유저입니다");
+        if (isExistUser(memberRequestDto.getSocialTokenType(), memberRequestDto.getEmail())) {
+            throw new IllegalArgumentException("이미 가입되어 있는 유저입니다");
         }
 
         if (memberRequestDto.getSocialTokenType().equals(SocialTokenType.APPLE)) {
@@ -73,7 +73,7 @@ public class AuthService {
             validateSocialToken(requestTokenEmail, memberRequestDto.getEmail());
         }
 
-        if (!memberRepository.existsByEmail(requestTokenEmail)) {
+        if (!isExistUser(memberRequestDto.getSocialTokenType(), memberRequestDto.getEmail())) {
             return Optional.empty();
         }
 
@@ -114,11 +114,11 @@ public class AuthService {
     @Transactional
     public Optional<JwtTokenDto> loginByApple(MemberRequestDto memberRequestDto) {
         String requestTokenEmail = getEmailBySocialTokenFromApple(memberRequestDto.getSocialToken());
-
-        if (!memberRepository.existsByEmail(requestTokenEmail)) {
+        if (!isExistUser(memberRequestDto.getSocialTokenType(), memberRequestDto.getEmail())) {
             return Optional.empty();
         }
 
+        memberRequestDto.setAppleEntityValue(requestTokenEmail);
         return issueJwtTokenDto(memberRequestDto);
     }
 
@@ -196,6 +196,10 @@ public class AuthService {
         } catch (Exception exception) {
             throw new CustomAuthenticationException(ErrorCode.WRONG_APPLE_SOCIAL_TOKEN);
         }
+    }
+
+    private boolean isExistUser(SocialTokenType socialTokenType, String email) {
+        return memberRepository.existsBySocialTokenTypeAndEmail(socialTokenType, email);
     }
 
     private Optional<JwtTokenDto> issueJwtTokenDto(MemberRequestDto memberRequestDto) {
