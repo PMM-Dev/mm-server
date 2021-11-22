@@ -8,6 +8,7 @@ import lombok.Getter;
 @Getter
 public class CommentInfoDto {
 
+    private Long id;
     private String content;
     private String authorPicture;
     private String authorName;
@@ -17,6 +18,7 @@ public class CommentInfoDto {
     private boolean didLike;
 
     public CommentInfoDto(Comment comment) {
+        this.id = comment.getId();
         this.content = comment.getContent();
         this.authorPicture = comment.getAuthor().getPicture();
         this.authorName = comment.getAuthor().getName();

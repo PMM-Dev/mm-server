@@ -54,7 +54,7 @@ public class PostApiController {
     }
 
     @GetMapping("/post/{postId}")
-    public ResponseEntity<PostInfoDto> getPostInfoDtoList(@PathVariable Long postId) {
+    public ResponseEntity<PostInfoDto> getPostInfoDtoByPostId(@PathVariable Long postId) {
         PostInfoDto postInfoDto = postService.getPostInfoDto(postId);
 
         return new ResponseEntity<>(postInfoDto, HttpStatus.OK);
