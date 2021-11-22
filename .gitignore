@@ -6,7 +6,8 @@ out
 application.yml
 *.properties
 
-generated
+src/main/generated
+src/main/resources
 
 ### STS ###
 .apt_generated
