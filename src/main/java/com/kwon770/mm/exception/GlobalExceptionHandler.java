@@ -65,6 +65,8 @@ public class GlobalExceptionHandler {
 
     @ExceptionHandler(CustomAuthenticationException.class)
     protected ResponseEntity<CommonResponse> handleCustomAuthenticationException(final CustomAuthenticationException e) {
+        LogView.logInfoExceptionTitle(e);
+
         CommonResponse response = CommonResponse.builder()
                 .status(ErrorCode.AUTHENTICATION_FAILED.getStatus())
                 .code(ErrorCode.AUTHENTICATION_FAILED.name())
@@ -77,6 +79,8 @@ public class GlobalExceptionHandler {
 
     @ExceptionHandler(CustomJwtRuntimeException.class)
     protected ResponseEntity<CommonResponse> handleJwtException(final CustomJwtRuntimeException e) {
+        LogView.logInfoExceptionTitle(e);
+
         CommonResponse response = CommonResponse.builder()
                 .status(ErrorCode.INVALID_JWT_TOKEN.getStatus())
                 .code(ErrorCode.INVALID_JWT_TOKEN.name())
