@@ -101,4 +101,8 @@ public class Post extends BaseTimeEntity {
             return true;
         }).collect(Collectors.toList());
     }
+
+    public void increaseViewCount() {
+        this.viewCount += 1;
+    }
 }

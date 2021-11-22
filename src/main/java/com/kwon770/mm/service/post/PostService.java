@@ -89,6 +89,7 @@ public class PostService {
 
     public PostInfoDto getPostInfoDto(Long postId) {
         Post post = findById(postId);
+        post.increaseViewCount();
 
         return new PostInfoDto(post);
     }
