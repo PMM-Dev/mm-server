@@ -29,6 +29,14 @@ public class MemberRequestDto {
         this.socialTokenType = socialTokenType;
     }
 
+    public void setDbEmail() {
+        if (socialTokenType.equals(SocialTokenType.GOOGLE)) {
+            this.email += "#G";
+        } else if (socialTokenType.equals(SocialTokenType.APPLE)) {
+            this.email += "#A";
+        }
+    }
+
     public void setAppleEntityValue(String email) {
         this.name = email.split("@")[0];
         this.email = email;
@@ -42,7 +50,6 @@ public class MemberRequestDto {
                 .encodedEmail(passwordEncoder.encode(email))
                 .picture(picture)
                 .role(role)
-                .socialTokenType(socialTokenType)
                 .build();
     }
 

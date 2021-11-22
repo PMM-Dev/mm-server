@@ -1,10 +1,7 @@
 package com.kwon770.mm.service.member;
 
 import com.google.gson.*;
-import com.kwon770.mm.domain.member.MemberRepository;
-import com.kwon770.mm.domain.member.RefreshToken;
-import com.kwon770.mm.domain.member.RefreshTokenRepository;
-import com.kwon770.mm.domain.member.SocialTokenType;
+import com.kwon770.mm.domain.member.*;
 import com.kwon770.mm.exception.CustomAuthenticationException;
 import com.kwon770.mm.exception.CustomJwtRuntimeException;
 import com.kwon770.mm.exception.ErrorCode;
@@ -54,12 +51,13 @@ public class AuthService {
 
     @Transactional
     public Long register(MemberRequestDto memberRequestDto) {
-        if (isExistUser(memberRequestDto.getSocialTokenType(), memberRequestDto.getEmail())) {
-            throw new IllegalArgumentException("이미 가입되어 있는 유저입니다");
-        }
-
         if (memberRequestDto.getSocialTokenType().equals(SocialTokenType.APPLE)) {
             memberRequestDto.setAppleEntityValue(getEmailBySocialTokenFromApple(memberRequestDto.getSocialToken()));
+        }
+        memberRequestDto.setDbEmail();
+
+        if (isExistUser(memberRequestDto.getEmail())) {
+            throw new IllegalArgumentException("이미 가입되어 있는 유저입니다");
         }
 
         return memberRepository.save(memberRequestDto.toEntity(passwordEncoder)).getId();
@@ -73,10 +71,11 @@ public class AuthService {
             validateSocialToken(requestTokenEmail, memberRequestDto.getEmail());
         }
 
-        if (!isExistUser(memberRequestDto.getSocialTokenType(), memberRequestDto.getEmail())) {
+        if (!isExistUser(memberRequestDto.getEmail())) {
             return Optional.empty();
         }
 
+        memberRequestDto.setDbEmail();
         return issueJwtTokenDto(memberRequestDto);
     }
 
@@ -111,15 +110,29 @@ public class AuthService {
         }
     }
 
+    private boolean isExistUser(String email) {
+        return memberRepository.existsByEmail(email);
+    }
+
     @Transactional
     public Optional<JwtTokenDto> loginByApple(MemberRequestDto memberRequestDto) {
         String requestTokenEmail = getEmailBySocialTokenFromApple(memberRequestDto.getSocialToken());
-        if (!isExistUser(memberRequestDto.getSocialTokenType(), requestTokenEmail)) {
+        memberRequestDto.setAppleEntityValue(requestTokenEmail);
+        memberRequestDto.setDbEmail();
+        Optional<Member> member = memberRepository.findByEmail(memberRequestDto.getEmail());
+        if (member.isEmpty()) {
             return Optional.empty();
         }
 
-        memberRequestDto.setAppleEntityValue(requestTokenEmail);
-        return issueJwtTokenDto(memberRequestDto);
+        MemberRequestDto savedMemberRequestDto = MemberRequestDto.builder()
+                .name(member.get().getName())
+                .email(memberRequestDto.getEmail())
+                .picture(member.get().getPicture())
+                .role(memberRequestDto.getRole())
+                .socialToken(memberRequestDto.getSocialToken())
+                .socialTokenType(memberRequestDto.getSocialTokenType())
+                .build();
+        return issueJwtTokenDto(savedMemberRequestDto);
     }
 
     private String getEmailBySocialTokenFromApple(String socialToken) {
@@ -196,10 +209,6 @@ public class AuthService {
         } catch (Exception exception) {
             throw new CustomAuthenticationException(ErrorCode.WRONG_APPLE_SOCIAL_TOKEN);
         }
-    }
-
-    private boolean isExistUser(SocialTokenType socialTokenType, String email) {
-        return memberRepository.existsBySocialTokenTypeAndEmail(socialTokenType, email);
     }
 
     private Optional<JwtTokenDto> issueJwtTokenDto(MemberRequestDto memberRequestDto) {
