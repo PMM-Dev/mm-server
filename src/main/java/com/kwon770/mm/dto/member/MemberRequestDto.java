@@ -29,6 +29,12 @@ public class MemberRequestDto {
         this.socialTokenType = socialTokenType;
     }
 
+    public void setAppleEntityValue(String email) {
+        this.name = email.split("@")[0];
+        this.email = email;
+
+    }
+
     public Member toEntity(PasswordEncoder passwordEncoder) {
         return Member.builder()
                 .name(name)

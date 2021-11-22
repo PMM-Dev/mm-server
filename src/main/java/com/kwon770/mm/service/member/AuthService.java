@@ -4,6 +4,7 @@ import com.google.gson.*;
 import com.kwon770.mm.domain.member.MemberRepository;
 import com.kwon770.mm.domain.member.RefreshToken;
 import com.kwon770.mm.domain.member.RefreshTokenRepository;
+import com.kwon770.mm.domain.member.SocialTokenType;
 import com.kwon770.mm.exception.CustomAuthenticationException;
 import com.kwon770.mm.exception.CustomJwtRuntimeException;
 import com.kwon770.mm.exception.ErrorCode;
@@ -55,6 +56,10 @@ public class AuthService {
     public Long register(MemberRequestDto memberRequestDto) {
         if (memberRepository.existsByEmail(memberRequestDto.getEmail())) {
             throw new RuntimeException("이미 가입되어 있는 유저입니다");
+        }
+
+        if (memberRequestDto.getSocialTokenType().equals(SocialTokenType.APPLE)) {
+            memberRequestDto.setAppleEntityValue(getEmailBySocialTokenFromApple(memberRequestDto.getSocialToken()));
         }
 
         return memberRepository.save(memberRequestDto.toEntity(passwordEncoder)).getId();
