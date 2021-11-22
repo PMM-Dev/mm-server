@@ -116,7 +116,6 @@ public class AuthService {
         // 관리자 토큰이 아닌 경우, 토큰 유효성 확인
         if (!memberRequestDto.getSocialToken().equals(adminTokenSecret)) {
             String requestTokenEmail = getEmailBySocialTokenFromApple(memberRequestDto.getSocialToken());
-            validateSocialToken(requestTokenEmail, memberRequestDto.getEmail());
 
             if (!memberRepository.existsByEmail(requestTokenEmail)) {
                 return Optional.empty();
