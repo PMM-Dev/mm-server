@@ -22,7 +22,7 @@ public class MemberInfoDto {
     public MemberInfoDto(Member member) {
         this.id = member.getId();
         this.name = member.getName();
-        this.email = member.getEmail();
+        this.email = member.getEmail().split("#")[0];
         this.picture = member.getPicture();
         this.role = member.getRole();
 
