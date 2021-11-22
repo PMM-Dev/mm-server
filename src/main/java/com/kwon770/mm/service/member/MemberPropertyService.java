@@ -69,36 +69,4 @@ public class MemberPropertyService {
 
         return RestaurantMapper.INSTANCE.restaurantsToRestaurantElementDtos(likedRestaurantEntities);
     }
-
-    @Transactional
-    public void appendLikedRestaurant(Long restaurantId) {
-        Member member = memberService.getMeById();
-        Restaurant restaurant = restaurantService.getRestaurantById(restaurantId);
-
-        member.appendLikedRestaurant(restaurant);
-    }
-
-    @Transactional
-    public void subtractedLikedRestaurant(Long restaurantId) {
-        Member member = memberService.getMeById();
-        Restaurant restaurant = restaurantService.getRestaurantById(restaurantId);
-
-        member.subtractedLikedRestaurant(restaurant);
-    }
-
-    @Transactional
-    public void appendLikedReport(Long reportId) {
-        Member member = memberService.getMeById();
-        Report report = reportService.getReportById(reportId);
-
-        member.appendLikedReport(report);
-    }
-
-    @Transactional
-    public void subtractedLikedReport(Long reportId) {
-        Member member = memberService.getMeById();
-        Report report = reportService.getReportById(reportId);
-
-        member.subtractedLikedReport(report);
-    }
 }

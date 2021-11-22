@@ -103,16 +103,16 @@ public class PostService {
         }
     }
 
-    public boolean togglePostLike(Long postId) {
+    public void likePost(Long postId) {
         Member member = memberService.getMeById();
         Post post = findById(postId);
-        if (post.getDidLike(member.getId())) {
-            member.subtractedLikedPost(post);
-            return false;
-        } else {
-            member.appendLikedPost(post);
-            return true;
-        }
+        member.appendLikedPost(post);
+    }
+
+    public void unlikePost(Long postId) {
+        Member member = memberService.getMeById();
+        Post post = findById(postId);
+        member.subtractedLikedPost(post);
     }
 
     public void deletePostByPostId(Long postId) {

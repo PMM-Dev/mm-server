@@ -187,4 +187,18 @@ public class RestaurantApiController {
 
             return new ResponseEntity<>(HttpStatus.OK);
     }
+
+    @PutMapping("/restaurant/{restaurantId}/like")
+    public ResponseEntity<Void> appendLikedRestaurant(@PathVariable Long restaurantId) {
+        restaurantService.likeRestaurant(restaurantId);
+
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
+
+    @DeleteMapping("/restaurant/{restaurantId}/like")
+    public ResponseEntity<Void> subtractLikedRestaurant(@PathVariable Long restaurantId) {
+        restaurantService.unlikeRestaurant(restaurantId);
+
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
 }

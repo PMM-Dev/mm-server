@@ -61,10 +61,17 @@ public class PostApiController {
     }
 
     @PutMapping("/post/{postId}/like")
-    public ResponseEntity<Boolean> togglePostLike(@PathVariable Long postId) {
-        boolean didLike = postService.togglePostLike(postId);
+    public ResponseEntity<Void> likePost(@PathVariable Long postId) {
+        postService.likePost(postId);
 
-        return new ResponseEntity<>(didLike, HttpStatus.OK);
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
+
+    @DeleteMapping("/post/{postId}/like")
+    public ResponseEntity<Void> unlikePost(@PathVariable Long postId) {
+        postService.unlikePost(postId);
+
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 
     @DeleteMapping("/post/{postId}")

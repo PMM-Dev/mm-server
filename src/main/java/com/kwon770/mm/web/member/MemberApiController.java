@@ -60,34 +60,6 @@ public class MemberApiController {
         return new ResponseEntity<>(restaurantElementDtos, HttpStatus.OK);
     }
 
-    @PutMapping("/member/like/restaurant/{restaurantId}")
-    public ResponseEntity<Void> appendLikedRestaurant(@PathVariable Long restaurantId) {
-        memberPropertyService.appendLikedRestaurant(restaurantId);
-
-        return new ResponseEntity<>(HttpStatus.OK);
-    }
-
-    @DeleteMapping("/member/like/restaurant/{restaurantId}")
-    public ResponseEntity<Void> subtractLikedRestaurant(@PathVariable Long restaurantId) {
-        memberPropertyService.subtractedLikedRestaurant(restaurantId);
-
-        return new ResponseEntity<>(HttpStatus.OK);
-    }
-
-    @PutMapping("/member/like/report/{reportId}")
-    public ResponseEntity<Void> appendLikedReport(@PathVariable Long reportId) {
-        memberPropertyService.appendLikedReport(reportId);
-
-        return new ResponseEntity<>(HttpStatus.OK);
-    }
-
-    @DeleteMapping("/member/like/report/{reportId}")
-    public ResponseEntity<Void> subtractLikedReport(@PathVariable Long reportId) {
-        memberPropertyService.subtractedLikedReport(reportId);
-
-        return new ResponseEntity<>(HttpStatus.OK);
-    }
-
     @GetMapping("/member/me/review")
     public ResponseEntity<List<MyReviewDto>> getMyReviewList() {
         List<MyReviewDto> myReviewDtos = reviewService.getMyReviewList(SecurityUtil.getCurrentMemberId());

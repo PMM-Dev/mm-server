@@ -23,6 +23,7 @@ public class RestaurantService {
     private final RestaurantRepository restaurantRepository;
     private final RestaurantQueryRepository restaurantQueryRepository;
     private final RestaurantThemeService restaurantThemeService;
+    private final MemberService memberService;
 
 
     public Long save(RestaurantRequestDto restaurantRequestDto) {
@@ -130,6 +131,20 @@ public class RestaurantService {
         restaurant.update(restaurantRequestDto);
 
         return restaurant.getId();
+    }
+
+    @Transactional
+    public void likeRestaurant(Long restaurantId) {
+        Member member = memberService.getMeById();
+        Restaurant restaurant = getRestaurantById(restaurantId);
+        member.appendLikedRestaurant(restaurant);
+    }
+
+    @Transactional
+    public void unlikeRestaurant(Long restaurantId) {
+        Member member = memberService.getMeById();
+        Restaurant restaurant = getRestaurantById(restaurantId);
+        member.subtractedLikedRestaurant(restaurant);
     }
 
     public void deleteRestaurantById(Long id) {

@@ -13,6 +13,7 @@ import com.kwon770.mm.dto.report.ReportRequestDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -59,6 +60,20 @@ public class ReportService {
         List<Report> reports = reportQueryRepository.findAllOrderByLikeCountDesc();
 
         return reports.stream().map(report -> new ReportInfoDto(report)).collect(Collectors.toList());
+    }
+
+    @Transactional
+    public void likeReport(Long reportId) {
+        Member member = memberService.getMeById();
+        Report report = getReportById(reportId);
+        member.appendLikedReport(report);
+    }
+
+    @Transactional
+    public void unlikeReport(Long reportId) {
+        Member member = memberService.getMeById();
+        Report report = getReportById(reportId);
+        member.subtractedLikedReport(report);
     }
 
     public void deleteMyReportByReportId(Long reportId) {

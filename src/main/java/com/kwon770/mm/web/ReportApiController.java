@@ -49,6 +49,20 @@ public class ReportApiController {
         return new ResponseEntity<>(reportInfoDtos, HttpStatus.OK);
     }
 
+    @PutMapping("/member/like/report/{reportId}")
+    public ResponseEntity<Void> likeReport(@PathVariable Long reportId) {
+        reportService.likeReport(reportId);
+
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
+
+    @DeleteMapping("/member/like/report/{reportId}")
+    public ResponseEntity<Void> unlikeReport(@PathVariable Long reportId) {
+        reportService.unlikeReport(reportId);
+
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
+
     @DeleteMapping("/report/{reportId}")
     public ResponseEntity<Void> deleteMyReportByReportId(@PathVariable Long reportId) {
         reportService.deleteMyReportByReportId(reportId);
