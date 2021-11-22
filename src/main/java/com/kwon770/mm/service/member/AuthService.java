@@ -114,7 +114,7 @@ public class AuthService {
     @Transactional
     public Optional<JwtTokenDto> loginByApple(MemberRequestDto memberRequestDto) {
         String requestTokenEmail = getEmailBySocialTokenFromApple(memberRequestDto.getSocialToken());
-        if (!isExistUser(memberRequestDto.getSocialTokenType(), memberRequestDto.getEmail())) {
+        if (!isExistUser(memberRequestDto.getSocialTokenType(), requestTokenEmail)) {
             return Optional.empty();
         }
 
