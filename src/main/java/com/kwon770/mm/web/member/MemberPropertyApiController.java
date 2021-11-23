@@ -2,7 +2,7 @@ package com.kwon770.mm.web.member;
 
 import com.kwon770.mm.service.member.MemberPropertyService;
 import com.kwon770.mm.dto.member.MemberTitleRequestDto;
-import com.kwon770.mm.dto.Restaurant.RestaurantElementDto;
+import com.kwon770.mm.dto.restaurant.RestaurantElementDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

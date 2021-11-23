@@ -3,7 +3,7 @@ package com.kwon770.mm.service.restaurant;
 import com.kwon770.mm.domain.restaurant.RestaurantTheme;
 import com.kwon770.mm.domain.restaurant.RestaurantThemeRepository;
 import com.kwon770.mm.domain.restaurant.Theme;
-import com.kwon770.mm.dto.Restaurant.RestaurantThemeRequestDto;
+import com.kwon770.mm.dto.restaurant.RestaurantThemeRequestDto;
 import com.kwon770.mm.exception.ErrorCode;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;

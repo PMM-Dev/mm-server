@@ -2,8 +2,7 @@ package com.kwon770.mm.service.restaurant;
 
 import com.kwon770.mm.domain.restaurant.*;
 import com.kwon770.mm.exception.ErrorCode;
-import com.kwon770.mm.dto.Restaurant.RestaurantSpecialRequestDto;
-import com.kwon770.mm.dto.Restaurant.RestaurantThemeRequestDto;
+import com.kwon770.mm.dto.restaurant.RestaurantSpecialRequestDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;

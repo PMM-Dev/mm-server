@@ -5,7 +5,7 @@ import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.kwon770.mm.domain.restaurant.review.Review;
 import com.kwon770.mm.domain.member.Member;
-import com.kwon770.mm.dto.Restaurant.RestaurantRequestDto;
+import com.kwon770.mm.dto.restaurant.RestaurantRequestDto;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;

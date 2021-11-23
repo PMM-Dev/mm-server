@@ -5,7 +5,7 @@ import com.kwon770.mm.domain.BaseTimeEntity;
 import com.kwon770.mm.domain.restaurant.Restaurant;
 import com.kwon770.mm.domain.member.Member;
 import com.kwon770.mm.domain.restaurant.ReviewImage;
-import com.kwon770.mm.dto.Restaurant.ReviewRequestDto;
+import com.kwon770.mm.dto.restaurant.ReviewRequestDto;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -53,5 +53,13 @@ public class Review extends BaseTimeEntity {
     public void update(ReviewRequestDto reviewRequestDto) {
         this.description = reviewRequestDto.getDescription();
         this.grade = reviewRequestDto.getGrade();
+    }
+
+    public boolean isExistImage() {
+        if (reviewImage == null) {
+            return false;
+        }
+
+        return true;
     }
 }

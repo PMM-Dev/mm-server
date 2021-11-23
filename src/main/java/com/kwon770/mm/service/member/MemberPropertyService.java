@@ -1,6 +1,5 @@
 package com.kwon770.mm.service.member;
 
-import com.kwon770.mm.domain.report.Report;
 import com.kwon770.mm.domain.restaurant.Restaurant;
 import com.kwon770.mm.domain.member.Title;
 import com.kwon770.mm.domain.member.Member;
@@ -11,7 +10,7 @@ import com.kwon770.mm.service.ReportService;
 import com.kwon770.mm.service.restaurant.RestaurantMapper;
 import com.kwon770.mm.service.restaurant.RestaurantService;
 import com.kwon770.mm.dto.member.MemberTitleRequestDto;
-import com.kwon770.mm.dto.Restaurant.RestaurantElementDto;
+import com.kwon770.mm.dto.restaurant.RestaurantElementDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 

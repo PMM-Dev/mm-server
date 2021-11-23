@@ -1,15 +1,14 @@
 package com.kwon770.mm.service.restaurant;
 
 import com.kwon770.mm.domain.member.Member;
-import com.kwon770.mm.domain.post.Post;
 import com.kwon770.mm.domain.restaurant.Restaurant;
 import com.kwon770.mm.domain.restaurant.ReviewImage;
 import com.kwon770.mm.domain.restaurant.ReviewImageRepository;
 import com.kwon770.mm.domain.restaurant.review.Review;
 import com.kwon770.mm.domain.restaurant.review.ReviewRepository;
-import com.kwon770.mm.dto.Restaurant.MyReviewDto;
-import com.kwon770.mm.dto.Restaurant.ReviewInfoDto;
-import com.kwon770.mm.dto.Restaurant.ReviewRequestDto;
+import com.kwon770.mm.dto.restaurant.MyReviewDto;
+import com.kwon770.mm.dto.restaurant.ReviewInfoDto;
+import com.kwon770.mm.dto.restaurant.ReviewRequestDto;
 import com.kwon770.mm.exception.ErrorCode;
 import com.kwon770.mm.service.ImageHandler;
 import com.kwon770.mm.service.member.MemberService;

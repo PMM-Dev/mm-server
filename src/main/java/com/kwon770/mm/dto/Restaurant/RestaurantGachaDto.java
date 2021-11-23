@@ -1,4 +1,4 @@
-package com.kwon770.mm.dto.Restaurant;
+package com.kwon770.mm.dto.restaurant;
 
 import com.kwon770.mm.domain.restaurant.Location;
 import com.kwon770.mm.domain.restaurant.Price;

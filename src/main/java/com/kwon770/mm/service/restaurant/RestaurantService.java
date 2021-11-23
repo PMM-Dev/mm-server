@@ -1,13 +1,10 @@
 package com.kwon770.mm.service.restaurant;
 
 import com.kwon770.mm.domain.restaurant.*;
-import com.kwon770.mm.domain.restaurant.review.Review;
-import com.kwon770.mm.domain.restaurant.review.ReviewRepository;
 import com.kwon770.mm.domain.member.Member;
 import com.kwon770.mm.exception.ErrorCode;
 import com.kwon770.mm.service.member.MemberService;
-import com.kwon770.mm.util.SecurityUtil;
-import com.kwon770.mm.dto.Restaurant.*;
+import com.kwon770.mm.dto.restaurant.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 

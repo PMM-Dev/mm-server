@@ -1,4 +1,4 @@
-package com.kwon770.mm.dto.Restaurant;
+package com.kwon770.mm.dto.restaurant;
 
 import com.kwon770.mm.domain.restaurant.review.Review;
 import com.kwon770.mm.util.CommonUtil;
@@ -17,6 +17,7 @@ public class ReviewInfoDto {
     private String authorPicture;
     private String description;
     private Float grade;
+    private boolean isExistImage;
 
     public ReviewInfoDto(Review review) {
         this.id = review.getId();
@@ -26,5 +27,6 @@ public class ReviewInfoDto {
         this.authorPicture = review.getAuthor().getPicture();
         this.description = review.getDescription();
         this.grade = review.getGrade();
+        this.isExistImage = review.isExistImage();
     }
 }

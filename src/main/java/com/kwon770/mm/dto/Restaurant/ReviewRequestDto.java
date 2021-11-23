@@ -1,4 +1,4 @@
-package com.kwon770.mm.dto.Restaurant;
+package com.kwon770.mm.dto.restaurant;
 
 import lombok.Builder;
 import lombok.Getter;
