@@ -12,6 +12,7 @@ import com.kwon770.mm.dto.post.CommentRequestDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -47,6 +48,7 @@ public class CommentService {
         return comments.stream().map(CommentInfoDto::new).collect(Collectors.toList());
     }
 
+    @Transactional
     public boolean toggleCommentLike(Long commentId) {
         Member member = memberService.getMeById();
         Comment comment = findById(commentId);

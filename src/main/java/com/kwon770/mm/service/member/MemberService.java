@@ -48,11 +48,7 @@ public class MemberService {
         return MemberMapper.INSTANCE.memberToMemberInfoDto(getMemberByEmail(email));
     }
 
-    public void updateMemberByUserId(Long userId, MemberRequestDto memberRequestDto) {
-        Member member = getMemberById(userId);
-        member.update(memberRequestDto);
-    }
-
+    @Transactional
     public void updateMemberByUserId(Long userId, MemberUpdateDto memberUpdateDto) {
         Member member = getMemberById(userId);
         member.update(memberUpdateDto);

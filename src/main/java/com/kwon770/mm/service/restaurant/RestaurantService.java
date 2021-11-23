@@ -123,6 +123,7 @@ public class RestaurantService {
         return restaurants.stream().map(RestaurantThemeDto::new).collect(Collectors.toList());
     }
 
+    @Transactional
     public Long updateRestaurant(Long restaurantId, RestaurantRequestDto restaurantRequestDto) {
         Restaurant restaurant = getRestaurantById(restaurantId);
         restaurant.update(restaurantRequestDto);

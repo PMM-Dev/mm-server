@@ -105,7 +105,6 @@ public class ReviewService {
         return RestaurantMapper.INSTANCE.reviewsToReviewInfoDtos(reviews);
     }
 
-    @Transactional
     public Optional<ReviewInfoDto> getMyReviewInfoDtoByRestaurantId(Long restaurantId) {
         Optional<Review> review = reviewRepository.findByRestaurant_IdAndAuthor_Id(restaurantId, SecurityUtil.getCurrentMemberId());
         if (review.isEmpty()) {

@@ -76,6 +76,7 @@ public class ReportService {
         member.subtractedLikedReport(report);
     }
 
+    @Transactional
     public void deleteMyReportByReportId(Long reportId) {
         Optional<Report> report = reportRepository.findById(reportId);
         if (report.isEmpty()) {
