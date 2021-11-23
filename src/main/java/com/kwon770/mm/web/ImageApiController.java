@@ -1,9 +1,11 @@
 package com.kwon770.mm.web;
 
+import com.kwon770.mm.exception.ErrorCode;
 import com.kwon770.mm.exception.ImageIOException;
 import com.kwon770.mm.exception.SystemIOException;
 import com.kwon770.mm.service.post.PostService;
 import com.kwon770.mm.service.restaurant.RestaurantImageService;
+import com.kwon770.mm.service.restaurant.ReviewService;
 import lombok.RequiredArgsConstructor;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.FilenameUtils;
@@ -25,6 +27,7 @@ public class ImageApiController {
 
     private final RestaurantImageService restaurantImageService;
     private final PostService postService;
+    private final ReviewService reviewService;
 
     @PostMapping("/image/restaurant/{restaurantId}/image")
     public ResponseEntity<Void> uploadRestaurantImages(@PathVariable Long restaurantId, @RequestParam("picture") MultipartFile picture, @RequestParam("thumbnail") MultipartFile thumbnail) {
@@ -32,9 +35,39 @@ public class ImageApiController {
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
+    @GetMapping("/image/restaurant/{restaurantId}/picture")
+    public void getRestaurantPicture(HttpServletResponse response, @PathVariable Long restaurantId) {
+        Optional<String> picturePath = restaurantImageService.getRestaurantPicturePath(restaurantId);
+        outputImage(response, picturePath);
+    }
+
+    @GetMapping("/image/restaurant/{restaurantId}/thumbnail")
+    public void getRestaurantThumbnail(HttpServletResponse response, @PathVariable Long restaurantId) {
+        Optional<String> thumbnailPath = restaurantImageService.getRestaurantThumbnail(restaurantId);
+        outputImage(response, thumbnailPath);
+    }
+
+    @DeleteMapping("/image/restaurant/{restaurantId}/image")
+    public ResponseEntity<Void> deleteRestaurantPicture(@PathVariable Long restaurantId) {
+        restaurantImageService.deleteRestaurantImages(restaurantId);
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
+
+    @GetMapping("/image/restaurant/review/{reviewId}/image")
+    public void getReviewImageByReviewId(HttpServletResponse response, @PathVariable Long reviewId) {
+        Optional<String> imagePath = reviewService.getReviewImageByReviewId(reviewId);
+        outputImage(response, imagePath);
+    }
+
+    @GetMapping("/image/post/{postId}/{index}")
+    public void getPostImageOnIndexByPostId(HttpServletResponse response, @PathVariable Long postId, @PathVariable int index) {
+        Optional<String> imagePath = postService.getPostImagePathOnIndexByPostId(postId, index);
+        outputImage(response, imagePath);
+    }
+
     private void outputImage(HttpServletResponse response, Optional<String> imagePath) {
         if (imagePath.isEmpty()) {
-            return;
+            throw new IllegalArgumentException(ErrorCode.NOT_FOUND_IMAGE);
         }
 
         File file = new File(imagePath.get());
@@ -86,29 +119,5 @@ public class ImageApiController {
                 throw new SystemIOException(e);
             }
         }
-    }
-
-    @GetMapping("/image/restaurant/{restaurantId}/picture")
-    public void getRestaurantPicture(HttpServletResponse response, @PathVariable Long restaurantId) {
-        Optional<String> picturePath = restaurantImageService.getRestaurantPicturePath(restaurantId);
-        outputImage(response, picturePath);
-    }
-
-    @GetMapping("/image/restaurant/{restaurantId}/thumbnail")
-    public void getRestaurantThumbnail(HttpServletResponse response, @PathVariable Long restaurantId) {
-        Optional<String> thumbnailPath = restaurantImageService.getRestaurantThumbnail(restaurantId);
-        outputImage(response, thumbnailPath);
-    }
-
-    @DeleteMapping("/image/restaurant/{restaurantId}/image")
-    public ResponseEntity<Void> deleteRestaurantPicture(@PathVariable Long restaurantId) {
-        restaurantImageService.deleteRestaurantImages(restaurantId);
-        return new ResponseEntity<>(HttpStatus.OK);
-    }
-
-    @GetMapping("/image/post/{postId}/{index}")
-    public void getPostImageOnIndexByPostId(HttpServletResponse response, @PathVariable Long postId, @PathVariable int index) {
-        Optional<String> imagePath = postService.getPostImagePathOnIndexByPostId(postId, index);
-        outputImage(response, imagePath);
     }
 }

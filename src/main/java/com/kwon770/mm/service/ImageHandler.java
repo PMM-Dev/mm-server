@@ -3,6 +3,8 @@ package com.kwon770.mm.service;
 import com.kwon770.mm.domain.post.Post;
 import com.kwon770.mm.domain.post.PostImage;
 import com.kwon770.mm.domain.restaurant.RestaurantImage;
+import com.kwon770.mm.domain.restaurant.ReviewImage;
+import com.kwon770.mm.domain.restaurant.review.Review;
 import com.kwon770.mm.exception.ImageIOException;
 import org.springframework.stereotype.Component;
 import org.springframework.web.multipart.MultipartFile;
@@ -16,6 +18,7 @@ public class ImageHandler {
     private static String ABSOULTE_PATH = new File("").getAbsolutePath() + "/";
     private static String RESTAURANT_PICTURE_PATH = ABSOULTE_PATH + "images/restaurant/picture/";
     private static String RESTAURANT_THUMBNAIL_PATH = ABSOULTE_PATH + "images/restaurant/thumbnail/";
+    private static String REVIEW_IMAGES_PATH = ABSOULTE_PATH + "images/review/";
     private static String POST_IMAGES_PATH = ABSOULTE_PATH + "images/post/";
 
     public void downloadImage(MultipartFile image, String filePath) {
@@ -77,6 +80,19 @@ public class ImageHandler {
                 .filePath(POST_IMAGES_PATH + fileName)
                 .fileSize(image.getSize())
                 .post(post)
+                .build();
+    }
+
+    public ReviewImage parseReviewImage(Review review, MultipartFile image) {
+        validateSavingPath(REVIEW_IMAGES_PATH);
+        validateSavingPath(image.getContentType());
+
+        String fileName = System.nanoTime() + getFileExtension(image.getContentType());
+        return ReviewImage.builder()
+                .originalFileName(image.getOriginalFilename())
+                .filePath(REVIEW_IMAGES_PATH + fileName)
+                .fileSize(image.getSize())
+                .review(review)
                 .build();
     }
 }

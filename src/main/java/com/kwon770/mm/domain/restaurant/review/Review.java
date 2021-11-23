@@ -4,12 +4,14 @@ import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.kwon770.mm.domain.BaseTimeEntity;
 import com.kwon770.mm.domain.restaurant.Restaurant;
 import com.kwon770.mm.domain.member.Member;
+import com.kwon770.mm.domain.restaurant.ReviewImage;
 import com.kwon770.mm.dto.Restaurant.ReviewRequestDto;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 
 @NoArgsConstructor
 @Getter
@@ -30,11 +32,15 @@ public class Review extends BaseTimeEntity {
 
     private String description;
 
-    @Column(nullable = false)
+    @NotNull
     private Float grade;
 
-    @Column(nullable = false)
+    @NotNull
     private Integer likeCount = 0;
+
+    @OneToOne(orphanRemoval = true, fetch = FetchType.EAGER)
+    @JoinColumn(name = "reviewImage_id")
+    private ReviewImage reviewImage;
 
     @Builder
     public Review(Member author, Restaurant restaurant, String description, Float grade) {

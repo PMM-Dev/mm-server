@@ -30,6 +30,7 @@ public enum ErrorCode {
     public static String NO_RESTAURANT_BY_RESTAURANTID = "restaurantId와 일치하는 Restaurant이 없습니다. restaurantId = ";
     public static String NO_RESTAURANT_BY_RESTAURANTNAME = "restaurantName와 일치하는 Restaurant이 없습니다. restaurantName = ";
     public static String NO_REVIEW_BY_RESTAURANTID = "Restaurant에 작성된 Review가 없음 : RestaurantId = ";
+    public static String NO_REVIEW_BY_REVIEWID = "ReviewId와 일치하는 Review가 없습니다. ReviewId = ";
     public static String NO_IMAGE_BY_RESTAURANTID = "Restaurant에 업로드된 사진이 없음 : restaurantId = ";
     public static String NO_REPORT_BY_REPORTID = "reportId와 일치하는 Report가 없음 : reportId = ";
     public static String NO_POST_BY_POSTID = "postId와 일치하는 Post가 없음 : postId = ";
@@ -41,6 +42,7 @@ public enum ErrorCode {
 
     public static String SYSTEM_IO_ERROR_MESSAGE = "서버의 IO 과정에서 문제 발생";
     public static String IMAGE_IO_ERROR_MESSAGE = "서버에서 이미지 IO 과정에서 문제 발생 :";
+    public static String NOT_FOUND_IMAGE = "해당하는 이미지가 없음";
     public static String NOT_FOUND_IMAGE_BY_INDEX = "해당 index에 해당하는 이미지가 없음 : index = ";
 
     private final int status;

@@ -20,8 +20,6 @@ import static com.kwon770.mm.Utility.isDigit;
 public class RestaurantApiController {
 
     private final RestaurantService restaurantService;
-    private final ReviewService reviewService;
-    private final MemberService memberService;
 
     @PostMapping("/restaurant")
     public ResponseEntity<Long> uploadRestaurant(@RequestBody RestaurantRequestDto restaurantRequestDto) {
@@ -126,66 +124,6 @@ public class RestaurantApiController {
         List<RestaurantLocationDto> restaurantLocationDtos = restaurantService.getAllRestaurantLocationDtos();
 
         return new ResponseEntity<>(restaurantLocationDtos, HttpStatus.OK);
-    }
-
-    @GetMapping("/restaurant/{restaurantId}/review")
-    public ResponseEntity<List<ReviewInfoDto>> getReviewInfoDtosByRestaurantId(@PathVariable Long restaurantId) {
-        List<ReviewInfoDto> reviewInfoDtos = reviewService.getReviewInfoDtosByRestaurantId(restaurantId);
-
-        return new ResponseEntity<>(reviewInfoDtos, HttpStatus.OK);
-    }
-
-    @GetMapping("/restaurant/{restaurantId}/review/orderBy/dateDesc")
-    public ResponseEntity<List<ReviewInfoDto>> getReviewInfoDtosByRestaurantIdOrderByCreatedDateDesc(@PathVariable Long restaurantId) {
-        List<ReviewInfoDto> reviewInfoDtos = reviewService.getReviewInfoDtosByRestaurantIdOrderByCreatedDateDesc(restaurantId);
-
-        return new ResponseEntity<>(reviewInfoDtos, HttpStatus.OK);
-    }
-
-    @GetMapping("/restaurant/{restaurantId}/review/orderBy/gradeDesc")
-    public ResponseEntity<List<ReviewInfoDto>> getReviewInfoDtosByRestaurantIdOrderByGradeDesc(@PathVariable Long restaurantId) {
-        List<ReviewInfoDto> reviewInfoDtos = reviewService.getReviewInfoDtosByRestaurantIdOrderByGradeDesc(restaurantId);
-
-        return new ResponseEntity<>(reviewInfoDtos, HttpStatus.OK);
-    }
-
-    @GetMapping("/restaurant/{restaurantId}/review/orderBy/gradeAsc")
-    public ResponseEntity<List<ReviewInfoDto>> getReviewInfoDtosByRestaurantIdOrderByGradeAsc(@PathVariable Long restaurantId) {
-        List<ReviewInfoDto> reviewInfoDtos = reviewService.getReviewInfoDtosByRestaurantIdOrderByGradeAsc(restaurantId);
-
-        return new ResponseEntity<>(reviewInfoDtos, HttpStatus.OK);
-    }
-
-    @PostMapping("/restaurant/{restaurantId}/review/me")
-    public ResponseEntity<Long> uploadMyReviewByRestaurantId(@PathVariable Long restaurantId, @RequestBody ReviewRequestDto reviewRequestDto) {
-        Member author = memberService.getMeById();
-        Long reviewId = reviewService.uploadMyReviewByRestaurantId(author, restaurantId, reviewRequestDto);
-
-        return new ResponseEntity<>(reviewId, HttpStatus.OK);
-    }
-
-    @GetMapping("/restaurant/{restaurantId}/review/me")
-    public ResponseEntity<ReviewInfoDto> getMyReviewInfoDtoByRestaurantId(@PathVariable Long restaurantId) {
-        Optional<ReviewInfoDto> reviewInfoDto = reviewService.getMyReviewInfoDtoByRestaurantId(restaurantId);
-        if (reviewInfoDto.isEmpty()) {
-            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
-        }
-
-        return new ResponseEntity<>(reviewInfoDto.get(), HttpStatus.OK);
-    }
-
-    @PutMapping("/restaurant/{restaurantId}/review/me")
-    public ResponseEntity<Void> updateMyReviewByReviewId(@PathVariable Long restaurantId, @RequestBody ReviewRequestDto reviewRequestDto) {
-            reviewService.updateMyReviewByRestaurantId(restaurantId, reviewRequestDto);
-
-            return new ResponseEntity<>(HttpStatus.OK);
-    }
-
-    @DeleteMapping("/restaurant/{restaurantId}/review/me")
-    public ResponseEntity<Void> deleteMyReviewByReviewId(@PathVariable Long restaurantId) {
-            reviewService.deleteMyReviewByRestaurantId(restaurantId);
-
-            return new ResponseEntity<>(HttpStatus.OK);
     }
 
     @PutMapping("/restaurant/{restaurantId}/like")

@@ -26,9 +26,10 @@ import java.util.stream.Collectors;
 public class PostService {
 
     private final PostRepository postRepository;
-    private final ImageHandler imageHandler;
     private final PostImageRepository postImageRepository;
     private final MemberService memberService;
+
+    private final ImageHandler imageHandler;
 
     public Long createPost(String title, String content, List<MultipartFile> images) {
         Member author = memberService.getMeById();
@@ -37,14 +38,14 @@ public class PostService {
                 .content(content)
                 .author(author)
                 .build();
-        List<PostImage> postImages = getPostImages(post, images);
+        List<PostImage> postImages = generatePostImages(post, images);
 
         postRepository.save(post);
         postImageRepository.saveAll(postImages);
         return post.getId();
     }
 
-    private List<PostImage> getPostImages(Post post, List<MultipartFile> images) {
+    private List<PostImage> generatePostImages(Post post, List<MultipartFile> images) {
         return images.stream().map(image -> {
             PostImage postImage = imageHandler.parsePostImage(post, image);
             imageHandler.downloadImage(image, postImage.getFilePath());
@@ -67,7 +68,7 @@ public class PostService {
         postImageRepository.deleteAll(removedPostImages);
 
         List<MultipartFile> addedImages = post.getAddedPostImages(images);
-        List<PostImage> addedPostImage = getPostImages(post, addedImages);
+        List<PostImage> addedPostImage = generatePostImages(post, addedImages);
 
         post.update(title, content, addedPostImage);
     }
