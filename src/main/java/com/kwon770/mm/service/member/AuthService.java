@@ -67,7 +67,7 @@ public class AuthService {
         // 관리자 토큰이 아닌 경우, 토큰 유효성 확인
         String requestTokenEmail = getEmailBySocialTokenFromGoogle(memberRequestDto.getSocialToken());
         if (!memberRequestDto.getSocialToken().equals(adminTokenSecret)) {
-            validateSocialToken(requestTokenEmail, memberRequestDto.getEmail());
+            validateGoogleSocialToken(requestTokenEmail, memberRequestDto.getEmailFromDbEmail());
         }
 
         if (!isExistUser(memberRequestDto.getEmail())) {
@@ -77,7 +77,7 @@ public class AuthService {
         return issueJwtTokenDto(memberRequestDto);
     }
 
-    private void validateSocialToken(String requestTokenEmail, String requestEmail) {
+    private void validateGoogleSocialToken(String requestTokenEmail, String requestEmail) {
         if (!requestEmail.equals(requestTokenEmail)) {
             throw new CustomAuthenticationException(ErrorCode.NO_USER_BY_GOOGLE_SOCIAL_TOKEN);
         }

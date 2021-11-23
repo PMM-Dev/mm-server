@@ -34,6 +34,10 @@ public class MemberRequestDto extends MemberDto{
         this.email = generateDbEmail(email, this.socialTokenType);
     }
 
+    public String getEmailFromDbEmail() {
+        return parseEmailFromDbEmail(email);
+    }
+
     public Member toEntity(PasswordEncoder passwordEncoder) {
         return Member.builder()
                 .name(name)
