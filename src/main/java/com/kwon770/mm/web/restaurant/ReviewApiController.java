@@ -29,6 +29,17 @@ public class ReviewApiController {
         return new ResponseEntity<>(reviewId, HttpStatus.OK);
     }
 
+    @PutMapping("/restaurant/{restaurantId}/review")
+    public ResponseEntity<Void> updateMyReviewByRestaurantId(@PathVariable Long restaurantId,
+                                                             @RequestParam(value = "description") String description,
+                                                             @RequestParam(value = "grade") Float grade,
+                                                             @RequestParam(value = "image", required = false) MultipartFile image) {
+        ReviewRequestDto reviewRequestDto = new ReviewRequestDto(description, grade, image);
+        reviewService.updateMyReviewByRestaurantId(restaurantId, reviewRequestDto);
+
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
+
     @GetMapping("/restaurant/{restaurantId}/review")
     public ResponseEntity<List<ReviewInfoDto>> getReviewInfoDtosByRestaurantId(@PathVariable Long restaurantId) {
         List<ReviewInfoDto> reviewInfoDtos = reviewService.getReviewInfoDtosByRestaurantId(restaurantId);
@@ -65,13 +76,6 @@ public class ReviewApiController {
         }
 
         return new ResponseEntity<>(reviewInfoDto.get(), HttpStatus.OK);
-    }
-
-    @PutMapping("/restaurant/{restaurantId}/review/me")
-    public ResponseEntity<Void> updateMyReviewByReviewId(@PathVariable Long restaurantId, @RequestBody ReviewRequestDto reviewRequestDto) {
-        reviewService.updateMyReviewByRestaurantId(restaurantId, reviewRequestDto);
-
-        return new ResponseEntity<>(HttpStatus.OK);
     }
 
     @DeleteMapping("/restaurant/{restaurantId}/review/me")

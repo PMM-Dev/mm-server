@@ -59,15 +59,15 @@ public class CommentService {
         }
     }
 
+    public void deleteComment(Long commentId) {
+        commentRepository.deleteById(commentId);
+    }
+
     public void validateAuthor(Long commentId) {
         Long currentMemberId = SecurityUtil.getCurrentMemberId();
         Comment comment = findById(commentId);
         if (!comment.getAuthor().getId().equals(currentMemberId)) {
             throw new IllegalArgumentException(ErrorCode.NOT_AUTHOR_MESSAGE + commentId);
         }
-    }
-
-    public void deleteComment(Long commentId) {
-        commentRepository.deleteById(commentId);
     }
 }

@@ -1,6 +1,7 @@
 package com.kwon770.mm.service.restaurant;
 
 import com.kwon770.mm.domain.member.Member;
+import com.kwon770.mm.domain.post.PostImage;
 import com.kwon770.mm.domain.restaurant.Restaurant;
 import com.kwon770.mm.domain.restaurant.review.ReviewImage;
 import com.kwon770.mm.domain.restaurant.review.ReviewImageRepository;
@@ -60,6 +61,21 @@ public class ReviewService {
         return reviewImage;
     }
 
+    @Transactional
+    public void updateMyReviewByRestaurantId(Long restaurantId, ReviewRequestDto reviewRequestDto) {
+        Restaurant restaurant = restaurantService.getRestaurantById(restaurantId);
+        Optional<Review> review = reviewRepository.findByRestaurant_IdAndAuthor_Id(restaurantId, SecurityUtil.getCurrentMemberId());
+        if (review.isEmpty()) {
+            throw new IllegalArgumentException(ErrorCode.NO_REVIEW_BY_RESTAURANTID + restaurantId);
+        }
+        Review myReview = review.get();
+
+        validateAuthor(myReview.getId());
+
+        restaurant.calculateUpdatedAverageGrade(myReview.getGrade(), reviewRequestDto.getGrade());
+        myReview.update(reviewRequestDto);
+    }
+
     public Review getReviewByReviewId(Long reviewId) {
         return reviewRepository.findById(reviewId)
                 .orElseThrow(() -> new IllegalArgumentException(ErrorCode.NO_REVIEW_BY_REVIEWID + reviewId));
@@ -115,19 +131,6 @@ public class ReviewService {
     }
 
     @Transactional
-    public void updateMyReviewByRestaurantId(Long restaurantId, ReviewRequestDto reviewRequestDto) {
-        Restaurant restaurant = restaurantService.getRestaurantById(restaurantId);
-        Optional<Review> review = reviewRepository.findByRestaurant_IdAndAuthor_Id(restaurantId, SecurityUtil.getCurrentMemberId());
-        if (review.isEmpty()) {
-            throw new IllegalArgumentException(ErrorCode.NO_REVIEW_BY_RESTAURANTID + restaurantId);
-        }
-        Review myReview = review.get();
-
-        restaurant.calculateUpdatedAverageGrade(myReview.getGrade(), reviewRequestDto.getGrade());
-        myReview.update(reviewRequestDto);
-    }
-
-    @Transactional
     public void deleteMyReviewByRestaurantId(Long restaurantId) {
         Restaurant restaurant = restaurantService.getRestaurantById(restaurantId);
         Optional<Review> review = reviewRepository.findByRestaurant_IdAndAuthor_Id(restaurantId, SecurityUtil.getCurrentMemberId());
@@ -136,8 +139,18 @@ public class ReviewService {
         }
         Review myReview = review.get();
 
+        validateAuthor(review.get().getId());
+
         restaurant.calculateSubtractedAverageGrade(myReview.getGrade());
         reviewRepository.delete(myReview);
         memberService.getMemberById(SecurityUtil.getCurrentMemberId()).decreaseReviewCount();
+    }
+
+    public void validateAuthor(Long reviewId) {
+        Long currentMemberId = SecurityUtil.getCurrentMemberId();
+        Review review = getReviewByReviewId(reviewId);
+        if (!review.getAuthor().getId().equals(currentMemberId)) {
+            throw new IllegalArgumentException(ErrorCode.NOT_AUTHOR_MESSAGE + reviewId);
+        }
     }
 }

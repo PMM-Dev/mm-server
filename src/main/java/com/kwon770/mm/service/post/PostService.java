@@ -5,6 +5,7 @@ import com.kwon770.mm.domain.post.Post;
 import com.kwon770.mm.domain.post.PostImage;
 import com.kwon770.mm.domain.post.PostImageRepository;
 import com.kwon770.mm.domain.post.PostRepository;
+import com.kwon770.mm.domain.post.comment.Comment;
 import com.kwon770.mm.exception.ErrorCode;
 import com.kwon770.mm.exception.NotAuthorException;
 import com.kwon770.mm.service.ImageHandler;
@@ -52,14 +53,6 @@ public class PostService {
             imageHandler.downloadImage(image, postImage.getFilePath());
             return postImage;
         }).collect(Collectors.toList());
-    }
-
-    public void validateAuthor(Long postId) {
-        Long currentMemberId = SecurityUtil.getCurrentMemberId();
-        Post post = findById(postId);
-        if (!currentMemberId.equals(post.getAuthor().getId())) {
-            throw new NotAuthorException(currentMemberId);
-        }
     }
 
     @Transactional
@@ -123,5 +116,13 @@ public class PostService {
 
     public void deletePostByPostId(Long postId) {
         postRepository.deleteById(postId);
+    }
+
+    public void validateAuthor(Long postId) {
+        Long currentMemberId = SecurityUtil.getCurrentMemberId();
+        Post post = findById(postId);
+        if (!currentMemberId.equals(post.getAuthor().getId())) {
+            throw new NotAuthorException(currentMemberId);
+        }
     }
 }
