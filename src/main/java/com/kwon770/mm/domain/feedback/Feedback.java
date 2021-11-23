@@ -1,4 +1,4 @@
-package com.kwon770.mm.domain.report;
+package com.kwon770.mm.domain.feedback;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.kwon770.mm.domain.BaseTimeEntity;
@@ -14,7 +14,7 @@ import java.util.List;
 @NoArgsConstructor
 @Getter
 @Entity
-public class Report extends BaseTimeEntity {
+public class Feedback extends BaseTimeEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -27,19 +27,19 @@ public class Report extends BaseTimeEntity {
     @Column(nullable = false)
     private String content;
 
-    @ManyToMany(mappedBy = "likedReports")
+    @ManyToMany(mappedBy = "likedFeedbacks")
     @JsonBackReference
     private List<Member> likingMembers = new ArrayList<>();
 
     @Builder
-    public Report(Member author, String content) {
+    public Feedback(Member author, String content) {
         this.author = author;
         this.content = content;
     }
 
     public void removeAllMemberConnection() {
         for (Member member : likingMembers) {
-            member.subtractedLikedReport(this);
+            member.subtractedLikedFeedback(this);
         }
     }
 }

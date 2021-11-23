@@ -6,7 +6,7 @@ import com.kwon770.mm.domain.member.Member;
 import com.kwon770.mm.domain.member.MemberTitle;
 import com.kwon770.mm.domain.member.MemberTitleRepository;
 import com.kwon770.mm.exception.ErrorCode;
-import com.kwon770.mm.service.ReportService;
+import com.kwon770.mm.service.FeedbackService;
 import com.kwon770.mm.service.restaurant.RestaurantMapper;
 import com.kwon770.mm.service.restaurant.RestaurantService;
 import com.kwon770.mm.dto.member.MemberTitleRequestDto;
@@ -25,7 +25,7 @@ public class MemberPropertyService {
     private final MemberService memberService;
     private final MemberTitleRepository memberTitleRepository;
     private final RestaurantService restaurantService;
-    private final ReportService reportService;
+    private final FeedbackService feedbackService;
 
     public Long saveTitle(MemberTitleRequestDto memberTitleRequestDto) {
         return memberTitleRepository.save(memberTitleRequestDto.toEntity()).getId();

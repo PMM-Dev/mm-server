@@ -1,4 +1,4 @@
-package com.kwon770.mm.domain.report;
+package com.kwon770.mm.domain.feedback;
 
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import org.springframework.data.jpa.repository.support.QuerydslRepositorySupport;
@@ -8,20 +8,20 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 
 @Repository
-public class ReportQueryRepository extends QuerydslRepositorySupport {
+public class FeedbackQueryRepository extends QuerydslRepositorySupport {
 
     private final JPAQueryFactory queryFactory;
 
-    public ReportQueryRepository(JPAQueryFactory queryFactory) {
-        super(Report.class);
+    public FeedbackQueryRepository(JPAQueryFactory queryFactory) {
+        super(Feedback.class);
         this.queryFactory = queryFactory;
     }
 
     @Transactional
-    public List<Report> findAllOrderByLikeCountDesc() {
+    public List<Feedback> findAllOrderByLikeCountDesc() {
         return queryFactory
-                .selectFrom(QReport.report)
-                .orderBy(QReport.report.likingMembers.size().desc())
+                .selectFrom(QFeedback.feedback)
+                .orderBy(QFeedback.feedback.likingMembers.size().desc())
                 .fetch();
     }
 }

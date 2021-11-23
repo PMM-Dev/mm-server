@@ -23,7 +23,7 @@ public enum ErrorCode {
 
     public static String NOT_AUTHOR_MESSAGE = "이 요청을 보낼 수 있는 소유자가 아님 : currentMemberId = ";
     // ?
-    public static String NOT_REPORT_OWNER = "Report의 소유자가 아닙니다";
+    public static String NOT_REPORT_OWNER = "Feedback의 소유자가 아닙니다";
 
     public static String NO_MEMBER_BY_USERID = "MemberId과 일치하는 Member가 없음 : MemberId = ";
     public static String NO_MEMBER_BY_EMAIL = "email과 일치하는 Member가 없음 : email = ";
@@ -32,7 +32,7 @@ public enum ErrorCode {
     public static String NO_REVIEW_BY_RESTAURANTID = "Restaurant에 작성된 Review가 없음 : RestaurantId = ";
     public static String NO_REVIEW_BY_REVIEWID = "ReviewId와 일치하는 Review가 없습니다. ReviewId = ";
     public static String NO_IMAGE_BY_RESTAURANTID = "Restaurant에 업로드된 사진이 없음 : restaurantId = ";
-    public static String NO_REPORT_BY_REPORTID = "reportId와 일치하는 Report가 없음 : reportId = ";
+    public static String NO_REPORT_BY_REPORTID = "feedbackId와 일치하는 Feedback가 없음 : feedbackId = ";
     public static String NO_POST_BY_POSTID = "postId와 일치하는 Post가 없음 : postId = ";
     public static String NO_COMMENT_BY_COMMENTID = "commentId와 일치하는 Comment가 없음 : commentId = ";
 

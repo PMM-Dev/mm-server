@@ -2,7 +2,7 @@ package com.kwon770.mm.domain.member;
 
 import com.kwon770.mm.domain.post.Post;
 import com.kwon770.mm.domain.post.comment.Comment;
-import com.kwon770.mm.domain.report.Report;
+import com.kwon770.mm.domain.feedback.Feedback;
 import com.kwon770.mm.domain.restaurant.Restaurant;
 import com.kwon770.mm.dto.member.MemberRequestDto;
 import com.kwon770.mm.dto.member.MemberUpdateDto;
@@ -11,11 +11,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
-import javax.validation.constraints.NotNull;
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 @NoArgsConstructor
 @Getter
@@ -74,11 +71,11 @@ public class Member {
 
     @ManyToMany
     @JoinTable(
-            name = "member_report_like_relation",
+            name = "member_feedback_like_relation",
             joinColumns = @JoinColumn(name = "member_id"),
-            inverseJoinColumns = @JoinColumn(name = "report_id")
+            inverseJoinColumns = @JoinColumn(name = "feedback_id")
     )
-    private List<Report> likedReports = new ArrayList<>();
+    private List<Feedback> likedFeedbacks = new ArrayList<>();
 
     @ManyToMany
     @JoinTable(
@@ -134,9 +131,9 @@ public class Member {
 
     public void subtractedLikedRestaurant(Restaurant restaurant) { this.likedRestaurants.remove(restaurant); }
 
-    public void appendLikedReport(Report report) { this.likedReports.add(report); }
+    public void appendLikedFeedback(Feedback feedback) { this.likedFeedbacks.add(feedback); }
 
-    public void subtractedLikedReport(Report report) { this.likedReports.remove(report); }
+    public void subtractedLikedFeedback(Feedback feedback) { this.likedFeedbacks.remove(feedback); }
 
     public void appendLikedPost(Post post) { this.likedPosts.add(post); }
 
