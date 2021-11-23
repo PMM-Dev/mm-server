@@ -31,6 +31,7 @@ public class PostService {
 
     private final ImageHandler imageHandler;
 
+    @Transactional
     public Long createPost(String title, String content, List<MultipartFile> images) {
         Member author = memberService.getMeById();
         Post post = Post.builder()
@@ -61,6 +62,7 @@ public class PostService {
         }
     }
 
+    @Transactional
     public void updatePost(Long postId, String title, String content, List<MultipartFile> images) {
         Post post = findById(postId);
 
@@ -68,9 +70,9 @@ public class PostService {
         postImageRepository.deleteAll(removedPostImages);
 
         List<MultipartFile> addedImages = post.getAddedPostImages(images);
-        List<PostImage> addedPostImage = generatePostImages(post, addedImages);
+        List<PostImage> addedPostImages = generatePostImages(post, addedImages);
 
-        post.update(title, content, addedPostImage);
+        post.update(title, content, addedPostImages);
     }
 
     public Post findById(Long postId) {

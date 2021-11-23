@@ -4,7 +4,6 @@ import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.kwon770.mm.domain.BaseTimeEntity;
 import com.kwon770.mm.domain.restaurant.Restaurant;
 import com.kwon770.mm.domain.member.Member;
-import com.kwon770.mm.domain.restaurant.ReviewImage;
 import com.kwon770.mm.dto.restaurant.ReviewRequestDto;
 import lombok.Builder;
 import lombok.Getter;
@@ -39,7 +38,7 @@ public class Review extends BaseTimeEntity {
     private Integer likeCount = 0;
 
     @OneToOne(orphanRemoval = true, fetch = FetchType.EAGER)
-    @JoinColumn(name = "reviewImage_id")
+    @JoinColumn(name = "review_image_id")
     private ReviewImage reviewImage;
 
     @Builder

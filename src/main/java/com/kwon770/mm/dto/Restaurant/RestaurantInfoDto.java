@@ -29,6 +29,8 @@ public class RestaurantInfoDto {
     private Integer reviewCount;
     private Integer likeCount;
     private boolean didLike;
+    private boolean isExistImage;
+    private int imagesCount;
 
     public RestaurantInfoDto(Restaurant restaurant) {
         this.id = restaurant.getId();
@@ -48,8 +50,9 @@ public class RestaurantInfoDto {
         this.reviews = restaurant.getReviews().stream().map(ReviewInfoDto::new).collect(Collectors.toList());
         this.reviewCount = restaurant.getReviews().size();
         this.likeCount = restaurant.getLikingMembers().size();
-
         calculateDidLike(restaurant.getLikingMembers());
+        this.isExistImage = restaurant.isExistImage();
+        this.imagesCount = restaurant.getImagesCount();
     }
 
     private void calculateDidLike(List<Member> LikingMembers) {

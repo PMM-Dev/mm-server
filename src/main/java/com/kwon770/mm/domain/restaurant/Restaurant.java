@@ -3,17 +3,20 @@ package com.kwon770.mm.domain.restaurant;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.kwon770.mm.domain.post.PostImage;
 import com.kwon770.mm.domain.restaurant.review.Review;
 import com.kwon770.mm.domain.member.Member;
 import com.kwon770.mm.dto.restaurant.RestaurantRequestDto;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @NoArgsConstructor
 @Getter
@@ -103,11 +106,6 @@ public class Restaurant {
         this.closeTime = closeTime;
     }
 
-    public Float getAverageGrade() {
-        Double result = Math.ceil(averageGrade * 2) / 2;
-        return result.floatValue();
-    }
-
     public void update(RestaurantRequestDto restaurantRequestDto) {
         this.name = restaurantRequestDto.getName();
         this.description = restaurantRequestDto.getDescription();
@@ -121,26 +119,43 @@ public class Restaurant {
         this.closeTime = restaurantRequestDto.getCloseTime();
     }
 
-    public void setRestaurantImages(RestaurantImage restaurantPicture, RestaurantImage restaurantThumbnail) {
-        restaurantImages.clear();
-        restaurantImages.add(restaurantThumbnail);
-        restaurantImages.add(restaurantPicture);
+    public void updateRestaurantImage(List<RestaurantImage> restaurantImages) {
+        this.restaurantImages = restaurantImages;
     }
 
-    public Optional<RestaurantImage> getRestaurantThumbnail() {
-        if(restaurantImages.isEmpty()) {
-            return Optional.empty();
-        }
-
-        return Optional.of(restaurantImages.get(0));
+    public Float getAverageGrade() {
+        Double result = Math.ceil(averageGrade * 2) / 2;
+        return result.floatValue();
     }
 
-    public Optional<RestaurantImage> getRestaurantPicture() {
-        if(restaurantImages.isEmpty()) {
-            return Optional.empty();
-        }
+    public boolean isExistImage() {
+        return !restaurantImages.isEmpty();
+    }
 
-        return Optional.of(restaurantImages.get(1));
+    public int getImagesCount() {
+        return restaurantImages.size();
+    }
+
+    public List<MultipartFile> getAddedRestaurantImages(List<MultipartFile> newImages) {
+        return newImages.stream().filter(image -> {
+            for (RestaurantImage postImage : restaurantImages) {
+                if (postImage.getOriginalFileName().equals(image.getOriginalFilename())) {
+                    return false;
+                }
+            }
+            return true;
+        }).collect(Collectors.toList());
+    }
+
+    public List<RestaurantImage> getRemovedRestaurantImages(List<MultipartFile> newImages) {
+        return restaurantImages.stream().filter(image -> {
+            for (MultipartFile newImage : newImages) {
+                if (newImage.getOriginalFilename().equals(image.getOriginalFileName())) {
+                    return false;
+                }
+            }
+            return true;
+        }).collect(Collectors.toList());
     }
 
     public void appendTheme(RestaurantTheme restaurantTheme) {

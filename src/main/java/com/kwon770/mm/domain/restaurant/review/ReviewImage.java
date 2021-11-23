@@ -1,6 +1,5 @@
-package com.kwon770.mm.domain.restaurant;
+package com.kwon770.mm.domain.restaurant.review;
 
-import com.kwon770.mm.domain.restaurant.review.Review;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;

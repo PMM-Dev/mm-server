@@ -19,6 +19,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.util.List;
 import java.util.Optional;
 
 @RequiredArgsConstructor
@@ -30,27 +31,21 @@ public class ImageApiController {
     private final ReviewService reviewService;
 
     @PostMapping("/image/restaurant/{restaurantId}/image")
-    public ResponseEntity<Void> uploadRestaurantImages(@PathVariable Long restaurantId, @RequestParam("picture") MultipartFile picture, @RequestParam("thumbnail") MultipartFile thumbnail) {
-        restaurantImageService.uploadRestaurantImages(restaurantId, picture, thumbnail);
+    public ResponseEntity<Void> uploadRestaurantImages(@PathVariable Long restaurantId, @RequestParam("images") List<MultipartFile> images) {
+        restaurantImageService.uploadRestaurantImages(restaurantId, images);
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
-    @GetMapping("/image/restaurant/{restaurantId}/picture")
-    public void getRestaurantPicture(HttpServletResponse response, @PathVariable Long restaurantId) {
-        Optional<String> picturePath = restaurantImageService.getRestaurantPicturePath(restaurantId);
-        outputImage(response, picturePath);
-    }
-
-    @GetMapping("/image/restaurant/{restaurantId}/thumbnail")
-    public void getRestaurantThumbnail(HttpServletResponse response, @PathVariable Long restaurantId) {
-        Optional<String> thumbnailPath = restaurantImageService.getRestaurantThumbnail(restaurantId);
-        outputImage(response, thumbnailPath);
-    }
-
-    @DeleteMapping("/image/restaurant/{restaurantId}/image")
-    public ResponseEntity<Void> deleteRestaurantPicture(@PathVariable Long restaurantId) {
-        restaurantImageService.deleteRestaurantImages(restaurantId);
+    @PutMapping("/image/restaurant/{restaurantId}/image")
+    public ResponseEntity<Void> updateRestaurantImage(@PathVariable Long restaurantId, @RequestParam("images") List<MultipartFile> images) {
+        restaurantImageService.updateRestaurantImage(restaurantId, images);
         return new ResponseEntity<>(HttpStatus.OK);
+    }
+
+    @GetMapping("/image/restaurant/{restaurantId}/image/{index}")
+    public void getRestaurantImageOnIndexByRestaurntId(HttpServletResponse response, @PathVariable Long restaurantId, @PathVariable int index) {
+        Optional<String> imagePath = restaurantImageService.getRestaurantImagePathOnIndexByRestaurantId(restaurantId, index);
+        outputImage(response, imagePath);
     }
 
     @GetMapping("/image/restaurant/review/{reviewId}/image")
