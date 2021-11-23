@@ -66,14 +66,6 @@ public class Member {
 
     @ManyToMany
     @JoinTable(
-            name = "member_post_like_relation",
-            joinColumns = @JoinColumn(name = "member_id"),
-            inverseJoinColumns = @JoinColumn(name = "post_id")
-    )
-    private Set<Post> likedPosts = new HashSet<>();
-
-    @ManyToMany
-    @JoinTable(
             name = "member_restaurant_like_relation",
             joinColumns = @JoinColumn(name = "member_id"),
             inverseJoinColumns = @JoinColumn(name = "restaurant_id")
@@ -87,6 +79,14 @@ public class Member {
             inverseJoinColumns = @JoinColumn(name = "report_id")
     )
     private List<Report> likedReports = new ArrayList<>();
+
+    @ManyToMany
+    @JoinTable(
+            name = "member_post_like_relation",
+            joinColumns = @JoinColumn(name = "member_id"),
+            inverseJoinColumns = @JoinColumn(name = "post_id")
+    )
+    private List<Post> likedPosts = new ArrayList<>();
 
     @ManyToMany
     @JoinTable(

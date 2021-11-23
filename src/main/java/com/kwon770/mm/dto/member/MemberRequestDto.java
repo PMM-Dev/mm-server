@@ -35,7 +35,7 @@ public class MemberRequestDto extends MemberDto{
     }
 
     public String getEmailFromDbEmail() {
-        return parseEmailFromDbEmail(email);
+        return parseEmailFromDbEmail(this.email);
     }
 
     public Member toEntity(PasswordEncoder passwordEncoder) {

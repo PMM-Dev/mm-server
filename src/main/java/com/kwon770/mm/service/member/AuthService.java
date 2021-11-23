@@ -52,7 +52,8 @@ public class AuthService {
     @Transactional
     public Long register(MemberRequestDto memberRequestDto) {
         if (memberRequestDto.getSocialTokenType().equals(SocialTokenType.APPLE)) {
-            memberRequestDto.setAppleEntityValue(getEmailBySocialTokenFromApple(memberRequestDto.getSocialToken()));
+            String tokenEmail = getEmailBySocialTokenFromApple(memberRequestDto.getSocialToken());
+            memberRequestDto.setAppleEntityValue(tokenEmail);
         }
 
         if (isExistUser(memberRequestDto.getEmail())) {
@@ -65,8 +66,8 @@ public class AuthService {
     @Transactional
     public Optional<JwtTokenDto> loginByGoogle(MemberRequestDto memberRequestDto) {
         // 관리자 토큰이 아닌 경우, 토큰 유효성 확인
-        String requestTokenEmail = getEmailBySocialTokenFromGoogle(memberRequestDto.getSocialToken());
         if (!memberRequestDto.getSocialToken().equals(adminTokenSecret)) {
+            String requestTokenEmail = getEmailBySocialTokenFromGoogle(memberRequestDto.getSocialToken());
             validateGoogleSocialToken(requestTokenEmail, memberRequestDto.getEmailFromDbEmail());
         }
 
@@ -102,7 +103,7 @@ public class AuthService {
             String responseBody = response.toString();
             return responseBody.split(",")[1].split("\"")[3];
         } catch (IOException e) {
-            throw new SystemIOException();
+            throw new SystemIOException(e);
         } catch (Exception e) {
             throw new CustomAuthenticationException(ErrorCode.WRONG_GOOGLE_SOCIAL_TOKEN);
         }
@@ -114,9 +115,8 @@ public class AuthService {
 
     @Transactional
     public Optional<JwtTokenDto> loginByApple(MemberRequestDto memberRequestDto) {
-        String requestTokenEmail = getEmailBySocialTokenFromApple(memberRequestDto.getSocialToken());
-        memberRequestDto.setAppleEntityValue(requestTokenEmail);
-
+        String tokenEmail = getEmailBySocialTokenFromApple(memberRequestDto.getSocialToken());
+        memberRequestDto.setAppleEntityValue(tokenEmail);
         Optional<Member> member = memberRepository.findByEmail(memberRequestDto.getEmail());
         if (member.isEmpty()) {
             return Optional.empty();
@@ -124,7 +124,7 @@ public class AuthService {
 
         MemberRequestDto savedMemberRequestDto = MemberRequestDto.builder()
                 .name(member.get().getName())
-                .email(memberRequestDto.getEmail())
+                .email(memberRequestDto.getEmailFromDbEmail())
                 .picture(member.get().getPicture())
                 .role(memberRequestDto.getRole())
                 .socialToken(memberRequestDto.getSocialToken())
@@ -161,7 +161,7 @@ public class AuthService {
             }
             br.close();
         } catch (IOException e) {
-            throw new SystemIOException();
+            throw new SystemIOException(e);
         }
 
         JsonParser parser = new JsonParser();

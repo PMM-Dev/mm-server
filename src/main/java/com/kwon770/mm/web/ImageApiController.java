@@ -70,7 +70,7 @@ public class ImageApiController {
             response.getOutputStream().flush();
             response.getOutputStream().close();
         } catch (Exception e) {
-            throw new SystemIOException();
+            throw new SystemIOException(e);
         } finally {
             try {
                 if (bStream != null) {
@@ -83,7 +83,7 @@ public class ImageApiController {
                     fis.close();
                 }
             } catch (Exception e) {
-                throw new SystemIOException();
+                throw new SystemIOException(e);
             }
         }
     }

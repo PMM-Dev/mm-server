@@ -14,6 +14,7 @@ import com.kwon770.mm.dto.post.PostInfoDto;
 import com.kwon770.mm.dto.post.PostElementDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
@@ -103,12 +104,14 @@ public class PostService {
         }
     }
 
+    @Transactional
     public void likePost(Long postId) {
         Member member = memberService.getMeById();
         Post post = findById(postId);
         member.appendLikedPost(post);
     }
 
+    @Transactional
     public void unlikePost(Long postId) {
         Member member = memberService.getMeById();
         Post post = findById(postId);

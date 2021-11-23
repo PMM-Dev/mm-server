@@ -1,5 +1,6 @@
 package com.kwon770.mm.domain.post;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.kwon770.mm.domain.BaseTimeEntity;
 import com.kwon770.mm.domain.member.Member;
 import com.kwon770.mm.domain.post.comment.Comment;
@@ -38,11 +39,12 @@ public class Post extends BaseTimeEntity {
 
     private int viewCount = 0;
 
-    @ManyToMany(mappedBy = "likedPosts")
-    List<Member> likingMembers = new ArrayList<>();
-
     @OneToMany(mappedBy = "post", orphanRemoval = true)
     private List<Comment> comments = new ArrayList<>();
+
+    @ManyToMany(mappedBy = "likedPosts")
+    @JsonBackReference
+    private List<Member> likingMembers = new ArrayList<>();
 
 
     @Builder
