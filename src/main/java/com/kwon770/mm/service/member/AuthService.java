@@ -54,7 +54,6 @@ public class AuthService {
         if (memberRequestDto.getSocialTokenType().equals(SocialTokenType.APPLE)) {
             memberRequestDto.setAppleEntityValue(getEmailBySocialTokenFromApple(memberRequestDto.getSocialToken()));
         }
-        memberRequestDto.setDbEmail();
 
         if (isExistUser(memberRequestDto.getEmail())) {
             throw new IllegalArgumentException("이미 가입되어 있는 유저입니다");
@@ -75,7 +74,6 @@ public class AuthService {
             return Optional.empty();
         }
 
-        memberRequestDto.setDbEmail();
         return issueJwtTokenDto(memberRequestDto);
     }
 
@@ -118,7 +116,7 @@ public class AuthService {
     public Optional<JwtTokenDto> loginByApple(MemberRequestDto memberRequestDto) {
         String requestTokenEmail = getEmailBySocialTokenFromApple(memberRequestDto.getSocialToken());
         memberRequestDto.setAppleEntityValue(requestTokenEmail);
-        memberRequestDto.setDbEmail();
+
         Optional<Member> member = memberRepository.findByEmail(memberRequestDto.getEmail());
         if (member.isEmpty()) {
             return Optional.empty();

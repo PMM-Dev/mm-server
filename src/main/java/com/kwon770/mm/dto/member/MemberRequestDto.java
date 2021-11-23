@@ -10,7 +10,7 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.crypto.password.PasswordEncoder;
 
 @Getter
-public class MemberRequestDto {
+public class MemberRequestDto extends MemberDto{
 
     private String name;
     private String email;
@@ -22,25 +22,16 @@ public class MemberRequestDto {
     @Builder
     public MemberRequestDto(String name, String email, String picture, Role role, String socialToken, SocialTokenType socialTokenType) {
         this.name = name;
-        this.email = email;
+        this.email = generateDbEmail(email, socialTokenType);
         this.picture = picture;
         this.role = role;
         this.socialToken = socialToken;
         this.socialTokenType = socialTokenType;
     }
 
-    public void setDbEmail() {
-        if (socialTokenType.equals(SocialTokenType.GOOGLE)) {
-            this.email += "#G";
-        } else if (socialTokenType.equals(SocialTokenType.APPLE)) {
-            this.email += "#A";
-        }
-    }
-
     public void setAppleEntityValue(String email) {
         this.name = email.split("@")[0];
-        this.email = email;
-
+        this.email = generateDbEmail(email, this.socialTokenType);
     }
 
     public Member toEntity(PasswordEncoder passwordEncoder) {

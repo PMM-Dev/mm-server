@@ -8,7 +8,7 @@ import lombok.*;
 @Builder
 @Getter
 @NoArgsConstructor
-public class MemberInfoDto {
+public class MemberInfoDto extends MemberDto {
 
     private Long id;
     private String name;
@@ -22,10 +22,9 @@ public class MemberInfoDto {
     public MemberInfoDto(Member member) {
         this.id = member.getId();
         this.name = member.getName();
-        this.email = member.getEmail().split("#")[0];
+        this.email = parseEmailFromDbEmail(member.getEmail());
         this.picture = member.getPicture();
         this.role = member.getRole();
-
         this.likeCount = member.getLikedRestaurants().size();
         this.reviewCount = member.getReviewCount();
     }
