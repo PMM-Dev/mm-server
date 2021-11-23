@@ -5,7 +5,7 @@ import com.kwon770.mm.domain.post.Post;
 import com.kwon770.mm.domain.post.PostImage;
 import com.kwon770.mm.domain.post.PostImageRepository;
 import com.kwon770.mm.domain.post.PostRepository;
-import com.kwon770.mm.domain.post.comment.Comment;
+import com.kwon770.mm.dto.post.PostRequestDto;
 import com.kwon770.mm.exception.ErrorCode;
 import com.kwon770.mm.exception.NotAuthorException;
 import com.kwon770.mm.service.ImageHandler;
@@ -33,14 +33,14 @@ public class PostService {
     private final ImageHandler imageHandler;
 
     @Transactional
-    public Long createPost(String title, String content, List<MultipartFile> images) {
+    public Long createPost(PostRequestDto postRequestDto) {
         Member author = memberService.getMeById();
         Post post = Post.builder()
-                .title(title)
-                .content(content)
+                .title(postRequestDto.getTitle())
+                .content(postRequestDto.getContent())
                 .author(author)
                 .build();
-        List<PostImage> postImages = generatePostImages(post, images);
+        List<PostImage> postImages = generatePostImages(post, postRequestDto.getImages());
 
         postRepository.save(post);
         postImageRepository.saveAll(postImages);
@@ -56,16 +56,16 @@ public class PostService {
     }
 
     @Transactional
-    public void updatePost(Long postId, String title, String content, List<MultipartFile> images) {
+    public void updatePost(Long postId, PostRequestDto postRequestDto) {
         Post post = findById(postId);
 
-        List<PostImage> removedPostImages = post.getRemovedPostImages(images);
+        List<PostImage> removedPostImages = post.getRemovedPostImages(postRequestDto.getImages());
         postImageRepository.deleteAll(removedPostImages);
 
-        List<MultipartFile> addedImages = post.getAddedPostImages(images);
+        List<MultipartFile> addedImages = post.getAddedPostImages(postRequestDto.getImages());
         List<PostImage> addedPostImages = generatePostImages(post, addedImages);
 
-        post.update(title, content, addedPostImages);
+        post.update(post.getTitle(), post.getContent(), addedPostImages);
     }
 
     public Post findById(Long postId) {

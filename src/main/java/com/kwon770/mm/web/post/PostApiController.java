@@ -1,5 +1,7 @@
 package com.kwon770.mm.web.post;
 
+import com.kwon770.mm.dto.post.PostRequestDto;
+import com.kwon770.mm.dto.restaurant.ReviewRequestDto;
 import com.kwon770.mm.service.post.PostService;
 import com.kwon770.mm.dto.post.PostInfoDto;
 import com.kwon770.mm.dto.post.PostElementDto;
@@ -22,7 +24,8 @@ public class PostApiController {
                                            @RequestParam(value = "content") String content,
                                            @RequestParam(value = "images", required = false, defaultValue = "") List<MultipartFile> images) {
 
-        Long postId = postService.createPost(title, content, images);
+        PostRequestDto postRequestDto = new PostRequestDto(title, content, images);
+        Long postId = postService.createPost(postRequestDto);
 
         return new ResponseEntity<>(postId, HttpStatus.OK);
     }
@@ -34,7 +37,8 @@ public class PostApiController {
                                            @RequestParam(value = "images", required = false, defaultValue = "") List<MultipartFile> images) {
         postService.validateAuthor(postId);
 
-        postService.updatePost(postId, title, content, images);
+        PostRequestDto postRequestDto = new PostRequestDto(title, content, images);
+        postService.updatePost(postId, postRequestDto);
 
         return new ResponseEntity<>(postId, HttpStatus.OK);
     }
