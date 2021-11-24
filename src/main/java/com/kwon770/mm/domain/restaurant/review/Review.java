@@ -21,12 +21,12 @@ public class Review extends BaseTimeEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @OneToOne
+    @ManyToOne
+    @JoinColumn(name = "member_id", nullable = false)
     private Member author;
 
-    //    @JoinColumn(name = "restaurant_id")
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JsonBackReference
+    @ManyToOne
+    @JoinColumn(name = "restaurant_id", nullable = false)
     private Restaurant restaurant;
 
     private String description;
@@ -37,8 +37,8 @@ public class Review extends BaseTimeEntity {
     @NotNull
     private Integer likeCount = 0;
 
-    @OneToOne(orphanRemoval = true, fetch = FetchType.EAGER)
-    @JoinColumn(name = "review_image_id")
+    @OneToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "review_image_id", referencedColumnName = "id")
     private ReviewImage reviewImage;
 
     @Builder

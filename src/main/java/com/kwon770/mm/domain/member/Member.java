@@ -4,6 +4,7 @@ import com.kwon770.mm.domain.post.Post;
 import com.kwon770.mm.domain.post.comment.Comment;
 import com.kwon770.mm.domain.feedback.Feedback;
 import com.kwon770.mm.domain.restaurant.Restaurant;
+import com.kwon770.mm.domain.restaurant.review.Review;
 import com.kwon770.mm.dto.member.MemberRequestDto;
 import com.kwon770.mm.dto.member.MemberUpdateDto;
 import lombok.Builder;
@@ -55,6 +56,9 @@ public class Member {
     /*
       Relation With Other Entities
      */
+    @OneToMany(mappedBy = "author", orphanRemoval = true)
+    private List<Review> reviews = new ArrayList<>();
+
     @OneToMany(mappedBy = "author", orphanRemoval = true)
     private List<Post> posts = new ArrayList<>();
 
