@@ -134,7 +134,6 @@ public class AuthService {
     }
 
     private String getEmailBySocialTokenFromApple(String socialToken) {
-        System.out.println("APPLE SOCIAL TOKEN: " + socialToken);
         PublicKey decodePublicKey = getSocialTokenDecodeKeyFromApple(socialToken);
 
         Claims userInfo = Jwts.parserBuilder()
@@ -144,7 +143,6 @@ public class AuthService {
                 .getBody();
         JsonParser parser = new JsonParser();
         JsonObject userInfoObject = (JsonObject) parser.parse(new Gson().toJson(userInfo));
-        System.out.println(userInfoObject.toString());
 
         return userInfoObject.get("email").getAsString();
     }
