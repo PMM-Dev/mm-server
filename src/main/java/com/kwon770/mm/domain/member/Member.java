@@ -65,6 +65,9 @@ public class Member {
     @OneToMany(mappedBy = "author", orphanRemoval = true)
     private List<Comment> comments = new ArrayList<>();
 
+    @OneToMany(mappedBy = "author", orphanRemoval = true)
+    private List<Feedback> feedbacks = new ArrayList<>();
+
     @ManyToMany
     @JoinTable(
             name = "member_restaurant_like_relation",
