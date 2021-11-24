@@ -13,7 +13,7 @@ public interface RestaurantRepository extends JpaRepository<Restaurant, Long> {
 
     List<Restaurant> findAllByDeliverableTrue();
 
-    List<Restaurant> findLimit20ByOrderByAverageGradeDesc();
+    List<Restaurant> findTop20ByOrderByAverageGradeDesc();
 
     List<Restaurant> findAllByType(Type type);
 
@@ -25,5 +25,5 @@ public interface RestaurantRepository extends JpaRepository<Restaurant, Long> {
 
     List<Restaurant> findAllByThemesContaining(RestaurantTheme restaurantTheme);
 
-    List<Restaurant> findLimit10ByNameContaining(String keyword);
+    List<Restaurant> findTop10ByNameContaining(String keyword);
 }

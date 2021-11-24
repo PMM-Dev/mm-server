@@ -79,7 +79,7 @@ public class PostService {
     }
 
     public List<PostElementDto> getLatest3PostElementDtos() {
-        List<Post> posts = postRepository.findLimit3ByOrderByCreatedDateDesc();
+        List<Post> posts = postRepository.findTop3ByOrderByCreatedDateDesc();
 
         return posts.stream().map(PostElementDto::new).collect(Collectors.toList());
     }

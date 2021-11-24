@@ -6,5 +6,5 @@ import java.util.List;
 
 public interface PostRepository extends JpaRepository<Post, Long> {
 
-    public List<Post> findLimit3ByOrderByCreatedDateDesc();
+    public List<Post> findTop3ByOrderByCreatedDateDesc();
 }

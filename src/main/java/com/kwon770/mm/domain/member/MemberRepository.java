@@ -13,5 +13,5 @@ public interface MemberRepository extends JpaRepository<Member, Long> {
 
     boolean existsByEmail(String email);
 
-    List<Member> findLimit10ByNameContaining(String keyword);
+    List<Member> findTop10ByNameContaining(String keyword);
 }

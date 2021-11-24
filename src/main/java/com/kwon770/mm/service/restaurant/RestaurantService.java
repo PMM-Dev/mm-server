@@ -96,7 +96,7 @@ public class RestaurantService {
     }
 
     public List<RestaurantElementDto> getRestaurantElementDtosByRank() {
-        List<Restaurant> restaurants = restaurantRepository.findLimit20ByOrderByAverageGradeDesc();
+        List<Restaurant> restaurants = restaurantRepository.findTop20ByOrderByAverageGradeDesc();
 
         return RestaurantMapper.INSTANCE.restaurantsToRestaurantElementDtos(restaurants);
     }

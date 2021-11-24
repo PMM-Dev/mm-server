@@ -21,13 +21,13 @@ public class SearchService {
     private final MemberRepository memberRepository;
 
     public List<RestaurantSearchDto> searchRestaurantByKeyword(String keyword) {
-        List<Restaurant> searchedRestaurants = restaurantRepository.findLimit10ByNameContaining(keyword);
+        List<Restaurant> searchedRestaurants = restaurantRepository.findTop10ByNameContaining(keyword);
 
         return RestaurantMapper.INSTANCE.restaurantsToRestaurantSearchDtos(searchedRestaurants);
     }
 
     public List<MemberSearchDto> searchMemberByKeyword(String keyword) {
-        List<Member> searchedMembers = memberRepository.findLimit10ByNameContaining(keyword);
+        List<Member> searchedMembers = memberRepository.findTop10ByNameContaining(keyword);
 
         return MemberMapper.INSTANCE.membersToMemberSearchDtos(searchedMembers);
     }
