@@ -11,6 +11,19 @@ import java.io.IOException;
 @ControllerAdvice
 public class GlobalExceptionHandler {
 
+    @ExceptionHandler(NullPointerException.class)
+    protected ResponseEntity<CommonResponse> handleIllegalArgumentException(final NullPointerException e) {
+        LogView.logInfoExceptionTitle(e);
+
+        CommonResponse response = CommonResponse.builder()
+                .status(ErrorCode.INTERNAL_SERVER_ERROR.getStatus())
+                .code(ErrorCode.INTERNAL_SERVER_ERROR.name())
+                .message(e.getMessage())
+                .build();
+
+        return new ResponseEntity<>(response, HttpStatus.BAD_REQUEST);
+    }
+
     @ExceptionHandler(NotAuthorException.class)
     protected ResponseEntity<CommonResponse> handleIllegalArgumentException(final NotAuthorException e) {
         LogView.logInfoExceptionTitle(e);
