@@ -57,7 +57,7 @@ public class PostService {
 
     @Transactional
     public void updatePost(Long postId, PostRequestDto postRequestDto) {
-        Post post = findById(postId);
+        Post post = getPostByPostId(postId);
 
         List<PostImage> removedPostImages = post.getRemovedPostImages(postRequestDto.getImages());
         postImageRepository.deleteAll(removedPostImages);
@@ -68,7 +68,7 @@ public class PostService {
         post.update(post.getTitle(), post.getContent(), addedPostImages);
     }
 
-    public Post findById(Long postId) {
+    public Post getPostByPostId(Long postId) {
         return postRepository.findById(postId).orElseThrow(() -> new IllegalArgumentException(ErrorCode.NO_POST_BY_POSTID + postId));
     }
 
@@ -85,14 +85,14 @@ public class PostService {
     }
 
     public PostInfoDto getPostInfoDto(Long postId) {
-        Post post = findById(postId);
+        Post post = getPostByPostId(postId);
         post.increaseViewCount();
 
         return new PostInfoDto(post);
     }
 
     public Optional<String> getPostImagePathOnIndexByPostId(Long postId, int index) {
-        Post post = findById(postId);
+        Post post = getPostByPostId(postId);
         try {
             return Optional.of(post.getPostImages().get(index).getFilePath());
         } catch (IndexOutOfBoundsException e) {
@@ -103,14 +103,14 @@ public class PostService {
     @Transactional
     public void likePost(Long postId) {
         Member member = memberService.getMeById();
-        Post post = findById(postId);
+        Post post = getPostByPostId(postId);
         member.appendLikedPost(post);
     }
 
     @Transactional
     public void unlikePost(Long postId) {
         Member member = memberService.getMeById();
-        Post post = findById(postId);
+        Post post = getPostByPostId(postId);
         member.subtractedLikedPost(post);
     }
 
@@ -120,7 +120,7 @@ public class PostService {
 
     public void validateAuthor(Long postId) {
         Long currentMemberId = SecurityUtil.getCurrentMemberId();
-        Post post = findById(postId);
+        Post post = getPostByPostId(postId);
         if (!currentMemberId.equals(post.getAuthor().getId())) {
             throw new NotAuthorException(currentMemberId);
         }

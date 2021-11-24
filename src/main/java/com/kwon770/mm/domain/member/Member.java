@@ -3,6 +3,7 @@ package com.kwon770.mm.domain.member;
 import com.kwon770.mm.domain.post.Post;
 import com.kwon770.mm.domain.post.comment.Comment;
 import com.kwon770.mm.domain.feedback.Feedback;
+import com.kwon770.mm.domain.report.Report;
 import com.kwon770.mm.domain.restaurant.Restaurant;
 import com.kwon770.mm.domain.restaurant.review.Review;
 import com.kwon770.mm.dto.member.MemberRequestDto;
@@ -67,6 +68,12 @@ public class Member {
 
     @OneToMany(mappedBy = "author", orphanRemoval = true)
     private List<Feedback> feedbacks = new ArrayList<>();
+
+    @OneToMany(mappedBy = "reporter", orphanRemoval = true)
+    private List<Report> reporterReports = new ArrayList<>();
+
+    @OneToMany(mappedBy = "reported", orphanRemoval = true)
+    private List<Report> reportedReports = new ArrayList<>();
 
     @ManyToMany
     @JoinTable(

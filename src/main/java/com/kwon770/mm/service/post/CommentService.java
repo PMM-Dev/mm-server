@@ -26,7 +26,7 @@ public class CommentService {
 
     public Long createComment(Long postId, CommentRequestDto commentRequestDto) {
         Member author = memberService.getMeById();
-        Post post = postService.findById(postId);
+        Post post = postService.getPostByPostId(postId);
         Comment comment = Comment.builder()
                 .content(commentRequestDto.getContent())
                 .post(post)
@@ -43,7 +43,7 @@ public class CommentService {
     }
 
     public List<CommentInfoDto> getCommentInfoDtosByPostId(Long postId) {
-        List<Comment> comments = postService.findById(postId).getComments();
+        List<Comment> comments = postService.getPostByPostId(postId).getComments();
 
         return comments.stream().map(CommentInfoDto::new).collect(Collectors.toList());
     }
