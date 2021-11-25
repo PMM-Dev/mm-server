@@ -25,7 +25,7 @@ public class MemberApiController {
     private final MemberPropertyService memberPropertyService;
     private final ReviewService reviewService;
 
-    @GetMapping("/member")
+    @GetMapping("/member/me")
     public ResponseEntity<MemberInfoDto> getMyMemberInfoDto() {
         MemberInfoDto memberInfoDto = memberService.getMyInfoDto();
 
@@ -44,21 +44,21 @@ public class MemberApiController {
         return new ResponseEntity<>(memberInfoDto, HttpStatus.OK);
     }
 
-    @PutMapping("/member")
+    @PutMapping("/member/me")
     public ResponseEntity<Void> updateMyMember(@RequestBody MemberUpdateDto memberUpdateDto) {
         memberService.updateMemberByUserId(SecurityUtil.getCurrentMemberId(), memberUpdateDto);
 
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
-    @GetMapping("/member/like")
+    @GetMapping("/member/me/like")
     public ResponseEntity<List<RestaurantElementDto>> getMyLikedRestaurantList() {
         List<RestaurantElementDto> restaurantElementDtos = memberPropertyService.getLikedRestaurantList(SecurityUtil.getCurrentMemberId());
 
         return new ResponseEntity<>(restaurantElementDtos, HttpStatus.OK);
     }
 
-    @GetMapping("/member/review")
+    @GetMapping("/member/me/review")
     public ResponseEntity<List<MyReviewDto>> getMyReviewList() {
         List<MyReviewDto> myReviewDtos = reviewService.getMyReviewList(SecurityUtil.getCurrentMemberId());
 
