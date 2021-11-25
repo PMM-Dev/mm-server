@@ -5,11 +5,13 @@ import com.kwon770.mm.domain.post.Post;
 import com.kwon770.mm.domain.post.PostImage;
 import com.kwon770.mm.domain.post.PostImageRepository;
 import com.kwon770.mm.domain.post.PostRepository;
+import com.kwon770.mm.domain.restaurant.RestaurantImage;
 import com.kwon770.mm.dto.post.PostRequestDto;
 import com.kwon770.mm.exception.ErrorCode;
 import com.kwon770.mm.exception.NotAuthorException;
 import com.kwon770.mm.service.ImageHandler;
 import com.kwon770.mm.service.member.MemberService;
+import com.kwon770.mm.util.CommonUtil;
 import com.kwon770.mm.util.SecurityUtil;
 import com.kwon770.mm.dto.post.PostInfoDto;
 import com.kwon770.mm.dto.post.PostElementDto;
@@ -58,14 +60,16 @@ public class PostService {
     @Transactional
     public void updatePost(Long postId, PostRequestDto postRequestDto) {
         Post post = getPostByPostId(postId);
+        post.update(postRequestDto.getTitle(), postRequestDto.getContent());
 
-        List<PostImage> removedPostImages = post.getRemovedPostImages(postRequestDto.getImages());
-        postImageRepository.deleteAll(removedPostImages);
+        List<PostImage> oldPostImages = post.getPostImages();
+        for (PostImage oldImage : oldPostImages) {
+            CommonUtil.removeImageFromServer(oldImage.getFilePath());
+            postImageRepository.delete(oldImage);
+        }
 
-        List<MultipartFile> addedImages = post.getAddedPostImages(postRequestDto.getImages());
-        List<PostImage> addedPostImages = generatePostImages(post, addedImages);
-
-        post.update(postRequestDto.getTitle(), postRequestDto.getContent(), addedPostImages);
+        List<PostImage> newPostImages = generatePostImages(post, postRequestDto.getImages());
+        postImageRepository.saveAll(newPostImages);
     }
 
     public Post getPostByPostId(Long postId) {

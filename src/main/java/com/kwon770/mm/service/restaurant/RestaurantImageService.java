@@ -5,6 +5,7 @@ import com.kwon770.mm.domain.restaurant.RestaurantImage;
 import com.kwon770.mm.domain.restaurant.RestaurantImageRepository;
 import com.kwon770.mm.exception.ErrorCode;
 import com.kwon770.mm.service.ImageHandler;
+import com.kwon770.mm.util.CommonUtil;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -43,13 +44,14 @@ public class RestaurantImageService {
     public void updateRestaurantImage(Long restaurantId, List<MultipartFile> images) {
         Restaurant restaurant = restaurantService.getRestaurantByRestaurantId(restaurantId);
 
-        List<RestaurantImage> removedRestaurantImages = restaurant.getRemovedRestaurantImages(images);
-        restaurantImageRepository.deleteAll(removedRestaurantImages);
+        List<RestaurantImage> oldRestaurantImages = restaurant.getRestaurantImages();
+        for (RestaurantImage oldImage : oldRestaurantImages) {
+            CommonUtil.removeImageFromServer(oldImage.getFilePath());
+            restaurantImageRepository.delete(oldImage);
+        }
 
-        List<MultipartFile> addedImages = restaurant.getAddedRestaurantImages(images);
-        List<RestaurantImage> addedRestaurantImages = generateRestaurantImages(restaurant, addedImages);
-
-        restaurant.updateRestaurantImage(addedRestaurantImages);
+        List<RestaurantImage> newRestaurantImages = generateRestaurantImages(restaurant, images);
+        restaurantImageRepository.saveAll(newRestaurantImages);
     }
 
     public Optional<String> getRestaurantImagePathOnIndexByRestaurantId(Long restaurantId, int index) {

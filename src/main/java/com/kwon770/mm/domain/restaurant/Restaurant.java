@@ -119,10 +119,6 @@ public class Restaurant {
         this.closeTime = restaurantRequestDto.getCloseTime();
     }
 
-    public void updateRestaurantImage(List<RestaurantImage> restaurantImages) {
-        this.restaurantImages = restaurantImages;
-    }
-
     public Float getAverageGrade() {
         Double result = Math.ceil(averageGrade * 2) / 2;
         return result.floatValue();
@@ -134,28 +130,6 @@ public class Restaurant {
 
     public int getImagesCount() {
         return restaurantImages.size();
-    }
-
-    public List<MultipartFile> getAddedRestaurantImages(List<MultipartFile> newImages) {
-        return newImages.stream().filter(image -> {
-            for (RestaurantImage postImage : restaurantImages) {
-                if (postImage.getOriginalFileName().equals(image.getOriginalFilename())) {
-                    return false;
-                }
-            }
-            return true;
-        }).collect(Collectors.toList());
-    }
-
-    public List<RestaurantImage> getRemovedRestaurantImages(List<MultipartFile> newImages) {
-        return restaurantImages.stream().filter(image -> {
-            for (MultipartFile newImage : newImages) {
-                if (newImage.getOriginalFilename().equals(image.getOriginalFileName())) {
-                    return false;
-                }
-            }
-            return true;
-        }).collect(Collectors.toList());
     }
 
     public void appendTheme(RestaurantTheme restaurantTheme) {

@@ -54,10 +54,9 @@ public class Post extends BaseTimeEntity {
         this.author = author;
     }
 
-    public void update(String title, String content, List<PostImage> newPostImages) {
+    public void update(String title, String content) {
         this.title = title;
         this.content = content;
-        this.postImages.addAll(newPostImages);
     }
 
     public int getPostImagesCount() {
@@ -80,28 +79,6 @@ public class Post extends BaseTimeEntity {
         }
 
         return false;
-    }
-
-    public List<MultipartFile> getAddedPostImages(List<MultipartFile> newImages) {
-        return newImages.stream().filter(image -> {
-            for (PostImage postImage : postImages) {
-                if (postImage.getOriginalFileName().equals(image.getOriginalFilename())) {
-                    return false;
-                }
-            }
-            return true;
-        }).collect(Collectors.toList());
-    }
-
-    public List<PostImage> getRemovedPostImages(List<MultipartFile> newImages) {
-        return postImages.stream().filter(image -> {
-            for (MultipartFile newImage : newImages) {
-                if (newImage.getOriginalFilename().equals(image.getOriginalFileName())) {
-                    return false;
-                }
-            }
-            return true;
-        }).collect(Collectors.toList());
     }
 
     public void increaseViewCount() {
