@@ -16,6 +16,7 @@ public class RestaurantThemeDto {
     private Location location;
 
     public RestaurantThemeDto(Restaurant restaurant) {
+        this.id = restaurant.getId();
         this.name = restaurant.getName();
         this.type = restaurant.getType();
         this.price = restaurant.getPrice();
