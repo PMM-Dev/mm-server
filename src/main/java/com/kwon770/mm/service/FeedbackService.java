@@ -22,9 +22,9 @@ import java.util.stream.Collectors;
 @Service
 public class FeedbackService {
 
-    private final MemberService memberService;
     private final FeedbackRepository feedbackRepository;
     private final FeedbackQueryRepository feedbackQueryRepository;
+    private final MemberService memberService;
 
     public Long save(FeedbackRequestDto feedbackRequestDto) {
         Member me = memberService.getMeById();

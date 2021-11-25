@@ -33,7 +33,7 @@ public class SearchService {
     }
 
     public List<MemberSearchDto> searchMemberByKeyword(String keyword) {
-        List<Member> searchedMembers = memberRepository.findTop10ByNameContainingOrEmailContaining(keyword);
+        List<Member> searchedMembers = memberRepository.findTop10ByNameContainingOrEmailContaining(keyword, keyword);
 
         return MemberMapper.INSTANCE.membersToMemberSearchDtos(searchedMembers);
     }

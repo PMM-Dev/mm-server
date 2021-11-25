@@ -13,6 +13,6 @@ public interface MemberRepository extends JpaRepository<Member, Long> {
 
     boolean existsByEmail(String email);
 
-    List<Member> findTop10ByNameContainingOrEmailContaining(String keyword);
+    List<Member> findTop10ByNameContainingOrEmailContaining(String name, String email);
 
 }
