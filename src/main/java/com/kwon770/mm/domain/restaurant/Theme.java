@@ -5,5 +5,6 @@ public enum Theme {
     CAFE_STUDY,
     EXAM_MEAL,
     FLEX_COURSE,
-    WITH_PARENT;
+    WITH_PARENT,
+    KOREAN_SOUP
 }
