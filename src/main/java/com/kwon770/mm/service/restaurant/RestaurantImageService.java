@@ -25,7 +25,7 @@ public class RestaurantImageService {
 
     @Transactional
     public void uploadRestaurantImages(Long restaurantId, List<MultipartFile> images) {
-        Restaurant restaurant = restaurantService.getRestaurantById(restaurantId);
+        Restaurant restaurant = restaurantService.getRestaurantByRestaurantId(restaurantId);
         List<RestaurantImage> restaurantImages = generateRestaurantImages(restaurant, images);
 
         restaurantImageRepository.saveAll(restaurantImages);
@@ -41,7 +41,7 @@ public class RestaurantImageService {
 
     @Transactional
     public void updateRestaurantImage(Long restaurantId, List<MultipartFile> images) {
-        Restaurant restaurant = restaurantService.getRestaurantById(restaurantId);
+        Restaurant restaurant = restaurantService.getRestaurantByRestaurantId(restaurantId);
 
         List<RestaurantImage> removedRestaurantImages = restaurant.getRemovedRestaurantImages(images);
         restaurantImageRepository.deleteAll(removedRestaurantImages);
@@ -53,7 +53,7 @@ public class RestaurantImageService {
     }
 
     public Optional<String> getRestaurantImagePathOnIndexByRestaurantId(Long restaurantId, int index) {
-        Restaurant restaurant = restaurantService.getRestaurantById(restaurantId);
+        Restaurant restaurant = restaurantService.getRestaurantByRestaurantId(restaurantId);
         try {
             return Optional.of(restaurant.getRestaurantImages().get(index).getFilePath());
         } catch (IndexOutOfBoundsException e) {

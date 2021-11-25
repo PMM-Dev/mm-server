@@ -1,7 +1,6 @@
 package com.kwon770.mm.service.restaurant;
 
 import com.kwon770.mm.domain.member.Member;
-import com.kwon770.mm.domain.post.PostImage;
 import com.kwon770.mm.domain.restaurant.Restaurant;
 import com.kwon770.mm.domain.restaurant.review.ReviewImage;
 import com.kwon770.mm.domain.restaurant.review.ReviewImageRepository;
@@ -36,7 +35,7 @@ public class ReviewService {
     @Transactional
     public Long uploadMyReviewByRestaurantId(Long restaurantId, ReviewRequestDto reviewRequestDto) {
         Member author = memberService.getMeById();
-        Restaurant restaurant = restaurantService.getRestaurantById(restaurantId);
+        Restaurant restaurant = restaurantService.getRestaurantByRestaurantId(restaurantId);
         Review review = Review.builder()
                 .author(author)
                 .restaurant(restaurant)
@@ -63,7 +62,7 @@ public class ReviewService {
 
     @Transactional
     public void updateMyReviewByRestaurantId(Long restaurantId, ReviewRequestDto reviewRequestDto) {
-        Restaurant restaurant = restaurantService.getRestaurantById(restaurantId);
+        Restaurant restaurant = restaurantService.getRestaurantByRestaurantId(restaurantId);
         Optional<Review> review = reviewRepository.findByRestaurant_IdAndAuthor_Id(restaurantId, SecurityUtil.getCurrentMemberId());
         if (review.isEmpty()) {
             throw new IllegalArgumentException(ErrorCode.NO_REVIEW_BY_RESTAURANTID + restaurantId);
@@ -131,7 +130,7 @@ public class ReviewService {
 
     @Transactional
     public void deleteMyReviewByRestaurantId(Long restaurantId) {
-        Restaurant restaurant = restaurantService.getRestaurantById(restaurantId);
+        Restaurant restaurant = restaurantService.getRestaurantByRestaurantId(restaurantId);
         Optional<Review> review = reviewRepository.findByRestaurant_IdAndAuthor_Id(restaurantId, SecurityUtil.getCurrentMemberId());
         if (review.isEmpty()) {
             throw new IllegalArgumentException(ErrorCode.NO_REVIEW_BY_RESTAURANTID + restaurantId);

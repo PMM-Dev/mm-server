@@ -31,13 +31,13 @@ public class RestaurantService {
         return restaurantRepository.findAll();
     }
 
-    public Restaurant getRestaurantById(Long id) {
+    public Restaurant getRestaurantByRestaurantId(Long id) {
         return restaurantRepository.findOneById(id)
-                .orElseThrow(() -> new IllegalArgumentException(ErrorCode.NO_MEMBER_BY_EMAIL + id));
+                .orElseThrow(() -> new IllegalArgumentException(ErrorCode.NO_RESTAURANT_BY_RESTAURANTID + id));
     }
 
     public RestaurantInfoDto getRestaurantInfoDtoById(Long id) {
-        Restaurant restaurant = getRestaurantById(id);
+        Restaurant restaurant = getRestaurantByRestaurantId(id);
 
         return RestaurantMapper.INSTANCE.restaurantToRestaurantInfoDto(restaurant);
     }
@@ -125,7 +125,7 @@ public class RestaurantService {
 
     @Transactional
     public Long updateRestaurant(Long restaurantId, RestaurantRequestDto restaurantRequestDto) {
-        Restaurant restaurant = getRestaurantById(restaurantId);
+        Restaurant restaurant = getRestaurantByRestaurantId(restaurantId);
         restaurant.update(restaurantRequestDto);
 
         return restaurant.getId();
@@ -134,14 +134,14 @@ public class RestaurantService {
     @Transactional
     public void likeRestaurant(Long restaurantId) {
         Member member = memberService.getMeById();
-        Restaurant restaurant = getRestaurantById(restaurantId);
+        Restaurant restaurant = getRestaurantByRestaurantId(restaurantId);
         member.appendLikedRestaurant(restaurant);
     }
 
     @Transactional
     public void unlikeRestaurant(Long restaurantId) {
         Member member = memberService.getMeById();
-        Restaurant restaurant = getRestaurantById(restaurantId);
+        Restaurant restaurant = getRestaurantByRestaurantId(restaurantId);
         member.subtractedLikedRestaurant(restaurant);
     }
 

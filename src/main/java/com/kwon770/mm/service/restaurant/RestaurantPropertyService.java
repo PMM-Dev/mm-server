@@ -20,7 +20,7 @@ public class RestaurantPropertyService {
 
     @Transactional
     public void appendTheme(Long restaurantId, String theme) {
-        Restaurant restaurant = restaurantService.getRestaurantById(restaurantId);
+        Restaurant restaurant = restaurantService.getRestaurantByRestaurantId(restaurantId);
         Optional<RestaurantTheme> restaurantTheme = restaurantThemeRepository.findByTheme(Theme.valueOf(theme));
         if (restaurantTheme.isEmpty()) {
             throw new IllegalArgumentException(ErrorCode.NO_THEME_MESSAGE + theme);
@@ -31,7 +31,7 @@ public class RestaurantPropertyService {
 
     @Transactional
     public void subtractTheme(Long restaurantId, String theme) {
-        Restaurant restaurant = restaurantService.getRestaurantById(restaurantId);
+        Restaurant restaurant = restaurantService.getRestaurantByRestaurantId(restaurantId);
         Optional<RestaurantTheme> restaurantTheme = restaurantThemeRepository.findByTheme(Theme.valueOf(theme));
         if (restaurantTheme.isEmpty()) {
             throw new IllegalArgumentException(ErrorCode.NO_THEME_MESSAGE + theme);
@@ -55,7 +55,7 @@ public class RestaurantPropertyService {
 
     @Transactional
     public void appendSpecial(Long restaurantId, String special) {
-        Restaurant restaurant = restaurantService.getRestaurantById(restaurantId);
+        Restaurant restaurant = restaurantService.getRestaurantByRestaurantId(restaurantId);
         Optional<RestaurantSpecial> restaurantSpecial = restaurantSpecialRepository.findBySpecial(Special.valueOf(special));
         if (restaurantSpecial.isEmpty()) {
             throw new IllegalArgumentException(ErrorCode.NO_SPECIAL_MESSAGE + special);
@@ -66,7 +66,7 @@ public class RestaurantPropertyService {
 
     @Transactional
     public void subtractSpecial(Long restaurantId, String special) {
-        Restaurant restaurant = restaurantService.getRestaurantById(restaurantId);
+        Restaurant restaurant = restaurantService.getRestaurantByRestaurantId(restaurantId);
         Optional<RestaurantSpecial> restaurantSpecial = restaurantSpecialRepository.findBySpecial(Special.valueOf(special));
         if (restaurantSpecial.isEmpty()) {
             throw new IllegalArgumentException(ErrorCode.NO_SPECIAL_MESSAGE + special);
