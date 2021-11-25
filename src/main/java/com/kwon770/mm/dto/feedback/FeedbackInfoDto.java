@@ -29,7 +29,7 @@ public class FeedbackInfoDto {
     public FeedbackInfoDto(Feedback feedback) {
         this.id = feedback.getId();
         this.createdDate = CommonUtil.convertLocalDateTimeToFormatString(feedback.getCreatedDate());
-        this.authorEmail = feedback.getAuthor().getEmail();
+        this.authorEmail = feedback.getAuthor().getEmailFromDbEmail();
         this.authorPicture = feedback.getAuthor().getPicture();
         this.content = feedback.getContent();
         this.likeCount = feedback.getLikingMembers().size();

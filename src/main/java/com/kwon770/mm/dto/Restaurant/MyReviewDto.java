@@ -27,7 +27,7 @@ public class MyReviewDto {
         this.id = review.getId();
         this.createdDate = CommonUtil.convertLocalDateTimeToFormatString(review.getCreatedDate());
         this.authorName = review.getAuthor().getName();
-        this.authorEmail = review.getAuthor().getEmail();
+        this.authorEmail = review.getAuthor().getEmailFromDbEmail();
         this.authorPicture = review.getAuthor().getPicture();
         this.description = review.getDescription();
         this.grade = review.getGrade();

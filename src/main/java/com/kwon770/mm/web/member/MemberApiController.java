@@ -1,11 +1,11 @@
 package com.kwon770.mm.web.member;
 
+import com.kwon770.mm.dto.member.MemberInfoDto;
 import com.kwon770.mm.dto.member.MemberUpdateDto;
 import com.kwon770.mm.service.member.MemberPropertyService;
 import com.kwon770.mm.service.member.MemberService;
 import com.kwon770.mm.service.restaurant.ReviewService;
 import com.kwon770.mm.util.SecurityUtil;
-import com.kwon770.mm.dto.member.MemberInfoDto;
 import com.kwon770.mm.dto.restaurant.MyReviewDto;
 import com.kwon770.mm.dto.restaurant.RestaurantElementDto;
 import lombok.RequiredArgsConstructor;

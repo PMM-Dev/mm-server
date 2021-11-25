@@ -2,6 +2,7 @@ package com.kwon770.mm.service.member;
 
 import com.google.gson.*;
 import com.kwon770.mm.domain.member.*;
+import com.kwon770.mm.dto.member.MemberRequestDto;
 import com.kwon770.mm.exception.CustomAuthenticationException;
 import com.kwon770.mm.exception.CustomJwtRuntimeException;
 import com.kwon770.mm.exception.ErrorCode;
@@ -9,7 +10,6 @@ import com.kwon770.mm.exception.SystemIOException;
 import com.kwon770.mm.provider.security.JwtTokenProvider;
 import com.kwon770.mm.dto.JwtTokenDto;
 import com.kwon770.mm.dto.JwtTokenRequestDto;
-import com.kwon770.mm.dto.member.MemberRequestDto;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import lombok.RequiredArgsConstructor;

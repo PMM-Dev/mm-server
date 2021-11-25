@@ -2,11 +2,10 @@ package com.kwon770.mm.service.member;
 
 import com.kwon770.mm.domain.member.Member;
 import com.kwon770.mm.domain.member.MemberRepository;
+import com.kwon770.mm.dto.member.MemberInfoDto;
 import com.kwon770.mm.dto.member.MemberUpdateDto;
 import com.kwon770.mm.exception.ErrorCode;
 import com.kwon770.mm.util.SecurityUtil;
-import com.kwon770.mm.dto.member.MemberInfoDto;
-import com.kwon770.mm.dto.member.MemberRequestDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 

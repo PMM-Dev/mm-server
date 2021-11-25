@@ -19,7 +19,7 @@ public class FeedbackPreviewDto {
 
     public FeedbackPreviewDto(Feedback feedback) {
         this.id = feedback.getId();
-        this.authorEmail = feedback.getAuthor().getEmail();
+        this.authorEmail = feedback.getAuthor().getEmailFromDbEmail();
         this.content = feedback.getContent();
         this.likeCount = feedback.getLikingMembers().size();
     }

@@ -29,7 +29,7 @@ public class PostInfoDto {
         this.title = post.getTitle();
         this.content = post.getContent();
         this.authorName = post.getAuthor().getName();
-        this.authorEmail = post.getAuthor().getEmail();
+        this.authorEmail = post.getAuthor().getEmailFromDbEmail();
         this.createDate = CommonUtil.convertLocalDateTimeToFormatString(post.getCreatedDate());
         this.viewCount = post.getViewCount();
         this.likeCount = post.getLikingMembers().size();

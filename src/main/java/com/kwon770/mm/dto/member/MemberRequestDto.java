@@ -5,12 +5,11 @@ import com.kwon770.mm.domain.member.Role;
 import com.kwon770.mm.domain.member.SocialTokenType;
 import lombok.Builder;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
 @Getter
-public class MemberRequestDto extends MemberDto{
+public class MemberRequestDto {
 
     private String name;
     private String email;
@@ -22,7 +21,7 @@ public class MemberRequestDto extends MemberDto{
     @Builder
     public MemberRequestDto(String name, String email, String picture, Role role, String socialToken, SocialTokenType socialTokenType) {
         this.name = name;
-        this.email = generateDbEmail(email, socialTokenType);
+        this.email = MemberDtoUtil.generateDbEmail(email, socialTokenType);
         this.picture = picture;
         this.role = role;
         this.socialToken = socialToken;
@@ -31,11 +30,11 @@ public class MemberRequestDto extends MemberDto{
 
     public void setAppleEntityValue(String email) {
         this.name = email.split("@")[0];
-        this.email = generateDbEmail(email, this.socialTokenType);
+        this.email = MemberDtoUtil.generateDbEmail(email, this.socialTokenType);
     }
 
     public String getEmailFromDbEmail() {
-        return parseEmailFromDbEmail(this.email);
+        return MemberDtoUtil.parseEmailFromDbEmail(this.email);
     }
 
     public Member toEntity(PasswordEncoder passwordEncoder) {

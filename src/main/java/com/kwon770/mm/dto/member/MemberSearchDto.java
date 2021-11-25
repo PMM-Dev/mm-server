@@ -4,7 +4,7 @@ import com.kwon770.mm.domain.member.Member;
 import lombok.Getter;
 
 @Getter
-public class MemberSearchDto extends MemberDto {
+public class MemberSearchDto {
 
     private Long id;
     private String name;
@@ -14,7 +14,7 @@ public class MemberSearchDto extends MemberDto {
     public MemberSearchDto(Member member) {
         this.id = member.getId();
         this.name = member.getName();
-        this.email = parseEmailFromDbEmail(member.getEmail());
+        this.email = MemberDtoUtil.parseEmailFromDbEmail(member.getEmail());
         this.picture = member.getPicture();
     }
 }

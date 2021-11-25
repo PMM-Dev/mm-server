@@ -6,6 +6,7 @@ import com.kwon770.mm.domain.feedback.Feedback;
 import com.kwon770.mm.domain.report.Report;
 import com.kwon770.mm.domain.restaurant.Restaurant;
 import com.kwon770.mm.domain.restaurant.review.Review;
+import com.kwon770.mm.dto.member.MemberDtoUtil;
 import com.kwon770.mm.dto.member.MemberRequestDto;
 import com.kwon770.mm.dto.member.MemberUpdateDto;
 import lombok.Builder;
@@ -127,6 +128,10 @@ public class Member {
     public void update(MemberUpdateDto memberUpdateDto) {
         this.name = memberUpdateDto.getName();
         this.picture = memberUpdateDto.getPicture();
+    }
+
+    public String getEmailFromDbEmail() {
+        return MemberDtoUtil.parseEmailFromDbEmail(this.email);
     }
 
     public void increaseReviewCount() {

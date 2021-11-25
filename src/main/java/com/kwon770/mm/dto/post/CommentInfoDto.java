@@ -1,6 +1,7 @@
 package com.kwon770.mm.dto.post;
 
 import com.kwon770.mm.domain.post.comment.Comment;
+import com.kwon770.mm.dto.member.MemberDtoUtil;
 import com.kwon770.mm.util.CommonUtil;
 import com.kwon770.mm.util.SecurityUtil;
 import lombok.Getter;
@@ -22,7 +23,7 @@ public class CommentInfoDto {
         this.content = comment.getContent();
         this.authorPicture = comment.getAuthor().getPicture();
         this.authorName = comment.getAuthor().getName();
-        this.authorEmail = comment.getAuthor().getEmail();
+        this.authorEmail = comment.getAuthor().getEmailFromDbEmail();
         this.createDate = CommonUtil.convertLocalDateTimeToFormatString(comment.getCreatedDate());
         this.likeCount = comment.getLikingMembers().size();
         this.didLike = comment.getDidLike(SecurityUtil.getCurrentMemberId());

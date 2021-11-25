@@ -3,7 +3,6 @@ package com.kwon770.mm.web.member;
 import com.kwon770.mm.domain.member.Member;
 import com.kwon770.mm.dto.member.MemberUpdateDto;
 import com.kwon770.mm.service.member.MemberService;
-import com.kwon770.mm.dto.member.MemberRequestDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
