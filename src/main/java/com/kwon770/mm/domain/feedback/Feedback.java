@@ -37,7 +37,7 @@ public class Feedback extends BaseTimeEntity {
         this.content = content;
     }
 
-    public void removeAllMemberConnection() {
+    public void removeAllMemberLikeConnection() {
         for (Member member : likingMembers) {
             member.subtractedLikedFeedback(this);
         }

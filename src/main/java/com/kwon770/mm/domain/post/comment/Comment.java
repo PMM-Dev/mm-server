@@ -53,4 +53,10 @@ public class Comment extends BaseTimeEntity {
 
         return false;
     }
+
+    public void removeAllMemberLikeConnection() {
+        for (Member member : likingMembers) {
+            member.subtractedLikedComment(this);
+        }
+    }
 }

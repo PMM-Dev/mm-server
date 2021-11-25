@@ -170,4 +170,10 @@ public class Restaurant {
         float sum = (averageGrade * reviewCount) - oldGrade + newGrade;
         averageGrade = sum / reviewCount;
     }
+
+    public void removeAllMemberLikeConnection() {
+        for (Member member : likingMembers) {
+            member.subtractedLikedRestaurant(this);
+        }
+    }
 }

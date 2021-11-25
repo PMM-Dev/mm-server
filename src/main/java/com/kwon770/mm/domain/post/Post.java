@@ -84,4 +84,10 @@ public class Post extends BaseTimeEntity {
     public void increaseViewCount() {
         this.viewCount += 1;
     }
+
+    public void removeAllMemberLikeConnection() {
+        for (Member member : likingMembers) {
+            member.subtractedLikedPost(this);
+        }
+    }
 }

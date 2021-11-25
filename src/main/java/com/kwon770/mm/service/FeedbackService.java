@@ -78,15 +78,12 @@ public class FeedbackService {
 
     @Transactional
     public void deleteMyFeedbackByFeedbackId(Long feedbackId) {
-        Optional<Feedback> feedback = feedbackRepository.findById(feedbackId);
-        if (feedback.isEmpty()) {
-            throw new IllegalArgumentException(ErrorCode.NO_REPORT_BY_REPORTID + feedbackId);
-        }
-        if (!feedback.get().getAuthor().getId().equals(SecurityUtil.getCurrentMemberId())) {
+        Feedback feedback = getFeedbackById(feedbackId);
+        if (!feedback.getAuthor().getId().equals(SecurityUtil.getCurrentMemberId())) {
             throw new IllegalArgumentException(ErrorCode.NOT_REPORT_OWNER);
         }
 
-        feedback.get().removeAllMemberConnection();
-        feedbackRepository.deleteById(feedbackId);
+        feedback.removeAllMemberLikeConnection();
+        feedbackRepository.delete(feedback);
     }
 }

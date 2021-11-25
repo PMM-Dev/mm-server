@@ -21,17 +21,17 @@ public class SearchApiController {
     private final SearchService searchService;
 
     @GetMapping("/search/restaurant")
-    public ResponseEntity<List<RestaurantElementDto>> searchRestaurantByKeyword(@RequestParam(value = "keyword") String keyword) {
+    public ResponseEntity<List<RestaurantElementDto>> searchRestaurantByName(@RequestParam(value = "keyword") String keyword) {
         return new ResponseEntity<>(searchService.searchRestaurantByKeyword(keyword), HttpStatus.OK);
     }
 
     @GetMapping("/search/member")
-    public ResponseEntity<List<MemberSearchDto>> searchMemberByKeyword(@RequestParam(value = "keyword") String keyword) {
+    public ResponseEntity<List<MemberSearchDto>> searchMemberByNameOrEmail(@RequestParam(value = "keyword") String keyword) {
         return new ResponseEntity<>(searchService.searchMemberByKeyword(keyword), HttpStatus.OK);
     }
 
     @GetMapping("/search/post")
-    public ResponseEntity<List<PostElementDto>> searchPostByKeyword(@RequestParam(value = "keyword") String keyword) {
+    public ResponseEntity<List<PostElementDto>> searchPostByTitle(@RequestParam(value = "keyword") String keyword) {
         return new ResponseEntity<>(searchService.searchPostByKeyword(keyword), HttpStatus.OK);
     }
 }

@@ -37,7 +37,7 @@ public class CommentService {
         return comment.getId();
     }
 
-    public Comment findById(Long commentId) {
+    public Comment getCommentByCommentId(Long commentId) {
         return commentRepository.findById(commentId)
                 .orElseThrow(() -> new IllegalArgumentException(ErrorCode.NO_COMMENT_BY_COMMENTID + commentId));
     }
@@ -51,7 +51,7 @@ public class CommentService {
     @Transactional
     public boolean toggleCommentLike(Long commentId) {
         Member member = memberService.getMeById();
-        Comment comment = findById(commentId);
+        Comment comment = getCommentByCommentId(commentId);
         if (comment.getDidLike(member.getId())) {
             member.subtractedLikedComment(comment);
             return false;
@@ -61,13 +61,16 @@ public class CommentService {
         }
     }
 
-    public void deleteComment(Long commentId) {
-        commentRepository.deleteById(commentId);
+    @Transactional
+    public void deleteCommentByCommentId(Long commentId) {
+        Comment comment = getCommentByCommentId(commentId);
+        comment.removeAllMemberLikeConnection();
+        commentRepository.delete(comment);
     }
 
     public void validateAuthor(Long commentId) {
         Long currentMemberId = SecurityUtil.getCurrentMemberId();
-        Comment comment = findById(commentId);
+        Comment comment = getCommentByCommentId(commentId);
         if (!comment.getAuthor().getId().equals(currentMemberId)) {
             throw new IllegalArgumentException(ErrorCode.NOT_AUTHOR_MESSAGE + commentId);
         }

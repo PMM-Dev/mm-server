@@ -41,7 +41,7 @@ public class CommentApiController {
     public ResponseEntity<Void> deleteComment(@PathVariable Long commentId) {
         commentService.validateAuthor(commentId);
 
-        commentService.deleteComment(commentId);
+        commentService.deleteCommentByCommentId(commentId);
 
         return new ResponseEntity<>(HttpStatus.OK);
     }

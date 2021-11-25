@@ -161,8 +161,4 @@ public class Member {
     public void appendLikedComment(Comment comment) { this.likedComments.add(comment); }
 
     public void subtractedLikedComment(Comment comment) { this.likedComments.remove(comment); }
-
-    public void deleteLikedPost(Post post) {
-        this.likedPosts.remove(post);
-    }
 }

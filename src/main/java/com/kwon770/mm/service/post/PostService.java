@@ -130,8 +130,7 @@ public class PostService {
     @Transactional
     public void deletePostByPostId(Long postId) {
         Post post = getPostByPostId(postId);
-        Member author = post.getAuthor();
-        author.deleteLikedPost(post);
+        post.removeAllMemberLikeConnection();
         postRepository.delete(post);
     }
 

@@ -145,13 +145,17 @@ public class RestaurantService {
         member.subtractedLikedRestaurant(restaurant);
     }
 
-    public void deleteRestaurantById(Long id) {
-        restaurantRepository.deleteById(id);
+    @Transactional
+    public void deleteRestaurantById(Long restaurantId) {
+        Restaurant restaurant = getRestaurantByRestaurantId(restaurantId);
+        restaurant.removeAllMemberLikeConnection();
+        restaurantRepository.delete(restaurant);
     }
 
+    @Transactional
     public void deleteRestaurantByName(String name) {
-        Restaurant targetRestaurant = getRestaurantByName(name);
-
-        restaurantRepository.delete(targetRestaurant);
+        Restaurant restaurant = getRestaurantByName(name);
+        restaurant.removeAllMemberLikeConnection();
+        restaurantRepository.delete(restaurant);
     }
 }
