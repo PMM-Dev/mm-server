@@ -12,6 +12,7 @@ import com.kwon770.mm.dto.restaurant.ReviewRequestDto;
 import com.kwon770.mm.exception.ErrorCode;
 import com.kwon770.mm.service.ImageHandler;
 import com.kwon770.mm.service.member.MemberService;
+import com.kwon770.mm.util.CommonUtil;
 import com.kwon770.mm.util.SecurityUtil;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -73,6 +74,7 @@ public class ReviewService {
 
 
         if (myReview.getReviewImage() != null) {
+            CommonUtil.removeImageFromServer(myReview.getReviewImage().getFilePath());
             reviewImageRepository.delete(myReview.getReviewImage());
         }
 

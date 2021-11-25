@@ -13,7 +13,7 @@ public class GlobalExceptionHandler {
 
     @ExceptionHandler(NullPointerException.class)
     protected ResponseEntity<CommonResponse> handleIllegalArgumentException(final NullPointerException e) {
-        LogView.logInfoExceptionTitle(e);
+        LogView.logErrorStacktraceWithMessage(e);
 
         CommonResponse response = CommonResponse.builder()
                 .status(ErrorCode.INTERNAL_SERVER_ERROR.getStatus())
@@ -26,7 +26,7 @@ public class GlobalExceptionHandler {
 
     @ExceptionHandler(NotAuthorException.class)
     protected ResponseEntity<CommonResponse> handleIllegalArgumentException(final NotAuthorException e) {
-        LogView.logInfoExceptionTitle(e);
+        LogView.logErrorStacktraceWithMessage(e);
 
         CommonResponse response = CommonResponse.builder()
                 .status(ErrorCode.NOT_AUTHOR.getStatus())
@@ -39,7 +39,7 @@ public class GlobalExceptionHandler {
 
     @ExceptionHandler(SystemIOException.class)
     protected ResponseEntity<CommonResponse> handleIllegalArgumentException(final SystemIOException e) {
-        LogView.logInfoExceptionTitle(e);
+        LogView.logErrorStacktraceWithMessage(e);
 
         CommonResponse response = CommonResponse.builder()
                 .status(ErrorCode.SYSTEM_IO_ERROR.getStatus())
@@ -52,7 +52,7 @@ public class GlobalExceptionHandler {
 
     @ExceptionHandler(ImageIOException.class)
     protected ResponseEntity<CommonResponse> handleIllegalArgumentException(final ImageIOException e) {
-        LogView.logInfoExceptionTitle(e);
+        LogView.logErrorStacktraceWithMessage(e);
 
         CommonResponse response = CommonResponse.builder()
                 .status(ErrorCode.SYSTEM_IO_ERROR.getStatus())
@@ -65,7 +65,7 @@ public class GlobalExceptionHandler {
 
     @ExceptionHandler(IllegalArgumentException.class)
     protected ResponseEntity<CommonResponse> handleIllegalArgumentException(final IllegalArgumentException e) {
-        LogView.logInfoExceptionTitle(e);
+        LogView.logErrorStacktraceWithMessage(e);
 
         CommonResponse response = CommonResponse.builder()
                 .status(ErrorCode.ILLEGAL_ARGUMENT.getStatus())
@@ -78,7 +78,7 @@ public class GlobalExceptionHandler {
 
     @ExceptionHandler(CustomAuthenticationException.class)
     protected ResponseEntity<CommonResponse> handleCustomAuthenticationException(final CustomAuthenticationException e) {
-        LogView.logInfoExceptionTitle(e);
+        LogView.logErrorStacktraceWithMessage(e);
 
         CommonResponse response = CommonResponse.builder()
                 .status(ErrorCode.AUTHENTICATION_FAILED.getStatus())
@@ -92,7 +92,7 @@ public class GlobalExceptionHandler {
 
     @ExceptionHandler(CustomJwtRuntimeException.class)
     protected ResponseEntity<CommonResponse> handleJwtException(final CustomJwtRuntimeException e) {
-        LogView.logInfoExceptionTitle(e);
+        LogView.logErrorStacktraceWithMessage(e);
 
         CommonResponse response = CommonResponse.builder()
                 .status(ErrorCode.INVALID_JWT_TOKEN.getStatus())

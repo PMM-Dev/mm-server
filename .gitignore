@@ -8,6 +8,8 @@ application.yml
 
 src/main/generated
 src/main/resources
+image
+images
 
 ### STS ###
 .apt_generated

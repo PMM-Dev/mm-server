@@ -5,16 +5,12 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public class LogView {
 
-    public static void logInfoExceptionTitle(Exception e) {
-        log.info(e.toString());
-    }
-
     public static void logInfoExceptionString(String str) {
         log.info(str);
     }
 
-    public static void logErrorStacktraceWithMessage(Exception e, String message) {
-        log.error(message);
+    public static void logErrorStacktraceWithMessage(Exception e) {
+        log.error(e.getMessage());
         e.printStackTrace();
     }
 }
