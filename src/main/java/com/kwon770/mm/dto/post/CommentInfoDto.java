@@ -14,7 +14,7 @@ public class CommentInfoDto {
     private String authorPicture;
     private String authorName;
     private String authorEmail;
-    private String createDate;
+    private String createdDate;
     private int likeCount;
     private boolean didLike;
 
@@ -24,7 +24,7 @@ public class CommentInfoDto {
         this.authorPicture = comment.getAuthor().getPicture();
         this.authorName = comment.getAuthor().getName();
         this.authorEmail = comment.getAuthor().getEmailFromDbEmail();
-        this.createDate = CommonUtil.convertLocalDateTimeToFormatString(comment.getCreatedDate());
+        this.createdDate = CommonUtil.convertLocalDateTimeToFormatString(comment.getCreatedDate());
         this.likeCount = comment.getLikingMembers().size();
         this.didLike = comment.getDidLike(SecurityUtil.getCurrentMemberId());
     }

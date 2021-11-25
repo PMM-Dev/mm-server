@@ -54,7 +54,7 @@ public class ImageApiController {
         outputImage(response, imagePath);
     }
 
-    @GetMapping("/image/restaurant/review/{reviewId}}/fileName")
+    @GetMapping("/image/restaurant/review/{reviewId}/fileName")
     public ResponseEntity<String> getPostImageOnIndexByPostId(@PathVariable Long reviewId) {
         String fileName = reviewService.getReviewImageFileNameByReviewId(reviewId);
 
