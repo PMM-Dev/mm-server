@@ -68,7 +68,7 @@ public class ReviewApiController {
         return new ResponseEntity<>(reviewInfoDtos, HttpStatus.OK);
     }
 
-    @GetMapping("/restaurant/{restaurantId}/review/me")
+    @GetMapping("/restaurant/{restaurantId}/review")
     public ResponseEntity<ReviewInfoDto> getMyReviewInfoDtoByRestaurantId(@PathVariable Long restaurantId) {
         Optional<ReviewInfoDto> reviewInfoDto = reviewService.getMyReviewInfoDtoByRestaurantId(restaurantId);
         if (reviewInfoDto.isEmpty()) {
@@ -78,7 +78,7 @@ public class ReviewApiController {
         return new ResponseEntity<>(reviewInfoDto.get(), HttpStatus.OK);
     }
 
-    @DeleteMapping("/restaurant/{restaurantId}/review/me")
+    @DeleteMapping("/restaurant/{restaurantId}/review")
     public ResponseEntity<Void> deleteMyReviewByReviewId(@PathVariable Long restaurantId) {
         reviewService.deleteMyReviewByRestaurantId(restaurantId);
 

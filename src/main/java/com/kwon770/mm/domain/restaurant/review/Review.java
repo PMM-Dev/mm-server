@@ -37,8 +37,7 @@ public class Review extends BaseTimeEntity {
     @NotNull
     private Integer likeCount = 0;
 
-    @OneToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "review_image_id", referencedColumnName = "id")
+    @OneToOne(mappedBy = "review")
     private ReviewImage reviewImage;
 
     @Builder

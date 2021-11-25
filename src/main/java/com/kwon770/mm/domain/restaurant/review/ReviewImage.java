@@ -25,7 +25,8 @@ public class ReviewImage {
     @NotNull
     private Long fileSize;
 
-    @OneToOne(mappedBy = "reviewImage")
+    @OneToOne
+    @JoinColumn(name = "review_id")
     private Review review;
 
     @Builder
