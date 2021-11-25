@@ -48,13 +48,6 @@ public class RestaurantPropertyApiController {
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
-    @GetMapping("/theme/random")
-    public ResponseEntity<List<Theme>> getRandom2Themes() {
-        List<Theme> themes = restaurantThemeService.getRandom2Themes();
-
-        return new ResponseEntity<>(themes, HttpStatus.OK);
-    }
-
     @PostMapping("/special")
     public ResponseEntity<Long> saveSpecial(@RequestBody RestaurantSpecialRequestDto restaurantSpecialSaveDto) {
         Long specialId = restaurantPropertyService.saveSpecial(restaurantSpecialSaveDto);

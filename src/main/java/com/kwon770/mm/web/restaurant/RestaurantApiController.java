@@ -1,7 +1,9 @@
 package com.kwon770.mm.web.restaurant;
 
+import com.kwon770.mm.domain.restaurant.Theme;
 import com.kwon770.mm.service.restaurant.RestaurantService;
 import com.kwon770.mm.dto.restaurant.*;
+import com.kwon770.mm.service.restaurant.RestaurantThemeService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -17,6 +19,7 @@ import static com.kwon770.mm.Utility.isDigit;
 public class RestaurantApiController {
 
     private final RestaurantService restaurantService;
+    private final RestaurantThemeService restaurantThemeService;
 
     @PostMapping("/restaurant")
     public ResponseEntity<Long> uploadRestaurant(@RequestBody RestaurantRequestDto restaurantRequestDto) {
@@ -80,6 +83,13 @@ public class RestaurantApiController {
         List<RestaurantElementDto> restaurantElementDtos = restaurantService.getRestaurantElementDtosByRank();
 
         return new ResponseEntity<>(restaurantElementDtos, HttpStatus.OK);
+    }
+
+    @GetMapping("/restaurant/theme/random")
+    public ResponseEntity<List<Theme>> getRandom2Themes() {
+        List<Theme> themes = restaurantThemeService.getRandom2Themes();
+
+        return new ResponseEntity<>(themes, HttpStatus.OK);
     }
 
     @GetMapping("/restaurant/theme/{theme}")
