@@ -32,6 +32,7 @@ public enum ErrorCode {
     public static String NO_REVIEW_BY_RESTAURANTID = "Restaurant에 작성된 Review가 없음 : RestaurantId = ";
     public static String NO_REVIEW_BY_REVIEWID = "ReviewId와 일치하는 Review가 없습니다. ReviewId = ";
     public static String NO_IMAGE_BY_RESTAURANTID = "Restaurant에 업로드된 사진이 없음 : restaurantId = ";
+    public static String NO_IMAGE_BY_REVIEWID = "Review에 업로드된 사진이 없음 : reviewId = ";
     public static String NO_REPORT_BY_REPORTID = "feedbackId와 일치하는 Feedback가 없음 : feedbackId = ";
     public static String NO_POST_BY_POSTID = "postId와 일치하는 Post가 없음 : postId = ";
     public static String NO_COMMENT_BY_COMMENTID = "commentId와 일치하는 Comment가 없음 : commentId = ";

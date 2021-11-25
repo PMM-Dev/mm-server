@@ -1,6 +1,7 @@
 package com.kwon770.mm.service.restaurant;
 
 import com.kwon770.mm.domain.member.Member;
+import com.kwon770.mm.domain.post.Post;
 import com.kwon770.mm.domain.restaurant.Restaurant;
 import com.kwon770.mm.domain.restaurant.review.ReviewImage;
 import com.kwon770.mm.domain.restaurant.review.ReviewImageRepository;
@@ -10,6 +11,7 @@ import com.kwon770.mm.dto.restaurant.MyReviewDto;
 import com.kwon770.mm.dto.restaurant.ReviewInfoDto;
 import com.kwon770.mm.dto.restaurant.ReviewRequestDto;
 import com.kwon770.mm.exception.ErrorCode;
+import com.kwon770.mm.exception.SystemIOException;
 import com.kwon770.mm.service.ImageHandler;
 import com.kwon770.mm.service.member.MemberService;
 import com.kwon770.mm.util.CommonUtil;
@@ -132,6 +134,15 @@ public class ReviewService {
         }
 
         return Optional.of(reviewImage.getFilePath());
+    }
+
+    public String getReviewImageFileNameByReviewId(Long reviewId) {
+        ReviewImage reviewImage = getReviewByReviewId(reviewId).getReviewImage();
+        if (reviewImage == null) {
+            throw new IllegalArgumentException(ErrorCode.NO_IMAGE_BY_REVIEWID + reviewId);
+        }
+
+        return reviewImage.getFilePath().split("post/")[1];
     }
 
     public List<MyReviewDto> getMyReviewList(Long userId) {

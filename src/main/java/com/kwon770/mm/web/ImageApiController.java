@@ -48,16 +48,30 @@ public class ImageApiController {
         outputImage(response, imagePath);
     }
 
-    @GetMapping("/image/restaurant/review/{reviewId}/image")
+    @GetMapping("/image/restaurant/review/{reviewId}")
     public void getReviewImageByReviewId(HttpServletResponse response, @PathVariable Long reviewId) {
         Optional<String> imagePath = reviewService.getReviewImageByReviewId(reviewId);
         outputImage(response, imagePath);
+    }
+
+    @GetMapping("/image/restaurant/review/{reviewId}}/fileName")
+    public ResponseEntity<String> getPostImageOnIndexByPostId(@PathVariable Long reviewId) {
+        String fileName = reviewService.getReviewImageFileNameByReviewId(reviewId);
+
+        return new ResponseEntity<>(fileName, HttpStatus.OK);
     }
 
     @GetMapping("/image/post/{postId}/{index}")
     public void getPostImageOnIndexByPostId(HttpServletResponse response, @PathVariable Long postId, @PathVariable int index) {
         Optional<String> imagePath = postService.getPostImagePathOnIndexByPostId(postId, index);
         outputImage(response, imagePath);
+    }
+
+    @GetMapping("/image/post/{postId}/{index}/fileName")
+    public ResponseEntity<String> getPostImageOnIndexByPostId(@PathVariable Long postId, @PathVariable int index) {
+        String fileName = postService.getPostImageFileNameOnIndexByPostId(postId, index);
+
+        return new ResponseEntity<>(fileName, HttpStatus.OK);
     }
 
     private void outputImage(HttpServletResponse response, Optional<String> imagePath) {

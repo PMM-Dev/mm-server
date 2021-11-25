@@ -104,6 +104,15 @@ public class PostService {
         }
     }
 
+    public String getPostImageFileNameOnIndexByPostId(Long postId, int index) {
+        Post post = getPostByPostId(postId);
+        try {
+            return post.getPostImages().get(index).getFilePath().split("post/")[1];
+        } catch (IndexOutOfBoundsException e) {
+            throw new IllegalArgumentException(ErrorCode.NOT_FOUND_IMAGE_BY_INDEX + index);
+        }
+    }
+
     @Transactional
     public void likePost(Long postId) {
         Member member = memberService.getMeById();
