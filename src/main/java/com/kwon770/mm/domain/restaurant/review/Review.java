@@ -37,7 +37,7 @@ public class Review extends BaseTimeEntity {
     @NotNull
     private Integer likeCount = 0;
 
-    @OneToOne(mappedBy = "review")
+    @OneToOne(mappedBy = "review", orphanRemoval = true)
     private ReviewImage reviewImage;
 
     @Builder
