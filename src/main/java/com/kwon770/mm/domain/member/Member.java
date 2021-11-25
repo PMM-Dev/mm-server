@@ -92,7 +92,7 @@ public class Member {
     )
     private List<Feedback> likedFeedbacks = new ArrayList<>();
 
-    @ManyToMany
+    @ManyToMany(cascade = {CascadeType.ALL})
     @JoinTable(
             name = "member_post_like_relation",
             joinColumns = @JoinColumn(name = "member_id"),

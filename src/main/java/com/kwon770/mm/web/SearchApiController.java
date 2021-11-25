@@ -1,5 +1,6 @@
 package com.kwon770.mm.web;
 
+import com.kwon770.mm.dto.restaurant.RestaurantElementDto;
 import com.kwon770.mm.service.SearchService;
 import com.kwon770.mm.dto.member.MemberSearchDto;
 import com.kwon770.mm.dto.restaurant.RestaurantSearchDto;
@@ -19,7 +20,7 @@ public class SearchApiController {
     private final SearchService searchService;
 
     @GetMapping("/search/restaurant")
-    public ResponseEntity<List<RestaurantSearchDto>> searchRestaurantByKeyword(@RequestParam(value = "keyword") String keyword) {
+    public ResponseEntity<List<RestaurantElementDto>> searchRestaurantByKeyword(@RequestParam(value = "keyword") String keyword) {
         return new ResponseEntity<>(searchService.searchRestaurantByKeyword(keyword), HttpStatus.OK);
     }
 

@@ -4,6 +4,7 @@ import com.kwon770.mm.domain.member.Member;
 import com.kwon770.mm.domain.member.MemberRepository;
 import com.kwon770.mm.domain.restaurant.Restaurant;
 import com.kwon770.mm.domain.restaurant.RestaurantRepository;
+import com.kwon770.mm.dto.restaurant.RestaurantElementDto;
 import com.kwon770.mm.service.member.MemberMapper;
 import com.kwon770.mm.service.restaurant.RestaurantMapper;
 import com.kwon770.mm.dto.member.MemberSearchDto;
@@ -20,10 +21,10 @@ public class SearchService {
     private final RestaurantRepository restaurantRepository;
     private final MemberRepository memberRepository;
 
-    public List<RestaurantSearchDto> searchRestaurantByKeyword(String keyword) {
+    public List<RestaurantElementDto> searchRestaurantByKeyword(String keyword) {
         List<Restaurant> searchedRestaurants = restaurantRepository.findTop10ByNameContaining(keyword);
 
-        return RestaurantMapper.INSTANCE.restaurantsToRestaurantSearchDtos(searchedRestaurants);
+        return RestaurantMapper.INSTANCE.restaurantsToRestaurantElementDtos(searchedRestaurants);
     }
 
     public List<MemberSearchDto> searchMemberByKeyword(String keyword) {

@@ -42,7 +42,7 @@ public class Post extends BaseTimeEntity {
     @OneToMany(mappedBy = "post", orphanRemoval = true)
     private List<Comment> comments = new ArrayList<>();
 
-    @ManyToMany(mappedBy = "likedPosts")
+    @ManyToMany(mappedBy = "likedPosts", cascade = {CascadeType.ALL})
     @JsonBackReference
     private List<Member> likingMembers = new ArrayList<>();
 
