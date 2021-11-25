@@ -43,7 +43,7 @@ public class ImageApiController {
     }
 
     @GetMapping("/image/restaurant/{restaurantId}/image/{index}")
-    public void getRestaurantImageOnIndexByRestaurntId(HttpServletResponse response, @PathVariable Long restaurantId, @PathVariable int index) {
+    public void getRestaurantImageOnIndexByRestaurantId(HttpServletResponse response, @PathVariable Long restaurantId, @PathVariable int index) {
         Optional<String> imagePath = restaurantImageService.getRestaurantImagePathOnIndexByRestaurantId(restaurantId, index);
         outputImage(response, imagePath);
     }
@@ -55,7 +55,7 @@ public class ImageApiController {
     }
 
     @GetMapping("/image/restaurant/review/{reviewId}/fileName")
-    public ResponseEntity<String> getPostImageOnIndexByPostId(@PathVariable Long reviewId) {
+    public ResponseEntity<String> getReviewImageFileNameByReviewId(@PathVariable Long reviewId) {
         String fileName = reviewService.getReviewImageFileNameByReviewId(reviewId);
 
         return new ResponseEntity<>(fileName, HttpStatus.OK);
@@ -68,7 +68,7 @@ public class ImageApiController {
     }
 
     @GetMapping("/image/post/{postId}/{index}/fileName")
-    public ResponseEntity<String> getPostImageOnIndexByPostId(@PathVariable Long postId, @PathVariable int index) {
+    public ResponseEntity<String> getPostImageFileNameOnIndexByPostId(@PathVariable Long postId, @PathVariable int index) {
         String fileName = postService.getPostImageFileNameOnIndexByPostId(postId, index);
 
         return new ResponseEntity<>(fileName, HttpStatus.OK);
