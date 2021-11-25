@@ -65,7 +65,7 @@ public class PostService {
         List<MultipartFile> addedImages = post.getAddedPostImages(postRequestDto.getImages());
         List<PostImage> addedPostImages = generatePostImages(post, addedImages);
 
-        post.update(post.getTitle(), post.getContent(), addedPostImages);
+        post.update(postRequestDto.getTitle(), postRequestDto.getContent(), addedPostImages);
     }
 
     public Post getPostByPostId(Long postId) {
