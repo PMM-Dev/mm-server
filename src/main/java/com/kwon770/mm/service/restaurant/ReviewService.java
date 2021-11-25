@@ -71,6 +71,16 @@ public class ReviewService {
 
         validateAuthor(myReview.getId());
 
+
+        if (myReview.getReviewImage() != null) {
+            reviewImageRepository.delete(myReview.getReviewImage());
+        }
+
+        if (reviewRequestDto.getImage().isPresent()) {
+            ReviewImage reviewImage = generateReviewImage(myReview, reviewRequestDto.getImage().get());
+            reviewImageRepository.save(reviewImage);
+        }
+
         restaurant.calculateUpdatedAverageGrade(myReview.getGrade(), reviewRequestDto.getGrade());
         myReview.update(reviewRequestDto);
     }
