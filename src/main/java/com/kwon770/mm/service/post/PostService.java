@@ -127,8 +127,12 @@ public class PostService {
         member.subtractedLikedPost(post);
     }
 
+    @Transactional
     public void deletePostByPostId(Long postId) {
-        postRepository.deleteById(postId);
+        Post post = getPostByPostId(postId);
+        Member author = post.getAuthor();
+        author.deleteLikedPost(post);
+        postRepository.delete(post);
     }
 
     public void validateAuthor(Long postId) {

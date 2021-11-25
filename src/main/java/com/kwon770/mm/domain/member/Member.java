@@ -92,7 +92,7 @@ public class Member {
     )
     private List<Feedback> likedFeedbacks = new ArrayList<>();
 
-    @ManyToMany(cascade = {CascadeType.ALL})
+    @ManyToMany
     @JoinTable(
             name = "member_post_like_relation",
             joinColumns = @JoinColumn(name = "member_id"),
@@ -161,4 +161,8 @@ public class Member {
     public void appendLikedComment(Comment comment) { this.likedComments.add(comment); }
 
     public void subtractedLikedComment(Comment comment) { this.likedComments.remove(comment); }
+
+    public void deleteLikedPost(Post post) {
+        this.likedPosts.remove(post);
+    }
 }

@@ -1,5 +1,6 @@
 package com.kwon770.mm.web;
 
+import com.kwon770.mm.dto.post.PostElementDto;
 import com.kwon770.mm.dto.restaurant.RestaurantElementDto;
 import com.kwon770.mm.service.SearchService;
 import com.kwon770.mm.dto.member.MemberSearchDto;
@@ -29,8 +30,8 @@ public class SearchApiController {
         return new ResponseEntity<>(searchService.searchMemberByKeyword(keyword), HttpStatus.OK);
     }
 
-//    @GetMapping("/search/post")
-//    public ResponseEntity<List<PostSearchDto>> searchPostByKeyword(@RequestParam(value = "keyword") String keyword) {
-//
-//    }
+    @GetMapping("/search/post")
+    public ResponseEntity<List<PostElementDto>> searchPostByKeyword(@RequestParam(value = "keyword") String keyword) {
+        return new ResponseEntity<>(searchService.searchPostByKeyword(keyword), HttpStatus.OK);
+    }
 }
