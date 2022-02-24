@@ -4,6 +4,6 @@
 
 ## Api Design
 
-### Member Authentication Flow
+### Login and authentication flow
 
 ![](document/mm_server_auth_flow.png)
