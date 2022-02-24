@@ -7,7 +7,6 @@ import com.kwon770.mm.domain.member.MemberTitle;
 import com.kwon770.mm.domain.member.MemberTitleRepository;
 import com.kwon770.mm.exception.ErrorCode;
 import com.kwon770.mm.service.FeedbackService;
-import com.kwon770.mm.service.restaurant.RestaurantMapper;
 import com.kwon770.mm.service.restaurant.RestaurantService;
 import com.kwon770.mm.dto.member.MemberTitleRequestDto;
 import com.kwon770.mm.dto.restaurant.RestaurantElementDto;
@@ -17,6 +16,7 @@ import org.springframework.stereotype.Service;
 import javax.transaction.Transactional;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @RequiredArgsConstructor
 @Service
@@ -24,8 +24,6 @@ public class MemberPropertyService {
 
     private final MemberService memberService;
     private final MemberTitleRepository memberTitleRepository;
-    private final RestaurantService restaurantService;
-    private final FeedbackService feedbackService;
 
     public Long saveTitle(MemberTitleRequestDto memberTitleRequestDto) {
         return memberTitleRepository.save(memberTitleRequestDto.toEntity()).getId();
@@ -64,8 +62,8 @@ public class MemberPropertyService {
 
     public List<RestaurantElementDto> getLikedRestaurantList(Long userId) {
         Member member = memberService.getMemberById(userId);
-        List<Restaurant> likedRestaurantEntities = member.getLikedRestaurants();
+        List<Restaurant> likedRestaurants = member.getLikedRestaurants();
 
-        return RestaurantMapper.INSTANCE.restaurantsToRestaurantElementDtos(likedRestaurantEntities);
+        return likedRestaurants.stream().map(RestaurantElementDto::new).collect(Collectors.toList());
     }
 }

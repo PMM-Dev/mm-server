@@ -36,7 +36,7 @@ public class MemberService {
     }
 
     public MemberInfoDto getMemberInfoDtoById(Long id) {
-        return MemberMapper.INSTANCE.memberToMemberInfoDto(getMemberById(id));
+        return new MemberInfoDto(getMemberById(id));
     }
 
     public Member getMemberByEmail(String email) {
@@ -44,7 +44,7 @@ public class MemberService {
     }
 
     public MemberInfoDto getMemberInfoDtoByEmail(String email) {
-        return MemberMapper.INSTANCE.memberToMemberInfoDto(getMemberByEmail(email));
+        return new MemberInfoDto(getMemberByEmail(email));
     }
 
     @Transactional

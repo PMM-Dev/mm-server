@@ -21,6 +21,7 @@ import org.springframework.web.multipart.MultipartFile;
 import javax.transaction.Transactional;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @RequiredArgsConstructor
 @Service
@@ -95,25 +96,25 @@ public class ReviewService {
     public List<ReviewInfoDto> getReviewInfoDtosByRestaurantId(Long restaurantId) {
         List<Review> reviews = reviewRepository.findAllByRestaurant_Id(restaurantId);
 
-        return RestaurantMapper.INSTANCE.reviewsToReviewInfoDtos(reviews);
+        return reviews.stream().map(ReviewInfoDto::new).collect(Collectors.toList());
     }
 
     public List<ReviewInfoDto> getReviewInfoDtosByRestaurantIdOrderByCreatedDateDesc(Long restaurantId) {
         List<Review> reviews = reviewRepository.findAllByRestaurant_IdOrderByCreatedDateDesc(restaurantId);
 
-        return RestaurantMapper.INSTANCE.reviewsToReviewInfoDtos(reviews);
+        return reviews.stream().map(ReviewInfoDto::new).collect(Collectors.toList());
     }
 
     public List<ReviewInfoDto> getReviewInfoDtosByRestaurantIdOrderByGradeDesc(Long restaurantId) {
         List<Review> reviews = reviewRepository.findAllByRestaurant_IdOrderByGradeDesc(restaurantId);
 
-        return RestaurantMapper.INSTANCE.reviewsToReviewInfoDtos(reviews);
+        return reviews.stream().map(ReviewInfoDto::new).collect(Collectors.toList());
     }
 
     public List<ReviewInfoDto> getReviewInfoDtosByRestaurantIdOrderByGradeAsc(Long restaurantId) {
         List<Review> reviews = reviewRepository.findAllByRestaurant_IdOrderByGradeAsc(restaurantId);
 
-        return RestaurantMapper.INSTANCE.reviewsToReviewInfoDtos(reviews);
+        return reviews.stream().map(ReviewInfoDto::new).collect(Collectors.toList());
     }
 
     public Optional<ReviewInfoDto> getMyReviewInfoDtoByRestaurantId(Long restaurantId) {
@@ -122,7 +123,7 @@ public class ReviewService {
             return Optional.empty();
         }
 
-        return Optional.of(RestaurantMapper.INSTANCE.reviewToReviewInfoDto(review.get()));
+        return Optional.of(new ReviewInfoDto(review.get()));
     }
 
     public Optional<String> getReviewImageByReviewId(Long reviewId) {
@@ -146,7 +147,7 @@ public class ReviewService {
     public List<MyReviewDto> getMyReviewList(Long userId) {
         List<Review> reviews = reviewRepository.findAllByAuthor_Id(userId);
 
-        return RestaurantMapper.INSTANCE.reviewsToMyReviewDtos(reviews);
+        return reviews.stream().map(MyReviewDto::new).collect(Collectors.toList());
     }
 
     @Transactional

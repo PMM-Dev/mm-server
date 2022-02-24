@@ -39,7 +39,7 @@ public class RestaurantService {
     public RestaurantInfoDto getRestaurantInfoDtoById(Long id) {
         Restaurant restaurant = getRestaurantByRestaurantId(id);
 
-        return RestaurantMapper.INSTANCE.restaurantToRestaurantInfoDto(restaurant);
+        return new RestaurantInfoDto(restaurant);
     }
 
     public Restaurant getRestaurantByName(String name) {
@@ -50,55 +50,55 @@ public class RestaurantService {
     public RestaurantInfoDto getRestaurantInfoDtoByName(String name) {
         Restaurant restaurant = getRestaurantByName(name);
 
-        return RestaurantMapper.INSTANCE.restaurantToRestaurantInfoDto(restaurant);
+        return new RestaurantInfoDto(restaurant);
     }
 
     public List<RestaurantElementDto> getRestaurantElementDtosByType(String type) {
         List<Restaurant> restaurants = restaurantRepository.findAllByType(Type.valueOf(type));
 
-        return RestaurantMapper.INSTANCE.restaurantsToRestaurantElementDtos(restaurants);
+        return restaurants.stream().map(RestaurantElementDto::new).collect(Collectors.toList());
     }
 
     public List<RestaurantElementDto> getRestaurantElementDtosByTypeOrderByPriceDesc(String type) {
         List<Restaurant> restaurants = restaurantRepository.findAllByTypeOrderByPriceDesc(Type.valueOf(type));
 
-        return RestaurantMapper.INSTANCE.restaurantsToRestaurantElementDtos(restaurants);
+        return restaurants.stream().map(RestaurantElementDto::new).collect(Collectors.toList());
     }
 
     public List<RestaurantElementDto> getRestaurantElementDtosByTypeOrderByPriceAsc(String type) {
         List<Restaurant> restaurants = restaurantRepository.findAllByTypeOrderByPriceAsc(Type.valueOf(type));
 
-        return RestaurantMapper.INSTANCE.restaurantsToRestaurantElementDtos(restaurants);
+        return restaurants.stream().map(RestaurantElementDto::new).collect(Collectors.toList());
     }
 
     public List<RestaurantElementDto> getRestaurantElementDtosByTypeOrderByAverageGradeDesc(String type) {
         List<Restaurant> restaurants = restaurantRepository.findAllByTypeOrderByAverageGradeDesc(Type.valueOf(type));
 
-        return RestaurantMapper.INSTANCE.restaurantsToRestaurantElementDtos(restaurants);
+        return restaurants.stream().map(RestaurantElementDto::new).collect(Collectors.toList());
     }
 
     public List<RestaurantElementDto> getRestaurantElementDtosByTypeOrderByReviewCountDesc(String type) {
         List<Restaurant> restaurants = restaurantQueryRepository.findAllByTypeOrderByReviewCountDesc(type);
 
-        return RestaurantMapper.INSTANCE.restaurantsToRestaurantElementDtos(restaurants);
+        return restaurants.stream().map(RestaurantElementDto::new).collect(Collectors.toList());
     }
 
     public List<RestaurantElementDto> getRestaurantElementDtosByTypeOrderByLikeCountDesc(String type) {
         List<Restaurant> restaurants = restaurantQueryRepository.findAllByTypeOrderByLikeCountDesc(type);
 
-        return RestaurantMapper.INSTANCE.restaurantsToRestaurantElementDtos(restaurants);
+        return restaurants.stream().map(RestaurantElementDto::new).collect(Collectors.toList());
     }
 
     public List<RestaurantElementDto> getRestaurantElementDtosByDeliverable() {
         List<Restaurant> restaurants = restaurantRepository.findAllByDeliverableTrue();
 
-        return RestaurantMapper.INSTANCE.restaurantsToRestaurantElementDtos(restaurants);
+        return restaurants.stream().map(RestaurantElementDto::new).collect(Collectors.toList());
     }
 
     public List<RestaurantElementDto> getRestaurantElementDtosByRank() {
         List<Restaurant> restaurants = restaurantRepository.findTop20ByOrderByAverageGradeDesc();
 
-        return RestaurantMapper.INSTANCE.restaurantsToRestaurantElementDtos(restaurants);
+        return restaurants.stream().map(RestaurantElementDto::new).collect(Collectors.toList());
     }
 
     public Optional<RestaurantGachaDto> getRestaurantGachaDtoByMultipleCondition(List<String> type, List<String> price, List<String> location, Boolean deliverable) {
@@ -107,13 +107,13 @@ public class RestaurantService {
             return Optional.empty();
         }
 
-        return Optional.of(RestaurantMapper.INSTANCE.restaurantToRestaurantGachaDto(restaurant.get()));
+        return Optional.of(new RestaurantGachaDto(restaurant.get()));
     }
 
     public List<RestaurantLocationDto> getAllRestaurantLocationDtos() {
         List<Restaurant> restaurants = restaurantRepository.findAll();
 
-        return RestaurantMapper.INSTANCE.restaurantToRestaurantLocationDtos(restaurants);
+        return restaurants.stream().map(RestaurantLocationDto::new).collect(Collectors.toList());
     }
 
     public List<RestaurantThemeDto> getRestaurantThemeDtosByTheme(String theme) {
