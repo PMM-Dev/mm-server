@@ -26,6 +26,6 @@ public class MemberInfoDto {
         this.picture = member.getPicture();
         this.role = member.getRole();
         this.likeCount = member.getLikedRestaurants().size();
-        this.reviewCount = member.getReviewCount();
+        this.reviewCount = member.getReviews().size();
     }
 }

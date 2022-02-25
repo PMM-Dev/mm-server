@@ -42,9 +42,6 @@ public class Member {
     @Enumerated(EnumType.STRING)
     private Role role;
 
-    @Column(nullable = false)
-    private Integer reviewCount = 0;
-
     @ManyToMany
     @JoinTable(
             name = "member_title_relation",
@@ -132,14 +129,6 @@ public class Member {
 
     public String getEmailFromDbEmail() {
         return MemberDtoUtil.parseEmailFromDbEmail(this.email);
-    }
-
-    public void increaseReviewCount() {
-        reviewCount++;
-    }
-
-    public void decreaseReviewCount() {
-        reviewCount--;
     }
 
     public void appendTitle(MemberTitle memberTitle) { this.titles.add(memberTitle); }

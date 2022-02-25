@@ -51,7 +51,6 @@ public class ReviewService {
         }
 
         restaurant.calculateAddedAverageGrade(review.getGrade());
-        memberService.getMemberById(author.getId()).increaseReviewCount();
 
         return reviewRepository.save(review).getId();
     }
@@ -163,7 +162,6 @@ public class ReviewService {
 
         restaurant.calculateSubtractedAverageGrade(myReview.getGrade());
         reviewRepository.delete(myReview);
-        memberService.getMemberById(SecurityUtil.getCurrentMemberId()).decreaseReviewCount();
     }
 
     public void validateAuthor(Long reviewId) {
