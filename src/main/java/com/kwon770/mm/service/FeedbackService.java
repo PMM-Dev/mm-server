@@ -49,13 +49,13 @@ public class FeedbackService {
     public List<FeedbackInfoDto> getFeedbacksOrderByCreatedDateDesc() {
         List<Feedback> feedbacks = feedbackRepository.findAllByOrderByCreatedDateDesc();
 
-        return feedbacks.stream().map(feedback -> new FeedbackInfoDto(feedback)).collect(Collectors.toList());
+        return feedbacks.stream().map(FeedbackInfoDto::new).collect(Collectors.toList());
     }
 
     public List<FeedbackInfoDto> getFeedbacksOrderByLikeCountDesc() {
         List<Feedback> feedbacks = feedbackQueryRepository.findAllOrderByLikeCountDesc();
 
-        return feedbacks.stream().map(feedback -> new FeedbackInfoDto(feedback)).collect(Collectors.toList());
+        return feedbacks.stream().map(FeedbackInfoDto::new).collect(Collectors.toList());
     }
 
     @Transactional
