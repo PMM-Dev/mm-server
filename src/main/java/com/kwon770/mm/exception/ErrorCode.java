@@ -27,8 +27,10 @@ public enum ErrorCode {
 
     public static String NO_MEMBER_BY_USERID = "MemberId과 일치하는 Member가 없음 : MemberId = ";
     public static String NO_MEMBER_BY_EMAIL = "email과 일치하는 Member가 없음 : email = ";
+    public static String NO_MEMBER_TITLE_BY_TITLE = "title과 일치하는 칭호가 없음 : title = ";
     public static String NO_RESTAURANT_BY_RESTAURANTID = "restaurantId와 일치하는 Restaurant이 없습니다. restaurantId = ";
     public static String NO_RESTAURANT_BY_RESTAURANTNAME = "restaurantName와 일치하는 Restaurant이 없습니다. restaurantName = ";
+    public static String NO_RESTAURANT_THEME_BY_THEME = "theme과 일치하는 테마가 없음 : theme = ";
     public static String NO_REVIEW_BY_RESTAURANTID = "Restaurant에 작성된 Review가 없음 : RestaurantId = ";
     public static String NO_REVIEW_BY_REVIEWID = "ReviewId와 일치하는 Review가 없습니다. ReviewId = ";
     public static String NO_IMAGE_BY_RESTAURANTID = "Restaurant에 업로드된 사진이 없음 : restaurantId = ";

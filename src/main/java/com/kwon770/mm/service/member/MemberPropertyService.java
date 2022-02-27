@@ -29,35 +29,31 @@ public class MemberPropertyService {
         return memberTitleRepository.save(memberTitleRequestDto.toEntity()).getId();
     }
 
-    public void deleteTitle(String title) {
-        Optional<MemberTitle> memberTitle = memberTitleRepository.findByTitle(Title.valueOf(title));
-        if (memberTitle.isEmpty()) {
-            throw new IllegalArgumentException(ErrorCode.NO_TITLE_MESSAGE + title);
-        }
+    public MemberTitle getMemberTitleByTitle(String title) {
+        return memberTitleRepository.findByTitle(Title.valueOf(title))
+                .orElseThrow(() -> new IllegalArgumentException(ErrorCode.NO_MEMBER_TITLE_BY_TITLE + title));
+    }
 
-        memberTitleRepository.delete(memberTitle.get());
+    public void deleteTitle(String title) {
+        MemberTitle memberTitle = getMemberTitleByTitle(title);
+
+        memberTitleRepository.delete(memberTitle);
     }
 
     @Transactional
     public void appendTitle(String title) {
         Member member = memberService.getMeById();
-        Optional<MemberTitle> memberTitle = memberTitleRepository.findByTitle(Title.valueOf(title));
-        if (memberTitle.isEmpty()) {
-            throw new IllegalArgumentException(ErrorCode.NO_TITLE_MESSAGE + title);
-        }
+        MemberTitle memberTitle = getMemberTitleByTitle(title);
 
-        member.appendTitle(memberTitle.get());
+        member.appendTitle(memberTitle);
     }
 
     @Transactional
     public void subtractTitle(String title) {
         Member member = memberService.getMeById();
-        Optional<MemberTitle> memberTitle = memberTitleRepository.findByTitle(Title.valueOf(title));
-        if (memberTitle.isEmpty()) {
-            throw new IllegalArgumentException(ErrorCode.NO_TITLE_MESSAGE + title);
-        }
+        MemberTitle memberTitle = getMemberTitleByTitle(title);
 
-        member.subtractTitle(memberTitle.get());
+        member.subtractTitle(memberTitle);
     }
 
     public List<RestaurantElementDto> getLikedRestaurantList(Long userId) {

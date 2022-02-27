@@ -26,13 +26,15 @@ public class RestaurantThemeService {
         return restaurantThemeRepository.save(restaurantThemeRequestDto.toEntity()).getId();
     }
 
-    public void deleteTheme(String theme) {
-        Optional<RestaurantTheme> restaurantTheme = restaurantThemeRepository.findByTheme(Theme.valueOf(theme));
-        if (restaurantTheme.isEmpty()) {
-            throw new IllegalArgumentException(ErrorCode.NO_THEME_MESSAGE + theme);
-        }
+    public RestaurantTheme getRestaurantThemeByTheme(String theme) {
+        return restaurantThemeRepository.findByTheme(Theme.valueOf(theme))
+                .orElseThrow(() -> new IllegalArgumentException(ErrorCode.NO_RESTAURANT_THEME_BY_THEME + theme));
+    }
 
-        restaurantThemeRepository.delete(restaurantTheme.get());
+    public void deleteTheme(String theme) {
+        RestaurantTheme restaurantTheme = getRestaurantThemeByTheme(theme);
+
+        restaurantThemeRepository.delete(restaurantTheme);
     }
 
     @Transactional
@@ -61,14 +63,5 @@ public class RestaurantThemeService {
         }
 
         return themes;
-    }
-
-    public RestaurantTheme findRestaurantThemeByTheme(String theme) {
-        Optional<RestaurantTheme> restaurantTheme = restaurantThemeRepository.findByTheme(Theme.valueOf(theme));
-        if (restaurantTheme.isEmpty()) {
-            throw new IllegalArgumentException(ErrorCode.NO_THEME_MESSAGE + theme);
-        }
-
-        return restaurantTheme.get();
     }
 }

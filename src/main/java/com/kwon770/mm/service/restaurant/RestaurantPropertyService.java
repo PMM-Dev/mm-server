@@ -14,30 +14,24 @@ import java.util.Optional;
 public class RestaurantPropertyService {
 
     private final RestaurantService restaurantService;
-    private final RestaurantThemeRepository restaurantThemeRepository;
+    private final RestaurantThemeService restaurantThemeService;
     private final RestaurantSpecialRepository restaurantSpecialRepository;
 
 
     @Transactional
     public void appendTheme(Long restaurantId, String theme) {
         Restaurant restaurant = restaurantService.getRestaurantByRestaurantId(restaurantId);
-        Optional<RestaurantTheme> restaurantTheme = restaurantThemeRepository.findByTheme(Theme.valueOf(theme));
-        if (restaurantTheme.isEmpty()) {
-            throw new IllegalArgumentException(ErrorCode.NO_THEME_MESSAGE + theme);
-        }
+        RestaurantTheme restaurantTheme = restaurantThemeService.getRestaurantThemeByTheme(theme);
 
-        restaurant.appendTheme(restaurantTheme.get());
+        restaurant.appendTheme(restaurantTheme);
     }
 
     @Transactional
     public void subtractTheme(Long restaurantId, String theme) {
         Restaurant restaurant = restaurantService.getRestaurantByRestaurantId(restaurantId);
-        Optional<RestaurantTheme> restaurantTheme = restaurantThemeRepository.findByTheme(Theme.valueOf(theme));
-        if (restaurantTheme.isEmpty()) {
-            throw new IllegalArgumentException(ErrorCode.NO_THEME_MESSAGE + theme);
-        }
+        RestaurantTheme restaurantTheme = restaurantThemeService.getRestaurantThemeByTheme(theme);
 
-        restaurant.subtractTheme(restaurantTheme.get());
+        restaurant.subtractTheme(restaurantTheme);
     }
 
     public Long saveSpecial(RestaurantSpecialRequestDto restaurantSpecialSaveDto) {

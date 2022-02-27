@@ -42,12 +42,8 @@ public class FeedbackService {
     }
 
     public Feedback getFeedbackById(Long feedbackId) {
-        Optional<Feedback> feedback = feedbackRepository.findById(feedbackId);
-        if (feedback.isEmpty()) {
-            throw new IllegalArgumentException(ErrorCode.NO_REPORT_BY_REPORTID + feedbackId);
-        }
-
-        return feedback.get();
+        return feedbackRepository.findById(feedbackId)
+                .orElseThrow(() -> new IllegalArgumentException(ErrorCode.NO_REPORT_BY_REPORTID + feedbackId));
     }
 
     public List<FeedbackInfoDto> getFeedbacksOrderByCreatedDateDesc() {

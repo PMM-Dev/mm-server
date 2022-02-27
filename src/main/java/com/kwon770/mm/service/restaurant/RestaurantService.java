@@ -117,7 +117,7 @@ public class RestaurantService {
     }
 
     public List<RestaurantThemeDto> getRestaurantThemeDtosByTheme(String theme) {
-        RestaurantTheme restaurantTheme = restaurantThemeService.findRestaurantThemeByTheme(theme);
+        RestaurantTheme restaurantTheme = restaurantThemeService.getRestaurantThemeByTheme(theme);
         List<Restaurant> restaurants = restaurantRepository.findAllByThemesContaining(restaurantTheme);
 
         return restaurants.stream().map(RestaurantThemeDto::new).collect(Collectors.toList());
