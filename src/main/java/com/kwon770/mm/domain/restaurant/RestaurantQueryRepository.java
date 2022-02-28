@@ -56,7 +56,7 @@ public class RestaurantQueryRepository extends QuerydslRepositorySupport {
         return queryFactory
                 .selectFrom(QRestaurant.restaurant)
                 .where(eqType(type))
-                .orderBy(QRestaurant.restaurant.reviews.size().desc())
+                .orderBy(QRestaurant.restaurant.restaurantReviews.size().desc())
                 .fetch();
     }
 

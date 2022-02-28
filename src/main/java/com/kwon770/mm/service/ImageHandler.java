@@ -85,7 +85,7 @@ public class ImageHandler {
                 .originalFileName(image.getOriginalFilename())
                 .filePath(REVIEW_IMAGES_PATH + fileName)
                 .fileSize(image.getSize())
-                .review(restaurantReview)
+                .restaurantReview(restaurantReview)
                 .build();
     }
 }
