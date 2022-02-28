@@ -4,9 +4,9 @@ import com.kwon770.mm.dto.member.MemberInfoDto;
 import com.kwon770.mm.dto.member.MemberUpdateDto;
 import com.kwon770.mm.service.member.MemberPropertyService;
 import com.kwon770.mm.service.member.MemberService;
-import com.kwon770.mm.service.restaurant.ReviewService;
+import com.kwon770.mm.service.restaurant.review.RestaurantReviewService;
 import com.kwon770.mm.util.SecurityUtil;
-import com.kwon770.mm.dto.restaurant.MyReviewDto;
+import com.kwon770.mm.dto.restaurant.review.MyRestaurantReviewDto;
 import com.kwon770.mm.dto.restaurant.RestaurantElementDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -23,7 +23,7 @@ public class MemberApiController {
 
     private final MemberService memberService;
     private final MemberPropertyService memberPropertyService;
-    private final ReviewService reviewService;
+    private final RestaurantReviewService restaurantReviewService;
 
     @GetMapping("/member/me")
     public ResponseEntity<MemberInfoDto> getMyMemberInfoDto() {
@@ -59,10 +59,10 @@ public class MemberApiController {
     }
 
     @GetMapping("/member/me/review")
-    public ResponseEntity<List<MyReviewDto>> getMyReviewList() {
-        List<MyReviewDto> myReviewDtos = reviewService.getMyReviewList(SecurityUtil.getCurrentMemberId());
+    public ResponseEntity<List<MyRestaurantReviewDto>> getMyReviewList() {
+        List<MyRestaurantReviewDto> myRestaurantReviewDtos = restaurantReviewService.getMyReviewList(SecurityUtil.getCurrentMemberId());
 
-        return new ResponseEntity<>(myReviewDtos, HttpStatus.OK);
+        return new ResponseEntity<>(myRestaurantReviewDtos, HttpStatus.OK);
     }
 
 

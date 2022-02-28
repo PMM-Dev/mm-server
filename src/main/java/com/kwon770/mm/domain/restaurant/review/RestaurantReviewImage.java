@@ -10,7 +10,7 @@ import javax.validation.constraints.NotNull;
 @NoArgsConstructor
 @Getter
 @Entity
-public class ReviewImage {
+public class RestaurantReviewImage {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -27,13 +27,13 @@ public class ReviewImage {
 
     @OneToOne
     @JoinColumn(name = "review_id")
-    private Review review;
+    private RestaurantReview restaurantReview;
 
     @Builder
-    public ReviewImage(String originalFileName, String filePath, Long fileSize, Review review) {
+    public RestaurantReviewImage(String originalFileName, String filePath, Long fileSize, RestaurantReview restaurantReview) {
         this.originalFileName = originalFileName;
         this.filePath = filePath;
         this.fileSize = fileSize;
-        this.review = review;
+        this.restaurantReview = restaurantReview;
     }
 }

@@ -2,6 +2,7 @@ package com.kwon770.mm.dto.restaurant;
 
 import com.kwon770.mm.domain.member.Member;
 import com.kwon770.mm.domain.restaurant.*;
+import com.kwon770.mm.dto.restaurant.review.RestaurantReviewInfoDto;
 import com.kwon770.mm.util.SecurityUtil;
 import lombok.*;
 
@@ -25,7 +26,7 @@ public class RestaurantInfoDto {
     private Float averageGrade;
     private List<RestaurantTheme> themes;
     private List<RestaurantSpecial> specials;
-    private List<ReviewInfoDto> reviews;
+    private List<RestaurantReviewInfoDto> reviews;
     private Integer reviewCount;
     private Integer likeCount;
     private boolean didLike;
@@ -47,8 +48,8 @@ public class RestaurantInfoDto {
         this.closeTime = restaurant.getCloseTime();
         this.themes = restaurant.getThemes();
         this.specials = restaurant.getSpecials();
-        this.reviews = restaurant.getReviews().stream().map(ReviewInfoDto::new).collect(Collectors.toList());
-        this.reviewCount = restaurant.getReviews().size();
+        this.reviews = restaurant.getRestaurantReviews().stream().map(RestaurantReviewInfoDto::new).collect(Collectors.toList());
+        this.reviewCount = restaurant.getRestaurantReviews().size();
         this.likeCount = restaurant.getLikingMembers().size();
         calculateDidLike(restaurant.getLikingMembers());
         this.isExistImage = restaurant.isExistImage();

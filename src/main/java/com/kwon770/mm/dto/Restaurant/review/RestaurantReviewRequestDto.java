@@ -1,4 +1,4 @@
-package com.kwon770.mm.dto.restaurant;
+package com.kwon770.mm.dto.restaurant.review;
 
 import lombok.Builder;
 import lombok.Getter;
@@ -9,14 +9,14 @@ import java.util.Optional;
 
 @Getter
 @NoArgsConstructor
-public class ReviewRequestDto {
+public class RestaurantReviewRequestDto {
 
     private String description;
     private Float grade;
     private Optional<MultipartFile> image;
 
     @Builder
-    public ReviewRequestDto(String description, Float grade, MultipartFile image) {
+    public RestaurantReviewRequestDto(String description, Float grade, MultipartFile image) {
         this.description = description;
         this.grade = grade;
         if (image == null) {

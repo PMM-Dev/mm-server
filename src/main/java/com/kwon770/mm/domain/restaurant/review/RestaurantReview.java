@@ -1,10 +1,9 @@
 package com.kwon770.mm.domain.restaurant.review;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.kwon770.mm.domain.BaseTimeEntity;
 import com.kwon770.mm.domain.restaurant.Restaurant;
 import com.kwon770.mm.domain.member.Member;
-import com.kwon770.mm.dto.restaurant.ReviewRequestDto;
+import com.kwon770.mm.dto.restaurant.review.RestaurantReviewRequestDto;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -15,7 +14,7 @@ import javax.validation.constraints.NotNull;
 @NoArgsConstructor
 @Getter
 @Entity
-public class Review extends BaseTimeEntity {
+public class RestaurantReview extends BaseTimeEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -37,24 +36,24 @@ public class Review extends BaseTimeEntity {
     @NotNull
     private Integer likeCount = 0;
 
-    @OneToOne(mappedBy = "review", orphanRemoval = true)
-    private ReviewImage reviewImage;
+    @OneToOne(mappedBy = "restaurantReview", orphanRemoval = true)
+    private RestaurantReviewImage restaurantReviewImage;
 
     @Builder
-    public Review(Member author, Restaurant restaurant, String description, Float grade) {
+    public RestaurantReview(Member author, Restaurant restaurant, String description, Float grade) {
         this.author = author;
         this.restaurant = restaurant;
         this.description = description;
         this.grade = grade;
     }
 
-    public void update(ReviewRequestDto reviewRequestDto) {
-        this.description = reviewRequestDto.getDescription();
-        this.grade = reviewRequestDto.getGrade();
+    public void update(RestaurantReviewRequestDto restaurantReviewRequestDto) {
+        this.description = restaurantReviewRequestDto.getDescription();
+        this.grade = restaurantReviewRequestDto.getGrade();
     }
 
     public boolean isExistImage() {
-        if (reviewImage == null) {
+        if (restaurantReviewImage == null) {
             return false;
         }
 

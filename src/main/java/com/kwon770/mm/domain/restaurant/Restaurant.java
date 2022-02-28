@@ -3,20 +3,16 @@ package com.kwon770.mm.domain.restaurant;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
-import com.kwon770.mm.domain.post.PostImage;
-import com.kwon770.mm.domain.restaurant.review.Review;
+import com.kwon770.mm.domain.restaurant.review.RestaurantReview;
 import com.kwon770.mm.domain.member.Member;
 import com.kwon770.mm.dto.restaurant.RestaurantRequestDto;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import org.springframework.web.multipart.MultipartFile;
 
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
-import java.util.stream.Collectors;
 
 @NoArgsConstructor
 @Getter
@@ -82,7 +78,7 @@ public class Restaurant {
      */
     @OneToMany(mappedBy = "restaurant")
     @JsonManagedReference
-    private List<Review> reviews = new ArrayList<>();
+    private List<RestaurantReview> restaurantReviews = new ArrayList<>();
 
     @ManyToMany(mappedBy = "likedRestaurants")
     @JsonBackReference
@@ -149,13 +145,13 @@ public class Restaurant {
     }
 
     public void calculateAddedAverageGrade(float grade) {
-        int reviewCount = reviews.size();
+        int reviewCount = restaurantReviews.size();
         float sum = (averageGrade * reviewCount) + grade;
         averageGrade = sum / (reviewCount + 1);
     }
 
     public void calculateSubtractedAverageGrade(float grade) {
-        int reviewCount = reviews.size();
+        int reviewCount = restaurantReviews.size();
         if (reviewCount == 1) {
             averageGrade = 0F;
             return;
@@ -166,7 +162,7 @@ public class Restaurant {
     }
 
     public void calculateUpdatedAverageGrade(float oldGrade, float newGrade) {
-        int reviewCount = reviews.size();
+        int reviewCount = restaurantReviews.size();
         float sum = (averageGrade * reviewCount) - oldGrade + newGrade;
         averageGrade = sum / reviewCount;
     }

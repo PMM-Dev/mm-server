@@ -1,7 +1,6 @@
 package com.kwon770.mm.web.post;
 
 import com.kwon770.mm.dto.post.PostRequestDto;
-import com.kwon770.mm.dto.restaurant.ReviewRequestDto;
 import com.kwon770.mm.service.post.PostService;
 import com.kwon770.mm.dto.post.PostInfoDto;
 import com.kwon770.mm.dto.post.PostElementDto;

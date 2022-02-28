@@ -1,15 +1,12 @@
 package com.kwon770.mm.web;
 
 import com.kwon770.mm.exception.ErrorCode;
-import com.kwon770.mm.exception.ImageIOException;
 import com.kwon770.mm.exception.SystemIOException;
 import com.kwon770.mm.service.post.PostService;
 import com.kwon770.mm.service.restaurant.RestaurantImageService;
-import com.kwon770.mm.service.restaurant.ReviewService;
+import com.kwon770.mm.service.restaurant.review.RestaurantReviewService;
 import lombok.RequiredArgsConstructor;
-import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.FilenameUtils;
-import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -17,8 +14,6 @@ import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletResponse;
 import java.io.*;
-import java.nio.file.Files;
-import java.nio.file.Paths;
 import java.util.List;
 import java.util.Optional;
 
@@ -28,7 +23,7 @@ public class ImageApiController {
 
     private final RestaurantImageService restaurantImageService;
     private final PostService postService;
-    private final ReviewService reviewService;
+    private final RestaurantReviewService restaurantReviewService;
 
     @PostMapping("/image/restaurant/{restaurantId}/image")
     public ResponseEntity<Void> uploadRestaurantImages(@PathVariable Long restaurantId, @RequestParam("images") List<MultipartFile> images) {
@@ -50,13 +45,13 @@ public class ImageApiController {
 
     @GetMapping("/image/restaurant/review/{reviewId}")
     public void getReviewImageByReviewId(HttpServletResponse response, @PathVariable Long reviewId) {
-        Optional<String> imagePath = reviewService.getReviewImageByReviewId(reviewId);
+        Optional<String> imagePath = restaurantReviewService.getReviewImageByReviewId(reviewId);
         outputImage(response, imagePath);
     }
 
     @GetMapping("/image/restaurant/review/{reviewId}/fileName")
     public ResponseEntity<String> getReviewImageFileNameByReviewId(@PathVariable Long reviewId) {
-        String fileName = reviewService.getReviewImageFileNameByReviewId(reviewId);
+        String fileName = restaurantReviewService.getReviewImageFileNameByReviewId(reviewId);
 
         return new ResponseEntity<>(fileName, HttpStatus.OK);
     }
